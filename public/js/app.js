@@ -57705,9 +57705,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
- // import Tree from 'react-tree-graph'
 
 
+var svgStyle = {
+  nodes: {
+    node: {
+      circle: {
+        fill: "#96ffbf",
+        stroke: '#7872d4c2',
+        strokeWidth: 2
+      }
+    },
+    leafNode: {
+      circle: {
+        fill: "#efefef",
+        stroke: '#7872d4c2',
+        strokeWidth: 2
+      }
+    }
+  }
+};
 
 var GrafD3 =
 /*#__PURE__*/
@@ -57726,6 +57743,7 @@ function (_Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(GrafD3)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      transitionDuration: 300,
       selected: null,
       data: {
         name: 'Вопрос 1',
@@ -57736,39 +57754,13 @@ function (_Component) {
           name: 'Вопрос 3',
           children: []
         }]
-      } // addNode = () => {
-      //     if (this.state.selected) {
-      //         let newData = Object.assign({},  this.state.data)
-      //
-      //         let searchField = "name"
-      //         let searchVal = this.state.selected.name
-      //
-      //         for (let i = 0; i < newData.children.length; i++)
-      //         {
-      //
-      //             console.log("searchVal: ", searchVal)
-      //             console.log("searchField: ", newData.children[i][searchField])
-      //
-      //             if (newData.children[i][searchField] === searchVal) {
-      //                 console.log(newData.children)
-      //                 newData.children[i].children.push({name: 'Вопрос', children: []})
-      //             }
-      //         }
-      //
-      //         this.setState({
-      //             data: newData
-      //
-      //         })
-      //     }
-      //     else {
-      //         alert("Select node")
-      //     }
-      //
-      //
-      // }
-
+      }
     }, _this.addNode = function () {
       if (_this.state.selected) {
+        _this.setState({
+          transitionDuration: 300
+        });
+
         var newData = Object.assign({}, _this.state.data);
         var searchVal = _this.state.selected.name;
         console.log("searchVal: ", searchVal);
@@ -57803,6 +57795,10 @@ function (_Component) {
         alert("Select node");
       }
     }, _this.removeNode = function () {
+      _this.setState({
+        transitionDuration: 300
+      });
+
       var newData = Object.assign({}, _this.state.data);
       var searchVal = _this.state.selected.name;
 
@@ -57833,12 +57829,50 @@ function (_Component) {
       _this.setState({
         data: newData
       });
+    }, _this.coloriseNode = function (nodeKey) {
+      var newData = Object.assign({}, _this.state.data);
+
+      _this.setState({
+        transitionDuration: 0
+      });
+
+      var searchVal = nodeKey.name;
+
+      var findNode = function findNode(searchVal, newData) {
+        var j, currentChild;
+
+        if (searchVal == newData.name) {
+          console.log("colorise current node", newData);
+          newData.nodeSvgShape = {
+            shape: 'circle',
+            shapeProps: {
+              r: 20,
+              fill: "red"
+            }
+          };
+        } else {
+          newData.nodeSvgShape = {};
+        }
+
+        for (j = 0; j < newData.children.length; j += 1) {
+          currentChild = newData.children[j];
+          findNode(searchVal, currentChild);
+        }
+      };
+
+      findNode(searchVal, newData);
+
+      _this.setState({
+        data: newData
+      });
     }, _this.click = function (nodeKey) {
       _this.setState({
         selected: nodeKey
       });
 
-      console.log(_this.state.selected);
+      _this.coloriseNode(nodeKey);
+
+      console.log("click", _this.state.selected);
     }, _temp));
   }
 
@@ -57884,8 +57918,19 @@ function (_Component) {
         name: "delete"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_d3_tree__WEBPACK_IMPORTED_MODULE_1___default.a, {
         data: this.state.data,
+        transitionDuration: 0,
+        scaleExtent: {
+          min: 0.1,
+          max: 8
+        },
+        textLayout: {
+          x: 28,
+          y: 0
+        },
+        orientation: "vertical",
         onClick: this.click,
-        collapsible: false
+        collapsible: false,
+        styles: svgStyle
       }));
     }
   }]);

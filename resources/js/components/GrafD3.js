@@ -1,62 +1,52 @@
 import React, { Component } from 'react';
 import Tree from 'react-d3-tree';
-// import Tree from 'react-tree-graph'
 import {FABButton, Header, Icon} from "react-mdl";
+
+
+const svgStyle = {
+    nodes: {
+        node: {
+            circle: {
+                fill: "#96ffbf",
+                stroke: '#7872d4c2',
+                strokeWidth: 2
+            }
+        },
+        leafNode: {
+            circle: {
+                fill: "#efefef",
+                stroke: '#7872d4c2',
+                strokeWidth: 2
+            }
+        }
+    }
+}
 
 class GrafD3 extends Component {
 
     state = {
+        transitionDuration: 300,
         selected: null,
         data:  {
             name: 'Вопрос 1',
             children: [
                 {
                     name: 'Вопрос 2' ,
-                    children: []
+                    children: [],
+
                 },
                 {
                     name: 'Вопрос 3' ,
-                    children: []
-                }
+                    children: [],
+                },
 
             ],
         }
     }
 
-
-    // addNode = () => {
-    //     if (this.state.selected) {
-    //         let newData = Object.assign({},  this.state.data)
-    //
-    //         let searchField = "name"
-    //         let searchVal = this.state.selected.name
-    //
-    //         for (let i = 0; i < newData.children.length; i++)
-    //         {
-    //
-    //             console.log("searchVal: ", searchVal)
-    //             console.log("searchField: ", newData.children[i][searchField])
-    //
-    //             if (newData.children[i][searchField] === searchVal) {
-    //                 console.log(newData.children)
-    //                 newData.children[i].children.push({name: 'Вопрос', children: []})
-    //             }
-    //         }
-    //
-    //         this.setState({
-    //             data: newData
-    //
-    //         })
-    //     }
-    //     else {
-    //         alert("Select node")
-    //     }
-    //
-    //
-    // }
-
     addNode = () => {
         if (this.state.selected) {
+            this.setState({transitionDuration: 300})
             let newData = Object.assign({},  this.state.data)
             let searchVal = this.state.selected.name
 
@@ -100,6 +90,7 @@ class GrafD3 extends Component {
     }
 
     removeNode = () => {
+        this.setState({transitionDuration: 300})
         let newData = Object.assign({},  this.state.data)
         let searchVal = this.state.selected.name
 
@@ -137,9 +128,46 @@ class GrafD3 extends Component {
 
     }
 
+    coloriseNode = (nodeKey) => {
+        let newData = Object.assign({},  this.state.data)
+        this.setState({transitionDuration: 0})
+        let searchVal = nodeKey.name
+
+        const findNode = function(searchVal, newData) {
+            let j, currentChild
+
+            if (searchVal == newData.name) {
+                console.log("colorise current node", newData)
+                newData.nodeSvgShape = {
+                    shape: 'circle',
+                    shapeProps: {
+                        r: 20,
+                        fill:"red"
+                    },
+                }
+            }
+
+            else {
+                newData.nodeSvgShape = {}
+            }
+            for (j = 0; j < newData.children.length; j += 1) {
+                currentChild = newData.children[j];
+                findNode(searchVal, currentChild);
+            }
+        }
+
+        findNode(searchVal, newData)
+
+        this.setState({
+            data: newData
+        });
+
+    }
+
     click = (nodeKey) => {
         this.setState({selected: nodeKey})
-        console.log(this.state.selected)
+        this.coloriseNode(nodeKey)
+        console.log("click", this.state.selected)
     }
 
     render() {
@@ -157,9 +185,15 @@ class GrafD3 extends Component {
                     </Header>
                     <Tree
                         data={this.state.data}
+                        transitionDuration={0}
+                        scaleExtent={{min: 0.1, max: 8}}
+                        textLayout={{ x: 28, y: 0, }}
+                        orientation="vertical"
                         onClick={this.click}
                         collapsible={false}
+                        styles={svgStyle}
                     />
+
                 </div>)
         }
     }
