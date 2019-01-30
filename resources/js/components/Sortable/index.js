@@ -1,52 +1,58 @@
-import React, {Component} from 'react'
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc'
-import './index.scss'
-import {Header, Textfield} from "react-mdl"
-
-const SortableItem = SortableElement(({value}) =>
-    <li className="questionItem">
-        <p>{value}</p>
-    </li>
-);
-
-const SortableList = SortableContainer(({items}) => {
-    return (
-        <ul className="questionList">
-            {items.map((value, index) => (
-                <SortableItem key={`item-${index}`} index={index} value={value}/>
-            ))}
-        </ul>
-    );
-});
+import React, {Component} from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
+import Divider from '@material-ui/core/Divider';
+import {selectQuestion} from '../actions'
+import {bindActionCreators} from "redux";
+import {connect} from 'react-redux';
 
 class Sortable extends Component {
-
-
     state = {
-        items: ['Вопрос 1', 'Вопрос 2', 'Вопрос 3', 'Вопрос 4', 'Вопрос 5', 'Вопрос 6', 'Вопрос 7', 'Вопрос 8', 'Вопрос 9', 'Вопрос 10', 'Вопрос 11', 'Вопрос 12'],
-    };
+        selectedIndex: 1,
+    }
 
-    onSortEnd = ({oldIndex, newIndex}) => {
-        this.setState({
-            items: arrayMove(this.state.items, oldIndex, newIndex),
-        });
-    };
+    handleListItemClick = (event, item) => {
+        this.setState({selectedIndex: item.id})
+        this.props.select(item)
+    }
+
+    componentWillMount() {}
 
     render() {
-        return (<div className="SortableCls">
-            <Header title="Вопросы" style={{background: "#4a4a4a", padding: 0}}>
-                <Textfield
-                    value=""
-                    onChange={() => {
-                    }}
-                    label="Search"
-                    expandable
-                    expandableIcon="search"
-                />
-            </Header>
-            <SortableList items={this.state.items} onSortEnd={this.onSortEnd}/>
-        </div>)
+        return (
+            <div>
+                <List component="nav">
+                {this.props.items.map((item) => (
+                  <div  key={item.id}>
+                      <ListItem
+                          button
+                          selected={item.id === this.state.selectedIndex}
+                          onClick={event => this.handleListItemClick(event, item)}
+                          style={{padding: "15px 8px"}}
+                      >
+                          <ListItemText primary={item.val}/>
+                          <ListItemSecondaryAction>
+                              <IconButton aria-label="Delete">
+                                  <DeleteIcon />
+                              </IconButton>
+                          </ListItemSecondaryAction>
+                      </ListItem>
+                      <Divider />
+                  </div>
+                ))}
+                </List>
+            </div>
+        );
     }
+
 }
 
-export default Sortable
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({select: selectQuestion}, dispatch)
+}
+
+export default connect(null, matchDispatchToProps)(Sortable);

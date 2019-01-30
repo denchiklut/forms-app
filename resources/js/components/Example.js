@@ -1,74 +1,111 @@
 import React, { Component } from 'react';
-import { Editor } from '@tinymce/tinymce-react'
 import Sortable from './Sortable/index';
+import Grid from '@material-ui/core/Grid';
 import GrafD3 from './GrafD3';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import AddQuestion from './question/AddQuestion'
+import {createStore} from 'redux';
+import {Provider} from 'react-redux'
+import allReducers from '../reducers'
+import {compose} from "recompose";
+import {connect} from 'react-redux';
 
-import {
-    Button,
-    Card,
-    CardActions, CardMenu,
-    CardTitle,
-    Cell, FABButton,
-    Grid, Header, Icon,
-    IconButton, Navigation,
-} from "react-mdl";
+const store = createStore(allReducers);
 
+
+function TabContainer({ children, dir }) {
+    return (
+        <Typography component="div" dir={dir} style={{ padding: 0 }}>
+            {children}
+        </Typography>
+    );
+}
+
+TabContainer.propTypes = {
+    children: PropTypes.node.isRequired,
+    dir: PropTypes.string.isRequired,
+};
+
+const styles = theme => ({
+    root: {
+        backgroundColor: theme.palette.background.paper,
+        width: 500,
+    },
+});
 
 class Example extends Component {
-    handleEditorChange = (e) => {
-        console.log('Content was updated:', e.target.getContent());
-    }
+    state = {
+        value: 0,
+    };
+
+    handleChange = (event, value) => {
+        this.setState({ value });
+    };
+
+    handleChangeIndex = index => {
+        this.setState({ value: index });
+    };
+
+    componentWillMount() {}
+
     render() {
+        const { theme } = this.props;
         return (
-            <div style={{margin: 'auto'}}>
-                <Grid style={{margin: 'auto', padding: 0}}>
-                    <Cell col={3} style={{margin: '0'}}>
-                       <Sortable />
-                    </Cell>
-                    <Cell col={9}>
-                        {/*<Header style={{backgroundColor: 'rgb(95, 96, 103)'}} title={<span><span style={{ color: '#ddd'}}>Панель управления / </span><strong>Название проекта</strong></span>}>*/}
-                            {/*<FABButton colored ripple mini style={{margin: "0 10px"}}>*/}
-                                {/*<Icon name="add" />*/}
-                            {/*</FABButton>*/}
+            <Provider store={store}>
+                <div style={{margin: 'auto'}}>
+                    <Grid container spacing={24}>
+                        <Grid item xs={3} style={{paddingRight: 1}}>
+                            <AppBar position="static" color="default">
+                                <Tabs
+                                    value={this.state.value}
+                                    onChange={this.handleChange}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    variant="fullWidth"
+                                >
+                                    <Tab label="Вопросы" />
+                                    <Tab label="Обьекты" />
+                                    <Tab label="Категории" />
+                                </Tabs>
+                            </AppBar>
+                            <SwipeableViews
+                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                                index={this.state.value}
+                                onChangeIndex={this.handleChangeIndex}
+                            >
+                                <TabContainer dir={theme.direction}><Sortable items={this.props.questions} /><AddQuestion /></TabContainer>
+                                <TabContainer dir={theme.direction}><Sortable items={this.props.objects}/><AddQuestion /></TabContainer>
+                                <TabContainer dir={theme.direction}>Item Three</TabContainer>
+                            </SwipeableViews>
 
-                            {/*<FABButton colored ripple mini style={{margin: "0 10px"}}>*/}
-                                {/*<Icon name="file_copy" />*/}
-                            {/*</FABButton>*/}
-
-                            {/*<FABButton colored ripple mini style={{margin: "0 10px"}}>*/}
-                                {/*<Icon name="delete" />*/}
-                            {/*</FABButton>*/}
-                        {/*</Header>*/}
-
-
-                        <GrafD3 />
-
-                        {/*<Card shadow={0} style={{width: '100%', margin: 'auto'}}>*/}
-                            {/*<CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>*/}
-                            {/*<Editor*/}
-                                {/*style={{width: '100%'}}*/}
-                                {/*apiKey='njxv7t3qzqkd3a7tmtvc697vlwm5aixy0mu356hxoguyzmc1'*/}
-                                {/*initialValue="This is the initial content of the editor!"*/}
-                                {/*init={{*/}
-                                    {/*plugins: 'link image code save',*/}
-                                    {/*toolbar: 'save undo redo | bold italic | alignleft aligncenter alignright | code'*/}
-                                {/*}}*/}
-                                {/*onChange={this.handleEditorChange}*/}
-                            {/*/>*/}
-                            {/*<CardActions border>*/}
-                                {/*<Button colored>Get Started</Button>*/}
-                            {/*</CardActions>*/}
-                            {/*<CardMenu style={{color: '#fff'}}>*/}
-                                {/*<IconButton name="share" />*/}
-                            {/*</CardMenu>*/}
-                        {/*</Card>*/}
-                    </Cell>
-                </Grid>
-            </div>
+                        </Grid>
+                        <Grid item xs={9} style={{paddingLeft: 0}}>
+                            <GrafD3 />
+                        </Grid>
+                    </Grid>
+                </div>
+            </Provider>
         );
     }
 }
 
-export default Example
+function mapStateToProps(state) {
+    return {
+        questions: state.questions,
+        objects: state.objects,
+    }
+}
 
+Example.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+};
+
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps))(Example);
 

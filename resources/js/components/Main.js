@@ -1,5 +1,5 @@
 import React from 'react';
-import Settings from "./Settings";
+import Questions from "./Questions";
 import About from "./About";
 import Example from './Example'
 
@@ -9,7 +9,7 @@ import {Switch, Route} from 'react-router-dom'
 const Main = () => (
     <Switch>
         <Route exact path="/" component={Example} />
-        <Route path="/settings" component={Settings} />
+        <Route path="/questions" component={Questions} />
         <Route path="/about" component={About} />
     </Switch>
 );

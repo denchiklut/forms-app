@@ -8,6 +8,7 @@
     <title>Laravel React application</title>
     <link href="css/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
 </head>
 <body>
 <div id="root"></div>

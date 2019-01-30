@@ -171,7 +171,7 @@ class GrafD3 extends Component {
     }
 
     render() {
-        return (<div id="treeWrapper" style={{width: '100%', height: '78vh', background: 'rgb(236, 236, 236)', boxShadow: '2px 1px 2px 2px #00000057'}}>
+        return (<div id="treeWrapper" style={{width: '100%', height: '93vh', background: 'rgb(236, 236, 236)', boxShadow: '2px 1px 2px 2px #00000057'}}>
                     <Header style={{backgroundColor: 'rgb(95, 96, 103)'}} title={<span><span style={{ color: '#ddd'}}>Панель управления / </span><strong>Название проекта</strong></span>}>
                         <FABButton colored ripple mini style={{margin: "0 10px"}}
                                    onClick={this.addNode}>
