@@ -77891,20 +77891,22 @@ module.exports = function(module) {
 /*!***************************************!*\
   !*** ./resources/js/actions/index.js ***!
   \***************************************/
-/*! exports provided: SET_QUESTIONS, setQuestions, fetchQuestions, selectQuestion */
+/*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, setQuestions, fetchQuestions, selectQuestion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_QUESTIONS", function() { return SET_QUESTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUESTION_SELECTED", function() { return QUESTION_SELECTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setQuestions", function() { return setQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchQuestions", function() { return fetchQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectQuestion", function() { return selectQuestion; });
 var SET_QUESTIONS = "SET_QUESTIONS";
+var QUESTION_SELECTED = "QUESTION_SELECTED";
 function setQuestions(questions) {
   return {
     type: SET_QUESTIONS,
-    payload: questions
+    questions: questions
   };
 }
 function fetchQuestions() {
@@ -77918,8 +77920,8 @@ function fetchQuestions() {
 }
 var selectQuestion = function selectQuestion(question) {
   return {
-    type: "QUESTION_SELECTED",
-    payload: question
+    type: QUESTION_SELECTED,
+    question: question
   };
 };
 
@@ -79051,12 +79053,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var allReducers = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+var rootReducers = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   questions: _questions__WEBPACK_IMPORTED_MODULE_1__["default"],
   activeQuestion: _question_active__WEBPACK_IMPORTED_MODULE_3__["default"],
   objects: _objects__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
-/* harmony default export */ __webpack_exports__["default"] = (allReducers);
+/* harmony default export */ __webpack_exports__["default"] = (rootReducers);
 
 /***/ }),
 
@@ -79111,13 +79113,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.js");
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case "QUESTION_SELECTED":
-      return action.payload;
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["QUESTION_SELECTED"]:
+      return action.question;
       break;
 
     default:
@@ -79136,40 +79140,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.js");
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return [{
-    id: 1,
-    val: 'Вопрос 1'
-  }, {
-    id: 2,
-    val: 'Вопрос 2'
-  }, {
-    id: 3,
-    val: 'Вопрос 3'
-  }, {
-    id: 4,
-    val: 'Вопрос 4'
-  }, {
-    id: 5,
-    val: 'Вопрос 5'
-  }, {
-    id: 6,
-    val: 'Вопрос 6'
-  }, {
-    id: 7,
-    val: 'Вопрос 7'
-  }, {
-    id: 8,
-    val: 'Вопрос 8'
-  }, {
-    id: 9,
-    val: 'Вопрос 9'
-  }, {
-    id: 10,
-    val: 'Вопрос 10'
-  }];
+
+  switch (action.type) {
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_QUESTIONS"]:
+      return action.questions;
+      break;
+
+    default:
+      return state;
+  }
 });
 
 /***/ }),

@@ -1,9 +1,10 @@
 export const SET_QUESTIONS = "SET_QUESTIONS"
+export const QUESTION_SELECTED = "QUESTION_SELECTED"
 
 export function setQuestions(questions) {
     return {
         type: SET_QUESTIONS,
-        payload: questions
+        questions
     }
 }
 
@@ -17,7 +18,7 @@ export function fetchQuestions() {
 
 export const selectQuestion = (question) => {
    return {
-        type: "QUESTION_SELECTED",
-        payload: question
+        type: QUESTION_SELECTED,
+        question
     }
 }
