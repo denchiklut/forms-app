@@ -15,7 +15,6 @@
             <excludedPath path="/tests" />
             <excludedPath path="/storage" />
             <excludedPath path="/composer.lock" />
-            <excludedPath path="/.env" />
             <excludedPath path="/.env.example" />
             <excludedPath path="/public" />
           </excludedPaths>

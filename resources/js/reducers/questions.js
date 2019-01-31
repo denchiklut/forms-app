@@ -1,4 +1,4 @@
-export default function () {
+export default function (state = [], action = {}) {
     return [
         {id: 1, val: 'Вопрос 1'},
         {id: 2, val: 'Вопрос 2'},
@@ -9,6 +9,7 @@ export default function () {
         {id: 7, val: 'Вопрос 7'},
         {id: 8, val: 'Вопрос 8'},
         {id: 9, val: 'Вопрос 9'},
+        {id: 10, val: 'Вопрос 10'},
     ]
 
 }

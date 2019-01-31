@@ -10,13 +10,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import AddQuestion from './question/AddQuestion'
-import {createStore} from 'redux';
-import {Provider} from 'react-redux'
-import allReducers from '../reducers'
 import {compose} from "recompose";
 import {connect} from 'react-redux';
-
-const store = createStore(allReducers);
+import {fetchQuestions} from '../actions'
 
 
 function TabContainer({ children, dir }) {
@@ -52,48 +48,57 @@ class Example extends Component {
         this.setState({ value: index });
     };
 
-    componentWillMount() {}
+  componentDidMount() {
+      this.props.fetchQuestions()
+  }
 
     render() {
         const { theme } = this.props;
         return (
-            <Provider store={store}>
-                <div style={{margin: 'auto'}}>
-                    <Grid container spacing={24}>
-                        <Grid item xs={3} style={{paddingRight: 1}}>
-                            <AppBar position="static" color="default">
-                                <Tabs
-                                    value={this.state.value}
-                                    onChange={this.handleChange}
-                                    indicatorColor="primary"
-                                    textColor="primary"
-                                    variant="fullWidth"
-                                >
-                                    <Tab label="Вопросы" />
-                                    <Tab label="Обьекты" />
-                                    <Tab label="Категории" />
-                                </Tabs>
-                            </AppBar>
-                            <SwipeableViews
-                                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                                index={this.state.value}
-                                onChangeIndex={this.handleChangeIndex}
+            <div style={{margin: 'auto'}}>
+                <Grid container spacing={24}>
+                    <Grid item xs={3} style={{paddingRight: 1}}>
+                        <AppBar position="static" color="default">
+                            <Tabs
+                                value={this.state.value}
+                                onChange={this.handleChange}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                variant="fullWidth"
                             >
-                                <TabContainer dir={theme.direction}><Sortable items={this.props.questions} /><AddQuestion /></TabContainer>
-                                <TabContainer dir={theme.direction}><Sortable items={this.props.objects}/><AddQuestion /></TabContainer>
-                                <TabContainer dir={theme.direction}>Item Three</TabContainer>
-                            </SwipeableViews>
+                                <Tab label="Вопросы" />
+                                <Tab label="Обьекты" />
+                                <Tab label="Категории" />
+                            </Tabs>
+                        </AppBar>
+                        <SwipeableViews
+                            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                            index={this.state.value}
+                            onChangeIndex={this.handleChangeIndex}
+                        >
+                            <TabContainer dir={theme.direction}><Sortable items={this.props.questions} /><AddQuestion /></TabContainer>
+                            <TabContainer dir={theme.direction}><Sortable items={this.props.objects}/><AddQuestion /></TabContainer>
+                            <TabContainer dir={theme.direction}>Item Three</TabContainer>
+                        </SwipeableViews>
 
-                        </Grid>
-                        <Grid item xs={9} style={{paddingLeft: 0}}>
-                            <GrafD3 />
-                        </Grid>
                     </Grid>
-                </div>
-            </Provider>
+                    <Grid item xs={9} style={{paddingLeft: 0}}>
+                        <GrafD3 />
+                    </Grid>
+                </Grid>
+            </div>
         );
     }
 }
+
+
+Example.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired,
+    questions: PropTypes.array.isRequired,
+    objects: PropTypes.array.isRequired,
+    fetchQuestions: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
     return {
@@ -102,10 +107,5 @@ function mapStateToProps(state) {
     }
 }
 
-Example.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-};
-
-export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps))(Example);
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, {fetchQuestions}))(Example);
 
