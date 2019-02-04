@@ -55,7 +55,6 @@ export function fetchAddQuestion(newQuestion) {
 }
 
 export function fetchDeleteQuestion(delQuestion) {
-    alert(delQuestion.val)
     return dispatch => {
         axios
             .delete(`/api/questions/${delQuestion.id}`)
