@@ -4,9 +4,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from "@material-ui/core/IconButton";
 import Divider from '@material-ui/core/Divider';
-import {fetchAddQuestion, fetchDeleteQuestion, selectQuestion} from '../../actions'
+import {fetchAddQuestion, fetchDeleteQuestion, fetchUpdateQuestion, selectQuestion} from '../../actions'
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import Fab from '@material-ui/core/Fab';
@@ -30,10 +31,22 @@ class Sortable extends Component {
     state = {
         selectedIndex: null,
         open: false,
+        openEdit: false,
+        editItem: null
     }
 
     handleClickOpen = () => {
         this.setState({ open: true });
+    };
+
+    handleClickOpenEdit = (item) => {
+        console.log(item)
+        this.setState({ openEdit: true });
+        this.setState({ editItem: item });
+    };
+
+    handleCloseEdit = () => {
+        this.setState({ openEdit: false });
     };
 
     handleClose = () => {
@@ -52,6 +65,17 @@ class Sortable extends Component {
                 break
             case "object":
                 this.handleClickOpen()
+                break
+        }
+    }
+
+    handleEditItemClick = (item) => {
+        switch (this.props.type) {
+            case "question":
+                this.handleClickOpenEdit(item)
+                break
+            case "object":
+                this.handleClickOpenEdit()
                 break
         }
     }
@@ -87,6 +111,12 @@ class Sortable extends Component {
                       >
                           <ListItemText primary={item.val}/>
                           <ListItemSecondaryAction>
+                              <IconButton
+                                  aria-label="Edit"
+                                  onClick={() => this.handleEditItemClick(item)}
+                              >
+                                  <EditIcon />
+                              </IconButton>
                               <IconButton
                                   aria-label="Delete"
                                   onClick={()=>this.props.delQuestion(item)}
@@ -134,6 +164,34 @@ class Sortable extends Component {
                         </DialogActions>
                     </form>
                 </Dialog>
+
+                <Dialog
+                    open={this.state.openEdit}
+                    onClose={this.handleClose}
+                    PaperComponent={PaperComponent}
+                    aria-labelledby="draggable-dialog-title"
+                >
+                    <form>
+                        <DialogTitle id="draggable-dialog-title">Редактирование {this.props.type} ID: {this.state.editItem ? this.state.editItem.id: ''}</DialogTitle>
+                        <DialogContent>
+                            <textarea
+                                autoFocus
+                                id="name"
+                                value={this.state.editItem ? this.state.editItem.val: ''}
+                                ref={(input) => this.getMessage = input}
+                            />
+                            <br /><br />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleCloseEdit} color="primary">
+                                Отмена
+                            </Button>
+                            <Button onClick={this.handleSubmit} color="primary">
+                                Изменить
+                            </Button>
+                        </DialogActions>
+                    </form>
+                </Dialog>
             </div>
         );
     }
@@ -150,7 +208,8 @@ function matchDispatchToProps(dispatch) {
         {
             select: selectQuestion,
             addQuestion: fetchAddQuestion,
-            delQuestion: fetchDeleteQuestion
+            delQuestion: fetchDeleteQuestion,
+            editQuestion: fetchUpdateQuestion
         },
         dispatch)
 }

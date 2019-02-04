@@ -4,6 +4,7 @@ export const SET_QUESTIONS = "SET_QUESTIONS"
 export const QUESTION_SELECTED = "QUESTION_SELECTED"
 export const ADD_QUESTION = "ADD_QUESTION"
 export const DELETE_QUESTION = "DELETE_QUESTION"
+export const EDIT_QUESTION = "EDIT_QUESTION"
 
 export function setQuestions(questions) {
     return {
@@ -30,6 +31,14 @@ export const deleteQuestion = (delQuestion) => {
     return {
         type: DELETE_QUESTION,
         payload: delQuestion
+    }
+}
+
+export const editQuestion = (editQuestion) => {
+    alert(editQuestion.val)
+    return {
+        type: EDIT_QUESTION,
+        payload: editQuestion
     }
 }
 
@@ -63,3 +72,15 @@ export function fetchDeleteQuestion(delQuestion) {
 
     }
 }
+
+export function fetchUpdateQuestion(question) {
+    return dispatch => {
+        dispatch(editQuestion(question))
+        // axios
+        //     .patch(`/api/questions/${editQuestion.id}`)
+        //     .then(res => dispatch(updateQuestion(editQuestion)))
+        //     .catch((err)=>console.log(err))
+
+    }
+}
+

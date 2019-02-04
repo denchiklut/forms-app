@@ -80,7 +80,13 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::find($id);
+
+        $question->update([
+            'val' => $request->input('val'),
+        ]);
+
+        return response()->json(['message' => 'question updated successful']);
     }
 
     /**
