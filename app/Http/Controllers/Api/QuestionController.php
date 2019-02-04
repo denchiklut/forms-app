@@ -91,6 +91,7 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Question::destroy($id);
+        return response()->json(['message' => 'Question deleted successfully']);
     }
 }

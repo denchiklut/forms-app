@@ -6,7 +6,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import Divider from '@material-ui/core/Divider';
-import {fetchAddQuestion, selectQuestion} from '../../actions'
+import {fetchAddQuestion, fetchDeleteQuestion, selectQuestion} from '../../actions'
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import Fab from '@material-ui/core/Fab';
@@ -56,6 +56,7 @@ class Sortable extends Component {
         }
     }
 
+
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.getMessage.value;
@@ -86,7 +87,10 @@ class Sortable extends Component {
                       >
                           <ListItemText primary={item.val}/>
                           <ListItemSecondaryAction>
-                              <IconButton aria-label="Delete">
+                              <IconButton
+                                  aria-label="Delete"
+                                  onClick={()=>this.props.delQuestion(item)}
+                              >
                                   <DeleteIcon />
                               </IconButton>
                           </ListItemSecondaryAction>
@@ -145,7 +149,8 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             select: selectQuestion,
-            addQuestion: fetchAddQuestion
+            addQuestion: fetchAddQuestion,
+            delQuestion: fetchDeleteQuestion
         },
         dispatch)
 }

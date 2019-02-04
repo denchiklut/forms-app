@@ -83347,7 +83347,7 @@ module.exports = function(module) {
 /*!***************************************!*\
   !*** ./resources/js/actions/index.js ***!
   \***************************************/
-/*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, ADD_QUESTION, setQuestions, selectQuestion, addQuestion, fetchQuestions, fetchAddQuestion */
+/*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, ADD_QUESTION, DELETE_QUESTION, setQuestions, selectQuestion, addQuestion, deleteQuestion, fetchQuestions, fetchAddQuestion, fetchDeleteQuestion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83355,17 +83355,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_QUESTIONS", function() { return SET_QUESTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUESTION_SELECTED", function() { return QUESTION_SELECTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_QUESTION", function() { return ADD_QUESTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_QUESTION", function() { return DELETE_QUESTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setQuestions", function() { return setQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectQuestion", function() { return selectQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQuestion", function() { return addQuestion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteQuestion", function() { return deleteQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchQuestions", function() { return fetchQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAddQuestion", function() { return fetchAddQuestion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDeleteQuestion", function() { return fetchDeleteQuestion; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var SET_QUESTIONS = "SET_QUESTIONS";
 var QUESTION_SELECTED = "QUESTION_SELECTED";
 var ADD_QUESTION = "ADD_QUESTION";
+var DELETE_QUESTION = "DELETE_QUESTION";
 function setQuestions(questions) {
   return {
     type: SET_QUESTIONS,
@@ -83384,6 +83388,12 @@ var addQuestion = function addQuestion(question) {
     payload: question
   };
 };
+var deleteQuestion = function deleteQuestion(delQuestion) {
+  return {
+    type: DELETE_QUESTION,
+    payload: delQuestion
+  };
+};
 function fetchQuestions() {
   return function (dispatch) {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/questions').then(function (data) {
@@ -83397,6 +83407,16 @@ function fetchAddQuestion(newQuestion) {
   return function (dispatch) {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questions', newQuestion).then(function (res) {
       return dispatch(addQuestion(res.data));
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+}
+function fetchDeleteQuestion(delQuestion) {
+  alert(delQuestion.val);
+  return function (dispatch) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.delete("/api/questions/".concat(delQuestion.id)).then(function (res) {
+      return dispatch(deleteQuestion(delQuestion));
     }).catch(function (err) {
       return console.log(err);
     });
@@ -84363,7 +84383,10 @@ function (_Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemText__WEBPACK_IMPORTED_MODULE_3___default.a, {
           primary: item.val
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_ListItemSecondaryAction__WEBPACK_IMPORTED_MODULE_4___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_6___default.a, {
-          "aria-label": "Delete"
+          "aria-label": "Delete",
+          onClick: function onClick() {
+            return _this2.props.delQuestion(item);
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_5___default.a, null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_7___default.a, null));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Fab__WEBPACK_IMPORTED_MODULE_11___default.a, {
         size: "medium",
@@ -84412,7 +84435,8 @@ Sortable.propTypes = {
 function matchDispatchToProps(dispatch) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({
     select: _actions__WEBPACK_IMPORTED_MODULE_8__["selectQuestion"],
-    addQuestion: _actions__WEBPACK_IMPORTED_MODULE_8__["fetchAddQuestion"]
+    addQuestion: _actions__WEBPACK_IMPORTED_MODULE_8__["fetchAddQuestion"],
+    delQuestion: _actions__WEBPACK_IMPORTED_MODULE_8__["fetchDeleteQuestion"]
   }, dispatch);
 }
 
@@ -84712,6 +84736,11 @@ __webpack_require__.r(__webpack_exports__);
 
     case _actions__WEBPACK_IMPORTED_MODULE_0__["ADD_QUESTION"]:
       return state.concat(action.payload);
+
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_QUESTION"]:
+      return state.filter(function (item) {
+        return item.id !== action.payload.id;
+      });
 
     default:
       return state;

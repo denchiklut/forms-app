@@ -3,6 +3,7 @@ import axios from "axios";
 export const SET_QUESTIONS = "SET_QUESTIONS"
 export const QUESTION_SELECTED = "QUESTION_SELECTED"
 export const ADD_QUESTION = "ADD_QUESTION"
+export const DELETE_QUESTION = "DELETE_QUESTION"
 
 export function setQuestions(questions) {
     return {
@@ -25,6 +26,13 @@ export const addQuestion = (question) => {
     }
 }
 
+export const deleteQuestion = (delQuestion) => {
+    return {
+        type: DELETE_QUESTION,
+        payload: delQuestion
+    }
+}
+
 export function fetchQuestions() {
     return dispatch => {
         axios
@@ -41,6 +49,17 @@ export function fetchAddQuestion(newQuestion) {
         axios
             .post('/api/questions', newQuestion)
             .then(res => dispatch(addQuestion(res.data)))
+            .catch((err)=>console.log(err))
+
+    }
+}
+
+export function fetchDeleteQuestion(delQuestion) {
+    alert(delQuestion.val)
+    return dispatch => {
+        axios
+            .delete(`/api/questions/${delQuestion.id}`)
+            .then(res => dispatch(deleteQuestion(delQuestion)))
             .catch((err)=>console.log(err))
 
     }
