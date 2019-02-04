@@ -14,7 +14,6 @@ import {compose} from "recompose";
 import {connect} from 'react-redux';
 import {fetchQuestions} from '../actions'
 
-
 function TabContainer({ children, dir }) {
     return (
         <Typography component="div" dir={dir} style={{ padding: 0 }}>
@@ -76,8 +75,15 @@ class Example extends Component {
                             index={this.state.value}
                             onChangeIndex={this.handleChangeIndex}
                         >
-                            <TabContainer dir={theme.direction}><Sortable items={this.props.questions} /><AddQuestion /></TabContainer>
-                            <TabContainer dir={theme.direction}><Sortable items={this.props.objects}/><AddQuestion /></TabContainer>
+                            <TabContainer dir={theme.direction}>
+                                <Sortable items={this.props.questions} type="question" />
+                                {/*<AddQuestion />*/}
+                            </TabContainer>
+                            <TabContainer dir={theme.direction}>
+                                Item Two
+                                {/*<Sortable items={this.props.objects} type="object" />*/}
+                                {/*<AddQuestion />*/}
+                            </TabContainer>
                             <TabContainer dir={theme.direction}>Item Three</TabContainer>
                         </SwipeableViews>
 
@@ -96,14 +102,14 @@ Example.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
     questions: PropTypes.array.isRequired,
-    objects: PropTypes.array.isRequired,
-    fetchQuestions: PropTypes.func.isRequired
+    // objects: PropTypes.array.isRequired,
+    fetchQuestions: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         questions: state.questions,
-        objects: state.objects,
+        // objects: state.objects
     }
 }
 

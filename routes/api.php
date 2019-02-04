@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::namespace('Api')->group(function () {
-    Route::get('/questions', 'QuestionsController@index');
+    Route::resource('/questions', 'QuestionController');
 });
 
 

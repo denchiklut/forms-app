@@ -5,8 +5,8 @@ import ActiveQuestion from './question-active';
 
 const rootReducers = combineReducers({
     questions: QuestionsReducers,
-    activeQuestion: ActiveQuestion,
-    objects: ObjectsReducers,
+    // activeQuestion: ActiveQuestion,
+    // objects: ObjectsReducers,
 })
 
 export default rootReducers

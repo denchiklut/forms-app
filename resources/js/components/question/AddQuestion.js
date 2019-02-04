@@ -25,7 +25,7 @@ class AddQuestion extends Component {
     render() {
         const { classes } = this.props;
 
-        if (!this.props.question) {
+        if (Object.keys(this.props.question).length === 0) {
             return(<p>Select</p>)
         }
 
