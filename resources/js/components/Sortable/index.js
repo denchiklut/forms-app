@@ -19,8 +19,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import './index.scss'
-import Draggable from 'react-draggable';
-
 
 class Sortable extends Component {
     state = {
