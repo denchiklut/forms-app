@@ -83379,7 +83379,7 @@ module.exports = function(module) {
 /*!***************************************!*\
   !*** ./resources/js/actions/index.js ***!
   \***************************************/
-/*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, ADD_QUESTION, DELETE_QUESTION, EDIT_QUESTION, setQuestions, selectQuestion, addQuestion, deleteQuestion, editQuestion, fetchQuestions, fetchAddQuestion, fetchDeleteQuestion, fetchUpdateQuestion */
+/*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, ADD_QUESTION, DELETE_QUESTION, UPDATE_QUESTION, setQuestions, selectQuestion, addQuestion, deleteQuestion, updateQuestion, fetchQuestions, fetchAddQuestion, fetchDeleteQuestion, fetchUpdateQuestion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83388,12 +83388,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QUESTION_SELECTED", function() { return QUESTION_SELECTED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_QUESTION", function() { return ADD_QUESTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_QUESTION", function() { return DELETE_QUESTION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EDIT_QUESTION", function() { return EDIT_QUESTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_QUESTION", function() { return UPDATE_QUESTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setQuestions", function() { return setQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectQuestion", function() { return selectQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addQuestion", function() { return addQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteQuestion", function() { return deleteQuestion; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editQuestion", function() { return editQuestion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateQuestion", function() { return updateQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchQuestions", function() { return fetchQuestions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAddQuestion", function() { return fetchAddQuestion; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDeleteQuestion", function() { return fetchDeleteQuestion; });
@@ -83405,7 +83405,7 @@ var SET_QUESTIONS = "SET_QUESTIONS";
 var QUESTION_SELECTED = "QUESTION_SELECTED";
 var ADD_QUESTION = "ADD_QUESTION";
 var DELETE_QUESTION = "DELETE_QUESTION";
-var EDIT_QUESTION = "EDIT_QUESTION";
+var UPDATE_QUESTION = "UPDATE_QUESTION";
 function setQuestions(questions) {
   return {
     type: SET_QUESTIONS,
@@ -83430,11 +83430,10 @@ var deleteQuestion = function deleteQuestion(delQuestion) {
     payload: delQuestion
   };
 };
-var editQuestion = function editQuestion(_editQuestion) {
-  alert(_editQuestion.val);
+var updateQuestion = function updateQuestion(editQuestion) {
   return {
-    type: EDIT_QUESTION,
-    payload: _editQuestion
+    type: UPDATE_QUESTION,
+    payload: editQuestion
   };
 };
 function fetchQuestions() {
@@ -83466,10 +83465,11 @@ function fetchDeleteQuestion(delQuestion) {
 }
 function fetchUpdateQuestion(question) {
   return function (dispatch) {
-    dispatch(editQuestion(question)); // axios
-    //     .patch(`/api/questions/${editQuestion.id}`)
-    //     .then(res => dispatch(updateQuestion(editQuestion)))
-    //     .catch((err)=>console.log(err))
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.patch("/api/questions/".concat(question.id), question).then(function (res) {
+      return dispatch(updateQuestion(question));
+    }).catch(function (err) {
+      return console.log(err);
+    });
   };
 }
 
@@ -84296,6 +84296,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_21__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -84365,8 +84369,6 @@ function (_Component) {
         open: true
       });
     }, _this.handleClickOpenEdit = function (item) {
-      console.log(item);
-
       _this.setState({
         openEdit: true
       });
@@ -84427,8 +84429,21 @@ function (_Component) {
       _this.setState({
         open: false
       });
-    }, _this.showInput = function (e) {
-      console.log(e.target.value);
+    }, _this.handleEditSubmit = function (e) {
+      e.preventDefault();
+      var newMessage = _this.getEditMessage.value;
+
+      var data = _objectSpread({}, _this.state.editItem, {
+        val: newMessage
+      });
+
+      _this.props.editQuestion(data);
+
+      _this.getEditMessage.value = '';
+
+      _this.setState({
+        openEdit: false
+      });
     }, _temp));
   }
 
@@ -84444,7 +84459,6 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1___default.a, {
         component: "nav",
         style: {
-          minHeight: "50vh",
           overflow: "scroll",
           paddingBottom: 0,
           paddingTop: 0
@@ -84515,16 +84529,18 @@ function (_Component) {
         id: "draggable-dialog-title"
       }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 ", this.props.type, " ID: ", this.state.editItem ? this.state.editItem.id : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_17___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         autoFocus: true,
-        id: "name",
-        value: this.state.editItem ? this.state.editItem.val : '',
+        required: true,
+        rows: "5",
         ref: function ref(input) {
-          return _this2.getMessage = input;
-        }
+          return _this2.getEditMessage = input;
+        },
+        defaultValue: this.state.editItem ? this.state.editItem.val : '',
+        placeholder: "Enter Post"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
         onClick: this.handleCloseEdit,
         color: "primary"
       }, "\u041E\u0442\u043C\u0435\u043D\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
-        onClick: this.handleSubmit,
+        onClick: this.handleEditSubmit,
         color: "primary"
       }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C")))));
     }
@@ -84853,10 +84869,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return item.id !== action.payload.id;
       });
 
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["EDIT_QUESTION"]:
+    case _actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_QUESTION"]:
       return state.map(function (question) {
         return question.id === action.payload.id ? _objectSpread({}, question, {
-          editing: !question.editing
+          val: action.payload.val
         }) : question;
       });
 
@@ -84885,8 +84901,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\denchiklut\Documents\@\react\forms-app\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\denchiklut\Documents\@\react\forms-app\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/reffection_/Documents/@/web-forms.dmrse.ru/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/reffection_/Documents/@/web-forms.dmrse.ru/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

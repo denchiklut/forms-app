@@ -86,7 +86,7 @@ class QuestionController extends Controller
             'val' => $request->input('val'),
         ]);
 
-        return response()->json(['message' => 'question updated successful']);
+        return response()->json(['message' => 'question updated successful'.$request->input('val')]);
     }
 
     /**

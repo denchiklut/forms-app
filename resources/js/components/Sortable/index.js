@@ -40,7 +40,6 @@ class Sortable extends Component {
     };
 
     handleClickOpenEdit = (item) => {
-        console.log(item)
         this.setState({ openEdit: true });
         this.setState({ editItem: item });
     };
@@ -48,6 +47,7 @@ class Sortable extends Component {
     handleCloseEdit = () => {
         this.setState({ openEdit: false });
     };
+
 
     handleClose = () => {
         this.setState({ open: false });
@@ -93,14 +93,19 @@ class Sortable extends Component {
         this.setState({ open: false });
     }
 
-    showInput = (e) => {
-        console.log(e.target.value)
+    handleEditSubmit = (e) => {
+        e.preventDefault();
+        const newMessage =  this.getEditMessage.value;
+        const data = {...this.state.editItem, val: newMessage}
+        this.props.editQuestion(data)
+        this.getEditMessage.value = '';
+        this.setState({ openEdit: false });
     }
 
     render() {
         return (
             <div style={{position: 'relative'}}>
-                <List component="nav" style={{minHeight: "50vh", overflow: "scroll", paddingBottom: 0, paddingTop: 0}}>
+                <List component="nav" style={{overflow: "scroll", paddingBottom: 0, paddingTop: 0}}>
                 {this.props.items.map((item) => (
                   <div  key={item.id}>
                       <ListItem
@@ -176,17 +181,17 @@ class Sortable extends Component {
                         <DialogContent>
                             <textarea
                                 autoFocus
-                                id="name"
-                                value={this.state.editItem ? this.state.editItem.val: ''}
-                                ref={(input) => this.getMessage = input}
-                            />
+                                required rows="5"
+                                ref={(input) => this.getEditMessage = input}
+                                defaultValue={this.state.editItem ? this.state.editItem.val: ''}
+                                placeholder="Enter Post" />
                             <br /><br />
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleCloseEdit} color="primary">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleSubmit} color="primary">
+                            <Button onClick={this.handleEditSubmit} color="primary">
                                 Изменить
                             </Button>
                         </DialogActions>
