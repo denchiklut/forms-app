@@ -80721,10 +80721,6 @@ var styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3
   }
 };
 

@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 
-
 const styles = {
     root: {
         flexGrow: 1,
@@ -21,10 +20,6 @@ const styles = {
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing.unit * 3,
     },
 };
 
@@ -44,7 +39,6 @@ class App extends React.Component {
                         <Button color="inherit">Login</Button>
                     </Toolbar>
                 </AppBar>
-
                 <Main />
 
             </div>
