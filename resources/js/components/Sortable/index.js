@@ -19,6 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Paper from '@material-ui/core/Paper';
+import './index.scss'
 import Draggable from 'react-draggable';
 
 function PaperComponent(props) {
@@ -35,29 +36,34 @@ class Sortable extends Component {
         editItem: null
     }
 
+    //Open Add form
     handleClickOpen = () => {
         this.setState({ open: true });
     };
 
+    //Close Add form
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    //Open Edit form
     handleClickOpenEdit = (item) => {
         this.setState({ openEdit: true });
         this.setState({ editItem: item });
     };
 
+    //Close Edit form
     handleCloseEdit = () => {
         this.setState({ openEdit: false });
     };
 
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
+    //Select Item in list
     handleListItemClick = (event, item) => {
         this.setState({selectedIndex: item.id})
         this.props.select(item)
     }
 
+    //Choose what to Add (Question / Object)
     handleAddItemClick = () => {
         switch (this.props.type) {
             case "question":
@@ -69,6 +75,7 @@ class Sortable extends Component {
         }
     }
 
+    //Choose what to Edit (Question / Object)
     handleEditItemClick = (item) => {
         switch (this.props.type) {
             case "question":
@@ -80,7 +87,7 @@ class Sortable extends Component {
         }
     }
 
-
+    //Send Add Form
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.getMessage.value;
@@ -93,6 +100,7 @@ class Sortable extends Component {
         this.setState({ open: false });
     }
 
+    //Send Edit Form
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.getEditMessage.value;
@@ -105,7 +113,7 @@ class Sortable extends Component {
     render() {
         return (
             <div style={{position: 'relative'}}>
-                <List component="nav" style={{overflow: "scroll", paddingBottom: 0, paddingTop: 0}}>
+                <List className="myList" component="nav">
                 {this.props.items.map((item) => (
                   <div  key={item.id}>
                       <ListItem
@@ -143,6 +151,7 @@ class Sortable extends Component {
                     <AddIcon />
                 </Fab>
 
+                {/*//Add dialog form*/}
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
@@ -170,6 +179,7 @@ class Sortable extends Component {
                     </form>
                 </Dialog>
 
+                {/*//Edit dialog form*/}
                 <Dialog
                     open={this.state.openEdit}
                     onClose={this.handleClose}

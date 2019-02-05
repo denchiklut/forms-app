@@ -9,7 +9,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import AddQuestion from './question/AddQuestion'
 import {compose} from "recompose";
 import {connect} from 'react-redux';
 import {fetchQuestions} from '../actions'
@@ -77,12 +76,10 @@ class Example extends Component {
                         >
                             <TabContainer dir={theme.direction}>
                                 <Sortable items={this.props.questions} type="question" />
-                                {/*<AddQuestion />*/}
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 Item Two
                                 {/*<Sortable items={this.props.objects} type="object" />*/}
-                                {/*<AddQuestion />*/}
                             </TabContainer>
                             <TabContainer dir={theme.direction}>Item Three</TabContainer>
                         </SwipeableViews>
