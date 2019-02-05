@@ -18107,7 +18107,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".myList {\n  height: calc(100vh - 64px - 48px);\n  overflow: scroll;\n  padding-bottom: 0;\n  padding-top: 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: #ff7777;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}\n.form-container .form .control-buttons .edit {\n  background: #02b3e4;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}", ""]);
+exports.push([module.i, ".myList {\n  height: calc(100vh - 64px - 48px);\n  overflow: scroll;\n  padding-bottom: 0;\n  padding-top: 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: #ff7777;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}\n.form-container .form .control-buttons .edit {\n  background: #02b3e4;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}", ""]);
 
 // exports
 
@@ -81419,7 +81419,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         autoFocus: true,
         required: true,
-        rows: "5",
+        rows: "12",
         cols: "28",
         ref: function ref(input) {
           return _this2.getMessage = input;
@@ -81449,7 +81449,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         autoFocus: true,
         required: true,
-        rows: "5",
+        rows: "12",
         cols: "28",
         ref: function ref(input) {
           return _this2.getEditMessage = input;

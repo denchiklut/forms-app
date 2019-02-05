@@ -159,7 +159,7 @@ class Sortable extends Component {
                             <textarea
                                 autoFocus
                                 required
-                                rows="5"
+                                rows="12"
                                 cols="28"
                                 ref={(input) => this.getMessage = input}
                                 placeholder="Enter Post"
@@ -192,7 +192,7 @@ class Sortable extends Component {
                             <textarea
                                 autoFocus
                                 required
-                                rows="5"
+                                rows="12"
                                 cols="28"
                                 ref={(input) => this.getEditMessage = input}
                                 defaultValue={this.state.editItem ? this.state.editItem.val: ''}
