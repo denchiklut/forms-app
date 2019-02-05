@@ -18107,7 +18107,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".myList {\n  height: calc(100vh - 64px - 48px);\n  overflow: scroll;\n  padding-bottom: 0;\n  padding-top: 0;\n}", ""]);
+exports.push([module.i, ".myList {\n  height: calc(100vh - 64px - 48px);\n  overflow: scroll;\n  padding-bottom: 0;\n  padding-top: 0;\n}\n\n.form-container {\n  text-align: center;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: #ff7777;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}\n.form-container .form .control-buttons .edit {\n  background: #02b3e4;\n  border: none;\n  text-align: center;\n  font-size: 20px;\n  padding: 10px 25px;\n  border-radius: 20px;\n  cursor: pointer;\n  outline: none;\n  color: #fff;\n}", ""]);
 
 // exports
 
@@ -83411,12 +83411,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/Button/index.js");
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/Paper/index.js");
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./index.scss */ "./resources/js/components/Sortable/index.scss");
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/dist/react-draggable.js");
-/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./index.scss */ "./resources/js/components/Sortable/index.scss");
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react-draggable */ "./node_modules/react-draggable/dist/react-draggable.js");
+/* harmony import */ var react_draggable__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(react_draggable__WEBPACK_IMPORTED_MODULE_21__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -83461,11 +83459,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-
-function PaperComponent(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_20___default.a, props);
-}
 
 var Sortable =
 /*#__PURE__*/
@@ -83623,46 +83616,66 @@ function (_Component) {
           right: "22px"
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_13___default.a, null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_15___default.a, {
+        fullWidth: true,
+        maxWidth: "lg",
         open: this.state.open,
         onClose: this.handleClose,
-        PaperComponent: PaperComponent,
-        "aria-labelledby": "draggable-dialog-title"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_16___default.a, {
-        id: "draggable-dialog-title"
-      }, "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 ", this.props.type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_17___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-        autoFocus: true,
-        id: "name",
-        ref: function ref(input) {
-          return _this2.getMessage = input;
-        }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
-        onClick: this.handleClose,
-        color: "primary"
-      }, "\u041E\u0442\u043C\u0435\u043D\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
-        onClick: this.handleSubmit,
-        color: "primary"
-      }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_15___default.a, {
-        open: this.state.openEdit,
-        onClose: this.handleClose,
-        PaperComponent: PaperComponent,
-        "aria-labelledby": "draggable-dialog-title"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_16___default.a, {
-        id: "draggable-dialog-title"
-      }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 ", this.props.type, " ID: ", this.state.editItem ? this.state.editItem.id : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_17___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        "aria-labelledby": "draggable-dialog-title",
+        className: "form-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_16___default.a, {
+        className: "form_heading"
+      }, "\u0414\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435 ", this.props.type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_17___default.a, {
+        className: "form-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         autoFocus: true,
         required: true,
         rows: "5",
+        cols: "28",
+        ref: function ref(input) {
+          return _this2.getMessage = input;
+        },
+        placeholder: "Enter Post"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default.a, {
+        className: "control-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
+        onClick: this.handleClose,
+        className: "delete"
+      }, "\u041E\u0442\u043C\u0435\u043D\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
+        onClick: this.handleSubmit,
+        className: "edit"
+      }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_15___default.a, {
+        open: this.state.openEdit,
+        onClose: this.handleClose,
+        fullWidth: true,
+        maxWidth: "lg",
+        "aria-labelledby": "draggable-dialog-title",
+        className: "form-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_16___default.a, {
+        className: "form_heading"
+      }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 ", this.props.type, ": ", this.state.editItem ? this.state.editItem.id : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_17___default.a, {
+        className: "form-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        autoFocus: true,
+        required: true,
+        rows: "5",
+        cols: "28",
         ref: function ref(input) {
           return _this2.getEditMessage = input;
         },
         defaultValue: this.state.editItem ? this.state.editItem.val : '',
         placeholder: "Enter Post"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_18___default.a, {
+        className: "control-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
         onClick: this.handleCloseEdit,
-        color: "primary"
+        className: "delete"
       }, "\u041E\u0442\u043C\u0435\u043D\u0430"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_19___default.a, {
         onClick: this.handleEditSubmit,
-        color: "primary"
+        className: "edit"
       }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C")))));
     }
   }]);

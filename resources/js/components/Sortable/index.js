@@ -18,15 +18,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import Paper from '@material-ui/core/Paper';
 import './index.scss'
 import Draggable from 'react-draggable';
 
-function PaperComponent(props) {
-    return (
-        <Paper {...props} />
-    );
-}
 
 class Sortable extends Component {
     state = {
@@ -153,26 +147,32 @@ class Sortable extends Component {
 
                 {/*//Add dialog form*/}
                 <Dialog
+                    fullWidth={true}
+                    maxWidth="lg"
                     open={this.state.open}
                     onClose={this.handleClose}
-                    PaperComponent={PaperComponent}
                     aria-labelledby="draggable-dialog-title"
+                    className="form-container"
+
                 >
-                    <form>
-                        <DialogTitle id="draggable-dialog-title">Добавление {this.props.type}</DialogTitle>
-                        <DialogContent>
+                    <form className="form">
+                        <DialogTitle className="form_heading">Добавление {this.props.type}</DialogTitle>
+                        <DialogContent className="form-container">
                             <textarea
                                 autoFocus
-                                id="name"
+                                required
+                                rows="5"
+                                cols="28"
                                 ref={(input) => this.getMessage = input}
+                                placeholder="Enter Post"
                             />
                             <br /><br />
                         </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleClose} color="primary">
+                        <DialogActions className="control-buttons">
+                            <Button onClick={this.handleClose}  className="delete">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleSubmit} color="primary">
+                            <Button onClick={this.handleSubmit} className="edit">
                                 Добавить
                             </Button>
                         </DialogActions>
@@ -183,25 +183,29 @@ class Sortable extends Component {
                 <Dialog
                     open={this.state.openEdit}
                     onClose={this.handleClose}
-                    PaperComponent={PaperComponent}
+                    fullWidth={true}
+                    maxWidth="lg"
                     aria-labelledby="draggable-dialog-title"
+                    className="form-container"
                 >
-                    <form>
-                        <DialogTitle id="draggable-dialog-title">Редактирование {this.props.type} ID: {this.state.editItem ? this.state.editItem.id: ''}</DialogTitle>
-                        <DialogContent>
+                    <form className="form">
+                        <DialogTitle className="form_heading">Редактирование {this.props.type}: {this.state.editItem ? this.state.editItem.id: ''}</DialogTitle>
+                        <DialogContent className="form-container">
                             <textarea
                                 autoFocus
-                                required rows="5"
+                                required
+                                rows="5"
+                                cols="28"
                                 ref={(input) => this.getEditMessage = input}
                                 defaultValue={this.state.editItem ? this.state.editItem.val: ''}
                                 placeholder="Enter Post" />
                             <br /><br />
                         </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleCloseEdit} color="primary">
+                        <DialogActions className="control-buttons">
+                            <Button onClick={this.handleCloseEdit} className="delete">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleEditSubmit} color="primary">
+                            <Button onClick={this.handleEditSubmit} className="edit">
                                 Изменить
                             </Button>
                         </DialogActions>
