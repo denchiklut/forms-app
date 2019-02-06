@@ -22,12 +22,16 @@ import { withStyles } from '@material-ui/core/styles';
 import './index.scss'
 import {compose} from "recompose";
 import classNames from 'classnames';
+import Typography from "@material-ui/core/Typography";
 
 const styles = {
     selected: {
-        backgroundColor: 'rgba(247, 148, 43, 0.14)!important',
-        boxShadow: '0 0 5px -2px black',
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)!important',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     },
+    selectedColor: {
+        color: 'white!important'
+    }
 }
 
 
@@ -129,7 +133,11 @@ class Sortable extends Component {
                           onClick={event => this.handleListItemClick(event, item)}
                           style={{padding: "15px 8px"}}
                       >
-                          <ListItemText primary={item.val}/>
+                          <ListItemText
+                              disableTypography
+                              primary={<Typography type="body2" className={classNames(item.id === this.state.selectedIndex && classes.selectedColor)} >{item.val}</Typography>}
+                              />
+
                           <ListItemSecondaryAction>
                               <IconButton
                                   aria-label="Edit"
