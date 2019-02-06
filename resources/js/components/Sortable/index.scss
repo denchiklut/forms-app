@@ -7,7 +7,10 @@
     margin-bottom: 0;
 
     .myListItem {
-        background: #f7e0c259;
+        color: #fff;
+        background: linear-gradient(to left, #8a4b9d4a, #faaca8ba);
+        box-shadow: 0 0 3px -1px #d82d4573;
+        margin: 1px 0;
     }
 }
 .form-container {

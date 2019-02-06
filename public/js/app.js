@@ -24853,7 +24853,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  background: #f7e0c259;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}", ""]);
+exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  color: #fff;\n  background: linear-gradient(to left, #8a4b9d4a, #faaca8ba);\n  box-shadow: 0 0 3px -1px #d82d4573;\n  margin: 1px 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}", ""]);
 
 // exports
 
@@ -71630,6 +71630,7 @@ var styles = function styles(theme) {
     }, theme.mixins.toolbar),
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
+      background: 'linear-gradient(to right, #dc2430, #7b4397)',
       transition: theme.transitions.create(['width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen
@@ -72496,6 +72497,9 @@ var styles = {
   },
   selectedColor: {
     color: 'white!important'
+  },
+  list: {
+    paddingTop: 0
   }
 };
 
@@ -72613,6 +72617,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "myList"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        className: classes.list,
         component: "nav"
       }, this.props.items.map(function (item) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

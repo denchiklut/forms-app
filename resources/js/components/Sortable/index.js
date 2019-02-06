@@ -31,6 +31,9 @@ const styles = {
     },
     selectedColor: {
         color: 'white!important'
+    },
+    list: {
+        paddingTop: 0,
     }
 }
 
@@ -122,7 +125,7 @@ class Sortable extends Component {
 
         return (
             <div className="myList">
-                <List component="nav">
+                <List className={classes.list} component="nav">
                 {this.props.items.map((item) => (
                   <div
                       key={item.id}
