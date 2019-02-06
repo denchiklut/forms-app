@@ -1,46 +1,92 @@
 import React from 'react';
-import Main from "./Main";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import Main from './Main'
 
-const styles = {
+
+const styles = theme => ({
     root: {
-        flexGrow: 1,
-        // display: 'flex',
+        display: 'flex',
     },
-    grow: {
-        flexGrow: 1,
+    toolbarIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: 0,
+        ...theme.mixins.toolbar,
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
     },
     menuButton: {
         marginLeft: -12,
-        marginRight: 20,
     },
-};
+    title: {
+        flexGrow: 1,
+    },
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+        flexGrow: 1,
+        // paddingLeft: theme.spacing.unit,
+        // paddingRight: theme.spacing.unit,
+        overflowX: 'hidden',
+        height: '100vh',
+        overflow: 'auto',
+    },
 
+});
 class App extends React.Component {
+
     render() {
         const { classes } = this.props;
+
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <CssBaseline />
+                <AppBar
+                    position="absolute"
+                    className={classes.appBar}
+                >
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                        <IconButton
+                            color="inherit"
+                            aria-label="Open drawer"
+                            className={classes.menuButton}
+                        >
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>
-                            Editor
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            className={classes.title}
+                        >
+                            Dashboard
                         </Typography>
-                        <Button color="inherit">Login</Button>
+                        <IconButton color="inherit">
+                            <Badge badgeContent={4} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
-                <Main />
-
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer} />
+                    <Main />
+                </main>
             </div>
         );
     }
@@ -48,7 +94,6 @@ class App extends React.Component {
 
 App.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(App);
+export default withStyles(styles)(App);
