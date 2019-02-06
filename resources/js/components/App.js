@@ -100,8 +100,11 @@ const styles = theme => ({
         overflow: 'hidden',
     },
     chip: {
-        margin: `${theme.spacing.unit / 2}px ${theme.spacing.unit / 4}px`,
-    },
+        margin: `${theme.spacing.unit / 2}px`,
+        color: 'white',
+        background: 'linear-gradient(to right, #ff512f, #dd2476)',
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+},
     chipFocused: {
         backgroundColor: emphasize(
             theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],

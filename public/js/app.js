@@ -71660,7 +71660,10 @@ var styles = function styles(theme) {
       overflow: 'hidden'
     },
     chip: {
-      margin: "".concat(theme.spacing.unit / 2, "px ").concat(theme.spacing.unit / 4, "px")
+      margin: "".concat(theme.spacing.unit / 2, "px"),
+      color: 'white',
+      background: 'linear-gradient(to right, #ff512f, #dd2476)',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)'
     },
     chipFocused: {
       backgroundColor: Object(_material_ui_core_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_10__["emphasize"])(theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700], 0.08)
