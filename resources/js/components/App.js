@@ -39,8 +39,6 @@ const styles = theme => ({
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
-        // paddingLeft: theme.spacing.unit,
-        // paddingRight: theme.spacing.unit,
         overflowX: 'hidden',
         height: '100vh',
         overflow: 'auto',

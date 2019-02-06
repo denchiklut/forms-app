@@ -18,7 +18,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 import './index.scss'
+import {compose} from "recompose";
+import classNames from 'classnames';
+
+const styles = {
+    selected: {
+        backgroundColor: 'rgba(247, 148, 43, 0.14)!important',
+        boxShadow: '0 0 5px -2px black',
+    }
+}
 
 class Sortable extends Component {
     state = {
@@ -103,12 +113,15 @@ class Sortable extends Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
             <div className="myList">
                 <List component="nav">
                 {this.props.items.map((item) => (
-                  <div  key={item.id}
-                  className="myListItem">
+                  <div
+                      key={item.id}
+                      className={classNames("myListItem", (item.id === this.state.selectedIndex) && classes.selected)}>
                       <ListItem
                           button
                           selected={item.id === this.state.selectedIndex}
@@ -232,4 +245,4 @@ function matchDispatchToProps(dispatch) {
         dispatch)
 }
 
-export default connect(null, matchDispatchToProps)(Sortable);
+export default compose(withStyles(styles), connect(null, matchDispatchToProps))(Sortable);
