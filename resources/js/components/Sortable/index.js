@@ -27,8 +27,9 @@ const styles = {
     selected: {
         backgroundColor: 'rgba(247, 148, 43, 0.14)!important',
         boxShadow: '0 0 5px -2px black',
-    }
+    },
 }
+
 
 class Sortable extends Component {
     state = {
@@ -220,6 +221,7 @@ class Sortable extends Component {
                             <Button onClick={this.handleEditSubmit} className="edit">
                                 Изменить
                             </Button>
+
                         </DialogActions>
                     </form>
                 </Dialog>
@@ -231,6 +233,7 @@ class Sortable extends Component {
 Sortable.propTypes = {
     items: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 
