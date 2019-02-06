@@ -35,7 +35,6 @@
     "prop-types": "latest",
     "react-d3-tree": "^1.12.2",
     "react-draggable": "^3.1.1",
-    "react-mdl": "^1.11.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-select": "^2.3.0",

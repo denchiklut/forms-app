@@ -1,3 +1,16 @@
+.myList {
+    position: relative;
+    height: calc(100vh - 64px - 48px);
+    border-right: 1px solid #0e0e0e24;
+    background: #69696940;
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    .myListItem {
+        background: #f7e0c259;
+    }
+}
+
 .form-container {
     text-align: center;
     padding: 0!important;
@@ -74,5 +87,4 @@
 
 
 }
-
 

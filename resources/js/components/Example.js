@@ -55,7 +55,7 @@ class Example extends Component {
         return (
             <div style={{margin: 'auto'}}>
                 <Grid container spacing={24}>
-                    <Grid item xs={3} style={{paddingRight: 1}}>
+                    <Grid item xs={3} style={{paddingBottom: 0}}>
                         <AppBar position="static" color="default">
                             <Tabs
                                 value={this.state.value}
@@ -86,7 +86,7 @@ class Example extends Component {
 
                     </Grid>
                     <Grid item xs={9} style={{paddingLeft: 0}}>
-                        <GrafD3 />
+                        {/*<GrafD3 />*/}
                     </Grid>
                 </Grid>
             </div>

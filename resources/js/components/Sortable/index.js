@@ -104,10 +104,11 @@ class Sortable extends Component {
 
     render() {
         return (
-            <div style={{position: 'relative'}}>
-                <List className="myList" component="nav">
+            <div className="myList">
+                <List component="nav">
                 {this.props.items.map((item) => (
-                  <div  key={item.id}>
+                  <div  key={item.id}
+                  className="myListItem">
                       <ListItem
                           button
                           selected={item.id === this.state.selectedIndex}

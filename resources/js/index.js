@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import 'react-mdl/extra/material.css';
-import 'react-mdl/extra/material.js';
 import {HashRouter} from "react-router-dom";
 import {createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk'
