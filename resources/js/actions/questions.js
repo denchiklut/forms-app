@@ -41,7 +41,8 @@ export const updateQuestion = (editQuestion) => {
     }
 }
 
-export function fetchQuestions() {
+export function fetchQuestions(project) {
+    // console.log(project) we will search questions from project
     return dispatch => {
         axios
             .get('/api/questions')

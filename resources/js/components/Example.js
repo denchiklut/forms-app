@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Sortable from './Sortable/index';
 import Grid from '@material-ui/core/Grid';
 import GrafD3 from './GrafD3';
@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class Example extends Component {
+class Example extends PureComponent {
     state = {
         value: 0,
     };
@@ -46,9 +46,11 @@ class Example extends Component {
         this.setState({ value: index });
     };
 
-  componentDidMount() {
-      this.props.fetchQuestions()
-  }
+    componentWillReceiveProps(nextProps){
+        if ( nextProps.activeProject !== this.props.activeProject && ( Object.keys(nextProps.activeProject).length !== 0) ) {
+            this.props.fetchQuestions(nextProps.activeProject.value)
+        }
+    }
 
     render() {
         const { theme } = this.props;
@@ -98,15 +100,15 @@ class Example extends Component {
 Example.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
+    activeProject: PropTypes.object.isRequired,
     questions: PropTypes.array.isRequired,
-    // objects: PropTypes.array.isRequired,
     fetchQuestions: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
         questions: state.questions,
-        // objects: state.objects
+        activeProject: state.activeProject
     }
 }
 

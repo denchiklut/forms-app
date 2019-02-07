@@ -24853,7 +24853,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  color: #fff;\n  background: linear-gradient(to left, #ff818169, #ffd9b2);\n  box-shadow: 0 0 3px -1px #d82d4573;\n  margin: 1px 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}", ""]);
+exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  color: #fff;\n  background: linear-gradient(to left, #ff818169, #ffd9b2);\n  box-shadow: 0 0 3px -1px #d82d4573;\n  margin: 1px 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n\n.noList {\n  background: linear-gradient(to right, #d25555ad, #979eafd1);\n  position: relative;\n  width: 100%;\n  padding-top: 100%;\n  display: flex;\n  margin: auto;\n  align-items: center;\n  border-radius: 50%;\n  box-shadow: 1px 2px 20px -1px #364056;\n}\n.noList .noMsg {\n  position: absolute;\n  top: 40%;\n  text-align: center;\n  width: 100%;\n  color: white;\n  font-family: cursive;\n}", ""]);
 
 // exports
 
@@ -71420,7 +71420,8 @@ var updateQuestion = function updateQuestion(editQuestion) {
     payload: editQuestion
   };
 };
-function fetchQuestions() {
+function fetchQuestions(project) {
+  // console.log(project) we will search questions from project
   return function (dispatch) {
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/questions').then(function (data) {
       return dispatch(setQuestions(data.data));
@@ -71899,8 +71900,8 @@ function (_React$Component) {
         components: components,
         value: this.state.single,
         onChange: this.handleChange('single'),
-        placeholder: "Search project",
-        isClearable: true
+        placeholder: "Search project" // isClearable
+
       }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
         className: classes.content
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -72032,8 +72033,8 @@ var styles = function styles(theme) {
 
 var Example =
 /*#__PURE__*/
-function (_Component) {
-  _inherits(Example, _Component);
+function (_PureComponent) {
+  _inherits(Example, _PureComponent);
 
   function Example() {
     var _getPrototypeOf2;
@@ -72060,9 +72061,11 @@ function (_Component) {
   }
 
   _createClass(Example, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchQuestions();
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.activeProject !== this.props.activeProject && Object.keys(nextProps.activeProject).length !== 0) {
+        this.props.fetchQuestions(nextProps.activeProject.value);
+      }
     }
   }, {
     key: "render",
@@ -72124,20 +72127,20 @@ function (_Component) {
   }]);
 
   return Example;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+}(react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"]);
 
 Example.propTypes = {
   classes: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
   theme: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
+  activeProject: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired,
   questions: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.array.isRequired,
-  // objects: PropTypes.array.isRequired,
   fetchQuestions: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    questions: state.questions // objects: state.objects
-
+    questions: state.questions,
+    activeProject: state.activeProject
   };
 }
 
@@ -72512,6 +72515,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_23__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/Typography/index.js");
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/Grid/index.js");
+/* harmony import */ var _material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_25__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -72533,6 +72538,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -72683,6 +72689,33 @@ function (_Component) {
       var _this2 = this;
 
       var classes = this.props.classes;
+
+      if (this.props.items.length === 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_25___default.a, {
+          container: true,
+          direction: "row",
+          justify: "center",
+          alignItems: "center",
+          style: {
+            height: 'calc(100vh - 64px - 48px)',
+            borderRight: '1px solid #0e0e0e24',
+            background: '#e0e0e091'
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_25___default.a, {
+          item: true,
+          xs: 12
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          style: {
+            width: '70%',
+            margin: 'auto'
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "noList"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+          className: "noMsg"
+        }, "There is nothing yet ")))));
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "myList"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_List__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -72922,10 +72955,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _questions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions */ "./resources/js/reducers/questions.js");
-/* harmony import */ var _objects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./objects */ "./resources/js/reducers/objects.js");
-/* harmony import */ var _question_active__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./question-active */ "./resources/js/reducers/question-active.js");
-/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./projects */ "./resources/js/reducers/projects.js");
-/* harmony import */ var _active_project__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./active-project */ "./resources/js/reducers/active-project.js");
+/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./projects */ "./resources/js/reducers/projects.js");
+/* harmony import */ var _active_project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./active-project */ "./resources/js/reducers/active-project.js");
+/* harmony import */ var _objects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./objects */ "./resources/js/reducers/objects.js");
+/* harmony import */ var _question_active__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./question-active */ "./resources/js/reducers/question-active.js");
 
 
 
@@ -72934,8 +72967,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var rootReducers = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   questions: _questions__WEBPACK_IMPORTED_MODULE_1__["default"],
-  projects: _projects__WEBPACK_IMPORTED_MODULE_4__["default"],
-  activeProject: _active_project__WEBPACK_IMPORTED_MODULE_5__["default"] // activeQuestion: ActiveQuestion,
+  projects: _projects__WEBPACK_IMPORTED_MODULE_2__["default"],
+  activeProject: _active_project__WEBPACK_IMPORTED_MODULE_3__["default"] // activeQuestion: ActiveQuestion,
   // objects: ObjectsReducers,
 
 });

@@ -280,7 +280,7 @@ class App extends React.Component {
                                     value={this.state.single}
                                     onChange={this.handleChange('single')}
                                     placeholder="Search project"
-                                    isClearable
+                                    // isClearable
                                 />
                             </NoSsr>
                         </div>
