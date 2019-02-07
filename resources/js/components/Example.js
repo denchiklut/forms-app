@@ -88,7 +88,7 @@ class Example extends PureComponent {
 
                     </Grid>
                     <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0}}>
-                        {/*<GrafD3 />*/}
+                        <GrafD3 />
                     </Grid>
                 </Grid>
             </div>
