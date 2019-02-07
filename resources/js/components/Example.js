@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import {compose} from "recompose";
 import {connect} from 'react-redux';
-import {fetchQuestions} from '../actions'
+import {fetchQuestions} from '../actions/questions'
 
 function TabContainer({ children, dir }) {
     return (

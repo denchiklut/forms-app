@@ -16,46 +16,10 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import classNames from "classnames";
 import Chip from "@material-ui/core/Chip";
-
-const suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label,
-}));
+import {fetchProjects, selectProject} from '../actions/projects'
+import {bindActionCreators} from "redux";
+import {compose} from "recompose";
+import {connect} from 'react-redux';
 
 const styles = theme => ({
     root: {
@@ -103,7 +67,8 @@ const styles = theme => ({
     chip: {
         margin: `${theme.spacing.unit / 2}px`,
         color: 'white',
-        background: 'linear-gradient(to right, #ff512f, #dd2476)',
+        // background: 'linear-gradient(to right, #ff512f, #dd2476)',
+        background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
 },
     chipFocused: {
@@ -142,7 +107,6 @@ const styles = theme => ({
         minWidth: '250px',
     },
 });
-
 
 function NoOptionsMessage(props) {
     return (
@@ -255,7 +219,14 @@ class App extends React.Component {
         this.setState({
             [name]: value,
         });
+
+        this.props.selectProject(value);
     };
+
+    componentDidMount() {
+        this.props.fetchProjects()
+    }
+
     render() {
         const { classes, theme } = this.props;
 
@@ -268,6 +239,11 @@ class App extends React.Component {
                 },
             }),
         };
+
+        const suggestions = this.props.projects.map(suggestion => ({
+            value: suggestion.label,
+            label: suggestion.label,
+        }));
 
         return (
             <div className={classes.root}>
@@ -324,7 +300,23 @@ class App extends React.Component {
 App.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
+    fetchProjects: PropTypes.func.isRequired,
+    selectProject: PropTypes.func.isRequired,
+
 
 };
 
-export default withStyles(styles, { withTheme: true })(App);
+function mapStateToProps(state) {
+    return {
+        projects: state.projects,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchProjects: fetchProjects,
+        selectProject: selectProject
+    }, dispatch)
+}
+
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, mapDispatchToProps))(App);

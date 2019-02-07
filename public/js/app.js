@@ -24853,7 +24853,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  color: #fff;\n  background: linear-gradient(to left, #8a4b9d4a, #faaca8ba);\n  box-shadow: 0 0 3px -1px #d82d4573;\n  margin: 1px 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}", ""]);
+exports.push([module.i, ".myList {\n  position: relative;\n  height: calc(100vh - 64px - 48px);\n  border-right: 1px solid #0e0e0e24;\n  background: #69696940;\n  padding-bottom: 0;\n  margin-bottom: 0;\n}\n.myList .myListItem {\n  color: #fff;\n  background: linear-gradient(to left, #ff818169, #ffd9b2);\n  box-shadow: 0 0 3px -1px #d82d4573;\n  margin: 1px 0;\n}\n\n.form-container {\n  text-align: center;\n  padding: 0 !important;\n}\n.form-container .form {\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n  font-family: \"Work Sans\", sans-serif;\n  background: #f4f4ef;\n}\n.form-container .form .form_heading {\n  background: #fff;\n  text-align: center;\n  padding: 1.5rem 0;\n  width: 100%;\n  justify-content: center;\n  align-items: center;\n  box-shadow: 0 5px 15px 0 rgba(46, 61, 73, 0.12);\n}\n.form-container .form .form_heading h2 {\n  text-align: center;\n  font-weight: 400;\n  font-size: 40px;\n  color: #636363;\n}\n.form-container .form textarea {\n  width: 80%;\n  margin: 12px auto;\n  border: 1px solid #dbe2e8;\n  font-size: 14px;\n  padding: 12px;\n  border-radius: 2px;\n  color: #636363;\n  font-family: \"Work Sans,\", sans-serif;\n  box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);\n  outline: none;\n}\n.form-container .form .control-buttons {\n  justify-content: space-between;\n  padding: 14px;\n}\n.form-container .form .control-buttons .delete {\n  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);\n  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}\n.form-container .form .control-buttons .edit {\n  background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);\n  box-shadow: 0 3px 5px 2px rgba(33, 203, 243, 0.3);\n  border: 0;\n  border-radius: 3px;\n  color: white;\n  height: 48px;\n  padding: 0 30px;\n}", ""]);
 
 // exports
 
@@ -71254,10 +71254,115 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./resources/js/actions/index.js":
-/*!***************************************!*\
-  !*** ./resources/js/actions/index.js ***!
-  \***************************************/
+/***/ "./resources/js/actions/projects.js":
+/*!******************************************!*\
+  !*** ./resources/js/actions/projects.js ***!
+  \******************************************/
+/*! exports provided: SET_PTOJECTS, PROJECT_SELECTED, setProjects, selectProject, fetchProjects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PTOJECTS", function() { return SET_PTOJECTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PROJECT_SELECTED", function() { return PROJECT_SELECTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setProjects", function() { return setProjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "selectProject", function() { return selectProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchProjects", function() { return fetchProjects; });
+var SET_PTOJECTS = "SET_PTOJECTS";
+var PROJECT_SELECTED = "PROJECT_SELECTED";
+function setProjects(projects) {
+  return {
+    type: SET_PTOJECTS,
+    payload: projects
+  };
+}
+var selectProject = function selectProject(project) {
+  return {
+    type: PROJECT_SELECTED,
+    payload: project
+  };
+};
+function fetchProjects() {
+  var testData = [{
+    label: 'Afghanistan'
+  }, {
+    label: 'Aland Islands'
+  }, {
+    label: 'Albania'
+  }, {
+    label: 'Algeria'
+  }, {
+    label: 'American Samoa'
+  }, {
+    label: 'Andorra'
+  }, {
+    label: 'Angola'
+  }, {
+    label: 'Anguilla'
+  }, {
+    label: 'Antarctica'
+  }, {
+    label: 'Antigua and Barbuda'
+  }, {
+    label: 'Argentina'
+  }, {
+    label: 'Armenia'
+  }, {
+    label: 'Aruba'
+  }, {
+    label: 'Australia'
+  }, {
+    label: 'Austria'
+  }, {
+    label: 'Azerbaijan'
+  }, {
+    label: 'Bahamas'
+  }, {
+    label: 'Bahrain'
+  }, {
+    label: 'Bangladesh'
+  }, {
+    label: 'Barbados'
+  }, {
+    label: 'Belarus'
+  }, {
+    label: 'Belgium'
+  }, {
+    label: 'Belize'
+  }, {
+    label: 'Benin'
+  }, {
+    label: 'Bermuda'
+  }, {
+    label: 'Bhutan'
+  }, {
+    label: 'Bolivia, Plurinational State of'
+  }, {
+    label: 'Bonaire, Sint Eustatius and Saba'
+  }, {
+    label: 'Bosnia and Herzegovina'
+  }, {
+    label: 'Botswana'
+  }, {
+    label: 'Bouvet Island'
+  }, {
+    label: 'Brazil'
+  }, {
+    label: 'British Indian Ocean Territory'
+  }, {
+    label: 'Brunei Darussalam'
+  }];
+  return function (dispatch) {
+    return dispatch(setProjects(testData));
+  };
+}
+
+/***/ }),
+
+/***/ "./resources/js/actions/questions.js":
+/*!*******************************************!*\
+  !*** ./resources/js/actions/questions.js ***!
+  \*******************************************/
 /*! exports provided: SET_QUESTIONS, QUESTION_SELECTED, ADD_QUESTION, DELETE_QUESTION, UPDATE_QUESTION, setQuestions, selectQuestion, addQuestion, deleteQuestion, updateQuestion, fetchQuestions, fetchAddQuestion, fetchDeleteQuestion, fetchUpdateQuestion */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -71288,13 +71393,13 @@ var UPDATE_QUESTION = "UPDATE_QUESTION";
 function setQuestions(questions) {
   return {
     type: SET_QUESTIONS,
-    questions: questions
+    payload: questions
   };
 }
 var selectQuestion = function selectQuestion(question) {
   return {
     type: QUESTION_SELECTED,
-    question: question
+    payload: question
   };
 };
 var addQuestion = function addQuestion(question) {
@@ -71496,6 +71601,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _material_ui_core_Chip__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/core/Chip */ "./node_modules/@material-ui/core/Chip/index.js");
 /* harmony import */ var _material_ui_core_Chip__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Chip__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _actions_projects__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../actions/projects */ "./resources/js/actions/projects.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var recompose__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! recompose */ "./node_modules/recompose/dist/Recompose.esm.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71542,80 +71651,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var suggestions = [{
-  label: 'Afghanistan'
-}, {
-  label: 'Aland Islands'
-}, {
-  label: 'Albania'
-}, {
-  label: 'Algeria'
-}, {
-  label: 'American Samoa'
-}, {
-  label: 'Andorra'
-}, {
-  label: 'Angola'
-}, {
-  label: 'Anguilla'
-}, {
-  label: 'Antarctica'
-}, {
-  label: 'Antigua and Barbuda'
-}, {
-  label: 'Argentina'
-}, {
-  label: 'Armenia'
-}, {
-  label: 'Aruba'
-}, {
-  label: 'Australia'
-}, {
-  label: 'Austria'
-}, {
-  label: 'Azerbaijan'
-}, {
-  label: 'Bahamas'
-}, {
-  label: 'Bahrain'
-}, {
-  label: 'Bangladesh'
-}, {
-  label: 'Barbados'
-}, {
-  label: 'Belarus'
-}, {
-  label: 'Belgium'
-}, {
-  label: 'Belize'
-}, {
-  label: 'Benin'
-}, {
-  label: 'Bermuda'
-}, {
-  label: 'Bhutan'
-}, {
-  label: 'Bolivia, Plurinational State of'
-}, {
-  label: 'Bonaire, Sint Eustatius and Saba'
-}, {
-  label: 'Bosnia and Herzegovina'
-}, {
-  label: 'Botswana'
-}, {
-  label: 'Bouvet Island'
-}, {
-  label: 'Brazil'
-}, {
-  label: 'British Indian Ocean Territory'
-}, {
-  label: 'Brunei Darussalam'
-}].map(function (suggestion) {
-  return {
-    value: suggestion.label,
-    label: suggestion.label
-  };
-});
+
+
+
+
 
 var styles = function styles(theme) {
   return {
@@ -71663,7 +71702,8 @@ var styles = function styles(theme) {
     chip: {
       margin: "".concat(theme.spacing.unit / 2, "px"),
       color: 'white',
-      background: 'linear-gradient(to right, #ff512f, #dd2476)',
+      // background: 'linear-gradient(to right, #ff512f, #dd2476)',
+      background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)',
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)'
     },
     chipFocused: {
@@ -71802,11 +71842,18 @@ function (_React$Component) {
     }, _this.handleChange = function (name) {
       return function (value) {
         _this.setState(_defineProperty({}, name, value));
+
+        _this.props.selectProject(value);
       };
     }, _temp));
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchProjects();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -71822,6 +71869,12 @@ function (_React$Component) {
           });
         }
       };
+      var suggestions = this.props.projects.map(function (suggestion) {
+        return {
+          value: suggestion.label,
+          label: suggestion.label
+        };
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: classes.root
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CssBaseline__WEBPACK_IMPORTED_MODULE_3___default.a, null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_4___default.a, {
@@ -71861,11 +71914,27 @@ function (_React$Component) {
 
 App.propTypes = {
   classes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
-  theme: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired
+  theme: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
+  fetchProjects: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+  selectProject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(styles, {
+
+function mapStateToProps(state) {
+  return {
+    projects: state.projects
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_19__["bindActionCreators"])({
+    fetchProjects: _actions_projects__WEBPACK_IMPORTED_MODULE_18__["fetchProjects"],
+    selectProject: _actions_projects__WEBPACK_IMPORTED_MODULE_18__["selectProject"]
+  }, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(recompose__WEBPACK_IMPORTED_MODULE_20__["compose"])(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(styles, {
   withTheme: true
-})(App));
+}), Object(react_redux__WEBPACK_IMPORTED_MODULE_21__["connect"])(mapStateToProps, mapDispatchToProps))(App));
 
 /***/ }),
 
@@ -71901,7 +71970,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var recompose__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! recompose */ "./node_modules/recompose/dist/Recompose.esm.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../actions/questions */ "./resources/js/actions/questions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72075,7 +72144,7 @@ function mapStateToProps(state) {
 /* harmony default export */ __webpack_exports__["default"] = (Object(recompose__WEBPACK_IMPORTED_MODULE_11__["compose"])(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__["withStyles"])(styles, {
   withTheme: true
 }), Object(react_redux__WEBPACK_IMPORTED_MODULE_12__["connect"])(mapStateToProps, {
-  fetchQuestions: _actions__WEBPACK_IMPORTED_MODULE_13__["fetchQuestions"]
+  fetchQuestions: _actions_questions__WEBPACK_IMPORTED_MODULE_13__["fetchQuestions"]
 }))(Example));
 
 /***/ }),
@@ -72415,7 +72484,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/Divider */ "./node_modules/@material-ui/core/Divider/index.js");
 /* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/questions */ "./resources/js/actions/questions.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _material_ui_core_Fab__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @material-ui/core/Fab */ "./node_modules/@material-ui/core/Fab/index.js");
@@ -72738,10 +72807,10 @@ Sortable.propTypes = {
 
 function matchDispatchToProps(dispatch) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_10__["bindActionCreators"])({
-    select: _actions__WEBPACK_IMPORTED_MODULE_9__["selectQuestion"],
-    addQuestion: _actions__WEBPACK_IMPORTED_MODULE_9__["fetchAddQuestion"],
-    delQuestion: _actions__WEBPACK_IMPORTED_MODULE_9__["fetchDeleteQuestion"],
-    editQuestion: _actions__WEBPACK_IMPORTED_MODULE_9__["fetchUpdateQuestion"]
+    select: _actions_questions__WEBPACK_IMPORTED_MODULE_9__["selectQuestion"],
+    addQuestion: _actions_questions__WEBPACK_IMPORTED_MODULE_9__["fetchAddQuestion"],
+    delQuestion: _actions_questions__WEBPACK_IMPORTED_MODULE_9__["fetchDeleteQuestion"],
+    editQuestion: _actions_questions__WEBPACK_IMPORTED_MODULE_9__["fetchUpdateQuestion"]
   }, dispatch);
 }
 
@@ -72816,6 +72885,32 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_
 
 /***/ }),
 
+/***/ "./resources/js/reducers/active-project.js":
+/*!*************************************************!*\
+  !*** ./resources/js/reducers/active-project.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/projects */ "./resources/js/actions/projects.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  switch (action.type) {
+    case _actions_projects__WEBPACK_IMPORTED_MODULE_0__["PROJECT_SELECTED"]:
+      return action.payload;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/index.js":
 /*!****************************************!*\
   !*** ./resources/js/reducers/index.js ***!
@@ -72829,12 +72924,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _questions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions */ "./resources/js/reducers/questions.js");
 /* harmony import */ var _objects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./objects */ "./resources/js/reducers/objects.js");
 /* harmony import */ var _question_active__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./question-active */ "./resources/js/reducers/question-active.js");
+/* harmony import */ var _projects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./projects */ "./resources/js/reducers/projects.js");
+/* harmony import */ var _active_project__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./active-project */ "./resources/js/reducers/active-project.js");
+
+
 
 
 
 
 var rootReducers = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  questions: _questions__WEBPACK_IMPORTED_MODULE_1__["default"] // activeQuestion: ActiveQuestion,
+  questions: _questions__WEBPACK_IMPORTED_MODULE_1__["default"],
+  projects: _projects__WEBPACK_IMPORTED_MODULE_4__["default"],
+  activeProject: _active_project__WEBPACK_IMPORTED_MODULE_5__["default"] // activeQuestion: ActiveQuestion,
   // objects: ObjectsReducers,
 
 });
@@ -72884,6 +72985,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/reducers/projects.js":
+/*!*******************************************!*\
+  !*** ./resources/js/reducers/projects.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_projects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/projects */ "./resources/js/actions/projects.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  switch (action.type) {
+    case _actions_projects__WEBPACK_IMPORTED_MODULE_0__["SET_PTOJECTS"]:
+      return action.payload;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/question-active.js":
 /*!**************************************************!*\
   !*** ./resources/js/reducers/question-active.js ***!
@@ -72893,15 +73020,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/questions */ "./resources/js/actions/questions.js");
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["QUESTION_SELECTED"]:
-      return action.question;
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["QUESTION_SELECTED"]:
+      return action.payload;
 
     default:
       return state;
@@ -72919,7 +73046,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions */ "./resources/js/actions/index.js");
+/* harmony import */ var _actions_questions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/questions */ "./resources/js/actions/questions.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -72930,18 +73057,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["SET_QUESTIONS"]:
-      return action.questions;
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["SET_QUESTIONS"]:
+      return action.payload;
 
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["ADD_QUESTION"]:
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["ADD_QUESTION"]:
       return state.concat(action.payload);
 
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_QUESTION"]:
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["DELETE_QUESTION"]:
       return state.filter(function (item) {
         return item.id !== action.payload.id;
       });
 
-    case _actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_QUESTION"]:
+    case _actions_questions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_QUESTION"]:
       return state.map(function (question) {
         return question.id === action.payload.id ? _objectSpread({}, question, {
           val: action.payload.val

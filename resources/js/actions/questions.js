@@ -9,14 +9,14 @@ export const UPDATE_QUESTION = "UPDATE_QUESTION"
 export function setQuestions(questions) {
     return {
         type: SET_QUESTIONS,
-        questions
+        payload: questions
     }
 }
 
 export const selectQuestion = (question) => {
    return {
         type: QUESTION_SELECTED,
-        question
+        payload: question
     }
 }
 
