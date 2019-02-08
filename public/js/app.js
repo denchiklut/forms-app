@@ -85502,6 +85502,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Chip__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Chip__WEBPACK_IMPORTED_MODULE_9__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -85568,11 +85572,17 @@ function (_Component) {
       selected: null,
       data: {
         name: 'Вопрос 1',
+        idd: '1',
+        val: 'Хотите Машину?',
         children: [{
           name: 'Вопрос 2',
+          idd: '2',
+          val: 'Какого цвета?',
           children: []
         }, {
           name: 'Вопрос 3',
+          idd: '3',
+          val: 'Есть-ли у вас деньги?',
           children: []
         }]
       }
@@ -85582,15 +85592,19 @@ function (_Component) {
           transitionDuration: 300
         });
 
-        var newData = Object.assign({}, _this.state.data);
-        var searchVal = _this.state.selected.name;
+        var newData = _objectSpread({}, _this.state.data);
+
+        var searchVal = _this.state.selected.name; //id of question that we trying to add to graf
+
+        var searchId = _this.state.selected.idd;
         console.log("searchVal: ", searchVal);
+        console.log("searchId: ", searchId);
         console.log("========", newData.name);
 
         var findNode = function findNode(searchVal, newData) {
           var j, currentChild, result;
 
-          if (searchVal == newData.name) {
+          if (searchVal === newData.name) {
             newData.children.push({
               name: "\u0412\u043E\u043F\u0440\u043E\u0441".concat(Math.random()),
               children: []
@@ -85626,7 +85640,7 @@ function (_Component) {
       var findNode = function findNode(searchVal, newData) {
         var j, currentChild, result;
 
-        if (searchVal == newData.name) {
+        if (searchVal === newData.name) {
           return true;
         } else {
           for (j = 0; j < newData.children.length; j += 1) {
@@ -85662,7 +85676,7 @@ function (_Component) {
       var findNode = function findNode(searchVal, newData) {
         var j, currentChild;
 
-        if (searchVal == newData.name) {
+        if (searchVal === newData.name) {
           console.log("colorise current node", newData);
           newData.nodeSvgShape = {
             shape: 'circle',

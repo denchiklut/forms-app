@@ -36,14 +36,20 @@ class GrafD3 extends Component {
         selected: null,
         data:  {
             name: 'Вопрос 1',
+            idd: '1',
+            val: 'Хотите Машину?',
             children: [
                 {
                     name: 'Вопрос 2' ,
+                    idd: '2',
+                    val: 'Какого цвета?',
                     children: [],
 
                 },
                 {
                     name: 'Вопрос 3' ,
+                    idd: '3',
+                    val: 'Есть-ли у вас деньги?',
                     children: [],
                 },
 
@@ -54,10 +60,14 @@ class GrafD3 extends Component {
     addNode = () => {
         if (this.state.selected) {
             this.setState({transitionDuration: 300})
-            let newData = Object.assign({},  this.state.data)
+            let newData = {...this.state.data}
             let searchVal = this.state.selected.name
 
+            //id of question that we trying to add to graf
+            let searchId = this.state.selected.idd
+
             console.log("searchVal: ", searchVal)
+            console.log("searchId: ", searchId)
             console.log("========", newData.name)
 
             const findNode = function(searchVal, newData) {
@@ -66,7 +76,7 @@ class GrafD3 extends Component {
                     result;
 
 
-                if (searchVal == newData.name) {
+                if (searchVal === newData.name) {
                     newData.children.push({name: `Вопрос${Math.random()}`, children: []})
                 } else {
 
@@ -106,7 +116,7 @@ class GrafD3 extends Component {
                 currentChild,
                 result
 
-            if (searchVal == newData.name) {
+            if (searchVal === newData.name) {
                 return true
             }
 
@@ -143,7 +153,7 @@ class GrafD3 extends Component {
         const findNode = function(searchVal, newData) {
             let j, currentChild
 
-            if (searchVal == newData.name) {
+            if (searchVal === newData.name) {
                 console.log("colorise current node", newData)
                 newData.nodeSvgShape = {
                     shape: 'circle',
@@ -228,7 +238,6 @@ class GrafD3 extends Component {
         )
         }
     }
-
 
 
 function mapStateToProps(state) {
