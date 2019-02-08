@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import Sortable from './Sortable/index';
 import Grid from '@material-ui/core/Grid';
 import GrafD3 from './GrafD3';
@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class Example extends PureComponent {
+class Example extends Component {
     state = {
         value: 0,
     };

@@ -8,7 +8,10 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 import Chip from "@material-ui/core/Chip";
-
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 
 const svgStyle = {
     nodes: {
@@ -28,6 +31,54 @@ const svgStyle = {
         }
     }
 }
+
+function Children(props) {
+    return(
+        <ul>
+            {props.items.map((item) => (
+                <li key={item.id}>{item.name}</li>
+                ))
+            }
+        </ul>
+    )
+}
+
+function BottomDialog(props) {
+    if (!props.selected) {
+        return(
+            <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%'}}>
+                <CardContent>
+                    <Typography variant="h5" component="h2">
+                       Select some node
+                    </Typography>
+                </CardContent>
+            </Card>
+        )
+    }
+
+    return(
+        <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%'}}>
+            <CardContent>
+                <Typography color="textSecondary" gutterBottom>
+                    Question id: { props.selected.idd}
+                </Typography>
+                <Typography variant="h5" component="h2">
+                    { props.selected.name}
+                </Typography>
+                <Typography  color="textSecondary">
+                    children
+                </Typography>
+                <Typography component="div">
+                    { props.selected.children ? <Children items={props.selected.children} />: 'Нет потомков'}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button size="small">Изменить данные</Button>
+            </CardActions>
+        </Card>
+    )
+}
+
 
 class GrafD3 extends Component {
 
@@ -286,10 +337,14 @@ class GrafD3 extends Component {
     click = (nodeKey) => {
         this.setState({selected: nodeKey})
         this.coloriseNode(nodeKey)
-        console.log("click", this.state.selected)
     }
 
     render() {
+        if (Object.keys(this.props.activeProject).length === 0 )  {
+            return (
+                <div><h1>Select Project</h1></div>
+            )
+        }
         return (
             <div id="treeWrapper" style={{width: '100%', height: 'calc(100vh - 64px)', background: 'rgb(236, 236, 236)',}}>
             <AppBar position="static">
@@ -336,15 +391,19 @@ class GrafD3 extends Component {
                 collapsible={false}
                 styles={svgStyle}
                 />
+
+                <BottomDialog selected={this.state.selected}/>
           </div>
         )
         }
     }
 
+    
 
 function mapStateToProps(state) {
     return {
-        activeProject: state.activeProject
+        activeProject: state.activeProject,
+        questions: state.questions,
     }
 }
 
