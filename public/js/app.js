@@ -85570,19 +85570,41 @@ function (_Component) {
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(GrafD3)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
       transitionDuration: 300,
       selected: null,
+      // data:  {
+      //     name: 'Вопрос 1',
+      //     idd: '1',
+      //     val: 'Хотите Машину?',
+      //     children: [
+      //         {
+      //             name: 'Вопрос 2' ,
+      //             idd: '2',
+      //             val: 'Какого цвета?',
+      //             children: [],
+      //
+      //         },
+      //         {
+      //             name: 'Вопрос 3' ,
+      //             idd: '3',
+      //             val: 'Есть-ли у вас деньги?',
+      //             children: [],
+      //         },
+      //
+      //     ],
+      // }
       data: {
-        name: 'Вопрос 1',
         idd: '1',
-        val: 'Хотите Машину?',
+        name: 'Хотите Машину?',
         children: [{
-          name: 'Вопрос 2',
           idd: '2',
-          val: 'Какого цвета?',
-          children: []
+          name: 'Какого цвета?',
+          children: [{
+            idd: '3',
+            name: 'Есть-ли у вас деньги?',
+            children: []
+          }]
         }, {
-          name: 'Вопрос 3',
-          idd: '3',
-          val: 'Есть-ли у вас деньги?',
+          idd: '4',
+          name: 'В таком случае, простите за беспокойство',
           children: []
         }]
       }
@@ -85599,12 +85621,34 @@ function (_Component) {
         var searchId = _this.state.selected.idd;
         console.log("searchVal: ", searchVal);
         console.log("searchId: ", searchId);
-        console.log("========", newData.name);
+        console.log("========", newData.name); // const findNode = function(searchVal, newData) {
+        //     let j,
+        //         currentChild,
+        //         result;
+        //
+        //
+        //     if (searchVal === newData.name) {
+        //         newData.children.push({name: `Вопрос${Math.random()}`, children: []})
+        //     } else {
+        //
+        //         for (j = 0; j < newData.children.length; j += 1) {
+        //             currentChild = newData.children[j];
+        //
+        //             // Search in the current child
+        //             result = findNode(searchVal, currentChild);
+        //         }
+        //
+        //         // The node has not been found and we have no more options
+        //         return false;
+        //     }
+        // }
+        //
+        // findNode(searchVal, newData)
 
-        var findNode = function findNode(searchVal, newData) {
+        var findNodebyId = function findNodebyId(searchId, newData) {
           var j, currentChild, result;
 
-          if (searchVal === newData.name) {
+          if (searchId === newData.idd) {
             newData.children.push({
               name: "\u0412\u043E\u043F\u0440\u043E\u0441".concat(Math.random()),
               children: []
@@ -85613,7 +85657,7 @@ function (_Component) {
             for (j = 0; j < newData.children.length; j += 1) {
               currentChild = newData.children[j]; // Search in the current child
 
-              result = findNode(searchVal, currentChild);
+              result = findNodebyId(searchId, currentChild);
             } // The node has not been found and we have no more options
 
 
@@ -85621,7 +85665,7 @@ function (_Component) {
           }
         };
 
-        findNode(searchVal, newData);
+        findNodebyId(searchId, newData);
 
         _this.setState({
           data: newData
@@ -85634,21 +85678,48 @@ function (_Component) {
         transitionDuration: 300
       });
 
-      var newData = Object.assign({}, _this.state.data);
-      var searchVal = _this.state.selected.name;
+      var newData = _objectSpread({}, _this.state.data);
 
-      var findNode = function findNode(searchVal, newData) {
+      var searchVal = _this.state.selected.name;
+      var searchId = _this.state.selected.idd; // const findNode = function(searchVal, newData) {
+      //     let j,
+      //         currentChild,
+      //         result
+      //
+      //     if (searchVal === newData.name) {
+      //         return true
+      //     }
+      //
+      //     else {
+      //
+      //         for (j = 0; j < newData.children.length; j += 1) {
+      //             currentChild = newData.children[j];
+      //             result = findNode(searchVal, currentChild);
+      //
+      //             if (result) {
+      //                 console.log('currentChild',currentChild)
+      //                 currentChild = null
+      //                 newData.children.splice(j, 1)
+      //                 return false
+      //             }
+      //         }
+      //         return false;
+      //     }
+      // }
+      //
+      // findNode(searchVal, newData)
+
+      var findNodeById = function findNodeById(searchId, newData) {
         var j, currentChild, result;
 
-        if (searchVal === newData.name) {
+        if (searchId === newData.idd) {
           return true;
         } else {
           for (j = 0; j < newData.children.length; j += 1) {
             currentChild = newData.children[j];
-            result = findNode(searchVal, currentChild);
+            result = findNodeById(searchId, currentChild);
 
             if (result) {
-              console.log('currentChild', currentChild);
               currentChild = null;
               newData.children.splice(j, 1);
               return false;
@@ -85659,25 +85730,48 @@ function (_Component) {
         }
       };
 
-      findNode(searchVal, newData);
+      findNodeById(searchId, newData);
 
       _this.setState({
         data: newData
       });
     }, _this.coloriseNode = function (nodeKey) {
-      var newData = Object.assign({}, _this.state.data);
+      var newData = _objectSpread({}, _this.state.data);
 
       _this.setState({
         transitionDuration: 0
       });
 
       var searchVal = nodeKey.name;
+      var searchId = nodeKey.idd; // const findNode = function(searchVal, newData) {
+      //     let j, currentChild
+      //
+      //     if (searchVal === newData.name) {
+      //         console.log("colorise current node", newData)
+      //         newData.nodeSvgShape = {
+      //             shape: 'circle',
+      //             shapeProps: {
+      //                 r: 20,
+      //                 fill:"red"
+      //             },
+      //         }
+      //     }
+      //
+      //     else {
+      //         newData.nodeSvgShape = {}
+      //     }
+      //     for (j = 0; j < newData.children.length; j += 1) {
+      //         currentChild = newData.children[j];
+      //         findNode(searchVal, currentChild);
+      //     }
+      // }
+      //
+      // findNode(searchVal, newData)
 
-      var findNode = function findNode(searchVal, newData) {
+      var findNodeById = function findNodeById(searchId, newData) {
         var j, currentChild;
 
-        if (searchVal === newData.name) {
-          console.log("colorise current node", newData);
+        if (searchId === newData.idd) {
           newData.nodeSvgShape = {
             shape: 'circle',
             shapeProps: {
@@ -85691,11 +85785,11 @@ function (_Component) {
 
         for (j = 0; j < newData.children.length; j += 1) {
           currentChild = newData.children[j];
-          findNode(searchVal, currentChild);
+          findNodeById(searchId, currentChild);
         }
       };
 
-      findNode(searchVal, newData);
+      findNodeById(searchId, newData);
 
       _this.setState({
         data: newData

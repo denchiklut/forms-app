@@ -34,22 +34,46 @@ class GrafD3 extends Component {
     state = {
         transitionDuration: 300,
         selected: null,
+        // data:  {
+        //     name: 'Вопрос 1',
+        //     idd: '1',
+        //     val: 'Хотите Машину?',
+        //     children: [
+        //         {
+        //             name: 'Вопрос 2' ,
+        //             idd: '2',
+        //             val: 'Какого цвета?',
+        //             children: [],
+        //
+        //         },
+        //         {
+        //             name: 'Вопрос 3' ,
+        //             idd: '3',
+        //             val: 'Есть-ли у вас деньги?',
+        //             children: [],
+        //         },
+        //
+        //     ],
+        // }
         data:  {
-            name: 'Вопрос 1',
             idd: '1',
-            val: 'Хотите Машину?',
+            name: 'Хотите Машину?',
             children: [
                 {
-                    name: 'Вопрос 2' ,
                     idd: '2',
-                    val: 'Какого цвета?',
-                    children: [],
+                    name: 'Какого цвета?',
+                    children: [
+                        {
+                            idd: '3',
+                            name: 'Есть-ли у вас деньги?',
+                            children: [],
+                        },
+                    ],
 
                 },
                 {
-                    name: 'Вопрос 3' ,
-                    idd: '3',
-                    val: 'Есть-ли у вас деньги?',
+                    idd: '4',
+                    name: 'В таком случае, простите за беспокойство',
                     children: [],
                 },
 
@@ -70,13 +94,37 @@ class GrafD3 extends Component {
             console.log("searchId: ", searchId)
             console.log("========", newData.name)
 
-            const findNode = function(searchVal, newData) {
+            // const findNode = function(searchVal, newData) {
+            //     let j,
+            //         currentChild,
+            //         result;
+            //
+            //
+            //     if (searchVal === newData.name) {
+            //         newData.children.push({name: `Вопрос${Math.random()}`, children: []})
+            //     } else {
+            //
+            //         for (j = 0; j < newData.children.length; j += 1) {
+            //             currentChild = newData.children[j];
+            //
+            //             // Search in the current child
+            //             result = findNode(searchVal, currentChild);
+            //         }
+            //
+            //         // The node has not been found and we have no more options
+            //         return false;
+            //     }
+            // }
+            //
+            // findNode(searchVal, newData)
+
+            const findNodebyId = function(searchId, newData) {
                 let j,
                     currentChild,
                     result;
 
 
-                if (searchVal === newData.name) {
+                if (searchId === newData.idd) {
                     newData.children.push({name: `Вопрос${Math.random()}`, children: []})
                 } else {
 
@@ -84,7 +132,7 @@ class GrafD3 extends Component {
                         currentChild = newData.children[j];
 
                         // Search in the current child
-                        result = findNode(searchVal, currentChild);
+                        result = findNodebyId(searchId, currentChild);
                     }
 
                     // The node has not been found and we have no more options
@@ -92,7 +140,8 @@ class GrafD3 extends Component {
                 }
             }
 
-            findNode(searchVal, newData)
+            findNodebyId(searchId, newData)
+
 
             this.setState({
                 data: newData
@@ -108,15 +157,44 @@ class GrafD3 extends Component {
 
     removeNode = () => {
         this.setState({transitionDuration: 300})
-        let newData = Object.assign({},  this.state.data)
+        let newData = {...this.state.data}
         let searchVal = this.state.selected.name
+        let searchId = this.state.selected.idd
 
-        const findNode = function(searchVal, newData) {
+        // const findNode = function(searchVal, newData) {
+        //     let j,
+        //         currentChild,
+        //         result
+        //
+        //     if (searchVal === newData.name) {
+        //         return true
+        //     }
+        //
+        //     else {
+        //
+        //         for (j = 0; j < newData.children.length; j += 1) {
+        //             currentChild = newData.children[j];
+        //             result = findNode(searchVal, currentChild);
+        //
+        //             if (result) {
+        //                 console.log('currentChild',currentChild)
+        //                 currentChild = null
+        //                 newData.children.splice(j, 1)
+        //                 return false
+        //             }
+        //         }
+        //         return false;
+        //     }
+        // }
+        //
+        // findNode(searchVal, newData)
+
+        const findNodeById = function(searchId, newData) {
             let j,
                 currentChild,
                 result
 
-            if (searchVal === newData.name) {
+            if (searchId === newData.idd) {
                 return true
             }
 
@@ -124,10 +202,9 @@ class GrafD3 extends Component {
 
                 for (j = 0; j < newData.children.length; j += 1) {
                     currentChild = newData.children[j];
-                    result = findNode(searchVal, currentChild);
+                    result = findNodeById(searchId, currentChild);
 
                     if (result) {
-                        console.log('currentChild',currentChild)
                         currentChild = null
                         newData.children.splice(j, 1)
                         return false
@@ -137,7 +214,7 @@ class GrafD3 extends Component {
             }
         }
 
-        findNode(searchVal, newData)
+        findNodeById(searchId, newData)
 
         this.setState({
             data: newData
@@ -146,15 +223,40 @@ class GrafD3 extends Component {
     }
 
     coloriseNode = (nodeKey) => {
-        let newData = Object.assign({},  this.state.data)
+        let newData = {...this.state.data}
         this.setState({transitionDuration: 0})
         let searchVal = nodeKey.name
+        let searchId = nodeKey.idd
 
-        const findNode = function(searchVal, newData) {
+        // const findNode = function(searchVal, newData) {
+        //     let j, currentChild
+        //
+        //     if (searchVal === newData.name) {
+        //         console.log("colorise current node", newData)
+        //         newData.nodeSvgShape = {
+        //             shape: 'circle',
+        //             shapeProps: {
+        //                 r: 20,
+        //                 fill:"red"
+        //             },
+        //         }
+        //     }
+        //
+        //     else {
+        //         newData.nodeSvgShape = {}
+        //     }
+        //     for (j = 0; j < newData.children.length; j += 1) {
+        //         currentChild = newData.children[j];
+        //         findNode(searchVal, currentChild);
+        //     }
+        // }
+        //
+        // findNode(searchVal, newData)
+
+        const findNodeById = function(searchId, newData) {
             let j, currentChild
 
-            if (searchVal === newData.name) {
-                console.log("colorise current node", newData)
+            if (searchId === newData.idd) {
                 newData.nodeSvgShape = {
                     shape: 'circle',
                     shapeProps: {
@@ -169,11 +271,11 @@ class GrafD3 extends Component {
             }
             for (j = 0; j < newData.children.length; j += 1) {
                 currentChild = newData.children[j];
-                findNode(searchVal, currentChild);
+                findNodeById(searchId, currentChild);
             }
         }
 
-        findNode(searchVal, newData)
+        findNodeById(searchId, newData)
 
         this.setState({
             data: newData
