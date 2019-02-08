@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Sortable from './Sortable/index';
+import ListContainer from '../list-container';
 import Grid from '@material-ui/core/Grid';
-import GrafD3 from './GrafD3';
+import GrafD3 from '../graf-d3';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import {compose} from "recompose";
 import {connect} from 'react-redux';
-import {fetchQuestions} from '../actions/questions'
+import {fetchQuestions} from '../../actions/questions'
 
 function TabContainer({ children, dir }) {
     return (
@@ -33,7 +33,7 @@ const styles = theme => ({
     },
 });
 
-class Example extends Component {
+class MainPage extends Component {
     state = {
         value: 0,
     };
@@ -77,11 +77,11 @@ class Example extends Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <Sortable items={this.props.questions} type="question" />
+                                <ListContainer items={this.props.questions} type="question" />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 Item Two
-                                {/*<Sortable items={this.props.objects} type="object" />*/}
+                                {/*<ListContainer items={this.props.objects} type="object" />*/}
                             </TabContainer>
                             <TabContainer dir={theme.direction}>Item Three</TabContainer>
                         </SwipeableViews>
@@ -97,7 +97,7 @@ class Example extends Component {
 }
 
 
-Example.propTypes = {
+MainPage.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
     activeProject: PropTypes.object.isRequired,
@@ -112,5 +112,5 @@ function mapStateToProps(state) {
     }
 }
 
-export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, {fetchQuestions}))(Example);
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, {fetchQuestions}))(MainPage);
 

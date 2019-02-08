@@ -19,7 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
-import './index.scss'
+import './list-container.scss'
 import {compose} from "recompose";
 import classNames from 'classnames';
 import Typography from "@material-ui/core/Typography";
@@ -39,7 +39,7 @@ const styles = {
 }
 
 
-class Sortable extends Component {
+class ListContainer extends Component {
     state = {
         selectedIndex: null,
         open: false,
@@ -149,39 +149,39 @@ class Sortable extends Component {
         return (
             <div className="myList">
                 <List className={classes.list} component="nav">
-                {this.props.items.map((item) => (
-                  <div
-                      key={item.id}
-                      className={classNames("myListItem", (item.id === this.state.selectedIndex) && classes.selected)}>
-                      <ListItem
-                          button
-                          selected={item.id === this.state.selectedIndex}
-                          onClick={event => this.handleListItemClick(event, item)}
-                          style={{padding: "15px 8px"}}
-                      >
-                          <ListItemText
-                              disableTypography
-                              primary={<Typography type="body2" className={classNames(item.id === this.state.selectedIndex && classes.selectedColor)} >{item.val}</Typography>}
-                              />
+                    {this.props.items.map((item) => (
+                        <div
+                            key={item.id}
+                            className={classNames("myListItem", (item.id === this.state.selectedIndex) && classes.selected)}>
+                            <ListItem
+                                button
+                                selected={item.id === this.state.selectedIndex}
+                                onClick={event => this.handleListItemClick(event, item)}
+                                style={{padding: "15px 8px"}}
+                            >
+                                <ListItemText
+                                    disableTypography
+                                    primary={<Typography type="body2" className={classNames(item.id === this.state.selectedIndex && classes.selectedColor)} >{item.val}</Typography>}
+                                />
 
-                          <ListItemSecondaryAction>
-                              <IconButton
-                                  aria-label="Edit"
-                                  onClick={() => this.handleEditItemClick(item)}
-                              >
-                                  <EditIcon />
-                              </IconButton>
-                              <IconButton
-                                  aria-label="Delete"
-                                  onClick={()=>this.props.delQuestion(item)}
-                              >
-                                  <DeleteIcon />
-                              </IconButton>
-                          </ListItemSecondaryAction>
-                      </ListItem>
-                      <Divider />
-                  </div>
-                ))}
+                                <ListItemSecondaryAction>
+                                    <IconButton
+                                        aria-label="Edit"
+                                        onClick={() => this.handleEditItemClick(item)}
+                                    >
+                                        <EditIcon />
+                                    </IconButton>
+                                    <IconButton
+                                        aria-label="Delete"
+                                        onClick={()=>this.props.delQuestion(item)}
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                            <Divider />
+                        </div>
+                    ))}
                 </List>
                 <Fab size="medium"
                      color="secondary"
@@ -264,7 +264,7 @@ class Sortable extends Component {
     }
 
 }
-Sortable.propTypes = {
+ListContainer.propTypes = {
     items: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
@@ -282,4 +282,4 @@ function matchDispatchToProps(dispatch) {
         dispatch)
 }
 
-export default compose(withStyles(styles), connect(null, matchDispatchToProps))(Sortable);
+export default compose(withStyles(styles), connect(null, matchDispatchToProps))(ListContainer);

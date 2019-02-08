@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Main from './Main'
+import Main from '../main'
 import {emphasize} from "@material-ui/core/styles/colorManipulator";
 import Select from 'react-select';
 import NoSsr from '@material-ui/core/NoSsr';
@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import classNames from "classnames";
 import Chip from "@material-ui/core/Chip";
-import {fetchProjects, selectProject} from '../actions/projects'
+import {fetchProjects, selectProject} from '../../actions/projects'
 import {bindActionCreators} from "redux";
 import {compose} from "recompose";
 import {connect} from 'react-redux';
@@ -70,7 +70,7 @@ const styles = theme => ({
         // background: 'linear-gradient(to right, #ff512f, #dd2476)',
         background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)',
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-},
+    },
     chipFocused: {
         backgroundColor: emphasize(
             theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],

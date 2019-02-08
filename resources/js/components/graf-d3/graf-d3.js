@@ -37,7 +37,7 @@ function Children(props) {
         <ul>
             {props.items.map((item) => (
                 <li key={item.id}>{item.name}</li>
-                ))
+            ))
             }
         </ul>
     )
@@ -49,7 +49,7 @@ function BottomDialog(props) {
             <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%'}}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
-                       Select some node
+                        Select some node
                     </Typography>
                 </CardContent>
             </Card>
@@ -347,58 +347,58 @@ class GrafD3 extends Component {
         }
         return (
             <div id="treeWrapper" style={{width: '100%', height: 'calc(100vh - 64px)', background: 'rgb(236, 236, 236)',}}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" color="inherit" style={{flexGrow: 1}}>
-                        <Chip
-                            color="secondary"
-                            label={this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
-                            style={{background: 'linear-gradient(to right, rgb(255, 95, 139), rgb(139, 119, 177))', fontSize:'16px', boxShadow: 'rgba(205, 48, 83, 0.19) 0px 3px 5px 2px'}}
-                        />
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6" color="inherit" style={{flexGrow: 1}}>
+                            <Chip
+                                color="secondary"
+                                label={this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
+                                style={{background: 'linear-gradient(to right, rgb(255, 95, 139), rgb(139, 119, 177))', fontSize:'16px', boxShadow: 'rgba(205, 48, 83, 0.19) 0px 3px 5px 2px'}}
+                            />
 
 
 
-                    </Typography>
-                    <div>
-                        <Fab
-                             color="secondary"
-                             size="small"
-                             aria-label="Add"
-                             onClick={this.addNode}
-                             style={{margin: '8px'}}
-                        >
-                            <AddIcon />
-                        </Fab>
-                        <Fab
-                             color="secondary"
-                             size="small"
-                             aria-label="Edit"
-                             onClick={this.removeNode}
-                             style={{margin: '8px'}}
-                        >
-                            <DeleteIcon fontSize="small" />
-                        </Fab>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <Tree
-                data={this.state.data}
-                transitionDuration={0}
-                scaleExtent={{min: 0.1, max: 8}}
-                textLayout={{ x: 28, y: 0, }}
-                orientation="vertical"
-                onClick={this.click}
-                collapsible={false}
-                styles={svgStyle}
+                        </Typography>
+                        <div>
+                            <Fab
+                                color="secondary"
+                                size="small"
+                                aria-label="Add"
+                                onClick={this.addNode}
+                                style={{margin: '8px'}}
+                            >
+                                <AddIcon />
+                            </Fab>
+                            <Fab
+                                color="secondary"
+                                size="small"
+                                aria-label="Edit"
+                                onClick={this.removeNode}
+                                style={{margin: '8px'}}
+                            >
+                                <DeleteIcon fontSize="small" />
+                            </Fab>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                <Tree
+                    data={this.state.data}
+                    transitionDuration={0}
+                    scaleExtent={{min: 0.1, max: 8}}
+                    textLayout={{ x: 28, y: 0, }}
+                    orientation="vertical"
+                    onClick={this.click}
+                    collapsible={false}
+                    styles={svgStyle}
                 />
 
                 <BottomDialog selected={this.state.selected}/>
-          </div>
+            </div>
         )
-        }
     }
+}
 
-    
+
 
 function mapStateToProps(state) {
     return {
