@@ -22,7 +22,7 @@ class EditFormDialog extends Component {
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.getEditMessage.value;
-        const data = {...this.state.editItem, val: newMessage}
+        const data = {...this.props.editItem, val: newMessage}
         this.props.editQuestion(data)
         this.getEditMessage.value = '';
 
