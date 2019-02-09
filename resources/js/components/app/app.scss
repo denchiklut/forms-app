@@ -1,0 +1,13 @@
+.App {
+    display: flex;
+
+    .appBarSpacer {
+        min-height: 64px;
+    }
+
+    .main {
+        flex-grow: 1;
+        height: 100vh;
+        overflow-x: hidden;
+    }
+}
