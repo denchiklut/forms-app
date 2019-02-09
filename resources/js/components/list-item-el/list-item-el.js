@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import classNames from "classnames";
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from '@material-ui/core/styles';
+import { openEditForm } from "../../actions/dialogs";
+import DeleteIcon from '@material-ui/icons/Delete';
+import ListItem from '@material-ui/core/ListItem';
+import EditIcon from '@material-ui/icons/Edit';
+import EditFormDialog from '../edit-form'
+import {bindActionCreators} from "redux";
+import {connect} from 'react-redux';
+import classNames from "classnames";
+import {compose} from "recompose";
 import './list-item-el.scss'
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
+
 
 const styles = {
     selected: {
@@ -24,30 +25,15 @@ const styles = {
 
 class ListItemEl extends Component {
     state = {
-        openEdit: false,
         editItem: null
     }
 
-    //Open Add form
-    handleClickOpen = () => {
-        this.setState({ open: true });
-    };
-
-    //Close Add form
-    handleClose = () => {
-        this.setState({ open: false });
-    };
-
     //Open Edit form
     handleClickOpenEdit = (item) => {
-        this.setState({ openEdit: true });
-        this.setState({ editItem: item });
+        this.setState({ editItem: item })
+        this.props.openEditForm(true)
     };
 
-    //Close Edit form
-    handleCloseEdit = () => {
-        this.setState({ openEdit: false });
-    };
 
     //Select Item in list
     handleListItemClick = (event, item) => {
@@ -66,18 +52,8 @@ class ListItemEl extends Component {
         }
     }
 
-    //Send Edit Form
-    handleEditSubmit = (e) => {
-        e.preventDefault();
-        const newMessage =  this.getEditMessage.value;
-        const data = {...this.state.editItem, val: newMessage}
-        this.props.editQuestion(data)
-        this.getEditMessage.value = '';
-        this.setState({ openEdit: false });
-    }
-
     render() {
-        const { selectedIndex, item, delQuestion }= this.props
+        const { selectedIndex, item, delQuestion, type }= this.props
         return (
             <div>
                 <ListItem
@@ -107,42 +83,24 @@ class ListItemEl extends Component {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                {/*//Edit dialog form*/}
-                <Dialog
-                    open={this.state.openEdit}
-                    onClose={this.handleClose}
-                    fullWidth={true}
-                    maxWidth="lg"
-                    aria-labelledby="draggable-dialog-title"
-                    className="form-container"
-                >
-                    <form className="form">
-                        <DialogTitle className="form_heading">Редактирование {this.props.type}: {this.state.editItem ? this.state.editItem.id: ''}</DialogTitle>
-                        <DialogContent className="form-container">
-                            <textarea
-                                autoFocus
-                                required
-                                rows="12"
-                                cols="28"
-                                ref={(input) => this.getEditMessage = input}
-                                defaultValue={this.state.editItem ? this.state.editItem.val: ''}
-                                placeholder="Enter Post" />
-                            <br /><br />
-                        </DialogContent>
-                        <DialogActions className="control-buttons">
-                            <Button onClick={this.handleCloseEdit} className="delete">
-                                Отмена
-                            </Button>
-                            <Button onClick={this.handleEditSubmit} className="edit">
-                                Изменить
-                            </Button>
+                { ( this.state.editItem && this.props.isOpen )? <EditFormDialog editItem={this.state.editItem} type={type} /> : null}
 
-                        </DialogActions>
-                    </form>
-                </Dialog>
             </div>
         );
     }
 }
 
-export default withStyles(styles)(ListItemEl);
+function mapStateToProps(state) {
+    return {
+        isOpen: state.showEditDialog
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators(
+        {
+            openEditForm: openEditForm,
+        }, dispatch)
+}
+
+export default compose( withStyles(styles), connect(mapStateToProps, matchDispatchToProps))(ListItemEl);

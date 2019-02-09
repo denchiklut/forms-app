@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 import Chip from "@material-ui/core/Chip";
 import GrafSelectedPanel from '../graf-selected-panel'
+import './graf-3d.scss'
 
 const svgStyle = {
     nodes: {

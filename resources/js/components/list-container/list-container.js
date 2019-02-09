@@ -1,36 +1,25 @@
 import React, {Component} from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import {fetchAddQuestion, fetchDeleteQuestion, fetchUpdateQuestion, selectQuestion} from '../../actions/questions'
-import {bindActionCreators} from "redux";
+import { fetchDeleteQuestion, fetchUpdateQuestion, selectQuestion } from '../../actions/questions'
+import { openAddForm } from '../../actions/dialogs'
+import { bindActionCreators } from "redux";
 import {connect} from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from "prop-types";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
 import classNames from 'classnames';
-import Grid from "@material-ui/core/Grid";
 import ListItemEl from '../list-item-el'
+import AddForm from '../add-form'
+import EmptyList from '../empty-list'
 import './list-container.scss'
 
 
 class ListContainer extends Component {
-    state = {
-        open: false,
-    }
 
     //Open Add form
     handleClickOpen = () => {
-        this.setState({ open: true });
-    };
-
-    //Close Add form
-    handleClose = () => {
-        this.setState({ open: false });
+        this.props.openAddForm(true);
     };
 
     //Choose what to Add (Question / Object)
@@ -45,41 +34,9 @@ class ListContainer extends Component {
         }
     }
 
-    //Send Add Form
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const message =  this.getMessage.value;
-        const data = {
-            editing: false,
-            val: message
-        }
-        this.props.addQuestion(data)
-        this.getMessage.value = '';
-        this.setState({ open: false });
-    }
-
     render() {
         if ( this.props.items.length === 0 ) {
-            return(
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    style={{height: 'calc(100vh - 64px - 48px)', borderRight: '1px solid #0e0e0e24', background: '#e0e0e091'}}
-                >
-                    <Grid item xs={12}>
-                        <div style={{width: '70%', margin: 'auto'}}>
-                            <div className="noList" >
-                                <h1 className="noMsg">There is nothing yet </h1>
-                            </div>
-                        </div>
-
-                    </Grid>
-
-                </Grid>
-
-            )
+            return <EmptyList />
         }
         return (
             <div className="myList">
@@ -110,39 +67,7 @@ class ListContainer extends Component {
                     <AddIcon />
                 </Fab>
 
-                {/*//Add dialog form*/}
-                <Dialog
-                    fullWidth={true}
-                    maxWidth="lg"
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    aria-labelledby="draggable-dialog-title"
-                    className="form-container"
-
-                >
-                    <form className="form">
-                        <DialogTitle className="form_heading">Добавление {this.props.type}</DialogTitle>
-                        <DialogContent className="form-container">
-                            <textarea
-                                autoFocus
-                                required
-                                rows="12"
-                                cols="28"
-                                ref={(input) => this.getMessage = input}
-                                placeholder="Enter Post"
-                            />
-                            <br /><br />
-                        </DialogContent>
-                        <DialogActions className="control-buttons">
-                            <Button onClick={this.handleClose}  className="delete">
-                                Отмена
-                            </Button>
-                            <Button onClick={this.handleSubmit} className="edit">
-                                Добавить
-                            </Button>
-                        </DialogActions>
-                    </form>
-                </Dialog>
+                {this.props.showAddForm ? <AddForm /> : null}
             </div>
         );
     }
@@ -155,7 +80,8 @@ ListContainer.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        activeQst: state.activeQuestion
+        activeQst: state.activeQuestion,
+        showAddForm: state.showAddDialog,
     }
 }
 
@@ -163,11 +89,10 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             select: selectQuestion,
-            addQuestion: fetchAddQuestion,
             delQuestion: fetchDeleteQuestion,
-            editQuestion: fetchUpdateQuestion
-        },
-        dispatch)
+            editQuestion: fetchUpdateQuestion,
+            openAddForm: openAddForm,
+        }, dispatch)
 }
 
 export default connect(mapStateToProps, matchDispatchToProps)(ListContainer);
