@@ -8,10 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 import Chip from "@material-ui/core/Chip";
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import GrafSelectedPanel from '../graf-selected-panel'
 
 const svgStyle = {
     nodes: {
@@ -31,54 +28,6 @@ const svgStyle = {
         }
     }
 }
-
-function Children(props) {
-    return(
-        <ul>
-            {props.items.map((item) => (
-                <li key={item.id}>{item.name}</li>
-            ))
-            }
-        </ul>
-    )
-}
-
-function BottomDialog(props) {
-    if (!props.selected) {
-        return(
-            <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%'}}>
-                <CardContent>
-                    <Typography variant="h5" component="h2">
-                        Select some node
-                    </Typography>
-                </CardContent>
-            </Card>
-        )
-    }
-
-    return(
-        <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%'}}>
-            <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                    Question id: { props.selected.idd}
-                </Typography>
-                <Typography variant="h5" component="h2">
-                    { props.selected.name}
-                </Typography>
-                <Typography  color="textSecondary">
-                    children
-                </Typography>
-                <Typography component="div">
-                    { props.selected.children ? <Children items={props.selected.children} />: 'Нет потомков'}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Изменить данные</Button>
-            </CardActions>
-        </Card>
-    )
-}
-
 
 class GrafD3 extends Component {
 
@@ -392,7 +341,7 @@ class GrafD3 extends Component {
                     styles={svgStyle}
                 />
 
-                <BottomDialog selected={this.state.selected}/>
+                <GrafSelectedPanel selected={this.state.selected}/>
             </div>
         )
     }

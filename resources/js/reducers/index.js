@@ -8,8 +8,8 @@ import ActiveQuestion from './question-active';
 const rootReducers = combineReducers({
     questions: QuestionsReducers,
     projects: Projects,
-    activeProject: ActiveProject
-    // activeQuestion: ActiveQuestion,
+    activeProject: ActiveProject,
+    activeQuestion: ActiveQuestion,
     // objects: ObjectsReducers,
 })
 
