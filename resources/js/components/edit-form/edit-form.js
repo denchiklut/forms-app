@@ -9,10 +9,18 @@ import './edit-form.scss'
 
 class EditFormDialog extends Component {
 
+    state = {
+        val: '',
+    }
+
+    onValueChange = (e) => {
+        this.setState({val: e.target.value})
+    }
+
     //Send Edit Form
     handleEditSubmit = (e) => {
         e.preventDefault();
-        const newMessage =  this.getEditMessage.value;
+        const newMessage =  this.state.val;
         const data = {...this.props.editItem, val: newMessage}
         this.props.onEdit(data)
         this.getEditMessage.value = '';
@@ -38,7 +46,7 @@ class EditFormDialog extends Component {
                                 required
                                 rows="12"
                                 cols="28"
-                                ref={(input) => this.getEditMessage = input}
+                                onChange={this.onValueChange}
                                 defaultValue={editItem ? editItem.val: ''}
                                 placeholder="Enter Post" />
                             <br /><br />

@@ -9,9 +9,10 @@ import './graf-selected-panel.scss'
 function Children(props) {
     return(
         <ul>
-            {props.items.map((item) => (
-                <li key={item.id}>{item.name}</li>
-            ))
+            {
+                props.items.map((item) => (
+                    <li key={item.id}>{item.name}</li>
+                ))
             }
         </ul>
     )

@@ -8,10 +8,18 @@ import './add-form.scss'
 
 class AddForm extends Component {
 
+    state = {
+        val: '',
+    }
+
+    onValueChange = (e) => {
+        this.setState({val: e.target.value})
+    }
+
     //Send Add Form
     handleSubmit = (e) => {
         e.preventDefault();
-        const message =  this.getMessage.value
+        const message =  this.state.val
         const data = {
             editing: false,
             val: message
@@ -40,7 +48,7 @@ class AddForm extends Component {
                                 required
                                 rows="12"
                                 cols="28"
-                                ref={(input) => this.getMessage = input}
+                                onChange={this.onValueChange}
                                 placeholder="Enter Post"
                             />
                             <br /><br />
