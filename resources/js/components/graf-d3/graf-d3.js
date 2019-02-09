@@ -305,9 +305,6 @@ class GrafD3 extends Component {
                                 label={this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
                                 style={{background: 'linear-gradient(to right, rgb(255, 95, 139), rgb(139, 119, 177))', fontSize:'16px', boxShadow: 'rgba(205, 48, 83, 0.19) 0px 3px 5px 2px'}}
                             />
-
-
-
                         </Typography>
                         <div>
                             <Fab
@@ -331,6 +328,7 @@ class GrafD3 extends Component {
                         </div>
                     </Toolbar>
                 </AppBar>
+
                 <Tree
                     data={this.state.data}
                     transitionDuration={0}
@@ -347,7 +345,6 @@ class GrafD3 extends Component {
         )
     }
 }
-
 
 
 function mapStateToProps(state) {

@@ -82,6 +82,7 @@ class ListContainer extends Component {
                 </Fab>
                 { this.state.isOpen ?
                     <AddForm
+                        type    = {this.props.type}
                         isOpen  = { this.state.isOpen}
                         onAdd   = { this.saveAddQuestion }
                         onClose = { this.closeAddForm }
