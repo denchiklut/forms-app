@@ -296,7 +296,7 @@ class GrafD3 extends Component {
             )
         }
         return (
-            <div id="treeWrapper" style={{width: '100%', height: 'calc(100vh - 64px)', background: 'rgb(236, 236, 236)',}}>
+            <div id="treeWrapper" style={{width: '100%', height: 'calc(100vh - 64px - 64px)', background: 'rgb(236, 236, 236)',}}>
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" color="inherit" style={{flexGrow: 1}}>

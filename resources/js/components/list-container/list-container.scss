@@ -16,76 +16,10 @@
         box-shadow: 0 0 3px -1px #d82d4573;
         margin: 1px 0;
     }
-}
-.form-container {
-    text-align: center;
-    padding: 0!important;
-
-    .form {
-        justify-content: center;
-        align-items: center;
-        box-shadow:0 5px 15px 0 rgba(46, 61, 73, 0.12);
-        font-family:'Work Sans',sans-serif;
-        background: #f4f4ef;
-
-
-        .form_heading {
-            background:#fff;
-            text-align:center;
-            padding:1.5rem 0;
-            width:100%;
-            justify-content: center;
-            align-items: center;
-            box-shadow:0 5px 15px 0 rgba(46, 61, 73, 0.12);
-
-            h2 {
-                text-align:center;
-                font-weight:400;
-                font-size:40px;
-                color:#636363;
-            }
-        }
-
-        textarea {
-            width:80%;
-            margin: 12px auto;
-            border: 1px solid #dbe2e8;
-            font-size:14px;
-            padding: 12px;
-            border-radius:2px;
-            color:#636363;
-            font-family: 'Work Sans,',sans-serif;
-            box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
-            outline:none;
-        }
-
-        .control-buttons {
-            justify-content: space-between;
-            padding: 14px;
-
-            .delete {
-                background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
-                box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
-                border: 0;
-                border-radius: 3px;
-                color: white;
-                height: 48px;
-                padding: 0 30px;
-            }
-
-
-            .edit {
-                background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);
-                box-shadow: 0 3px 5px 2px rgba(33, 203, 243, .3);
-                border: 0;
-                border-radius: 3px;
-                color: white;
-                height: 48px;
-                padding: 0 30px;
-            }
-        }
-
+    .myAdd {
+        position: absolute;
+        bottom: 24px;
+        right: 22px;
     }
-
 
 }

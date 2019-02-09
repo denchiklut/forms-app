@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {fetchUpdateQuestion} from "../../actions/questions";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from '@material-ui/core/styles';
-import { openEditForm } from "../../actions/dialogs";
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItem from '@material-ui/core/ListItem';
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,7 +15,6 @@ import classNames from "classnames";
 import {compose} from "recompose";
 import './list-item-el.scss'
 
-
 const styles = {
     selected: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)!important',
@@ -25,13 +24,14 @@ const styles = {
 
 class ListItemEl extends Component {
     state = {
-        editItem: null
+        isOpen: false,
+        editItem: null,
     }
 
     //Open Edit form
     handleClickOpenEdit = (item) => {
         this.setState({ editItem: item })
-        this.props.openEditForm(true)
+        this.setState({ isOpen: true })
     };
 
 
@@ -50,6 +50,19 @@ class ListItemEl extends Component {
                 this.handleClickOpenEdit()
                 break
         }
+    }
+
+    closeEditForm = () => {
+        this.setState(( { isOpen } ) => {
+            return {
+                isOpen: !isOpen
+            }
+        })
+    }
+
+    saveEdit = (data) => {
+        this.props.editQuestion(data)
+       this.closeEditForm()
     }
 
     render() {
@@ -83,24 +96,28 @@ class ListItemEl extends Component {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                { ( this.state.editItem && this.props.isOpen )? <EditFormDialog editItem={this.state.editItem} type={type} /> : null}
+                { ( this.state.editItem && this.state.isOpen )?
+                    <EditFormDialog
+                        type={type}
+                        isOpen   = { this.state.isOpen }
+                        onEdit   = { this.saveEdit }
+                        onClose  = { this.closeEditForm }
+                        editItem = { this.state.editItem }
+                    /> :
+                    null
+                }
 
             </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isOpen: state.showEditDialog
-    }
-}
 
 function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            openEditForm: openEditForm,
+            editQuestion: fetchUpdateQuestion,
         }, dispatch)
 }
 
-export default compose( withStyles(styles), connect(mapStateToProps, matchDispatchToProps))(ListItemEl);
+export default compose( withStyles(styles), connect(null, matchDispatchToProps))(ListItemEl);

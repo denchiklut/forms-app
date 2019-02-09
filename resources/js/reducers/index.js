@@ -1,11 +1,8 @@
-import {combineReducers} from "redux";
-import QuestionsReducers from './questions';
+import { combineReducers } from "redux"
+import QuestionsReducers from './questions'
 import Projects from './projects'
 import ActiveProject from './active-project'
-import ActiveQuestion from './question-active';
-import AddDialog from './add-dialog';
-import EditDialog from './edit-dialog'
-import ObjectsReducers from './objects';
+import ActiveQuestion from './question-active'
 
 
 const rootReducers = combineReducers({
@@ -13,8 +10,6 @@ const rootReducers = combineReducers({
     projects: Projects,
     activeProject: ActiveProject,
     activeQuestion: ActiveQuestion,
-    showAddDialog: AddDialog,
-    showEditDialog: EditDialog,
     // objects: ObjectsReducers,
 })
 

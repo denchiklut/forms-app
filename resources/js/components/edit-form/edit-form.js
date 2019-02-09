@@ -4,29 +4,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import { fetchUpdateQuestion } from "../../actions/questions";
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
-import { closeEditForm } from "../../actions/dialogs";
 import './edit-form.scss'
 
 
 class EditFormDialog extends Component {
-
-    //Close Edit form
-    handleCloseEdit = () => {
-        this.props.closeEditForm(false)
-    };
 
     //Send Edit Form
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.getEditMessage.value;
         const data = {...this.props.editItem, val: newMessage}
-        this.props.editQuestion(data)
+        this.props.onEdit(data)
         this.getEditMessage.value = '';
-
-        this.props.closeEditForm(false)
     }
 
     render() {
@@ -55,13 +44,12 @@ class EditFormDialog extends Component {
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
-                            <Button onClick={this.handleCloseEdit} className="delete">
+                            <Button onClick={this.props.onClose} className="delete">
                                 Отмена
                             </Button>
                             <Button onClick={this.handleEditSubmit} className="edit">
                                 Изменить
                             </Button>
-
                         </DialogActions>
                     </form>
                 </Dialog>
@@ -69,19 +57,4 @@ class EditFormDialog extends Component {
         );
     }
 }
-
-function mapStateToProps(state) {
-    return {
-        isOpen: state.showEditDialog
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators(
-        {
-            editQuestion: fetchUpdateQuestion,
-            closeEditForm: closeEditForm,
-        }, dispatch)
-}
-
-export default connect(mapStateToProps, matchDispatchToProps)(EditFormDialog);
+export default EditFormDialog;

@@ -4,28 +4,20 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import { closeAddForm } from '../../actions/dialogs'
-import {fetchAddQuestion} from "../../actions/questions";
-import {bindActionCreators} from "redux";
-import {connect} from 'react-redux';
 import './add-form.scss'
 
 class AddForm extends Component {
-    handleClose = () => {
-        this.props.closeAddForm( false );
-    }
 
     //Send Add Form
     handleSubmit = (e) => {
         e.preventDefault();
-        const message =  this.getMessage.value;
+        const message =  this.getMessage.value
         const data = {
             editing: false,
             val: message
         }
-        this.props.addQuestion(data)
-        this.getMessage.value = '';
-        this.props.closeAddForm( false );
+        this.props.onAdd(data)
+        this.getMessage.value = ''
     }
 
     render() {
@@ -54,7 +46,7 @@ class AddForm extends Component {
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
-                            <Button onClick={this.handleClose}  className="delete">
+                            <Button onClick={this.props.onClose}  className="delete">
                                 Отмена
                             </Button>
                             <Button onClick={this.handleSubmit} className="edit">
@@ -68,17 +60,4 @@ class AddForm extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isOpen: state.showAddDialog
-    }
-}
-
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators(
-        {
-            addQuestion: fetchAddQuestion,
-            closeAddForm: closeAddForm,
-        }, dispatch)
-}
-export default connect(mapStateToProps, matchDispatchToProps)(AddForm);
+export default AddForm;

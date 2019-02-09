@@ -56,8 +56,8 @@ class MainPage extends Component {
     render() {
         const { theme } = this.props;
         return (
-            <div style={{margin: 'auto'}}>
-                <Grid container spacing={24}>
+            <div style={{margin: '-3px'}}>
+                <Grid container spacing={0}>
                     <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
                         <AppBar position="static" color="default">
                             <Tabs
@@ -88,7 +88,7 @@ class MainPage extends Component {
                         </SwipeableViews>
 
                     </Grid>
-                    <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0}}>
+                    <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
                         <GrafD3 />
                     </Grid>
                 </Grid>

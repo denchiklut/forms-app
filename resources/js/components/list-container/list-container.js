@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { fetchDeleteQuestion, fetchUpdateQuestion, selectQuestion } from '../../actions/questions'
-import { openAddForm } from '../../actions/dialogs'
+import {fetchAddQuestion, fetchDeleteQuestion, selectQuestion} from '../../actions/questions'
 import { bindActionCreators } from "redux";
 import {connect} from 'react-redux';
 import Fab from '@material-ui/core/Fab';
@@ -16,10 +15,13 @@ import './list-container.scss'
 
 
 class ListContainer extends Component {
+    state = {
+        isOpen: false
+    }
 
     //Open Add form
     handleClickOpen = () => {
-        this.props.openAddForm(true);
+        this.setState({isOpen: true})
     };
 
     //Choose what to Add (Question / Object)
@@ -32,6 +34,17 @@ class ListContainer extends Component {
                 this.handleClickOpen()
                 break
         }
+    }
+
+    closeAddForm = () => {
+        this.setState(( { isOpen } ) => {
+          return {isOpen: !isOpen }
+        })
+    }
+
+    saveAddQuestion = (data) => {
+        this.props.addQuestion(data)
+        this.closeAddForm()
     }
 
     render() {
@@ -58,16 +71,22 @@ class ListContainer extends Component {
                         </div>
                     ))}
                 </List>
-                <Fab size="medium"
-                     color="secondary"
-                     aria-label="Add"
-                     className="myAdd"
-                     onClick={event => this.handleAddItemClick(event)}
-                     style={{position: "absolute", bottom: "24px", right: "22px"}}>
+                <Fab
+                    size="medium"
+                    color="secondary"
+                    aria-label="Add"
+                    className="myAdd"
+                    onClick={event => this.handleAddItemClick(event)}
+                >
                     <AddIcon />
                 </Fab>
-
-                {this.props.showAddForm ? <AddForm /> : null}
+                { this.state.isOpen ?
+                    <AddForm
+                        isOpen  = { this.state.isOpen}
+                        onAdd   = { this.saveAddQuestion }
+                        onClose = { this.closeAddForm }
+                    /> :
+                    null}
             </div>
         );
     }
@@ -81,7 +100,6 @@ ListContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         activeQst: state.activeQuestion,
-        showAddForm: state.showAddDialog,
     }
 }
 
@@ -90,8 +108,7 @@ function matchDispatchToProps(dispatch) {
         {
             select: selectQuestion,
             delQuestion: fetchDeleteQuestion,
-            editQuestion: fetchUpdateQuestion,
-            openAddForm: openAddForm,
+            addQuestion: fetchAddQuestion,
         }, dispatch)
 }
 
