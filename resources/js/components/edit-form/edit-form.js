@@ -17,13 +17,16 @@ class EditFormDialog extends Component {
         this.setState({val: e.target.value})
     }
 
-    //Send Edit Form
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.state.val;
         const data = {...this.props.editItem, val: newMessage}
         this.props.onEdit(data)
-        this.getEditMessage.value = '';
+        this.setState({val: ''})
+    }
+
+    componentDidMount() {
+        this.setState({val: this.props.editItem.val})
     }
 
     render() {
@@ -39,7 +42,7 @@ class EditFormDialog extends Component {
                     className="form-container"
                 >
                     <form className="form">
-                        <DialogTitle className="form_heading">Редактирование {type}: {editItem ? editItem.id: ''}</DialogTitle>
+                        <DialogTitle className="form_heading">Редактирование {type}: {editItem.id}</DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus
@@ -47,8 +50,9 @@ class EditFormDialog extends Component {
                                 rows="12"
                                 cols="28"
                                 onChange={this.onValueChange}
-                                defaultValue={editItem ? editItem.val: ''}
-                                placeholder="Enter Post" />
+                                value={ this.state.val }
+                                placeholder="Enter Post"
+                            />
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">

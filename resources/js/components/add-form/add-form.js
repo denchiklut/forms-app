@@ -16,7 +16,6 @@ class AddForm extends Component {
         this.setState({val: e.target.value})
     }
 
-    //Send Add Form
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.state.val
@@ -25,13 +24,12 @@ class AddForm extends Component {
             val: message
         }
         this.props.onAdd(data)
-        this.getMessage.value = ''
+        this.setState({val: ''})
     }
 
     render() {
         return (
             <div>
-                {/*//Add dialog form*/}
                 <Dialog
                     fullWidth={true}
                     maxWidth="lg"
@@ -50,6 +48,7 @@ class AddForm extends Component {
                                 cols="28"
                                 onChange={this.onValueChange}
                                 placeholder="Enter Post"
+                                value={this.state.val}
                             />
                             <br /><br />
                         </DialogContent>
