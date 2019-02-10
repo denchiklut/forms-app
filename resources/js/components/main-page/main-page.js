@@ -47,9 +47,9 @@ class MainPage extends Component {
         this.setState({ value: index });
     };
 
-    componentWillReceiveProps(nextProps){
-        if ( nextProps.activeProject !== this.props.activeProject && ( Object.keys(nextProps.activeProject).length !== 0) ) {
-            this.props.fetchQuestions(nextProps.activeProject.value)
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.activeProject !== prevProps.activeProject && ( Object.keys(this.props.activeProject).length !== 0)) {
+            this.props.fetchQuestions(this.props.activeProject.value)
         }
     }
 

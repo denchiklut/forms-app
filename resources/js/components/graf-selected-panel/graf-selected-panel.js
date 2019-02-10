@@ -6,20 +6,17 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import './graf-selected-panel.scss'
 
-function Children(props) {
-    return(
-        <ul>
-            {
-                props.items.map((item) => (
-                    <li key={item.id}>{item.name}</li>
-                ))
-            }
-        </ul>
-    )
-}
-
 
 class GrafSelectedPanel extends Component {
+
+    renderChildren(arr) {
+        return arr.map(item => {
+            return (
+                <li key={item.id}>{item.name}</li>
+            )
+        })
+    }
+
     render() {
         const { selected } = this.props
         if (!selected) {
@@ -34,6 +31,9 @@ class GrafSelectedPanel extends Component {
             )
         }
 
+        const children = this.renderChildren(selected.children)
+
+
         return(
             <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
                 <CardContent>
@@ -47,7 +47,7 @@ class GrafSelectedPanel extends Component {
                         children
                     </Typography>
                     <Typography component="div">
-                        { selected.children ? <Children items={selected.children} />: 'Нет потомков'}
+                        { selected.children ? <ul> {children} </ul>: 'Нет потомков'}
                     </Typography>
                 </CardContent>
                 <CardActions>
