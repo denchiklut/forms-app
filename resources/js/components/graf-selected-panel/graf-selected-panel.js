@@ -9,7 +9,7 @@ import './graf-selected-panel.scss'
 
 class GrafSelectedPanel extends Component {
 
-    renderChildren(arr) {
+    renderChildren(arr = []) {
         return arr.map(item => {
             return (
                 <li key={item.id}>{item.name}</li>

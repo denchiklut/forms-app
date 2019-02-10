@@ -103645,9 +103645,15 @@ function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(AddForm)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleSubmit = function (e) {
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(AddForm)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      val: ''
+    }, _this.onValueChange = function (e) {
+      _this.setState({
+        val: e.target.value
+      });
+    }, _this.handleSubmit = function (e) {
       e.preventDefault();
-      var message = _this.getMessage.value;
+      var message = _this.state.val;
       var data = {
         editing: false,
         val: message
@@ -103655,15 +103661,15 @@ function (_Component) {
 
       _this.props.onAdd(data);
 
-      _this.getMessage.value = '';
+      _this.setState({
+        val: ''
+      });
     }, _temp));
   }
 
   _createClass(AddForm, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Dialog__WEBPACK_IMPORTED_MODULE_1___default.a, {
         fullWidth: true,
         maxWidth: "lg",
@@ -103681,10 +103687,9 @@ function (_Component) {
         required: true,
         rows: "12",
         cols: "28",
-        ref: function ref(input) {
-          return _this2.getMessage = input;
-        },
-        placeholder: "Enter Post"
+        onChange: this.onValueChange,
+        placeholder: "Enter Post",
+        value: this.state.val
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_4___default.a, {
         className: "control-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
@@ -103967,9 +103972,15 @@ function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(EditFormDialog)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.handleEditSubmit = function (e) {
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(EditFormDialog)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      val: ''
+    }, _this.onValueChange = function (e) {
+      _this.setState({
+        val: e.target.value
+      });
+    }, _this.handleEditSubmit = function (e) {
       e.preventDefault();
-      var newMessage = _this.getEditMessage.value;
+      var newMessage = _this.state.val;
 
       var data = _objectSpread({}, _this.props.editItem, {
         val: newMessage
@@ -103977,15 +103988,22 @@ function (_Component) {
 
       _this.props.onEdit(data);
 
-      _this.getEditMessage.value = '';
+      _this.setState({
+        val: ''
+      });
     }, _temp));
   }
 
   _createClass(EditFormDialog, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.setState({
+        val: this.props.editItem.val
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var _this$props = this.props,
           editItem = _this$props.editItem,
           type = _this$props.type;
@@ -103999,17 +104017,15 @@ function (_Component) {
         className: "form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogTitle__WEBPACK_IMPORTED_MODULE_2___default.a, {
         className: "form_heading"
-      }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 ", type, ": ", editItem ? editItem.id : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435 ", type, ": ", editItem.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogContent__WEBPACK_IMPORTED_MODULE_3___default.a, {
         className: "form-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         autoFocus: true,
         required: true,
         rows: "12",
         cols: "28",
-        ref: function ref(input) {
-          return _this2.getEditMessage = input;
-        },
-        defaultValue: editItem ? editItem.val : '',
+        onChange: this.onValueChange,
+        value: this.state.val,
         placeholder: "Enter Post"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_DialogActions__WEBPACK_IMPORTED_MODULE_4___default.a, {
         className: "control-buttons"
@@ -104717,14 +104733,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-function Children(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, props.items.map(function (item) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      key: item.id
-    }, item.name);
-  }));
-}
-
 var GrafSelectedPanel =
 /*#__PURE__*/
 function (_Component) {
@@ -104737,6 +104745,16 @@ function (_Component) {
   }
 
   _createClass(GrafSelectedPanel, [{
+    key: "renderChildren",
+    value: function renderChildren() {
+      var arr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      return arr.map(function (item) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: item.id
+        }, item.name);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var selected = this.props.selected;
@@ -104756,6 +104774,7 @@ function (_Component) {
         }, "Select some node")));
       }
 
+      var children = this.renderChildren(selected.children);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1___default.a, {
         className: "btmCard",
         style: {
@@ -104774,9 +104793,7 @@ function (_Component) {
         color: "textSecondary"
       }, "children"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_3___default.a, {
         component: "div"
-      }, selected.children ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Children, {
-        items: selected.children
-      }) : 'Нет потомков')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_4___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }, selected.children ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, " ", children, " ") : 'Нет потомков')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_4___default.a, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_5___default.a, {
         size: "small"
       }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435")));
     }
@@ -105165,6 +105182,7 @@ function (_Component) {
           return _this2.handleAddItemClick(event);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Add__WEBPACK_IMPORTED_MODULE_7___default.a, null)), this.state.isOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_add_form__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        type: this.props.type,
         isOpen: this.state.isOpen,
         onAdd: this.saveAddQuestion,
         onClose: this.closeAddForm
@@ -105603,10 +105621,10 @@ function (_Component) {
   }
 
   _createClass(MainPage, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.activeProject !== this.props.activeProject && Object.keys(nextProps.activeProject).length !== 0) {
-        this.props.fetchQuestions(nextProps.activeProject.value);
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState, snapshot) {
+      if (this.props.activeProject !== prevProps.activeProject && Object.keys(this.props.activeProject).length !== 0) {
+        this.props.fetchQuestions(this.props.activeProject.value);
       }
     }
   }, {
