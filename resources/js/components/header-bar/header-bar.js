@@ -60,8 +60,8 @@ class HeaderBar extends Component {
                         </Typography>
 
                         <SelectProject
-                            projects={this.props.projects}
-                            selectProject={this.props.selectProject}
+                            items={this.props.projects}
+                            selectItem={this.props.selectProject}
                         />
                     </Toolbar>
                 </AppBar>

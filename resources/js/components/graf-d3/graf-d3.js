@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
-import Tree from 'react-d3-tree';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import {connect} from 'react-redux';
-import Chip from "@material-ui/core/Chip";
+import React, { Component } from 'react'
+import Tree from 'react-d3-tree'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Fab from '@material-ui/core/Fab'
+import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@material-ui/icons/Delete'
+import {connect} from 'react-redux'
+import Chip from "@material-ui/core/Chip"
 import GrafSelectedPanel from '../graf-selected-panel'
+import GrafAddForm from "../garf-add-form"
+import {bindActionCreators} from "redux";
+import {fetchQuestions} from "../../actions/questions";
 import './graf-3d.scss'
 
 const svgStyle = {
@@ -79,10 +82,12 @@ class GrafD3 extends Component {
                 },
 
             ],
-        }
+        },
+        isOpen: false,
     }
 
-    addNode = () => {
+
+    addNode = (data) => {
         if (this.state.selected) {
             this.setState({transitionDuration: 300})
             let newData = {...this.state.data}
@@ -126,7 +131,7 @@ class GrafD3 extends Component {
 
 
                 if (searchId === newData.idd) {
-                    newData.children.push({name: `Вопрос${Math.random()}`, children: []})
+                    newData.children.push({name: data, children: []})
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {
@@ -289,6 +294,22 @@ class GrafD3 extends Component {
         this.coloriseNode(nodeKey)
     }
 
+    openAddNodeForm = () => {
+        this.setState({isOpen: true})
+    }
+
+    closeAddNodeForm = () => {
+        this.setState(( { isOpen } ) => {
+            return {isOpen: !isOpen }
+        })
+    }
+    saveAddNode = (data) => {
+        this.addNode(data.addQst)
+        // this.props.addQuestion(data)
+
+        this.closeAddNodeForm()
+    }
+
     render() {
         if (Object.keys(this.props.activeProject).length === 0 )  {
             return (
@@ -296,14 +317,14 @@ class GrafD3 extends Component {
             )
         }
         return (
-            <div id="treeWrapper" style={{width: '100%', height: 'calc(100vh - 64px - 65px)', background: 'rgb(236, 236, 236)', position: 'relative'}}>
+            <div id="treeWrapper">
                 <AppBar position="static">
-                    <Toolbar>
-                        <Typography variant="h6" color="inherit" style={{flexGrow: 1}}>
+                    <Toolbar className='grafToolBar'>
+                        <Typography variant="h6" className="grafToolBarChip">
                             <Chip
+                                className="grafChip"
                                 color="secondary"
                                 label={this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
-                                style={{background: 'linear-gradient(to right, rgb(255, 95, 139), rgb(139, 119, 177))', fontSize:'16px', boxShadow: 'rgba(205, 48, 83, 0.19) 0px 3px 5px 2px'}}
                             />
                         </Typography>
                         <div>
@@ -311,8 +332,8 @@ class GrafD3 extends Component {
                                 color="secondary"
                                 size="small"
                                 aria-label="Add"
-                                onClick={this.addNode}
-                                style={{margin: '8px'}}
+                                onClick={this.openAddNodeForm}
+                                className="grafToolBarBtm"
                             >
                                 <AddIcon />
                             </Fab>
@@ -321,7 +342,7 @@ class GrafD3 extends Component {
                                 size="small"
                                 aria-label="Edit"
                                 onClick={this.removeNode}
-                                style={{margin: '8px'}}
+                                className="grafToolBarBtm"
                             >
                                 <DeleteIcon fontSize="small" />
                             </Fab>
@@ -341,6 +362,15 @@ class GrafD3 extends Component {
                 />
 
                 <GrafSelectedPanel selected={this.state.selected}/>
+                {this.state.isOpen ?
+                    <GrafAddForm
+                        questions = { this.props.questions}
+                        isOpen    = { this.state.isOpen}
+                        onAdd     = { this.saveAddNode }
+                        onClose   = { this.closeAddNodeForm }
+                    />
+                    : null
+                }
             </div>
         )
     }
@@ -354,4 +384,11 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(GrafD3)
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchQuestions: fetchQuestions,
+    }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GrafD3)

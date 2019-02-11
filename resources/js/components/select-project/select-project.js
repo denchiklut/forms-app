@@ -179,8 +179,7 @@ class SelectProject extends Component {
         this.setState({
             [name]: value,
         });
-
-        this.props.selectProject(value);
+        this.props.selectItem(value);
     };
 
     render() {
@@ -196,9 +195,9 @@ class SelectProject extends Component {
             }),
         };
 
-        const suggestions = this.props.projects.map(suggestion => ({
-            value: suggestion.label,
-            label: suggestion.label,
+        const suggestions = this.props.items.map(suggestion => ({
+            value: suggestion.val,
+            label: suggestion.val,
         }));
 
         return (
@@ -212,7 +211,7 @@ class SelectProject extends Component {
                             components={components}
                             value={this.state.single}
                             onChange={this.handleChange('single')}
-                            placeholder="Search project"
+                            placeholder="Search.."
                             // isClearable
                         />
                     </NoSsr>
