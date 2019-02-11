@@ -21,7 +21,7 @@ class GrafSelectedPanel extends Component {
         const { selected } = this.props
         if (!selected) {
             return(
-                <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%',  boxShadow: '-1px -4px 5px -2px #00000066'}}>
+                <Card className="btmCard" style={{position: 'absolute', bottom: '-64px', width: '100%',  boxShadow: '-1px -4px 5px -2px #00000066'}}>
                     <CardContent>
                         <Typography variant="h5" component="h2">
                             Select some node
@@ -35,7 +35,7 @@ class GrafSelectedPanel extends Component {
 
 
         return(
-            <Card className="btmCard" style={{position: 'fixed', bottom: 0, width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
+            <Card className="btmCard" style={{position: 'absolute', bottom: '-64px', width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
                 <CardContent>
                     <Typography color="textSecondary" gutterBottom>
                         Question id: { selected.idd}

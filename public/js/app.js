@@ -104597,8 +104597,9 @@ function (_Component) {
         id: "treeWrapper",
         style: {
           width: '100%',
-          height: 'calc(100vh - 64px - 64px)',
-          background: 'rgb(236, 236, 236)'
+          height: 'calc(100vh - 64px - 65px)',
+          background: 'rgb(236, 236, 236)',
+          position: 'relative'
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_AppBar__WEBPACK_IMPORTED_MODULE_2___default.a, {
         position: "static"
@@ -104778,7 +104779,7 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Card__WEBPACK_IMPORTED_MODULE_1___default.a, {
         className: "btmCard",
         style: {
-          position: 'fixed',
+          position: 'absolute',
           bottom: 0,
           width: '100%',
           boxShadow: '-1px -4px 5px -2px #00000066'
@@ -106320,8 +106321,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\denchiklut\Documents\@\react\forms-app\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\denchiklut\Documents\@\react\forms-app\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/reffection_/Documents/@/web-forms.dmrse.ru/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/reffection_/Documents/@/web-forms.dmrse.ru/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
