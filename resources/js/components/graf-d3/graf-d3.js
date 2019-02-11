@@ -38,50 +38,10 @@ class GrafD3 extends Component {
     state = {
         transitionDuration: 300,
         selected: null,
-        // data:  {
-        //     name: 'Вопрос 1',
-        //     idd: '1',
-        //     val: 'Хотите Машину?',
-        //     children: [
-        //         {
-        //             name: 'Вопрос 2' ,
-        //             idd: '2',
-        //             val: 'Какого цвета?',
-        //             children: [],
-        //
-        //         },
-        //         {
-        //             name: 'Вопрос 3' ,
-        //             idd: '3',
-        //             val: 'Есть-ли у вас деньги?',
-        //             children: [],
-        //         },
-        //
-        //     ],
-        // }
         data:  {
             idd: '1',
             name: 'Хотите Машину?',
-            children: [
-                {
-                    idd: '2',
-                    name: 'Какого цвета?',
-                    children: [
-                        {
-                            idd: '3',
-                            name: 'Есть-ли у вас деньги?',
-                            children: [],
-                        },
-                    ],
-
-                },
-                {
-                    idd: '4',
-                    name: 'В таком случае, простите за беспокойство',
-                    children: [],
-                },
-
-            ],
+            children: [],
         },
         isOpen: false,
     }
@@ -91,38 +51,10 @@ class GrafD3 extends Component {
         if (this.state.selected) {
             this.setState({transitionDuration: 300})
             let newData = {...this.state.data}
-            let searchVal = this.state.selected.name
+            // let searchVal = this.state.selected.name
 
             //id of question that we trying to add to graf
             let searchId = this.state.selected.idd
-
-            console.log("searchVal: ", searchVal)
-            console.log("searchId: ", searchId)
-            console.log("========", newData.name)
-
-            // const findNode = function(searchVal, newData) {
-            //     let j,
-            //         currentChild,
-            //         result;
-            //
-            //
-            //     if (searchVal === newData.name) {
-            //         newData.children.push({name: `Вопрос${Math.random()}`, children: []})
-            //     } else {
-            //
-            //         for (j = 0; j < newData.children.length; j += 1) {
-            //             currentChild = newData.children[j];
-            //
-            //             // Search in the current child
-            //             result = findNode(searchVal, currentChild);
-            //         }
-            //
-            //         // The node has not been found and we have no more options
-            //         return false;
-            //     }
-            // }
-            //
-            // findNode(searchVal, newData)
 
             const findNodebyId = function(searchId, newData) {
                 let j,
@@ -131,7 +63,7 @@ class GrafD3 extends Component {
 
 
                 if (searchId === newData.idd) {
-                    newData.children.push({name: data, children: []})
+                    newData.children.push({name: data.value, idd: data.id, children: []})
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {
@@ -304,6 +236,8 @@ class GrafD3 extends Component {
         })
     }
     saveAddNode = (data) => {
+
+        //write in db
         this.addNode(data.addQst)
         // this.props.addQuestion(data)
 
@@ -318,7 +252,7 @@ class GrafD3 extends Component {
         }
         return (
             <div id="treeWrapper">
-                <AppBar position="static">
+                <AppBar position="static" className="grafAppBar">
                     <Toolbar className='grafToolBar'>
                         <Typography variant="h6" className="grafToolBarChip">
                             <Chip

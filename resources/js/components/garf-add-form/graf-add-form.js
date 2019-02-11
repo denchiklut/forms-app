@@ -12,7 +12,7 @@ class GrafAddForm extends Component {
 
     state = {
         val: '',
-        addQst: '',
+        addQst: {},
     }
 
     onValueChange = (e) => {
@@ -33,7 +33,7 @@ class GrafAddForm extends Component {
     }
 
     addFromSelect = (item) => {
-        this.setState({addQst: item.value})
+        this.setState({addQst: item})
     }
 
 
