@@ -3,6 +3,7 @@ import QuestionsReducers from './questions'
 import Projects from './projects'
 import ActiveProject from './active-project'
 import ActiveQuestion from './question-active'
+import { reducer  as formReducer } from 'redux-form'
 
 
 const rootReducers = combineReducers({
@@ -10,6 +11,7 @@ const rootReducers = combineReducers({
     projects: Projects,
     activeProject: ActiveProject,
     activeQuestion: ActiveQuestion,
+    form: formReducer
     // objects: ObjectsReducers,
 })
 

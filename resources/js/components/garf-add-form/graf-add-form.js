@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import SelectProject from '../select-project'
+import { Field, reduxForm } from 'redux-form'
 import './graf-add-form.scss'
 
 
@@ -36,6 +37,12 @@ class GrafAddForm extends Component {
         this.setState({addQst: item})
     }
 
+    renderAnswer = ({ input }) => {
+        return(
+            <input {...input} />
+        )
+    }
+
 
     render() {
         return (
@@ -51,20 +58,24 @@ class GrafAddForm extends Component {
                     <form className="form">
                         <DialogTitle className="form_heading">Добавление Node</DialogTitle>
                         <DialogContent className="form-container">
-                            <SelectProject
-                                className="grafFormSelect"
-                                items={this.props.questions}
-                                selectItem={ this.addFromSelect}
-                            />
-                            <textarea
-                                autoFocus
-                                required
-                                rows="6"
-                                cols="28"
-                                onChange={this.onValueChange}
-                                placeholder="Enter Post"
-                                value={this.state.val}
-                            />
+
+                            <Field name="answers" component={this.renderAnswer}/>
+                            {/*<SelectProject*/}
+                                {/*className="grafFormSelect"*/}
+                                {/*items={this.props.questions}*/}
+                                {/*selectItem={ this.addFromSelect}*/}
+                            {/*/>*/}
+                            {/*<textarea*/}
+                                {/*autoFocus*/}
+                                {/*required*/}
+                                {/*rows="6"*/}
+                                {/*cols="28"*/}
+                                {/*onChange={this.onValueChange}*/}
+                                {/*placeholder="Enter Post"*/}
+                                {/*value={this.state.val}*/}
+                            {/*/>*/}
+
+
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
@@ -82,4 +93,4 @@ class GrafAddForm extends Component {
     }
 }
 
-export default GrafAddForm;
+export default reduxForm({ form: 'graf-add-form' })(GrafAddForm);
