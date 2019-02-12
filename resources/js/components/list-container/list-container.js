@@ -48,9 +48,9 @@ class ListContainer extends Component {
     }
 
     render() {
-        if ( this.props.items.length === 0 ) {
-            return <EmptyList />
-        }
+        // if ( this.props.items.length === 0 ) {
+        //     return <EmptyList onAdd={this.handleAddItemClick(event)} />
+        // }
         return (
             <div className="myList">
                 <List component="nav" style={{paddingTop: 0}}>

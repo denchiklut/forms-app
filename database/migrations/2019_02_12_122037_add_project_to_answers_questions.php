@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddProjectToQuestions extends Migration
+class AddProjectToAnswersQuestions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddProjectToQuestions extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->string('project')->default(false);
+        Schema::table('answers_questions', function (Blueprint $table) {
+            $table->string('uniq_name');
         });
     }
 
@@ -25,7 +25,7 @@ class AddProjectToQuestions extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function (Blueprint $table) {
+        Schema::table('answers_questions', function (Blueprint $table) {
             //
         });
     }

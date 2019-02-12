@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Models\Question;
+use App\Models\QuestionsAnswers;
+use App\Models\AnswersQuestions;
 use App\Http\Resources\QuestionsResource;
 use App\Http\Controllers\Controller;
 
@@ -38,13 +40,56 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        //Временно делаем запрос лишний!!! чтобы понять первый ли это вопрос с таким project
+        $project_name = $request -> project;
 
-        $question = new Question();
-        $question -> val     = $request -> val;
-        $question -> editing = $request -> editing;
-        $question -> save();
+        if (Question::where('project',$project_name)->exists()) {
+            $question = new Question();
+            $question -> val     = $request -> val;
+            $question -> project = $request -> project;
+            $question -> save();
 
 
+
+        } else {
+
+
+            $question = new Question();
+            $question -> val     = $request -> val;
+            $question -> project = $request -> project;
+            $question -> save();
+
+
+            //Добавляем ответы 'Да' и 'Нет' на первый вопрос
+            $aq = new AnswersQuestions();
+            $aq -> uniq_name = $project_name;
+            $aq -> question_id = $question->id;
+            $aq -> answer = 'Да';
+            $aq -> save();
+
+
+            // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Да')
+            $qa = new QuestionsAnswers();
+            $qa -> uniq_name = $project_name;
+            $qa -> question_id = $question -> id;
+            $qa -> answers_id = $aq -> id;
+            $qa -> save();
+
+
+            //Добавляем ответы 'Да' и 'Нет' на первый вопрос
+            $aq = new AnswersQuestions();
+            $aq -> uniq_name = $project_name;
+            $aq -> question_id = $question->id;
+            $aq -> answer = 'Нет';
+            $aq -> save();
+
+            // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Нет')
+            $qa = new QuestionsAnswers();
+            $qa -> uniq_name = $project_name;
+            $qa -> question_id = $question -> id;
+            $qa -> answers_id = $aq -> id;
+            $qa -> save();
+        } ;
 
         return response()->json($question);
     }
@@ -52,12 +97,16 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($project)
     {
-        //
+        $project_name = $project;
+
+        $resulet = Question::where('project',$project_name)->get();
+
+
+        return response()->json(QuestionsResource::collection($resulet));
     }
 
     /**
