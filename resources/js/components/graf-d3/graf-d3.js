@@ -39,14 +39,36 @@ class GrafD3 extends Component {
     state = {
         transitionDuration: 300,
         selected: null,
-        data:  {
-            idd: '1',
-            name: 'Хотите Машину?',
-            children: [],
-        },
+        data:  {},
         isOpen: false,
     }
 
+    componentDidMount() {
+        this.setState({
+            data: {
+                idd:  1,
+                name: 'Nothing yet',
+                answers: [],
+                children: []
+            }
+        })
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.data.length !== 0) {
+            if (this.props.data !== prevProps.data) {
+                this.setState({
+                    data: {
+                        idd: this.props.data[0].question_id,
+                        name: this.props.data[0].val,
+                        answers: [this.props.data[0].answer, this.props.data[1].answer],
+                        children: []
+                    }
+                })
+            }
+        }
+    }
 
     addNode = (data) => {
         if (this.state.selected) {
@@ -183,6 +205,7 @@ class GrafD3 extends Component {
             return {isOpen: !isOpen }
         })
     }
+
     saveAddNode = (data) => {
 
         //write in db
@@ -198,7 +221,6 @@ class GrafD3 extends Component {
                 <div><h1>Select Project</h1></div>
             )
         }
-
         console.log(this.props.data)
         return (
             <div id="treeWrapper">

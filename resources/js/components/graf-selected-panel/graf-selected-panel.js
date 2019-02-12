@@ -46,7 +46,7 @@ class GrafSelectedPanel extends Component {
                             { selected.name}
                         </Typography>
                         <Typography  color="textSecondary">
-                            children
+                            children: [{selected.answers}]
                         </Typography>
                         <Typography component="div">
                             { selected.children ? <ul> {children} </ul>: 'Нет потомков'}
