@@ -4,7 +4,6 @@ export const SET_NODES ="SET_NODES"
 
 
 export function setNodes(nodes) {
-    console.log(nodes)
     return {
         type: SET_NODES,
         payload: nodes
