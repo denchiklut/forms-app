@@ -13,6 +13,8 @@ import {compose} from "recompose";
 import {connect} from 'react-redux';
 import {fetchQuestions} from '../../actions/questions'
 import './main-page.scss'
+import {bindActionCreators} from "redux";
+import {fetchNodes} from "../../actions/graf/nodes";
 
 function TabContainer({ children, dir }) {
     return (
@@ -50,6 +52,7 @@ class MainPage extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.activeProject !== prevProps.activeProject && ( Object.keys(this.props.activeProject).length !== 0)) {
             this.props.fetchQuestions(this.props.activeProject.value)
+            this.props.fetchNodes(this.props.activeProject.value)
         }
     }
 
@@ -89,13 +92,30 @@ class MainPage extends Component {
 
                     </Grid>
                     <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
-                        <GrafD3 />
+                        <GrafD3  data={this.props.data}/>
                     </Grid>
                 </Grid>
             </div>
         );
     }
 }
+
+
+function mapStateToProps(state) {
+    return {
+        questions: state.questions,
+        activeProject: state.activeProject,
+        nodes: state.nodes
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        fetchQuestions: fetchQuestions,
+        fetchNodes: fetchNodes,
+    }, dispatch)
+}
+
 
 
 MainPage.propTypes = {
@@ -106,12 +126,5 @@ MainPage.propTypes = {
     fetchQuestions: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-    return {
-        questions: state.questions,
-        activeProject: state.activeProject
-    }
-}
-
-export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, {fetchQuestions}))(MainPage);
+export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, mapDispatchToProps))(MainPage);
 

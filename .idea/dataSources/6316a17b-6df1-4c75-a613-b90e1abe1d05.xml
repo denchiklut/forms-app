@@ -1346,7 +1346,6 @@
     <column id="337" parent="329" name="question_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="338" parent="329" name="created_at">

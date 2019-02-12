@@ -13,6 +13,7 @@ import GrafAddForm from "../garf-add-form"
 import {bindActionCreators} from "redux";
 import {fetchQuestions} from "../../actions/questions";
 import './graf-3d.scss'
+import {fetchNodes} from "../../actions/graf/nodes";
 
 const svgStyle = {
     nodes: {
@@ -99,34 +100,6 @@ class GrafD3 extends Component {
         let searchVal = this.state.selected.name
         let searchId = this.state.selected.idd
 
-        // const findNode = function(searchVal, newData) {
-        //     let j,
-        //         currentChild,
-        //         result
-        //
-        //     if (searchVal === newData.name) {
-        //         return true
-        //     }
-        //
-        //     else {
-        //
-        //         for (j = 0; j < newData.children.length; j += 1) {
-        //             currentChild = newData.children[j];
-        //             result = findNode(searchVal, currentChild);
-        //
-        //             if (result) {
-        //                 console.log('currentChild',currentChild)
-        //                 currentChild = null
-        //                 newData.children.splice(j, 1)
-        //                 return false
-        //             }
-        //         }
-        //         return false;
-        //     }
-        // }
-        //
-        // findNode(searchVal, newData)
-
         const findNodeById = function(searchId, newData) {
             let j,
                 currentChild,
@@ -165,31 +138,6 @@ class GrafD3 extends Component {
         this.setState({transitionDuration: 0})
         let searchVal = nodeKey.name
         let searchId = nodeKey.idd
-
-        // const findNode = function(searchVal, newData) {
-        //     let j, currentChild
-        //
-        //     if (searchVal === newData.name) {
-        //         console.log("colorise current node", newData)
-        //         newData.nodeSvgShape = {
-        //             shape: 'circle',
-        //             shapeProps: {
-        //                 r: 20,
-        //                 fill:"red"
-        //             },
-        //         }
-        //     }
-        //
-        //     else {
-        //         newData.nodeSvgShape = {}
-        //     }
-        //     for (j = 0; j < newData.children.length; j += 1) {
-        //         currentChild = newData.children[j];
-        //         findNode(searchVal, currentChild);
-        //     }
-        // }
-        //
-        // findNode(searchVal, newData)
 
         const findNodeById = function(searchId, newData) {
             let j, currentChild
@@ -250,6 +198,8 @@ class GrafD3 extends Component {
                 <div><h1>Select Project</h1></div>
             )
         }
+
+        console.log(this.props.data)
         return (
             <div id="treeWrapper">
                 <AppBar position="static" className="grafAppBar">
@@ -315,6 +265,7 @@ function mapStateToProps(state) {
     return {
         activeProject: state.activeProject,
         questions: state.questions,
+        // nodes: state.nodes
     }
 }
 
@@ -322,6 +273,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchQuestions: fetchQuestions,
+        // fetchNodes: fetchNodes,
     }, dispatch)
 }
 

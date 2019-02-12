@@ -1,4 +1,4 @@
-import {ADD_QUESTION, SET_QUESTIONS, DELETE_QUESTION, UPDATE_QUESTION} from "../actions/questions";
+import { ADD_QUESTION, SET_QUESTIONS, DELETE_QUESTION, UPDATE_QUESTION } from "../actions/questions";
 
 export default function (state = [], action = {}) {
     switch (action.type) {

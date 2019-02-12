@@ -63,7 +63,6 @@ class QuestionController extends Controller
             //Добавляем ответы 'Да' и 'Нет' на первый вопрос
             $aq = new AnswersQuestions();
             $aq -> uniq_name = $project_name;
-            $aq -> question_id = $question->id;
             $aq -> answer = 'Да';
             $aq -> save();
 
@@ -79,7 +78,6 @@ class QuestionController extends Controller
             //Добавляем ответы 'Да' и 'Нет' на первый вопрос
             $aq = new AnswersQuestions();
             $aq -> uniq_name = $project_name;
-            $aq -> question_id = $question->id;
             $aq -> answer = 'Нет';
             $aq -> save();
 
