@@ -14,7 +14,7 @@ class AddProjectToAnswersQuestions extends Migration
     public function up()
     {
         Schema::table('answers_questions', function (Blueprint $table) {
-            $table->string('uniq_name');
+            $table->string('project');
         });
     }
 

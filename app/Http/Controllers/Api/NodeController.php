@@ -50,7 +50,12 @@ class NodeController extends Controller
     {
         $project_name = $project;
 
-        return QuestionsAnswers::where('uniq_name', $project_name)->get();
+        return  QuestionsAnswers::where('questions_answers.project', $project_name)
+            ->join('questions', 'questions.id', '=', 'questions_answers.question_id')
+            ->join('answers_questions', 'answers_questions.id', '=', 'questions_answers.answers_id')
+            ->select('questions_answers.project','questions.val','answers_questions.answer','questions_answers.question_id','questions_answers.answers_id')
+            ->get();
+
     }
 
     /**

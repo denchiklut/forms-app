@@ -1358,7 +1358,7 @@
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="340" parent="329" name="uniq_name">
+    <column id="340" parent="329" name="project">
       <Position>6</Position>
       <DataType>varchar(191)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1455,7 +1455,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="357" parent="333" name="uniq_name">
+    <column id="357" parent="333" name="project">
       <Position>2</Position>
       <DataType>varchar(191)|0s</DataType>
       <NotNull>1</NotNull>
