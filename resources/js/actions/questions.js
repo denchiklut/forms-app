@@ -21,6 +21,7 @@ export const selectQuestion = (question) => {
 }
 
 export const addQuestion = (question) => {
+    console.log(question)
     return {
         type: ADD_QUESTION,
         payload: question

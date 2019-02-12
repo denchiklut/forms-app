@@ -19,9 +19,11 @@ class AddForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.state.val
+        const project = this.props.project
         const data = {
             editing: false,
-            val: message
+            val: message,
+            project: project
         }
         this.props.onAdd(data)
         this.setState({val: ''})

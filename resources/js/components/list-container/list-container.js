@@ -86,6 +86,7 @@ class ListContainer extends Component {
                         isOpen  = { this.state.isOpen}
                         onAdd   = { this.saveAddQuestion }
                         onClose = { this.closeAddForm }
+                        project = { this.props.activeProject.value }
                     /> :
                     null}
             </div>
@@ -101,6 +102,7 @@ ListContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         activeQst: state.activeQuestion,
+        activeProject: state.activeProject,
     }
 }
 
