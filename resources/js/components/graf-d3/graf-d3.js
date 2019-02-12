@@ -39,30 +39,33 @@ class GrafD3 extends Component {
     state = {
         transitionDuration: 300,
         selected: null,
-        data:  {},
         isOpen: false,
+        data: {
+            idd:  0,
+            name: 'Nothing yet',
+            answers: [],
+            children: [],
+        },
     }
 
-    componentDidMount() {
-        this.setState({
-            data: {
-                idd:  1,
-                name: 'Nothing yet',
-                answers: [],
-                children: []
-            }
-        })
-
-    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.data.length !== 0) {
-            if (this.props.data !== prevProps.data) {
+        if (this.props.data !== prevProps.data) {
+            if (this.props.data.length !== 0) {
                 this.setState({
                     data: {
                         idd: this.props.data[0].question_id,
                         name: this.props.data[0].val,
                         answers: [this.props.data[0].answer, this.props.data[1].answer],
+                        children: []
+                    }
+                })
+            } else {
+                this.setState({
+                    data: {
+                        idd:  1,
+                        name: 'Nothing yet',
+                        answers: [],
                         children: []
                     }
                 })

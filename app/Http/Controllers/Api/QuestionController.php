@@ -43,7 +43,7 @@ class QuestionController extends Controller
         //Временно делаем запрос лишний!!! чтобы понять первый ли это вопрос с таким project
         $project_name = $request -> project;
 
-        if (Question::where('project',$project_name)->exists()) {
+        if ( Question::where('project',$project_name)->exists() ) {
             $question = new Question();
             $question -> val     = $request -> val;
             $question -> project = $request -> project;
@@ -62,14 +62,14 @@ class QuestionController extends Controller
 
             //Добавляем ответы 'Да' и 'Нет' на первый вопрос
             $aq = new AnswersQuestions();
-            $aq -> uniq_name = $project_name;
+            $aq -> project = $project_name;
             $aq -> answer = 'Да';
             $aq -> save();
 
 
             // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Да')
             $qa = new QuestionsAnswers();
-            $qa -> uniq_name = $project_name;
+            $qa -> project = $project_name;
             $qa -> question_id = $question -> id;
             $qa -> answers_id = $aq -> id;
             $qa -> save();
@@ -77,13 +77,13 @@ class QuestionController extends Controller
 
             //Добавляем ответы 'Да' и 'Нет' на первый вопрос
             $aq = new AnswersQuestions();
-            $aq -> uniq_name = $project_name;
+            $aq -> project = $project_name;
             $aq -> answer = 'Нет';
             $aq -> save();
 
             // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Нет')
             $qa = new QuestionsAnswers();
-            $qa -> uniq_name = $project_name;
+            $qa -> project = $project_name;
             $qa -> question_id = $question -> id;
             $qa -> answers_id = $aq -> id;
             $qa -> save();
