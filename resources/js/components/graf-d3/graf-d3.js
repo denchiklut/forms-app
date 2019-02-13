@@ -13,7 +13,7 @@ import GrafAddForm from "../garf-add-form"
 import {bindActionCreators} from "redux";
 import {fetchQuestions} from "../../actions/questions";
 import './graf-3d.scss'
-import {fetchNodes} from "../../actions/graf/nodes";
+import {fetchNodes, onAddNode} from "../../actions/graf/nodes";
 
 const svgStyle = {
     nodes: {
@@ -48,15 +48,14 @@ class GrafD3 extends Component {
         },
     }
 
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.data !== prevProps.data) {
             if (this.props.data.length !== 0) {
                 this.setState({
                     data: {
-                        idd: this.props.data[0].question_id,
-                        name: this.props.data[0].val,
-                        answers: [this.props.data[0].answer, this.props.data[1].answer],
+                        idd: this.props.data.question_id,
+                        name: this.props.data.val,
+                        answers: [this.props.data.answer[0], this.props.data.answer[1]],
                         children: []
                     }
                 })
@@ -73,7 +72,7 @@ class GrafD3 extends Component {
         }
     }
 
-    addNode = (data) => {
+    addNode = data => {
         if (this.state.selected) {
             this.setState({transitionDuration: 300})
             let newData = {...this.state.data}
@@ -209,11 +208,11 @@ class GrafD3 extends Component {
         })
     }
 
-    saveAddNode = (data) => {
+    saveAddNode = data => {
 
-        //write in db
         this.addNode(data.addQst)
-        // this.props.addQuestion(data)
+
+        this.props.onAddNode(data)
 
         this.closeAddNodeForm()
     }
@@ -224,7 +223,6 @@ class GrafD3 extends Component {
                 <div><h1>Select Project</h1></div>
             )
         }
-        console.log(this.props.data)
         return (
             <div id="treeWrapper">
                 <AppBar position="static" className="grafAppBar">
@@ -233,7 +231,7 @@ class GrafD3 extends Component {
                             <Chip
                                 className="grafChip"
                                 color="secondary"
-                                label={this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
+                                label={ this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
                             />
                         </Typography>
                         <div>
@@ -273,10 +271,12 @@ class GrafD3 extends Component {
                 <GrafSelectedPanel selected={this.state.selected}/>
                 {this.state.isOpen ?
                     <GrafAddForm
-                        questions = { this.props.questions}
-                        isOpen    = { this.state.isOpen}
-                        onAdd     = { this.saveAddNode }
-                        onClose   = { this.closeAddNodeForm }
+                        currentQst = { this.state.selected.idd }
+                        questions  = { this.props.questions }
+                        answers    = { this.props.nodes }
+                        isOpen     = { this.state.isOpen }
+                        onAdd      = { this.saveAddNode }
+                        onClose    = { this.closeAddNodeForm }
                     />
                     : null
                 }
@@ -290,7 +290,7 @@ function mapStateToProps(state) {
     return {
         activeProject: state.activeProject,
         questions: state.questions,
-        // nodes: state.nodes
+        nodes: state.nodes
     }
 }
 
@@ -298,7 +298,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchQuestions: fetchQuestions,
-        // fetchNodes: fetchNodes,
+        fetchNodes: fetchNodes,
+        onAddNode: onAddNode,
     }, dispatch)
 }
 
