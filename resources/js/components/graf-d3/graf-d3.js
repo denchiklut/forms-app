@@ -277,6 +277,8 @@ class GrafD3 extends Component {
                 />
 
                 <GrafSelectedPanel selected={this.state.selected}/>
+
+
                 {this.state.isOpen ?
                     <GrafAddForm
                         currentQst = { this.state.selected.idd }

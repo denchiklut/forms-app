@@ -13,7 +13,7 @@ class GrafSelectedPanel extends Component {
     renderChildren(arr = []) {
         return arr.map(item => {
             return (
-                <li key={item.id}>{item.name}</li>
+                <li key={item.idd}>{item.answer}: {item.name}</li>
             )
         })
     }
@@ -43,10 +43,10 @@ class GrafSelectedPanel extends Component {
                             Question id: { selected.idd}
                         </Typography>
                         <Typography variant="h5" component="h2">
-                            { selected.name}
+                            { selected.name} ({selected.answer})
                         </Typography>
                         <Typography  color="textSecondary">
-                            children: [{selected.answers}]
+                            children:
                         </Typography>
                         <Typography component="div">
                             { selected.children ? <ul> {children} </ul>: 'Нет потомков'}
