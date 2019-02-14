@@ -40,12 +40,18 @@ class GrafD3 extends Component {
         transitionDuration: 300,
         selected: null,
         isOpen: false,
-        data: {
-            idd:  0,
-            name: 'Start',
-            answer: 'Start',
-            children: [],
-        },
+        data: {},
+    }
+
+    componentDidMount() {
+        console.log(this.props.project)
+        this.setState({data: {
+                idd:  0,
+                project: {_id: this.props.project._id, value: this.props.project.value},
+                name: 'Start',
+                answer: 'Start',
+                children: [],
+            }})
     }
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
