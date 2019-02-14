@@ -65,7 +65,7 @@ export function fetchAddQuestion(newQuestion) {
 export function fetchDeleteQuestion(delQuestion) {
     return dispatch => {
         axios
-            .delete(`/api/questions/${delQuestion.id}`)
+            .delete(`/api/questions/${delQuestion._id}`)
             .then(res => dispatch(deleteQuestion(delQuestion)))
             .catch((err)=>console.log(err))
 
@@ -75,7 +75,7 @@ export function fetchDeleteQuestion(delQuestion) {
 export function fetchUpdateQuestion(question) {
     return dispatch => {
         axios
-            .patch(`/api/questions/${question.id}`, question)
+            .patch(`/api/questions/${question._id}`, question)
             .then(res => dispatch(updateQuestion(question)))
             .catch((err)=>console.log(err))
 

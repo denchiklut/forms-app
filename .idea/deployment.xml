@@ -8,8 +8,6 @@
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
-            <excludedPath path="/bootstrap" />
-            <excludedPath path="/config" />
             <excludedPath path="/node_modules" />
             <excludedPath path="/public" />
             <excludedPath path="/storage" />
@@ -18,6 +16,9 @@
             <excludedPath path="/package-lock.json" />
             <excludedPath path="/v8-compile-cache-0" />
             <excludedPath path="/phpunit.xml" />
+            <excludedPath path="/config" />
+            <excludedPath path="/bootstrap" />
+            <excludedPath path="/composer.lock" />
           </excludedPaths>
         </serverdata>
       </paths>

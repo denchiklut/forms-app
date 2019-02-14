@@ -61,32 +61,6 @@ class QuestionController extends Controller
 
 
             //Добавляем ответы 'Да' и 'Нет' на первый вопрос
-            $aq = new AnswersQuestions();
-            $aq -> project = $project_name;
-            $aq -> answer = 'Да';
-            $aq -> save();
-
-
-            // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Да')
-            $qa = new QuestionsAnswers();
-            $qa -> project = $project_name;
-            $qa -> question_id = $question -> id;
-            $qa -> answers_id = $aq -> id;
-            $qa -> save();
-
-
-            //Добавляем ответы 'Да' и 'Нет' на первый вопрос
-            $aq = new AnswersQuestions();
-            $aq -> project = $project_name;
-            $aq -> answer = 'Нет';
-            $aq -> save();
-
-            // Пишу в таблицу question_to_answers (Только для первого вопроса Ответа 'Нет')
-            $qa = new QuestionsAnswers();
-            $qa -> project = $project_name;
-            $qa -> question_id = $question -> id;
-            $qa -> answers_id = $aq -> id;
-            $qa -> save();
         } ;
 
         return response()->json($question);
