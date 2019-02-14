@@ -45,7 +45,7 @@ class QuestionController extends Controller
 
         if ( Question::where('project',$project_name)->exists() ) {
             $question = new Question();
-            $question -> val     = $request -> val;
+            $question -> value   = $request -> value;
             $question -> project = $request -> project;
             $question -> save();
 
@@ -55,7 +55,7 @@ class QuestionController extends Controller
 
 
             $question = new Question();
-            $question -> val     = $request -> val;
+            $question -> value     = $request -> value;
             $question -> project = $request -> project;
             $question -> save();
 
@@ -104,10 +104,10 @@ class QuestionController extends Controller
         $question = Question::find($id);
 
         $question->update([
-            'val' => $request->input('val'),
+            'value' => $request->input('value'),
         ]);
 
-        return response()->json(['message' => 'question updated successful'.$request->input('val')]);
+        return response()->json(['message' => 'question updated successful'.$request->input('value')]);
     }
 
     /**

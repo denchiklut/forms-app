@@ -196,9 +196,9 @@ class SelectProject extends Component {
         };
 
         const suggestions = this.props.items.map(suggestion => ({
-            id:    suggestion.id,
-            value: suggestion.val,
-            label: suggestion.val,
+            _id:    suggestion._id,
+            value: suggestion.value,
+            label: suggestion.value,
         }));
 
         return (

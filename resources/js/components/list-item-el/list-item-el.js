@@ -77,7 +77,7 @@ class ListItemEl extends Component {
                 >
                     <ListItemText
                         disableTypography
-                        primary={<Typography type="body2" className={classNames(item.id === selectedIndex && 'selectedColor')} >{item.val}</Typography>}
+                        primary={<Typography type="body2" className={classNames(item.id === selectedIndex && 'selectedColor')} >{item.value}</Typography>}
                     />
 
                     <ListItemSecondaryAction>

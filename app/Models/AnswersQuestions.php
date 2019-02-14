@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class AnswersQuestions extends Model
+class AnswersQuestions extends Eloquent
 {
     protected $table = 'answers_questions';
     protected $guarded = ['id'];

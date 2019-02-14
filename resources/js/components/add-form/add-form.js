@@ -9,24 +9,24 @@ import './add-form.scss'
 class AddForm extends Component {
 
     state = {
-        val: '',
+        value: '',
     }
 
     onValueChange = (e) => {
-        this.setState({val: e.target.value})
+        this.setState({value: e.target.value})
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const message =  this.state.val
+        const message =  this.state.value
         const project = this.props.project
         const data = {
             editing: false,
-            val: message,
+            value: message,
             project: project
         }
         this.props.onAdd(data)
-        this.setState({val: ''})
+        this.setState({value: ''})
     }
 
     render() {
@@ -50,7 +50,7 @@ class AddForm extends Component {
                                 cols="28"
                                 onChange={this.onValueChange}
                                 placeholder="Enter Post"
-                                value={this.state.val}
+                                value={this.state.value}
                             />
                             <br /><br />
                         </DialogContent>

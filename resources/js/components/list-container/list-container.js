@@ -56,8 +56,8 @@ class ListContainer extends Component {
                 <List component="nav" style={{paddingTop: 0}}>
                     {this.props.items.map((item) => (
                         <div
-                            key={item.id}
-                            className={classNames("myListItem", (item.id === this.props.activeQst.id) && 'selected')}>
+                            key={item._id}
+                            className={classNames("myListItem", (item._id === this.props.activeQst._id) && 'selected')}>
 
                             <ListItemEl
                                 item={item}

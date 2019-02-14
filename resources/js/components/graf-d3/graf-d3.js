@@ -42,38 +42,39 @@ class GrafD3 extends Component {
         isOpen: false,
         data: {
             idd:  0,
-            name: 'Nothing yet',
-            answers: [],
+            name: 'Start',
+            answer: 'Start',
             children: [],
         },
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.data !== prevProps.data) {
-            if (this.props.data.length !== 0) {
-                this.setState({
-                    data: {
-                        idd: this.props.data.question_id,
-                        name: this.props.data.val,
-                        answers: [this.props.data.answer[0], this.props.data.answer[1]],
-                        children: []
-                    }
-                })
-            } else {
-                this.setState({
-                    data: {
-                        idd:  1,
-                        name: 'Nothing yet',
-                        answers: [],
-                        children: []
-                    }
-                })
-            }
-        }
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (this.props.data !== prevProps.data) {
+    //         if (this.props.data.length !== 0) {
+    //             this.setState({
+    //                 data: {
+    //                     idd: this.props.data.question_id,
+    //                     name: this.props.data.val,
+    //                     answers: [this.props.data.answer[0], this.props.data.answer[1]],
+    //                     children: []
+    //                 }
+    //             })
+    //         } else {
+    //             this.setState({
+    //                 data: {
+    //                     idd:  1,
+    //                     name: 'Nothing yet',
+    //                     answers: [],
+    //                     children: []
+    //                 }
+    //             })
+    //         }
+    //     }
+    // }
 
     addNode = data => {
         if (this.state.selected) {
+            console.log(data.answer)
             this.setState({transitionDuration: 300})
             let newData = {...this.state.data}
             // let searchVal = this.state.selected.name
@@ -88,7 +89,7 @@ class GrafD3 extends Component {
 
 
                 if (searchId === newData.idd) {
-                    newData.children.push({name: data.value, idd: data.id, children: []})
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, answer: data.answer, children: []})
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {
@@ -108,8 +109,9 @@ class GrafD3 extends Component {
 
             this.setState({
                 data: newData
-
             })
+
+            console.log(this.state.data)
         }
         else {
             alert("Select node")
@@ -210,7 +212,7 @@ class GrafD3 extends Component {
 
     saveAddNode = data => {
 
-        this.addNode(data.addQst)
+        this.addNode(data)
 
         this.props.onAddNode(data)
 

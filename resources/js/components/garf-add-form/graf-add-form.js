@@ -11,71 +11,32 @@ import './graf-add-form.scss'
 class GrafAddForm extends Component {
 
     state = {
-        val: '',
-        val1: '',
-        val2: '',
-        val3: '',
+        answer: '',
         addQst: {},
-        answer: null
-    }
-
-    onValueChange = (e) => {
-        this.setState({val: e.target.value})
-    }
-    onValueChange1 = (e) => {
-        this.setState({val1: e.target.value})
-    }
-    onValueChange2 = (e) => {
-        this.setState({val2: e.target.value})
-    }
-    onValueChange3 = (e) => {
-        this.setState({val3: e.target.value})
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const message1 =  this.state.val1
-        const message2 =  this.state.val2
-        const message3 =  this.state.val3
-        const answer =  this.state.answer
-        const addQst =  this.state.addQst
-        const data = {
-            val1: message1,
-            val2: message2,
-            val3: message3,
-            answer: answer ,
-            addQst: addQst,
-            currentQstId: this.props.currentQst
-        }
-        this.props.onAdd(data)
-        this.setState({val: '', val1: '', val2: '', val3: ''})
-    }
-
-    addFromSelect = (item) => {
-        this.setState({addQst: item})
     }
 
     setAnswer = ( e ) => {
         this.setState({answer: e.target.value})
     }
 
-    renderRadio = ( item ) => {
-        return (
-            <div style={{display: 'flex', flexGrow: 1}} key={item}>
-                <label>
-                    <input
-                        name="answer"
-                        type="radio"
-                        value={ item }
-                        onClick={this.setAnswer}
-                    />{' '}
-                    { item }
-                </label>
+    handleSubmit = (e) => {
+        e.preventDefault();
 
-            </div>
-        )
+        const answer =  this.state.answer
+        const addQst =  this.state.addQst
+        const data = {
+            answer: answer ,
+            addQst: addQst,
+
+            currentQstId: this.props.currentQst
+        }
+        this.props.onAdd(data)
+        this.setState({val: ''})
     }
 
+    addFromSelect = (item) => {
+        this.setState({addQst: item})
+    }
 
     render() {
         return (
@@ -93,45 +54,24 @@ class GrafAddForm extends Component {
                         <DialogContent className="form-container">
 
                             <div style={{width: '80%', margin: 'auto'}}>
-                                <SelectProject
-                                    className="grafFormSelect"
-                                    items={ this.props.questions }
-                                    selectItem={ this.addFromSelect }
-                                />
 
-                                <div style={{display: 'flex'}}>
-                                    { this.props.answers.answer.map(item => this.renderRadio(item)) }
+                                <input
+                                    className="answerInput"
+                                    required
+                                    type="text"
+                                    placeholder="Добавить ответ"
+                                    value={ this.state.answer }
+                                    onChange={ this.setAnswer }
+                                />
+                                <div style={{width: '80%', margin: 'auto'}}>
+                                    <SelectProject
+                                        className="grafFormSelect"
+                                        items={ this.props.questions }
+                                        selectItem={ this.addFromSelect }
+                                    />
                                 </div>
 
-
-                                <input
-                                    className="answerInput"
-                                    required
-                                    type="text"
-                                    placeholder="Добавить ответ"
-                                    onChange={this.onValueChange1}
-                                    value={ this.state.val1 }
-                                />
-                                <input
-                                    className="answerInput"
-                                    required
-                                    type="text"
-                                    placeholder="Добавить ответ"
-                                    onChange={this.onValueChange2}
-                                    value={ this.state.val2 }
-                                />
-                                <input
-                                    className="answerInput"
-                                    required
-                                    type="text"
-                                    placeholder="Добавить ответ"
-                                    onChange={ this.onValueChange3 }
-                                    value={ this.state.val3 }
-                                />
-
                             </div>
-
-
 
                             <br /><br />
                         </DialogContent>
