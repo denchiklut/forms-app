@@ -92,7 +92,7 @@ class MainPage extends Component {
 
                     </Grid>
                     <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
-                        <GrafD3 project={this.props.activeProject} />
+                        <GrafD3 project={this.props.activeProject}  grafNodes={this.props.nodes}/>
                     </Grid>
                 </Grid>
             </div>

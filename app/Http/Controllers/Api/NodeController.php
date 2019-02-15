@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Node;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\QuestionsAnswers;
-use App\Models\AnswersQuestions;
 
 
 class NodeController extends Controller
@@ -38,7 +37,15 @@ class NodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $node = [
+            'value' => $request -> data,
+            'project' => $request ->  data['project'] ['value']
+        ];
+
+
+        Node::updateOrCreate(['project' => $request ->  data['project'] ['value']], $node);
+
     }
 
     /**
@@ -48,7 +55,12 @@ class NodeController extends Controller
      */
     public function show( $project )
     {
+        $project_name = $project;
 
+        $resulet = Node::where('project',$project_name)->get();
+
+
+        return $resulet;
     }
 
     /**
@@ -69,7 +81,7 @@ class NodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $project)
     {
         //
     }

@@ -78,7 +78,7 @@ class QuestionController extends Controller
         $resulet = Question::where('project',$project_name)->get();
 
 
-        return response()->json(QuestionsResource::collection($resulet));
+        return $resulet;
     }
 
     /**

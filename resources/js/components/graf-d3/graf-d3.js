@@ -10,10 +10,9 @@ import {connect} from 'react-redux'
 import Chip from "@material-ui/core/Chip"
 import GrafSelectedPanel from '../graf-selected-panel'
 import GrafAddForm from "../garf-add-form"
-import {bindActionCreators} from "redux";
-import {fetchQuestions} from "../../actions/questions";
+import { bindActionCreators } from "redux";
+import { onAddNode } from "../../actions/graf/nodes";
 import './graf-3d.scss'
-import {fetchNodes, onAddNode} from "../../actions/graf/nodes";
 
 const svgStyle = {
     nodes: {
@@ -43,8 +42,7 @@ class GrafD3 extends Component {
         data: {},
     }
 
-    componentDidMount() {
-        console.log(this.props.project)
+    initGraf() {
         this.setState({data: {
                 idd:  0,
                 project: {_id: this.props.project._id, value: this.props.project.value},
@@ -54,29 +52,23 @@ class GrafD3 extends Component {
             }})
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.props.data !== prevProps.data) {
-    //         if (this.props.data.length !== 0) {
-    //             this.setState({
-    //                 data: {
-    //                     idd: this.props.data.question_id,
-    //                     name: this.props.data.val,
-    //                     answers: [this.props.data.answer[0], this.props.data.answer[1]],
-    //                     children: []
-    //                 }
-    //             })
-    //         } else {
-    //             this.setState({
-    //                 data: {
-    //                     idd:  1,
-    //                     name: 'Nothing yet',
-    //                     answers: [],
-    //                     children: []
-    //                 }
-    //             })
-    //         }
-    //     }
-    // }
+    componentDidMount() {
+        this.initGraf()
+        console.log(this.props.grafNodes)
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.project !== prevProps.project) {
+            console.log(this.props.grafNodes)
+            this.initGraf()
+        }
+
+        if (this.props.grafNodes !== prevProps.grafNodes) {
+            this.props.grafNodes.length === 0 ? this.initGraf() : this.setState({data: this.props.grafNodes[0].value})
+        }
+
+    }
 
     addNode = data => {
         if (this.state.selected) {
@@ -220,7 +212,7 @@ class GrafD3 extends Component {
 
         this.addNode(data)
 
-        this.props.onAddNode(data)
+        this.props.onAddNode(data, this.state.data)
 
         this.closeAddNodeForm()
     }
@@ -266,14 +258,14 @@ class GrafD3 extends Component {
                 </AppBar>
 
                 <Tree
-                    data={this.state.data}
-                    transitionDuration={0}
-                    scaleExtent={{min: 0.1, max: 8}}
-                    textLayout={{ x: 28, y: 0, }}
-                    orientation="vertical"
-                    onClick={this.click}
-                    collapsible={false}
-                    styles={svgStyle}
+                    transitionDuration = { 0 }
+                    collapsible        = { false }
+                    orientation        = "vertical"
+                    styles             = { svgStyle }
+                    onClick            = { this.click }
+                    textLayout         = {{ x: 28, y: 0, }}
+                    data               = { this.state.data }
+                    scaleExtent        = {{ min: 0.1, max: 8 }}
                 />
 
                 <GrafSelectedPanel selected={this.state.selected}/>
@@ -300,15 +292,12 @@ function mapStateToProps(state) {
     return {
         activeProject: state.activeProject,
         questions: state.questions,
-        nodes: state.nodes
     }
 }
 
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        fetchQuestions: fetchQuestions,
-        fetchNodes: fetchNodes,
         onAddNode: onAddNode,
     }, dispatch)
 }

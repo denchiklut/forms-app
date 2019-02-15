@@ -59,12 +59,12 @@ class ListContainer extends Component {
                             className={classNames("myListItem", (item._id === this.props.activeQst._id) && 'selected')}>
 
                             <ListItemEl
-                                item={item}
-                                type={this.props.type}
-                                select={this.props.select}
-                                editQuestion={this.props.editQuestion}
-                                delQuestion={this.props.delQuestion}
-                                selectedIndex={this.props.activeQst._id}
+                                item          = { item }
+                                type          = { this.props.type }
+                                select        = { this.props.select }
+                                delQuestion   = { this.props.delQuestion }
+                                editQuestion  = { this.props.editQuestion }
+                                selectedIndex = { this.props.activeQst._id }
                             />
                             <Divider />
                         </div>
@@ -81,8 +81,8 @@ class ListContainer extends Component {
                 </Fab>
                 { this.state.isOpen ?
                     <AddForm
-                        type    = {this.props.type}
-                        isOpen  = { this.state.isOpen}
+                        type    = { this.props.type }
+                        isOpen  = { this.state.isOpen }
                         onAdd   = { this.saveAddQuestion }
                         onClose = { this.closeAddForm }
                         project = { this.props.activeProject.value }
@@ -108,9 +108,9 @@ function mapStateToProps(state) {
 function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            select: selectQuestion,
-            delQuestion: fetchDeleteQuestion,
+            select:      selectQuestion,
             addQuestion: fetchAddQuestion,
+            delQuestion: fetchDeleteQuestion,
         }, dispatch)
 }
 

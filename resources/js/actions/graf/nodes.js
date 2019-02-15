@@ -1,4 +1,5 @@
 import axios from "axios";
+import {addQuestion, updateQuestion} from "../questions";
 export const SET_NODES ="SET_NODES"
 export const ADD_NODE ="ADD_NODE"
 
@@ -10,15 +11,17 @@ export function setNodes(nodes) {
     }
 }
 
-export function addNode(node) {
+export function addNode(node, graf) {
     return {
         type: ADD_NODE,
-        payload: node
+        node: node,
+        payload: graf
     }
 }
 
 export function fetchNodes(project) {
     return dispatch => {
+        console.log(project)
         axios
             .get(`/api/nodes/${project}`)
             .then(data => dispatch(setNodes(data.data)))
@@ -27,8 +30,12 @@ export function fetchNodes(project) {
     }
 }
 
-export function onAddNode( node ) {
+export function onAddNode( node, graf ) {
     return dispatch => {
-        dispatch(addNode( node ))
+        axios
+            .post('/api/nodes', {data: graf})
+            .then(res => dispatch(addNode(res.data)))
+            .catch((err)=>console.log(err))
+
     }
 }
