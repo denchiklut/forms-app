@@ -1,4 +1,4 @@
-import { SET_NODES } from "../../actions/graf/nodes";
+import { SET_NODES, UPDATE_NODE } from "../../actions/graf/nodes";
 
 export default function (state = [], action = {}) {
     switch (action.type) {

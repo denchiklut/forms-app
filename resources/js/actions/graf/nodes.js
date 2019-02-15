@@ -1,5 +1,4 @@
 import axios from "axios";
-import {addQuestion, updateQuestion} from "../questions";
 export const SET_NODES ="SET_NODES"
 export const ADD_NODE ="ADD_NODE"
 

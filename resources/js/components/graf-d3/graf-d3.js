@@ -155,6 +155,8 @@ class GrafD3 extends Component {
             data: newData
         });
 
+        this.props.onAddNode({}, this.state.data)
+
     }
 
     coloriseNode = (nodeKey) => {

@@ -44,8 +44,9 @@ class NodeController extends Controller
         ];
 
 
-        Node::updateOrCreate(['project' => $request ->  data['project'] ['value']], $node);
+        $resulet =  Node::updateOrCreate(['project' => $request ->  data['project'] ['value']], $node);
 
+        return $resulet;
     }
 
     /**
