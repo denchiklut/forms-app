@@ -1,7 +1,3 @@
-.selected {
-    background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)!important;
-    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
-}
 .myList {
     position: relative;
     height: calc(100vh - 64px - 48px);
@@ -11,7 +7,7 @@
     margin-bottom: 0;
 
     .myListItem {
-        color: #fff;
+        color: #111;
         background: linear-gradient(to left, #ff818169, #ffd9b2);
         box-shadow: 0 0 3px -1px #d82d4573;
         margin: 1px 0;

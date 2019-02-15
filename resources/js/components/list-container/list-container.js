@@ -13,7 +13,6 @@ import AddForm from '../add-form'
 import EmptyList from '../empty-list'
 import './list-container.scss'
 
-
 class ListContainer extends Component {
     state = {
         isOpen: false
@@ -65,7 +64,7 @@ class ListContainer extends Component {
                                 select={this.props.select}
                                 editQuestion={this.props.editQuestion}
                                 delQuestion={this.props.delQuestion}
-                                selectedIndex={this.props.activeQst.id}
+                                selectedIndex={this.props.activeQst._id}
                             />
                             <Divider />
                         </div>
