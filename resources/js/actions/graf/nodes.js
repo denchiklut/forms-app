@@ -33,7 +33,7 @@ export function onAddNode( node, graf ) {
     return dispatch => {
         axios
             .post('/api/nodes', {data: graf})
-            .then(res => dispatch(addNode(res.data)))
+            .then(res => dispatch(addNode(node, res.data)))
             .catch((err)=>console.log(err))
 
     }

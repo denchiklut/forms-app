@@ -6,12 +6,9 @@ import Typography from '@material-ui/core/Typography'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {connect} from 'react-redux'
 import Chip from "@material-ui/core/Chip"
 import GrafSelectedPanel from '../graf-selected-panel'
 import GrafAddForm from "../garf-add-form"
-import { bindActionCreators } from "redux";
-import { onAddNode } from "../../actions/graf/nodes";
 import './graf-3d.scss'
 
 const svgStyle = {
@@ -289,19 +286,4 @@ class GrafD3 extends Component {
     }
 }
 
-
-function mapStateToProps(state) {
-    return {
-        activeProject: state.activeProject,
-        questions: state.questions,
-    }
-}
-
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        onAddNode: onAddNode,
-    }, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GrafD3)
+export default GrafD3
