@@ -51,25 +51,21 @@ class GrafD3 extends Component {
 
     componentDidMount() {
         this.initGraf()
-        console.log(this.props.grafNodes)
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.project !== prevProps.project) {
-            console.log(this.props.grafNodes)
             this.initGraf()
         }
 
         if (this.props.grafNodes !== prevProps.grafNodes) {
-            this.props.grafNodes.length === 0 ? this.initGraf() : this.setState({data: this.props.grafNodes[0].value})
+            Object.keys(this.props.grafNodes ).length === 0? this.initGraf() : this.setState({data: this.props.grafNodes.value})
         }
 
     }
 
     addNode = data => {
         if (this.state.selected) {
-            console.log(data.answer)
             this.setState({transitionDuration: 300})
             let newData = {...this.state.data}
             // let searchVal = this.state.selected.name
@@ -105,8 +101,6 @@ class GrafD3 extends Component {
             this.setState({
                 data: newData
             })
-
-            console.log(this.state.data)
         }
         else {
             alert("Select node")
@@ -118,7 +112,6 @@ class GrafD3 extends Component {
     removeNode = () => {
         this.setState({transitionDuration: 300})
         let newData = {...this.state.data}
-        let searchVal = this.state.selected.name
         let searchId = this.state.selected.idd
 
         const findNodeById = function(searchId, newData) {
@@ -148,18 +141,12 @@ class GrafD3 extends Component {
 
         findNodeById(searchId, newData)
 
-        this.setState({
-            data: newData
-        });
-
-        this.props.onAddNode({}, this.state.data)
-
+        this.props.removeNode(this.state.selected, newData)
     }
 
     coloriseNode = (nodeKey) => {
         let newData = {...this.state.data}
         this.setState({transitionDuration: 0})
-        let searchVal = nodeKey.name
         let searchId = nodeKey.idd
 
         const findNodeById = function(searchId, newData) {

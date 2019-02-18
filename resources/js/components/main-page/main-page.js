@@ -14,7 +14,7 @@ import {connect} from 'react-redux';
 import {fetchQuestions} from '../../actions/questions'
 import './main-page.scss'
 import {bindActionCreators} from "redux";
-import {fetchNodes, onAddNode} from "../../actions/graf/nodes";
+import {fetchNodes, onAddNode, onRemoveNode,} from "../../actions/graf/nodes";
 
 function TabContainer({ children, dir }) {
     return (
@@ -93,11 +93,12 @@ class MainPage extends Component {
                     </Grid>
                     <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
                         <GrafD3
-                            onAddNode={this.props.onAddNode}
-                            grafNodes={this.props.nodes}
-                            questions = {this.props.questions}
-                            activeProject = {this.props.activeProject}
-                            project={this.props.activeProject}
+                            grafNodes     = { this.props.nodes }
+                            onAddNode     = { this.props.onAddNode }
+                            removeNode    = { this.props.removeNode }
+                            questions     = { this.props.questions }
+                            project       = { this.props.activeProject }
+                            activeProject = { this.props.activeProject }
                         />
                     </Grid>
                 </Grid>
@@ -118,6 +119,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchQuestions: fetchQuestions,
+        removeNode: onRemoveNode,
         fetchNodes: fetchNodes,
         onAddNode: onAddNode,
     }, dispatch)
