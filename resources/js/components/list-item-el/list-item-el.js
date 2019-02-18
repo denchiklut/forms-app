@@ -16,13 +16,13 @@ import './list-item-el.scss'
 class ListItemEl extends Component {
     state = {
         isOpen: false,
-        editItem: null,
+        editItem: {},
     }
 
     //Open Edit form
     handleClickOpenEdit = (item) => {
-        this.setState({ editItem: item })
-        this.setState({ isOpen: true })
+        console.log('item', item)
+        this.setState({ editItem: item, isOpen: true })
     };
 
 
@@ -87,14 +87,17 @@ class ListItemEl extends Component {
                     </ListItemSecondaryAction>
                 </ListItem>
 
-                { ( this.state.editItem && this.state.isOpen )?
-                    <EditFormDialog
-                        type={type}
-                        onEdit   = { this.saveEdit }
-                        isOpen   = { this.state.isOpen }
-                        onClose  = { this.closeEditForm }
-                        editItem = { this.state.editItem }
-                    /> :
+                { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
+                    <div>
+                        <EditFormDialog
+                            type     = { type }
+                            onEdit   = { this.saveEdit }
+                            isOpen   = { this.state.isOpen }
+                            onClose  = { this.closeEditForm }
+                            editItem = { this.state.editItem }
+                        />
+                    </div>
+                   :
                     null
                 }
 

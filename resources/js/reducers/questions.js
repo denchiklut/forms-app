@@ -4,8 +4,8 @@ export default function (state = [], action = {}) {
     switch (action.type) {
         case SET_QUESTIONS:   return action.payload
         case ADD_QUESTION:    return state.concat(action.payload)
-        case DELETE_QUESTION: return state.filter((item) => item.id !== action.payload.id)
-        case UPDATE_QUESTION: return state.map((question) => question.id === action.payload.id ? {...question, val:action.payload.val}:question)
+        case DELETE_QUESTION: return state.filter((item) => item._id !== action.payload._id)
+        case UPDATE_QUESTION: return state.map((question) => question._id === action.payload._id ? {...question, value:action.payload.value}:question)
 
         default:  return state
     }

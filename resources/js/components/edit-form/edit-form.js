@@ -10,23 +10,23 @@ import './edit-form.scss'
 class EditFormDialog extends Component {
 
     state = {
-        val: '',
+        value: '',
     }
 
     onValueChange = (e) => {
-        this.setState({val: e.target.value})
+        this.setState({value: e.target.value})
     }
 
     handleEditSubmit = (e) => {
         e.preventDefault();
-        const newMessage =  this.state.val;
-        const data = {...this.props.editItem, val: newMessage}
+        const newMessage =  this.state.value;
+        const data = {...this.props.editItem, value: newMessage}
         this.props.onEdit(data)
-        this.setState({val: ''})
+        this.setState({value: ''})
     }
 
     componentDidMount() {
-        this.setState({val: this.props.editItem.val})
+        this.setState({value: this.props.editItem.value})
     }
 
     render() {
@@ -42,7 +42,7 @@ class EditFormDialog extends Component {
                     className="form-container"
                 >
                     <form className="form">
-                        <DialogTitle className="form_heading">Редактирование {type}: {editItem.id}</DialogTitle>
+                        <DialogTitle className="form_heading">Редактирование {type}: {editItem._id}</DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus
@@ -50,7 +50,7 @@ class EditFormDialog extends Component {
                                 rows="12"
                                 cols="28"
                                 onChange={this.onValueChange}
-                                value={ this.state.val }
+                                value={ this.state.value }
                                 placeholder="Enter Post"
                             />
                             <br /><br />
