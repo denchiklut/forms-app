@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Node;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\QuestionsAnswers;
@@ -118,7 +119,39 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        Question::destroy($id);
-        return response()->json(['message' => 'Question deleted successfully']);
+
+        $question = Question::find($id);
+
+        $graf = Node::where('project', $question->project)->value('value');
+        $check = false;
+        function findQuestion ($graf, $id, &$check)
+        {
+            var_dump("{$graf["idd"]}-{$id}");
+            if ($graf["idd"] == $id)
+            {
+                $check = true;
+            }else
+            {
+                for ($i = 0; $i < count($graf['children']); $i++)
+                {
+
+                   findQuestion( $graf['children'][$i], $id, $check);
+                }
+            }
+            return false;
+        }
+
+        findQuestion ( $graf, $id, $check );
+
+
+        if ($check)
+        {
+            return response()->json(['message' => 'Can`t remove it']);
+        }
+        else
+            {
+                Question::destroy($id);
+                return response()->json(['message' => 'Question deleted successfully']);
+            }
     }
 }

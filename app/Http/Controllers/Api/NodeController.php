@@ -68,6 +68,7 @@ class NodeController extends Controller
 
 
             $newData["name"] = $newData["idd"] == 0 ? 'start' : Question::where('_id',$newData["idd"])->value('value');
+            $newData["nodeSvgShape"] = null;
 
             for ($i = 0; $i < count($newData['children']); $i++)
             {

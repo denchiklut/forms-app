@@ -56,6 +56,7 @@ class GrafD3 extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.project !== prevProps.project) {
             this.initGraf()
+            this.setState({selected: null})
         }
 
         if (this.props.grafNodes !== prevProps.grafNodes) {
