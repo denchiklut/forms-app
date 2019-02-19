@@ -61,6 +61,7 @@ class ListContainer extends Component {
                             <ListItemEl
                                 item          = { item }
                                 type          = { this.props.type }
+                                nodes         = { this.props.nodes }
                                 select        = { this.props.select }
                                 delQuestion   = { this.props.delQuestion }
                                 editQuestion  = { this.props.editQuestion }
@@ -102,6 +103,7 @@ function mapStateToProps(state) {
     return {
         activeQst: state.activeQuestion,
         activeProject: state.activeProject,
+        nodes: state.nodes,
     }
 }
 

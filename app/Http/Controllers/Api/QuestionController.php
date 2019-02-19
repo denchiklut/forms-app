@@ -124,9 +124,9 @@ class QuestionController extends Controller
 
         $graf = Node::where('project', $question->project)->value('value');
         $check = false;
+
         function findQuestion ($graf, $id, &$check)
         {
-            var_dump("{$graf["idd"]}-{$id}");
             if ($graf["idd"] == $id)
             {
                 $check = true;
@@ -142,7 +142,6 @@ class QuestionController extends Controller
         }
 
         findQuestion ( $graf, $id, $check );
-
 
         if ($check)
         {

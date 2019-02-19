@@ -25,7 +25,6 @@ class ListItemEl extends Component {
         this.setState({ editItem: item, isOpen: true })
     };
 
-
     //Select Item in list
     handleListItemClick = (event, item) => {
         this.props.select(item)
@@ -56,8 +55,41 @@ class ListItemEl extends Component {
        this.closeEditForm()
     }
 
+    handleDel = (item) => {
+        let data = this.props.nodes;
+
+        let id = item._id;
+        let check = false;
+
+         let findQuestion = (data, id) =>
+         {
+            if (data.idd === id)
+            {
+                check = true;
+            }else
+            {
+                for (let i = 0; i < data.children.length; i++)
+                {
+
+                    findQuestion( data.children[i], id);
+                }
+            }
+        }
+
+        findQuestion ( data, id );
+
+        if (check)
+        {
+            alert('Сначала удалите вопрос из графа');
+        }
+        else
+        {
+            this.props.delQuestion(item)
+        }
+    }
+
     render() {
-        const { selectedIndex, item, delQuestion, type }= this.props
+        const { selectedIndex, item, type }= this.props
         return (
             <div>
                 <ListItem
@@ -80,7 +112,7 @@ class ListItemEl extends Component {
                         </IconButton>
                         <IconButton
                             aria-label="Delete"
-                            onClick={()=> delQuestion(item)}
+                            onClick={()=> this.handleDel(item)}
                         >
                             <DeleteIcon />
                         </IconButton>
