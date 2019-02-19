@@ -57,7 +57,7 @@ class MainPage extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.questions !== this.props.questions) {
+        if(nextProps.questions !== this.props.questions && Object.keys(this.props.nodes ).length !== 0) {
             this.props.fetchNodes(this.props.activeProject.value)
         }
     }
@@ -78,7 +78,6 @@ class MainPage extends Component {
                             >
                                 <Tab label="Вопросы" />
                                 <Tab label="Обьекты" />
-                                <Tab label="Категории" />
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
@@ -93,7 +92,6 @@ class MainPage extends Component {
                                 Item Two
                                 {/*<ListContainer items={this.props.objects} type="object" />*/}
                             </TabContainer>
-                            <TabContainer dir={theme.direction}>Item Three</TabContainer>
                         </SwipeableViews>
 
                     </Grid>
