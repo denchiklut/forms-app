@@ -58,7 +58,6 @@ class ListContainer extends Component {
                             key={item._id}
                             className={classNames("myListItem", (item._id === this.props.activeQst._id) && 'selected')}
                         >
-                            {console.log(item)}
                             <ListItemEl
                                 item          = { item }
                                 type          = { this.props.type }

@@ -31,7 +31,7 @@ export function fetchNodes(project) {
     return dispatch => {
         axios
             .get(`/api/nodes/${project}`)
-            .then(data => dispatch(setNodes(data.data[0])))
+            .then(data => dispatch(setNodes(data.data)))
             .catch((err)=>console.log(err))
 
     }

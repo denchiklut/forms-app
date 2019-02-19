@@ -59,10 +59,12 @@ class GrafD3 extends Component {
         }
 
         if (this.props.grafNodes !== prevProps.grafNodes) {
-            Object.keys(this.props.grafNodes ).length === 0? this.initGraf() : this.setState({data: this.props.grafNodes.value})
+            Object.keys(this.props.grafNodes ).length === 0 ? this.initGraf() : this.setState({data: this.props.grafNodes})
         }
 
     }
+
+
 
     addNode = data => {
         if (this.state.selected) {

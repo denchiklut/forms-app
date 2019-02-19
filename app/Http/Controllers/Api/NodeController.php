@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Node;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -39,8 +40,8 @@ class NodeController extends Controller
     {
 
         $node = [
-            'value' => $request -> data,
-            'project' => $request ->  data['project'] ['value']
+            'value'   => $request -> data,
+            'project' => $request -> data['project'] ['value']
         ];
 
 
@@ -56,12 +57,27 @@ class NodeController extends Controller
      */
     public function show( $project )
     {
+
         $project_name = $project;
 
-        $resulet = Node::where('project',$project_name)->get();
+        $result = Node::where('project',$project_name)->first();
 
 
-        return $resulet;
+        function findNodeName ($newData)
+        {
+
+
+            $newData["name"] = $newData["idd"] == 0 ? 'start' : Question::where('_id',$newData["idd"])->value('value');
+
+            for ($i = 0; $i < count($newData['children']); $i++)
+            {
+                $newData['children'][$i] = findNodeName( $newData['children'][$i] );
+            }
+
+            return $newData;
+        }
+
+        return findNodeName ( $result -> value );
     }
 
     /**

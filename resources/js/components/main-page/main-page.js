@@ -56,6 +56,12 @@ class MainPage extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.questions !== this.props.questions) {
+            this.props.fetchNodes(this.props.activeProject.value)
+        }
+    }
+
     render() {
         const { theme } = this.props;
         return (
@@ -64,11 +70,11 @@ class MainPage extends Component {
                     <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
                         <AppBar position="static" color="default">
                             <Tabs
-                                value={this.state.value}
-                                onChange={this.handleChange}
-                                indicatorColor="primary"
-                                textColor="primary"
-                                variant="fullWidth"
+                                indicatorColor = "primary"
+                                textColor      = "primary"
+                                variant        = "fullWidth"
+                                value          = { this.state.value }
+                                onChange       = { this.handleChange }
                             >
                                 <Tab label="Вопросы" />
                                 <Tab label="Обьекты" />
@@ -76,9 +82,9 @@ class MainPage extends Component {
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
-                            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                            index={this.state.value}
-                            onChangeIndex={this.handleChangeIndex}
+                            axis          = { theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                            index         = { this.state.value }
+                            onChangeIndex = { this.handleChangeIndex }
                         >
                             <TabContainer dir={theme.direction}>
                                 <ListContainer items={this.props.questions} type="question" />
