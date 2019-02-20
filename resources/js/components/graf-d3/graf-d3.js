@@ -15,16 +15,19 @@ const svgStyle = {
     nodes: {
         node: {
             circle: {
-                fill: "#96ffbf",
-                stroke: '#7872d4c2',
-                strokeWidth: 2
+                fill: "#a94690",
+                stroke: '#837086',
+                strokeWidth: 1,
+                transform: 'scale(2,2)'
+
             }
         },
         leafNode: {
             circle: {
-                fill: "#efefef",
-                stroke: '#7872d4c2',
-                strokeWidth: 2
+                fill: "#a94690",
+                stroke: '#837086',
+                strokeWidth: 1,
+                transform: 'scale(2,2)'
             }
         }
     }
@@ -159,8 +162,9 @@ class GrafD3 extends Component {
                 newData.nodeSvgShape = {
                     shape: 'circle',
                     shapeProps: {
-                        r: 20,
-                        fill:"red"
+                        r: 10,
+                        fill:"#bd2e52",
+                        stroke: '#f50057'
                     },
                 }
             }
