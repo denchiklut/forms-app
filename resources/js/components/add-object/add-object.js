@@ -13,9 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import {withStyles} from "@material-ui/core";
 import { Field, reduxForm } from 'redux-form'
-import './add-object.css'
 import {compose} from "recompose";
-import {connect} from "react-redux";
+import './add-object.css'
 
 
 function TabContainer({ children, dir }) {
@@ -70,9 +69,9 @@ class AddObject extends Component {
         return (
             <div>
                <textarea
+                   {...input}
                    rows        = "12"
                    cols        = "28"
-                   {...input}
                    placeholder = { placeHolder }
                />
             </div>
