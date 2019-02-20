@@ -37,7 +37,7 @@ class ListItemEl extends Component {
                 this.handleClickOpenEdit(item)
                 break
             case "object":
-                this.handleClickOpenEdit()
+                alert('Editing object')
                 break
         }
     }
@@ -56,36 +56,44 @@ class ListItemEl extends Component {
     }
 
     handleDel = (item) => {
-        let data = this.props.nodes;
+        switch (this.props.type) {
+            case "question":
+                let data = this.props.nodes;
 
-        let id = item._id;
-        let check = false;
+                let id = item._id;
+                let check = false;
 
-         let findQuestion = (data, id) =>
-         {
-            if (data.idd === id)
-            {
-                check = true;
-            }else
-            {
-                for (let i = 0; i < data.children.length; i++)
+                let findQuestion = (data, id) =>
                 {
+                    if (data.idd === id)
+                    {
+                        check = true;
+                    }else
+                    {
+                        for (let i = 0; i < data.children.length; i++)
+                        {
 
-                    findQuestion( data.children[i], id);
+                            findQuestion( data.children[i], id);
+                        }
+                    }
                 }
-            }
+
+                findQuestion ( data, id );
+
+                if (check)
+                {
+                    alert('Сначала удалите вопрос из графа');
+                }
+                else
+                {
+                    this.props.delQuestion(item)
+                }
+                break
+            case "object":
+                alert('Deleting object')
+                break
         }
 
-        findQuestion ( data, id );
-
-        if (check)
-        {
-            alert('Сначала удалите вопрос из графа');
-        }
-        else
-        {
-            this.props.delQuestion(item)
-        }
     }
 
     render() {
