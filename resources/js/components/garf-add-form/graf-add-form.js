@@ -56,8 +56,9 @@ class GrafAddForm extends Component {
                             <div style={{width: '80%', margin: 'auto'}}>
 
                                 <input
-                                    className="answerInput"
+                                    autoFocus
                                     required
+                                    className="answerInput"
                                     type="text"
                                     placeholder="Добавить ответ"
                                     value={ this.state.answer }
