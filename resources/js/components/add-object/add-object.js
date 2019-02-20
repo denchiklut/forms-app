@@ -34,13 +34,6 @@ TabContainer.propTypes = {
 class AddObject extends Component {
     state = {
         value: 0,
-        val: '',
-        name: '',
-        loc: '',
-        cost: '',
-        time: '',
-        otdelka:'',
-        view:'',
     }
 
     handleChange = ( event, value ) => {
