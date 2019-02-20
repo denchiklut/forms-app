@@ -12,7 +12,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import {withStyles} from "@material-ui/core";
+import { Field, reduxForm } from 'redux-form'
 import './add-object.css'
+import {compose} from "recompose";
+import {connect} from "react-redux";
 
 
 function TabContainer({ children, dir }) {
@@ -32,10 +35,16 @@ TabContainer.propTypes = {
 class AddObject extends Component {
     state = {
         value: 0,
-        val: ''
+        val: '',
+        name: '',
+        loc: '',
+        cost: '',
+        time: '',
+        otdelka:'',
+        view:'',
     }
 
-    handleChange = (event, value) => {
+    handleChange = ( event, value ) => {
         this.setState({ value });
     };
 
@@ -43,24 +52,36 @@ class AddObject extends Component {
         this.setState({ value: index });
     };
 
-    onValueChange = (e) => {
-        this.setState({val: e.target.value})
+    onSubmit = ( formProps ) => {
+        this.props.onAdd( formProps )
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const message =  this.state.val
-        const project = this.props.project
-        const data = {
-            value: message,
-            project: project
-        }
-        this.props.onAdd(data)
-        this.setState({val: ''})
+    renderInput({ input, placeHolder }) {
+        return (
+            <input
+                {...input}
+                className  = "answerInput"
+                placeholder={ placeHolder }
+            />
+        )
+    }
+
+    renderTextArea({ input, placeHolder }) {
+        return (
+            <div>
+               <textarea
+                   rows        = "12"
+                   cols        = "28"
+                   {...input}
+                   placeholder = { placeHolder }
+               />
+            </div>
+        )
     }
 
     render() {
         const { theme } = this.props;
+
         return (
             <div>
                 <Dialog
@@ -71,7 +92,7 @@ class AddObject extends Component {
                     className="form-container"
 
                 >
-                    <form className="form">
+                    <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogTitle className="form_heading"> Создание обьекта </DialogTitle>
                         <DialogContent className="form-container">
                             <AppBar position="static" color="default">
@@ -94,72 +115,21 @@ class AddObject extends Component {
                                 <TabContainer dir={theme.direction}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
-                                            <input
-                                                autoFocus
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Название"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
-                                            <input
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Расположение"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
-                                            <input
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Стоимость"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
+                                            <Field name="name"     component = { this.renderInput } placeHolder="Название" />
+                                            <Field name="location" component = { this.renderInput } placeHolder="Направление" />
+                                            <Field name="cost"     component = { this.renderInput } placeHolder="Стоимость" />
                                         </Grid>
 
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
-                                            <input
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Срок сдачи"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
-                                            <input
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Отделка"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
-                                            <input
-                                                required
-                                                type        = "text"
-                                                className   = "answerInput"
-                                                placeholder = "Вид"
-                                                value       = { this.state.val }
-                                                onChange    = { this.onValueChange }
-                                            />
+                                            <Field name="time"    component = { this.renderInput } placeHolder="Срок сдачи"/>
+                                            <Field name="otdelka" component = { this.renderInput } placeHolder="Отделка"/>
+                                            <Field name="view"    component = { this.renderInput } placeHolder="Вид недвижимости"/>
                                         </Grid>
-
                                     </Grid>
                                 </TabContainer>
 
                                 <TabContainer dir={theme.direction}>
-                                    <textarea
-                                        required
-                                        rows="12"
-                                        cols="28"
-                                        onChange={this.onValueChange}
-                                        placeholder="Дополнительная информация"
-                                        value={this.state.val}
-                                    />
+                                    <Field name="dopInformation" component = { this.renderTextArea } placeHolder="Дополнительная информация"/>
                                 </TabContainer>
                             </SwipeableViews>
 
@@ -168,7 +138,7 @@ class AddObject extends Component {
                             <Button onClick={this.props.onClose}  className="delete">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleSubmit} className="edit">
+                            <Button type="submit" className="edit">
                                 Добавить
                             </Button>
                         </DialogActions>
@@ -179,4 +149,4 @@ class AddObject extends Component {
     }
 }
 
-export default withStyles(null,{ withTheme: true })(AddObject);
+export default compose(withStyles(null,{ withTheme: true }), reduxForm({ form: 'objectCreate' })) (AddObject);
