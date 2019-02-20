@@ -50,14 +50,14 @@ class MainPage extends Component {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.activeProject !== prevProps.activeProject && ( Object.keys(this.props.activeProject).length !== 0)) {
+        if (this.props.activeProject !== prevProps.activeProject &&  Object.keys(this.props.activeProject).length !== 0) {
             this.props.fetchQuestions(this.props.activeProject.value)
             this.props.fetchNodes(this.props.activeProject.value)
         }
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.questions !== this.props.questions && Object.keys(this.props.nodes ).length !== 0) {
+        if(nextProps.questions !== this.props.questions && Object.keys(nextProps.nodes ).length !== 0) {
             this.props.fetchNodes(this.props.activeProject.value)
         }
     }

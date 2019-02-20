@@ -60,7 +60,7 @@ class NodeController extends Controller
 
         $project_name = $project;
 
-        $result = Node::where('project',$project_name)->first();
+        $result = Node::where('project', $project_name)->first();
 
 
         function findNodeName ($newData)
@@ -78,7 +78,7 @@ class NodeController extends Controller
             return $newData;
         }
 
-        return findNodeName ( $result -> value );
+        return $result ? findNodeName ( $result -> value ) : response()->json([]);
     }
 
     /**
