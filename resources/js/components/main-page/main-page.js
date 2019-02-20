@@ -56,7 +56,7 @@ class MainPage extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps( nextProps ) {
         if(nextProps.questions !== this.props.questions && Object.keys(nextProps.nodes ).length !== 0) {
             this.props.fetchNodes(this.props.activeProject.value)
         }
@@ -89,8 +89,7 @@ class MainPage extends Component {
                                 <ListContainer items={this.props.questions} type="question" />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
-                                Item Two
-                                {/*<ListContainer items={this.props.objects} type="object" />*/}
+                                <ListContainer items={this.props.objects} type="object" />
                             </TabContainer>
                         </SwipeableViews>
 
@@ -115,6 +114,7 @@ class MainPage extends Component {
 function mapStateToProps(state) {
     return {
         questions: state.questions,
+        objects: state.objects,
         activeProject: state.activeProject,
         nodes: state.nodes
     }

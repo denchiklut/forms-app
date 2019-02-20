@@ -4,6 +4,7 @@ import Projects from './projects'
 import GrafNodes from './graf/nodes'
 import ActiveProject from './active-project'
 import ActiveQuestion from './question-active'
+import ObjectsReducers from './objects'
 import { reducer  as formReducer } from 'redux-form'
 
 
@@ -13,8 +14,8 @@ const rootReducers = combineReducers({
     activeProject: ActiveProject,
     activeQuestion: ActiveQuestion,
     nodes: GrafNodes,
+    objects: ObjectsReducers,
     form: formReducer
-    // objects: ObjectsReducers,
 })
 
 export default rootReducers

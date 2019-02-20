@@ -4,10 +4,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import './add-form.scss'
+import './add-object.css'
 
-class AddForm extends Component {
-
+class AddObject extends Component {
     state = {
         value: '',
     }
@@ -21,7 +20,6 @@ class AddForm extends Component {
         const message =  this.state.value
         const project = this.props.project
         const data = {
-            editing: false,
             value: message,
             project: project
         }
@@ -41,7 +39,7 @@ class AddForm extends Component {
 
                 >
                     <form className="form">
-                        <DialogTitle className="form_heading">Добавление вопроса</DialogTitle>
+                        <DialogTitle className="form_heading"> Создание обьекта </DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus
@@ -69,4 +67,4 @@ class AddForm extends Component {
     }
 }
 
-export default AddForm;
+export default AddObject;

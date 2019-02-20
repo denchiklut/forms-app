@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import classNames from 'classnames';
 import ListItemEl from '../list-item-el'
 import AddForm from '../add-form'
+import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
 
@@ -39,6 +40,11 @@ class ListContainer extends Component {
         this.setState(( { isOpen } ) => {
           return {isOpen: !isOpen }
         })
+    }
+
+    saveAddObject = (data) => {
+        console.log(data)
+        this.closeAddForm()
     }
 
     saveAddQuestion = (data) => {
@@ -81,10 +87,16 @@ class ListContainer extends Component {
                     <AddIcon />
                 </Fab>
                 { this.state.isOpen ?
+                    this.props.type === 'question' ?
                     <AddForm
-                        type    = { this.props.type }
                         isOpen  = { this.state.isOpen }
                         onAdd   = { this.saveAddQuestion }
+                        onClose = { this.closeAddForm }
+                        project = { this.props.activeProject.value }
+                    /> :
+                    <AddObject
+                        isOpen  = { this.state.isOpen }
+                        onAdd   = { this.saveAddObject }
                         onClose = { this.closeAddForm }
                         project = { this.props.activeProject.value }
                     /> :
