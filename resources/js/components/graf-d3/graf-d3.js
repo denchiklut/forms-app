@@ -163,7 +163,7 @@ class GrafD3 extends Component {
                     shape: 'circle',
                     shapeProps: {
                         r: 10,
-                        fill:"#bd2e52",
+                        fill:"#ca2750",
                         stroke: '#f50057'
                     },
                 }
