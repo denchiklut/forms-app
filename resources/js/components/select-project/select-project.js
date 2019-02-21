@@ -183,7 +183,7 @@ class SelectProject extends Component {
     };
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         const selectStyles = {
             input: base => ({
@@ -196,24 +196,24 @@ class SelectProject extends Component {
         };
 
         const suggestions = this.props.items.map(suggestion => ({
-            _id:    suggestion._id,
-            value: suggestion.value,
-            label: suggestion.value,
+              _id: suggestion._id,
+            value: suggestion.name,
+            label: suggestion.name,
         }));
 
         return (
             <div>
-                <div className={classes.myInputSelect}>
+                <div className = { classes.myInputSelect }>
                     <NoSsr >
                         <Select
-                            classes={classes}
-                            styles={selectStyles}
-                            options={suggestions}
-                            components={components}
-                            value={this.state.single}
-                            onChange={this.handleChange('single')}
-                            placeholder="Search.."
                             // isClearable
+                            placeholder = "Search.."
+                            classes     = { classes }
+                            components  = { components }
+                            options     = { suggestions }
+                            styles      = { selectStyles }
+                            value       = { this.state.single }
+                            onChange    = { this.handleChange('single') }
                         />
                     </NoSsr>
                 </div>

@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Models\Node;
 use Illuminate\Http\Request;
 use App\Models\Question;
-use App\Models\QuestionsAnswers;
-use App\Models\AnswersQuestions;
-use App\Http\Resources\QuestionsResource;
 use App\Http\Controllers\Controller;
 
 
@@ -20,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return response()->json(QuestionsResource::collection(Question::all()));
+        return response()->json(Question::all());
     }
 
     /**
@@ -41,28 +38,10 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //Временно делаем запрос лишний!!! чтобы понять первый ли это вопрос с таким project
-        $project_name = $request -> project;
-
-        if ( Question::where('project',$project_name)->exists() ) {
-            $question = new Question();
-            $question -> value   = $request -> value;
-            $question -> project = $request -> project;
-            $question -> save();
-
-
-
-        } else {
-
-
-            $question = new Question();
-            $question -> value     = $request -> value;
-            $question -> project = $request -> project;
-            $question -> save();
-
-
-            //Добавляем ответы 'Да' и 'Нет' на первый вопрос
-        } ;
+        $question = new Question();
+        $question -> name    = $request ->    name;
+        $question -> project = $request -> project;
+        $question -> save();
 
         return response()->json($question);
     }
@@ -105,10 +84,10 @@ class QuestionController extends Controller
         $question = Question::find($id);
 
         $question->update([
-            'value' => $request->input('value'),
+            'name' => $request->input('name'),
         ]);
 
-        return response()->json(['message' => 'question updated successful'.$request->input('value')]);
+        return response()->json(['message' => 'question updated successful'.$request->input('name')]);
     }
 
     /**

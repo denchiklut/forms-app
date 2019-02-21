@@ -18,16 +18,7 @@ use Illuminate\Http\Request;
 */
 Route::namespace('Api')->group(function () {
 
-    Route::get('/test-test', 'NodeController@show');
-
+    Route::resource('/nodes',         'NodeController');
+    Route::resource('/objects',     'ObjectController');
     Route::resource('/questions', 'QuestionController');
-    Route::resource('/nodes', 'NodeController');
 });
-
-
-
-
-
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});

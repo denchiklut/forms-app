@@ -1,13 +1,13 @@
-export default function () {
-    return [
-        {_id: 1, value: 'Обьект 1'},
-        {_id: 2, value: 'Обьект 2'},
-        {_id: 3, value: 'Обьект 3'},
-        {_id: 4, value: 'Обьект 4'},
-        {_id: 5, value: 'Обьект 5'},
-        {_id: 6, value: 'Обьект 6'},
-        {_id: 7, value: 'Обьект 7'},
-        {_id: 8, value: 'Обьект 8'},
-        {_id: 9, value: 'Обьект 9'}
-        ]
+import { ADD_OBJECT, SET_OBJECTS, DELETE_OBJECT, UPDATE_OBJECT } from "../actions/objects";
+
+export default function (state = [], action = {}) {
+    switch (action.type) {
+        case SET_OBJECTS:   return action.payload
+        case ADD_OBJECT:    return state.concat(action.payload)
+        case DELETE_OBJECT: return state.filter((item) => item._id !== action.payload._id)
+        case UPDATE_OBJECT: return state.map((object) => object._id === action.payload._id ? {...object, value:action.payload.value}:object)
+
+        default:  return state
+    }
+
 }

@@ -45,7 +45,7 @@ class GrafD3 extends Component {
     initGraf() {
         this.setState({data: {
                 idd:  0,
-                project: {_id: this.props.project._id, value: this.props.project.value},
+                project: { _id: this.props.project._id, name: this.props.project.value },
                 name: 'Start',
                 answer: 'Start',
                 children: [],
@@ -266,12 +266,12 @@ class GrafD3 extends Component {
 
                 {this.state.isOpen ?
                     <GrafAddForm
-                        currentQst = { this.state.selected.idd }
-                        questions  = { this.props.questions }
+                        onAdd      = { this.saveAddNode }
                         answers    = { this.props.nodes }
                         isOpen     = { this.state.isOpen }
-                        onAdd      = { this.saveAddNode }
+                        questions  = { this.props.questions }
                         onClose    = { this.closeAddNodeForm }
+                        currentQst = { this.state.selected.idd }
                     />
                     : null
                 }

@@ -51,7 +51,7 @@ class ListItemEl extends Component {
     }
 
     saveEdit = (data) => {
-        this.props.editQuestion(data)
+       this.props.editQuestion(data)
        this.closeEditForm()
     }
 
@@ -108,7 +108,7 @@ class ListItemEl extends Component {
                 >
                     <ListItemText
                         disableTypography
-                        primary={<Typography type="body2">{item.value}</Typography>}
+                        primary={<Typography type="body2">{item.name}</Typography>}
                     />
 
                     <ListItemSecondaryAction>

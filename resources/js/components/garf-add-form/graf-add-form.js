@@ -27,11 +27,10 @@ class GrafAddForm extends Component {
         const data = {
             answer: answer ,
             addQst: addQst,
-
             currentQstId: this.props.currentQst
         }
         this.props.onAdd(data)
-        this.setState({val: ''})
+        this.setState({answer: ''})
     }
 
     addFromSelect = (item) => {
@@ -58,22 +57,21 @@ class GrafAddForm extends Component {
                                 <input
                                     autoFocus
                                     required
-                                    className="answerInput"
-                                    type="text"
-                                    placeholder="Добавить ответ"
-                                    value={ this.state.answer }
-                                    onChange={ this.setAnswer }
+                                    type        = "text"
+                                    className   = "answerInput"
+                                    placeholder = "Добавить ответ"
+                                    onChange    = { this.setAnswer }
+                                    value       = { this.state.answer }
                                 />
                                 <div style={{width: '80%', margin: 'auto'}}>
                                     <SelectProject
-                                        className="grafFormSelect"
-                                        items={ this.props.questions }
-                                        selectItem={ this.addFromSelect }
+                                        className  = "grafFormSelect"
+                                        selectItem = { this.addFromSelect }
+                                        items      = { this.props.questions }
                                     />
                                 </div>
 
                             </div>
-
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">

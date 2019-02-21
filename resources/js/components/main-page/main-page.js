@@ -12,9 +12,10 @@ import Typography from '@material-ui/core/Typography';
 import {compose} from "recompose";
 import {connect} from 'react-redux';
 import {fetchQuestions} from '../../actions/questions'
-import './main-page.scss'
 import {bindActionCreators} from "redux";
 import {fetchNodes, onAddNode, onRemoveNode,} from "../../actions/graf/nodes";
+import {fetchObjects} from "../../actions/objects";
+import './main-page.scss'
 
 function TabContainer({ children, dir }) {
     return (
@@ -48,6 +49,10 @@ class MainPage extends Component {
     handleChangeIndex = index => {
         this.setState({ value: index });
     };
+
+    componentDidMount() {
+        this.props.fetchObjects()
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.activeProject !== prevProps.activeProject &&  Object.keys(this.props.activeProject).length !== 0) {
@@ -98,8 +103,8 @@ class MainPage extends Component {
                         <GrafD3
                             grafNodes     = { this.props.nodes }
                             onAddNode     = { this.props.onAddNode }
-                            removeNode    = { this.props.removeNode }
                             questions     = { this.props.questions }
+                            removeNode    = { this.props.removeNode }
                             project       = { this.props.activeProject }
                             activeProject = { this.props.activeProject }
                         />
@@ -123,6 +128,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchQuestions: fetchQuestions,
+        fetchObjects: fetchObjects,
         removeNode: onRemoveNode,
         fetchNodes: fetchNodes,
         onAddNode: onAddNode,

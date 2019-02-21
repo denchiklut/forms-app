@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import {fetchAddQuestion, fetchDeleteQuestion, selectQuestion} from '../../actions/questions'
+import { fetchAddQuestion, fetchDeleteQuestion, selectQuestion } from '../../actions/questions'
 import { bindActionCreators } from "redux";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from "prop-types";
@@ -13,6 +13,7 @@ import AddForm from '../add-form'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
+import {fetchAddObject} from "../../actions/objects";
 
 class ListContainer extends Component {
     state = {
@@ -24,18 +25,6 @@ class ListContainer extends Component {
         this.setState({isOpen: true})
     };
 
-    //Choose what to Add (Question / Object)
-    handleAddItemClick = () => {
-        switch (this.props.type) {
-            case "question":
-                this.handleClickOpen()
-                break
-            case "object":
-                this.handleClickOpen()
-                break
-        }
-    }
-
     closeAddForm = () => {
         this.setState(( { isOpen } ) => {
           return {isOpen: !isOpen }
@@ -44,6 +33,7 @@ class ListContainer extends Component {
 
     saveAddObject = (data) => {
         console.log(data)
+        this.props.fetchAddObject({name: data.name, value: data})
         this.closeAddForm()
     }
 
@@ -78,11 +68,11 @@ class ListContainer extends Component {
                     ))}
                 </List>
                 <Fab
-                    size="medium"
-                    color="secondary"
-                    aria-label="Add"
-                    className="myAdd"
-                    onClick={event => this.handleAddItemClick(event)}
+                    aria-label = "Add"
+                    className  = "myAdd"
+                    size       = "medium"
+                    color      = "secondary"
+                    onClick    = { this.handleClickOpen }
                 >
                     <AddIcon />
                 </Fab>
@@ -124,6 +114,7 @@ function matchDispatchToProps(dispatch) {
         {
             select:      selectQuestion,
             addQuestion: fetchAddQuestion,
+            fetchAddObject: fetchAddObject,
             delQuestion: fetchDeleteQuestion,
         }, dispatch)
 }

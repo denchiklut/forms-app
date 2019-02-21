@@ -18,8 +18,8 @@ class App extends React.Component {
         return (
             <div className='App'>
                 <HeaderBar
-                    projects={this.props.projects}
-                    selectProject={this.props.selectProject}
+                    projects      = { this.props.projects }
+                    selectProject = { this.props.selectProject }
                 />
                 <main className="main">
                     <div className='appBarSpacer' />

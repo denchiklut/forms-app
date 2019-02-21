@@ -21,8 +21,7 @@ class AddForm extends Component {
         const message =  this.state.value
         const project = this.props.project
         const data = {
-            editing: false,
-            value: message,
+            name: message,
             project: project
         }
         this.props.onAdd(data)

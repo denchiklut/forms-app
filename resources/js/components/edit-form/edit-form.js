@@ -20,13 +20,13 @@ class EditFormDialog extends Component {
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.state.value;
-        const data = {...this.props.editItem, value: newMessage}
+        const data = {...this.props.editItem, name: newMessage}
         this.props.onEdit(data)
         this.setState({value: ''})
     }
 
     componentDidMount() {
-        this.setState({value: this.props.editItem.value})
+        this.setState({value: this.props.editItem.name})
     }
 
     render() {
@@ -49,8 +49,8 @@ class EditFormDialog extends Component {
                                 required
                                 rows="12"
                                 cols="28"
-                                onChange={this.onValueChange}
-                                value={ this.state.value }
+                                onChange = { this.onValueChange }
+                                value    = { this.state.value  }
                                 placeholder="Enter Post"
                             />
                             <br /><br />

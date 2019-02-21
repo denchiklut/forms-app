@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Node;
-use App\Models\Question;
+use App\Models\Objects;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 
-class NodeController extends Controller
+class ObjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class NodeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Objects::all());
     }
 
     /**
@@ -36,49 +35,26 @@ class NodeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store (Request $request)
     {
+        $object = new Objects();
 
-        $node = [
-            'value'   => $request -> data,
-            'project' => $request -> data['project'] ['name']
-        ];
+        $object -> name  = $request -> name;
+        $object -> value = $request -> value;
+        $object -> save();
 
-
-        $resulet =  Node::updateOrCreate(['project' => $request -> data['project'] ['name']], $node);
-
-        return $resulet;
+        return response()->json($object);
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $project )
+    public function show($id)
     {
-
-        $project_name = $project;
-
-        $result = Node::where('project', $project_name)->first();
-
-
-        function findNodeName ($newData)
-        {
-
-
-            $newData["name"] = $newData["idd"] == 0 ? 'start' : Question::where('_id',$newData["idd"])->value('name');
-            $newData["nodeSvgShape"] = null;
-
-            for ($i = 0; $i < count($newData['children']); $i++)
-            {
-                $newData['children'][$i] = findNodeName( $newData['children'][$i] );
-            }
-
-            return $newData;
-        }
-
-        return $result ? findNodeName ( $result -> value ) : response()->json([]);
+        //
     }
 
     /**
@@ -99,9 +75,15 @@ class NodeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $project)
+    public function update(Request $request, $id)
     {
-        //
+        $object = Objects::find($id);
+
+        $object->update([
+            'value' => $request->input('value'),
+        ]);
+
+        return response()->json(['message' => 'object updated successful'.$request->input('value')]);
     }
 
     /**
@@ -112,6 +94,7 @@ class NodeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Objects::destroy($id);
+        return response()->json(['message' => 'Object deleted successfully']);
     }
 }
