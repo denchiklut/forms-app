@@ -80,10 +80,11 @@ class ObjectController extends Controller
         $object = Objects::find($id);
 
         $object->update([
+            'name'  => $request->input('name'),
             'value' => $request->input('value'),
         ]);
 
-        return response()->json(['message' => 'object updated successful'.$request->input('value')]);
+        return response()->json(['message' => 'object updated successful'.$request->input('name')]);
     }
 
     /**

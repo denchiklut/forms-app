@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import {fetchUpdateQuestion} from "../../actions/questions";
+import { fetchUpdateQuestion } from "../../actions/questions";
+import { fetchUpdateObject } from "../../actions/objects";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
+import EditObject from "../edit-object/edit-object";
 import DeleteIcon from '@material-ui/icons/Delete';
 import ListItem from '@material-ui/core/ListItem';
 import EditIcon from '@material-ui/icons/Edit';
@@ -30,18 +32,6 @@ class ListItemEl extends Component {
         this.props.select(item)
     }
 
-    //Choose what to Edit (Question / Object)
-    handleEditItemClick = (item) => {
-        switch (this.props.type) {
-            case "question":
-                this.handleClickOpenEdit(item)
-                break
-            case "object":
-                alert('Editing object')
-                break
-        }
-    }
-
     closeEditForm = () => {
         this.setState(( { isOpen } ) => {
             return {
@@ -53,6 +43,11 @@ class ListItemEl extends Component {
     saveEdit = (data) => {
        this.props.editQuestion(data)
        this.closeEditForm()
+    }
+
+    saveUpdate = (data) => {
+        this.props.editObject(data)
+        this.closeEditForm()
     }
 
     handleDel = (item) => {
@@ -90,7 +85,7 @@ class ListItemEl extends Component {
                 }
                 break
             case "object":
-                alert('Deleting object')
+                this.props.delObject(item)
                 break
         }
 
@@ -114,7 +109,7 @@ class ListItemEl extends Component {
                     <ListItemSecondaryAction>
                         <IconButton
                             aria-label="Edit"
-                            onClick={() => this.handleEditItemClick(item)}
+                            onClick={() => this.handleClickOpenEdit(item)}
                         >
                             <EditIcon />
                         </IconButton>
@@ -128,16 +123,19 @@ class ListItemEl extends Component {
                 </ListItem>
 
                 { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
-                    <div>
+                    this.props.type === 'question' ?
                         <EditFormDialog
-                            type     = { type }
                             onEdit   = { this.saveEdit }
                             isOpen   = { this.state.isOpen }
                             onClose  = { this.closeEditForm }
                             editItem = { this.state.editItem }
-                        />
-                    </div>
-                   :
+                        />:
+                        <EditObject
+                            onEdit   = { this.saveUpdate }
+                            isOpen   = { this.state.isOpen }
+                            onClose  = { this.closeEditForm }
+                            editItem = { this.state.editItem }
+                        />:
                     null
                 }
 
@@ -151,6 +149,7 @@ function matchDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             editQuestion: fetchUpdateQuestion,
+            editObject: fetchUpdateObject,
         }, dispatch)
 }
 

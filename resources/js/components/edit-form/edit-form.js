@@ -30,8 +30,6 @@ class EditFormDialog extends Component {
     }
 
     render() {
-        const { editItem, type } = this.props
-
         return (
             <div>
                 <Dialog
@@ -42,7 +40,7 @@ class EditFormDialog extends Component {
                     className="form-container"
                 >
                     <form className="form">
-                        <DialogTitle className="form_heading">Редактирование {type}: {editItem._id}</DialogTitle>
+                        <DialogTitle className="form_heading">Редактирование вопроса</DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus

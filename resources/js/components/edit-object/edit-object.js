@@ -14,8 +14,7 @@ import PropTypes from "prop-types";
 import {withStyles} from "@material-ui/core";
 import { Field, reduxForm } from 'redux-form'
 import {compose} from "recompose";
-import './add-object.scss'
-
+import './edit-object.scss'
 
 function TabContainer({ children, dir }) {
     return (
@@ -31,7 +30,8 @@ TabContainer.propTypes = {
 };
 
 
-class AddObject extends Component {
+
+class EditObject extends Component {
     state = {
         value: 0,
     }
@@ -45,7 +45,9 @@ class AddObject extends Component {
     };
 
     onSubmit = ( formProps ) => {
-        this.props.onAdd( formProps )
+        const data = {...this.props.editItem, value: formProps, name: formProps.name}
+
+        this.props.onEdit( data )
     }
 
     renderInput({ input, placeHolder }) {
@@ -85,7 +87,7 @@ class AddObject extends Component {
 
                 >
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                        <DialogTitle className="form_heading"> Создание обьекта </DialogTitle>
+                        <DialogTitle className="form_heading"> Редактирование обьекта </DialogTitle>
                         <DialogContent className="form-container">
                             <AppBar position="static" color="default">
                                 <Tabs
@@ -141,4 +143,4 @@ class AddObject extends Component {
     }
 }
 
-export default compose(withStyles(null,{ withTheme: true }), reduxForm({ form: 'objectCreate' })) (AddObject);
+export default compose(withStyles(null,{ withTheme: true }), reduxForm({ form: 'objectEdit' })) (EditObject);

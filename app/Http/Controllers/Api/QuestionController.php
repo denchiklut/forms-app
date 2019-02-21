@@ -101,7 +101,7 @@ class QuestionController extends Controller
 
         $question = Question::find($id);
 
-        $graf = Node::where('project', $question->project)->value('value');
+        $graf = Node::where('project', $question -> project)->value('value');
         $check = false;
 
         function findQuestion ($graf, $id, &$check)

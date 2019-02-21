@@ -13,7 +13,7 @@ import AddForm from '../add-form'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
-import {fetchAddObject} from "../../actions/objects";
+import {fetchAddObject, fetchDeleteObject} from "../../actions/objects";
 
 class ListContainer extends Component {
     state = {
@@ -59,6 +59,7 @@ class ListContainer extends Component {
                                 type          = { this.props.type }
                                 nodes         = { this.props.nodes }
                                 select        = { this.props.select }
+                                delObject     = { this.props.delObject }
                                 delQuestion   = { this.props.delQuestion }
                                 editQuestion  = { this.props.editQuestion }
                                 selectedIndex = { this.props.activeQst._id }
@@ -116,6 +117,7 @@ function matchDispatchToProps(dispatch) {
             addQuestion: fetchAddQuestion,
             fetchAddObject: fetchAddObject,
             delQuestion: fetchDeleteQuestion,
+            delObject: fetchDeleteObject,
         }, dispatch)
 }
 
