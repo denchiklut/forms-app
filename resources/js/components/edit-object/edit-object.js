@@ -113,7 +113,6 @@ class EditObject extends Component {
                                 onChangeIndex = { this.handleChangeIndex }
                             >
                                 <TabContainer dir={theme.direction}>
-                                    <Button type="button" onClick={() => this.props.load(this.props.editItem.value) }>Load Account</Button>
                                     <Grid container spacing={0}>
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
                                             <Field name="name"     component = { this.renderInput } placeHolder="Название" />
