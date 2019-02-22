@@ -139,7 +139,7 @@ class EditObject extends Component {
                                 Отмена
                             </Button>
                             <Button type="submit" className="edit">
-                                Добавить
+                                Изменить
                             </Button>
                         </DialogActions>
                     </form>
