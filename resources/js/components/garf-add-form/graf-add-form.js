@@ -63,7 +63,6 @@ class GrafAddForm extends Component {
     }
 
     addFromSelect = (item) => {
-        console.log(item)
         this.setState({addQst: item})
     }
 

@@ -86,7 +86,12 @@ class GrafD3 extends Component {
 
 
                 if (searchId === newData.idd) {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, answer: data.answer, children: []})
+                    if (data.addQst.type === "objects") {
+                        newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: []})
+                    } else {
+                        newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: []})
+                    }
+
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {

@@ -40,7 +40,7 @@ class GrafSelectedPanel extends Component {
                 <Card className="btmCard" style={{position: 'absolute', bottom: '-64px', width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>
-                            Question id: { selected.idd}
+                            {selected.type === "questions" ? `Question id:  ${selected.idd}` : `Object id:  ${selected.idd}`}
                         </Typography>
                         <Typography variant="h5" component="h2">
                             { selected.name} ({selected.answer})

@@ -205,9 +205,17 @@ class SelectProject extends Component {
                 data: suggestion.value,
                 type: "objects"
             }));
+        } else if (this.props.type === "questions") {
+            suggestions = this.props.items.map(suggestion => ({
+                _id: suggestion._id,
+                type: "questions",
+                value: suggestion.name,
+                label: suggestion.name,
+            }));
         } else {
             suggestions = this.props.items.map(suggestion => ({
                 _id: suggestion._id,
+                type: "projects",
                 value: suggestion.name,
                 label: suggestion.name,
             }));
