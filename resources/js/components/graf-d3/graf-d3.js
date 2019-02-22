@@ -269,6 +269,7 @@ class GrafD3 extends Component {
                         onAdd      = { this.saveAddNode }
                         answers    = { this.props.nodes }
                         isOpen     = { this.state.isOpen }
+                        objects    = { this.props.objects }
                         questions  = { this.props.questions }
                         onClose    = { this.closeAddNodeForm }
                         currentQst = { this.state.selected.idd }

@@ -6,11 +6,32 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import './graf-add-form.scss'
+import Typography from '@material-ui/core/Typography';
+import PropTypes from "prop-types";
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import {withStyles} from "@material-ui/core";
 
+
+function TabContainer({ children, dir }) {
+    return (
+        <Typography component="div" dir={dir} style={{ padding: 0 }}>
+            {children}
+        </Typography>
+    );
+}
+
+TabContainer.propTypes = {
+    children: PropTypes.node.isRequired,
+    dir: PropTypes.string.isRequired,
+};
 
 class GrafAddForm extends Component {
 
     state = {
+        value: 0,
         answer: '',
         addQst: {},
     }
@@ -18,6 +39,14 @@ class GrafAddForm extends Component {
     setAnswer = ( e ) => {
         this.setState({answer: e.target.value})
     }
+
+    handleChange = ( event, value ) => {
+        this.setState({ value });
+    };
+
+    handleChangeIndex = index => {
+        this.setState({ value: index });
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -38,6 +67,8 @@ class GrafAddForm extends Component {
     }
 
     render() {
+        const { theme } = this.props;
+
         return (
             <div>
                 <Dialog
@@ -51,27 +82,65 @@ class GrafAddForm extends Component {
                     <form className="form">
                         <DialogTitle className="form_heading">Добавление Node</DialogTitle>
                         <DialogContent className="form-container">
+                            <AppBar position="static" color="default">
+                                <Tabs
+                                    indicatorColor = "primary"
+                                    textColor      = "primary"
+                                    variant        = "fullWidth"
+                                    value          = { this.state.value }
+                                    onChange       = { this.handleChange }
+                                >
+                                    <Tab label="Вопрос" />
+                                    <Tab label="Объект" />
+                                </Tabs>
+                            </AppBar>
+                            <SwipeableViews
+                                axis          = { theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                                index         = { this.state.value }
+                                onChangeIndex = { this.handleChangeIndex }
+                            >
+                                <TabContainer dir={theme.direction}>
+                                    <div style={{width: '80%', margin: 'auto'}}>
+                                        <input
+                                            autoFocus
+                                            required
+                                            type        = "text"
+                                            className   = "answerInput"
+                                            placeholder = "Добавить ответ"
+                                            onChange    = { this.setAnswer }
+                                            value       = { this.state.answer }
+                                        />
+                                        <div style={{width: '80%', margin: 'auto'}}>
+                                            <SelectProject
+                                                className  = "grafFormSelect"
+                                                selectItem = { this.addFromSelect }
+                                                items      = { this.props.questions }
+                                            />
+                                        </div>
+                                    </div>
+                                </TabContainer>
 
-                            <div style={{width: '80%', margin: 'auto'}}>
+                                <TabContainer dir={theme.direction}>
+                                    <div style={{width: '80%', margin: 'auto'}}>
+                                        <input
+                                            required
+                                            type        = "text"
+                                            className   = "answerInput"
+                                            placeholder = "Добавить ответ"
+                                            onChange    = { this.setAnswer }
+                                            value       = { this.state.answer }
+                                        />
+                                        <div style={{width: '80%', margin: 'auto'}}>
+                                            <SelectProject
+                                                className  = "grafFormSelect"
+                                                selectItem = { this.addFromSelect }
+                                                items      = { this.props.objects }
+                                            />
+                                        </div>
+                                    </div>
+                                </TabContainer>
+                            </SwipeableViews>
 
-                                <input
-                                    autoFocus
-                                    required
-                                    type        = "text"
-                                    className   = "answerInput"
-                                    placeholder = "Добавить ответ"
-                                    onChange    = { this.setAnswer }
-                                    value       = { this.state.answer }
-                                />
-                                <div style={{width: '80%', margin: 'auto'}}>
-                                    <SelectProject
-                                        className  = "grafFormSelect"
-                                        selectItem = { this.addFromSelect }
-                                        items      = { this.props.questions }
-                                    />
-                                </div>
-
-                            </div>
                             <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
@@ -89,4 +158,4 @@ class GrafAddForm extends Component {
     }
 }
 
-export default GrafAddForm;
+export default withStyles(null,{ withTheme: true })(GrafAddForm);

@@ -104,6 +104,7 @@ class MainPage extends Component {
                             grafNodes     = { this.props.nodes }
                             onAddNode     = { this.props.onAddNode }
                             questions     = { this.props.questions }
+                            objects       = { this.props.objects }
                             removeNode    = { this.props.removeNode }
                             project       = { this.props.activeProject }
                             activeProject = { this.props.activeProject }
