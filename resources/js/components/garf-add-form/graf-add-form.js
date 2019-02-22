@@ -63,6 +63,7 @@ class GrafAddForm extends Component {
     }
 
     addFromSelect = (item) => {
+        console.log(item)
         this.setState({addQst: item})
     }
 
@@ -112,6 +113,7 @@ class GrafAddForm extends Component {
                                         />
                                         <div style={{width: '80%', margin: 'auto'}}>
                                             <SelectProject
+                                                type       = "questions"
                                                 className  = "grafFormSelect"
                                                 selectItem = { this.addFromSelect }
                                                 items      = { this.props.questions }
@@ -132,6 +134,7 @@ class GrafAddForm extends Component {
                                         />
                                         <div style={{width: '80%', margin: 'auto'}}>
                                             <SelectProject
+                                                type       = "objects"
                                                 className  = "grafFormSelect"
                                                 selectItem = { this.addFromSelect }
                                                 items      = { this.props.objects }

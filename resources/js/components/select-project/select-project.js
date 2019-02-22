@@ -195,11 +195,25 @@ class SelectProject extends Component {
             }),
         };
 
-        const suggestions = this.props.items.map(suggestion => ({
-              _id: suggestion._id,
-            value: suggestion.name,
-            label: suggestion.name,
-        }));
+        let suggestions;
+
+        if (this.props.type === "objects") {
+            suggestions = this.props.items.map(suggestion => ({
+                _id: suggestion._id,
+                value: suggestion.name,
+                label: suggestion.name,
+                data: suggestion.value,
+                type: "objects"
+            }));
+        } else {
+            suggestions = this.props.items.map(suggestion => ({
+                _id: suggestion._id,
+                value: suggestion.name,
+                label: suggestion.name,
+            }));
+        }
+
+
 
         return (
             <div>
