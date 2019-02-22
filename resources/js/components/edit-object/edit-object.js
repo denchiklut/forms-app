@@ -3,17 +3,19 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import Grid from '@material-ui/core/Grid';
-import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import PropTypes from "prop-types";
-import {withStyles} from "@material-ui/core";
+import {fetchLoad} from "../../actions/edit-object";
+import SwipeableViews from 'react-swipeable-views';
+import Button from "@material-ui/core/Button";
 import { Field, reduxForm } from 'redux-form'
-import {compose} from "recompose";
+import AppBar from '@material-ui/core/AppBar';
+import {withStyles} from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import {bindActionCreators} from "redux";
+import Tab from '@material-ui/core/Tab';
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import './edit-object.scss'
 
 function TabContainer({ children, dir }) {
@@ -73,6 +75,10 @@ class EditObject extends Component {
         )
     }
 
+    componentDidMount() {
+        this.props.load(this.props.editItem.value)
+    }
+
     render() {
         const { theme } = this.props;
 
@@ -107,6 +113,7 @@ class EditObject extends Component {
                                 onChangeIndex = { this.handleChangeIndex }
                             >
                                 <TabContainer dir={theme.direction}>
+                                    <Button type="button" onClick={() => this.props.load(this.props.editItem.value) }>Load Account</Button>
                                     <Grid container spacing={0}>
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
                                             <Field name="name"     component = { this.renderInput } placeHolder="Название" />
@@ -143,4 +150,23 @@ class EditObject extends Component {
     }
 }
 
-export default compose(withStyles(null,{ withTheme: true }), reduxForm({ form: 'objectEdit' })) (EditObject);
+
+
+function mapStateToProps(state) {
+    return {
+        initialValues: state.editObjects,
+
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        load: fetchLoad,
+    }, dispatch)
+}
+
+
+EditObject = reduxForm({ form: 'objectEdit', enableReinitialize : true })( EditObject );
+EditObject = connect(mapStateToProps, mapDispatchToProps)(EditObject);
+
+export default withStyles(null,{ withTheme: true })(EditObject);

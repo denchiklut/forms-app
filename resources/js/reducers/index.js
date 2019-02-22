@@ -5,16 +5,18 @@ import GrafNodes from './graf/nodes'
 import ActiveProject from './active-project'
 import ActiveQuestion from './question-active'
 import ObjectsReducers from './objects'
+import EditedObject from './edit-object'
 import { reducer  as formReducer } from 'redux-form'
 
 
 const rootReducers = combineReducers({
-    questions: QuestionsReducers,
-    projects: Projects,
-    activeProject: ActiveProject,
+    questions:      QuestionsReducers,
+    objects:        ObjectsReducers,
     activeQuestion: ActiveQuestion,
-    nodes: GrafNodes,
-    objects: ObjectsReducers,
+    activeProject:  ActiveProject,
+    editObjects:    EditedObject,
+    nodes:          GrafNodes,
+    projects:       Projects,
     form: formReducer
 })
 

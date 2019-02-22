@@ -23,7 +23,6 @@ class ListItemEl extends Component {
 
     //Open Edit form
     handleClickOpenEdit = (item) => {
-        console.log('item', item)
         this.setState({ editItem: item, isOpen: true })
     };
 
