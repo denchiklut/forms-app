@@ -4,17 +4,30 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import ShowObject from '../show-object'
 import GrafEditForm from "../graf-edit-form";
 import './graf-selected-panel.scss'
 
-
 class GrafSelectedPanel extends Component {
+    state = {
+        isOpen: false
+    }
 
     renderChildren(arr = []) {
         return arr.map(item => {
             return (
                 <li key={item.idd}>{item.answer}: {item.name}</li>
             )
+        })
+    }
+
+    openObjectShow = () => {
+        this.setState({isOpen: true})
+    }
+
+    closeObjectShow = () => {
+        this.setState(( { isOpen } ) => {
+            return {isOpen: !isOpen }
         })
     }
 
@@ -45,7 +58,15 @@ class GrafSelectedPanel extends Component {
                         <Typography variant="h5" component="div">
                             {selected.type === "questions" ?
                                 `${selected.name} (${selected.answer})` : selected.type === "objects" ?
-                                <div><Button variant="outlined" size="small">{selected.name}</Button> ({selected.answer})</div>: null}
+                                <div>
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        onClick={this.openObjectShow}
+                                    >
+                                        {selected.name}
+                                    </Button>
+                                    ({selected.answer})</div>: null}
                         </Typography>
                         <Typography  color="textSecondary">
                             children:
@@ -58,6 +79,13 @@ class GrafSelectedPanel extends Component {
                         <Button size="small">Изменить данные</Button>
                     </CardActions>
                 </Card>
+                {this.state.isOpen ?    <ShowObject
+                    item    = { selected.objData }
+                    isOpen  = { this.state.isOpen }
+                    onClose = { this.closeObjectShow }
+                />: null}
+
+
                 {/*<GrafEditForm />*/}
             </div>
 
