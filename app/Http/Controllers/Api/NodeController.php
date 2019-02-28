@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Node;
+use App\Models\Objects;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -66,9 +67,21 @@ class NodeController extends Controller
         function findNodeName ($newData)
         {
 
+            if ($newData["idd"] == 0) {
+                $newData["name"] = 'start';
+            }
 
-            $newData["name"] = $newData["idd"] == 0 ? 'start' : Question::where('_id',$newData["idd"])->value('name');
-            $newData["nodeSvgShape"] = null;
+            else {
+                switch ($newData["type"]) {
+                    case 'questions':
+                        $newData["name"] =  Question::where('_id',$newData["idd"])->value('name');
+                        $newData["nodeSvgShape"] = null;
+                        break;
+                    case "objects":
+                        $newData["name"] =  Objects::where('_id',$newData["idd"])->value('name');
+                        break;
+                }
+            }
 
             for ($i = 0; $i < count($newData['children']); $i++)
             {
