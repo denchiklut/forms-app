@@ -11,8 +11,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
-import {withStyles} from "@material-ui/core";
 import { Field, reduxForm } from 'redux-form'
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import {compose} from "recompose";
 import './add-object.scss'
 
@@ -72,13 +72,14 @@ class AddObject extends Component {
     }
 
     render() {
-        const { theme } = this.props;
+        const { fullScreen } = this.props;
 
         return (
             <div>
                 <Dialog
-                    fullWidth={true}
-                    maxWidth="lg"
+                    fullWidth  = { true }
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
                     open={this.props.isOpen}
                     aria-labelledby="draggable-dialog-title"
                     className="form-container"
@@ -100,11 +101,11 @@ class AddObject extends Component {
                                 </Tabs>
                             </AppBar>
                             <SwipeableViews
-                                axis          = { theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                                axis          = "x"
                                 index         = { this.state.value }
                                 onChangeIndex = { this.handleChangeIndex }
                             >
-                                <TabContainer dir={theme.direction}>
+                                <TabContainer dir="ltr">
                                     <Grid container spacing={0}>
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
                                             <Field name="name"     component = { this.renderInput } placeHolder="Название" />
@@ -120,7 +121,7 @@ class AddObject extends Component {
                                     </Grid>
                                 </TabContainer>
 
-                                <TabContainer dir={theme.direction}>
+                                <TabContainer dir="ltr">
                                     <Field name="dopInformation" component = { this.renderTextArea } placeHolder="Дополнительная информация"/>
                                 </TabContainer>
                             </SwipeableViews>
@@ -140,5 +141,7 @@ class AddObject extends Component {
         );
     }
 }
-
-export default compose(withStyles(null,{ withTheme: true }), reduxForm({ form: 'objectCreate' })) (AddObject);
+AddObject.propTypes = {
+    fullScreen: PropTypes.bool.isRequired,
+};
+export default compose(withMobileDialog(), reduxForm({ form: 'objectCreate' })) (AddObject);

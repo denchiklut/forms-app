@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,18 +9,21 @@ import Chip from "@material-ui/core/Chip";
 import Fab from "@material-ui/core/Fab";
 import CloseIcon from '@material-ui/icons/Close'
 import Grid from '@material-ui/core/Grid';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import './show-object.scss'
 
 
 class ShowObject extends Component {
     render() {
+        const { fullScreen } = this.props;
+
         return (
             <div>
                 <Dialog
-                    fullWidth={true}
-                    maxWidth={false}
-                    open={this.props.isOpen}
-                    className="form-container"
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
+                    open       = { this.props.isOpen }
+                    className  = "form-container"
 
                 >
                     <AppBar position="static" className="grafAppBar">
@@ -80,4 +84,8 @@ class ShowObject extends Component {
     }
 }
 
-export default ShowObject;
+ShowObject.propTypes = {
+    fullScreen: PropTypes.bool.isRequired,
+};
+
+export default withMobileDialog()(ShowObject);

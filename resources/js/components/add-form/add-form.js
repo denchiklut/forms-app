@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
 import './add-form.scss'
 
@@ -29,13 +30,15 @@ class AddForm extends Component {
     }
 
     render() {
+        const { fullScreen } = this.props;
+
         return (
             <div>
                 <Dialog
-                    fullWidth={true}
-                    maxWidth="lg"
-                    open={this.props.isOpen}
-                    aria-labelledby="draggable-dialog-title"
+                    fullWidth  = { true }
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
+                    open       = { this.props.isOpen }
                     className="form-container"
 
                 >
@@ -68,4 +71,4 @@ class AddForm extends Component {
     }
 }
 
-export default AddForm;
+export default withMobileDialog()(AddForm) ;

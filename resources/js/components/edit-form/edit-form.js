@@ -3,6 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
 import './edit-form.scss'
 
@@ -30,14 +31,16 @@ class EditFormDialog extends Component {
     }
 
     render() {
+        const { fullScreen } = this.props;
+
         return (
             <div>
                 <Dialog
-                    open={this.props.isOpen}
-                    fullWidth={true}
-                    maxWidth="lg"
-                    aria-labelledby="draggable-dialog-title"
-                    className="form-container"
+                    fullWidth  = { true }
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
+                    open       = { this.props.isOpen }
+                    className  = "form-container"
                 >
                     <form className="form">
                         <DialogTitle className="form_heading">Редактирование вопроса</DialogTitle>
@@ -67,4 +70,4 @@ class EditFormDialog extends Component {
         );
     }
 }
-export default EditFormDialog;
+export default withMobileDialog()(EditFormDialog);

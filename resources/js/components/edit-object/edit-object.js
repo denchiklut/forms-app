@@ -9,7 +9,7 @@ import SwipeableViews from 'react-swipeable-views';
 import Button from "@material-ui/core/Button";
 import { Field, reduxForm } from 'redux-form'
 import AppBar from '@material-ui/core/AppBar';
-import {withStyles} from "@material-ui/core";
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import {bindActionCreators} from "redux";
@@ -80,17 +80,16 @@ class EditObject extends Component {
     }
 
     render() {
-        const { theme } = this.props;
+        const { fullScreen } = this.props;
 
         return (
             <div>
                 <Dialog
-                    fullWidth={true}
-                    maxWidth="lg"
-                    open={this.props.isOpen}
-                    aria-labelledby="draggable-dialog-title"
-                    className="form-container"
-
+                    fullWidth  = { true }
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
+                    open       = { this.props.isOpen }
+                    className  = "form-container"
                 >
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogTitle className="form_heading"> Редактирование обьекта </DialogTitle>
@@ -108,11 +107,11 @@ class EditObject extends Component {
                                 </Tabs>
                             </AppBar>
                             <SwipeableViews
-                                axis          = { theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                                axis          = "x"
                                 index         = { this.state.value }
                                 onChangeIndex = { this.handleChangeIndex }
                             >
-                                <TabContainer dir={theme.direction}>
+                                <TabContainer dir="ltr">
                                     <Grid container spacing={0}>
                                         <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
                                             <Field name="name"     component = { this.renderInput } placeHolder="Название" />
@@ -128,7 +127,7 @@ class EditObject extends Component {
                                     </Grid>
                                 </TabContainer>
 
-                                <TabContainer dir={theme.direction}>
+                                <TabContainer dir="ltr">
                                     <Field name="dopInformation" component = { this.renderTextArea } placeHolder="Дополнительная информация"/>
                                 </TabContainer>
                             </SwipeableViews>
@@ -150,7 +149,6 @@ class EditObject extends Component {
 }
 
 
-
 function mapStateToProps(state) {
     return {
         initialValues: state.editObjects,
@@ -167,5 +165,8 @@ function mapDispatchToProps(dispatch) {
 
 EditObject = reduxForm({ form: 'objectEdit', enableReinitialize : true })( EditObject );
 EditObject = connect(mapStateToProps, mapDispatchToProps)(EditObject);
+EditObject.propTypes = {
+    fullScreen: PropTypes.bool.isRequired,
+};
 
-export default withStyles(null,{ withTheme: true })(EditObject);
+export default withMobileDialog()(EditObject);
