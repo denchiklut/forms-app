@@ -68,8 +68,6 @@ class GrafD3 extends Component {
 
     }
 
-
-
     addNode = data => {
         if (this.state.selected) {
             this.setState({transitionDuration: 300})

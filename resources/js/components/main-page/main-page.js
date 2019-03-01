@@ -62,7 +62,7 @@ class MainPage extends Component {
     }
 
     componentWillReceiveProps( nextProps ) {
-        if(nextProps.questions !== this.props.questions && Object.keys(nextProps.nodes ).length !== 0) {
+        if((nextProps.questions !== this.props.questions || nextProps.objects !== this.props.objects) && (Object.keys(nextProps.nodes ).length !== 0)) {
             this.props.fetchNodes(this.props.activeProject.value)
         }
     }
