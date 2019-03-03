@@ -100,7 +100,7 @@ class GrafAddForm extends Component {
                                 onChangeIndex = { this.handleChangeIndex }
                             >
                                 <TabContainer dir="ltr">
-                                    <div style={{width: '80%', margin: '20px auto'}}>
+                                    <div style={{width: '80%', margin: '20px auto 0'}}>
 
                                         <div style={{width: '80%', margin: 'auto'}}>
                                             <SelectProject
@@ -128,7 +128,7 @@ class GrafAddForm extends Component {
                                 </TabContainer>
 
                                 <TabContainer dir="ltr">
-                                    <div style={{width: '80%', margin: '20px auto'}}>
+                                    <div style={{width: '80%', margin: '20px auto 0'}}>
 
                                         <div style={{width: '80%', margin: 'auto'}}>
                                             <SelectProject
