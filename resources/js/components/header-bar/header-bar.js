@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {withStyles} from "@material-ui/core";
 import SelectProject from '../select-project'
+import { Link } from 'react-router-dom'
 import './header-bar.scss'
 
 
@@ -31,7 +32,7 @@ const styles = theme => ({
 class HeaderBar extends Component {
 
     render() {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
 
         return (
             <div>
@@ -56,7 +57,9 @@ class HeaderBar extends Component {
                             noWrap
                             className={classes.title}
                         >
-                            Editor
+                            <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                Editor
+                            </Link>
                         </Typography>
 
                         <SelectProject

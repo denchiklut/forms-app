@@ -6,9 +6,11 @@ import Typography from '@material-ui/core/Typography'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
+import PlayArrow from '@material-ui/icons/PlayArrow'
 import Chip from "@material-ui/core/Chip"
 import GrafSelectedPanel from '../graf-selected-panel'
 import GrafAddForm from "../garf-add-form"
+import { Link } from 'react-router-dom';
 import './graf-3d.scss'
 
 const svgStyle = {
@@ -248,6 +250,16 @@ class GrafD3 extends Component {
                                 className="grafToolBarBtm"
                             >
                                 <DeleteIcon fontSize="small" />
+                            </Fab>
+                            <Fab
+                                color="secondary"
+                                size="small"
+                                aria-label="Play"
+                                className="grafToolBarBtm"
+                            >
+                                <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
+                                    <PlayArrow fontSize="small" />
+                                </Link>
                             </Fab>
                         </div>
                     </Toolbar>

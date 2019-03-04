@@ -5,6 +5,7 @@ import {fetchProjects, selectProject} from '../../actions/projects'
 import {bindActionCreators} from "redux";
 import {connect} from 'react-redux';
 import HeaderBar from '../header-bar'
+import { withRouter } from 'react-router-dom';
 import './app.scss'
 
 class App extends React.Component {
@@ -48,4 +49,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

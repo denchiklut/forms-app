@@ -13,6 +13,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import './graf-add-form.scss'
+import Popper from "@material-ui/core/Popper";
+import Popover from "@material-ui/core/Popover";
 
 
 function TabContainer({ children, dir }) {
@@ -82,6 +84,7 @@ class GrafAddForm extends Component {
                     <form className="form">
                         <DialogTitle className="form_heading">Добавление Node</DialogTitle>
                         <DialogContent className="form-container grafFormContainer">
+
                             <AppBar position="static" color="default">
                                 <Tabs
                                     indicatorColor = "primary"
@@ -100,17 +103,8 @@ class GrafAddForm extends Component {
                                 onChangeIndex = { this.handleChangeIndex }
                             >
                                 <TabContainer dir="ltr">
+
                                     <div style={{width: '80%', margin: '20px auto 0'}}>
-
-                                        <div style={{width: '80%', margin: 'auto'}}>
-                                            <SelectProject
-                                                type       = "questions"
-                                                className  = "grafFormSelect"
-                                                selectItem = { this.addFromSelect }
-                                                items      = { this.props.questions }
-                                            />
-                                        </div>
-
                                         <input
                                             autoFocus
                                             required
@@ -120,25 +114,21 @@ class GrafAddForm extends Component {
                                             onChange    = { this.setAnswer }
                                             value       = { this.state.answer }
                                         />
-                                        <hr/>
-                                        <p className="helpText">*В данном разделе Вам необходимо выбрать вопрос, который вы хотите добавить в граф.
-                                        Для оптимизации вы можете воспользоваться поиском по ключевым словам, для этого просто начните вводить вопрос
-                                        и затем выберите из списка предложенных нужный вам. После этого добавьте Ответ на который отвечает ЭТОТ вопрс.</p>
+
+                                        <div style={{width: '80%', margin: '0 auto 150px'}}>
+                                            <SelectProject
+                                                type       = "questions"
+                                                className  = "grafFormSelect"
+                                                selectItem = { this.addFromSelect }
+                                                items      = { this.props.questions }
+                                            />
+                                        </div>
                                     </div>
+
                                 </TabContainer>
 
                                 <TabContainer dir="ltr">
                                     <div style={{width: '80%', margin: '20px auto 0'}}>
-
-                                        <div style={{width: '80%', margin: 'auto'}}>
-                                            <SelectProject
-                                                type       = "objects"
-                                                className  = "grafFormSelect"
-                                                selectItem = { this.addFromSelect }
-                                                items      = { this.props.objects }
-                                            />
-                                        </div>
-
                                         <input
                                             required
                                             type        = "text"
@@ -147,13 +137,21 @@ class GrafAddForm extends Component {
                                             onChange    = { this.setAnswer }
                                             value       = { this.state.answer }
                                         />
-                                        <hr/>
-                                        <p className="helpText">*В данном разделе Вам необходимо выбрать Объект, который вы хотите добавить в граф.
-                                            Для оптимизации вы можете воспользоваться поиском по ключевым словам, для этого просто начните вводить название объекта
-                                            и затем выберите из списка предложенных нужный вам. После этого добавьте Ответ на который отвечает ЭТОТ объект.</p>
+
+                                        <div style={{width: '80%', margin: '0 auto 150px'}}>
+                                            <SelectProject
+                                                type       = "objects"
+                                                className  = "grafFormSelect"
+                                                selectItem = { this.addFromSelect }
+                                                items      = { this.props.objects }
+                                            />
+                                        </div>
+
+
                                     </div>
                                 </TabContainer>
                             </SwipeableViews>
+
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={ this.props.onClose }  className="delete">
