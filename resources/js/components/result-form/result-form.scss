@@ -6,4 +6,15 @@
         margin-bottom: 6px;
         padding-left: 10px;
     }
+    .pre {
+        white-space: pre-wrap!important;
+        word-wrap: break-word!important;
+    }
+
+    .resTable {
+        background: #fff;
+        box-shadow: 1px 1px 3px 0px #00000033;
+        border: none;
+        margin-top: 17px;
+    }
 }
