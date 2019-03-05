@@ -71,53 +71,46 @@ class GrafD3 extends Component {
     }
 
     addNode = data => {
-        if (this.state.selected) {
-            this.setState({transitionDuration: 300})
-            let newData = {...this.state.data}
-            // let searchVal = this.state.selected.name
+        this.setState({transitionDuration: 300})
+        let newData = {...this.state.data}
+        // let searchVal = this.state.selected.name
 
-            //id of question that we trying to add to graf
-            let searchId = this.state.selected.idd
+        //id of question that we trying to add to graf
+        let searchId = this.state.selected.idd
 
-            const findNodebyId = function(searchId, newData) {
-                let j,
-                    currentChild,
-                    result;
+        const findNodebyId = function(searchId, newData) {
+            let j,
+                currentChild,
+                result;
 
 
-                if (searchId === newData.idd) {
-                    if (data.addQst.type === "objects") {
-                        newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: []})
-                    } else {
-                        newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: []})
-                    }
-
+            if (searchId === newData.idd) {
+                if (data.addQst.type === "objects") {
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: []})
                 } else {
-
-                    for (j = 0; j < newData.children.length; j += 1) {
-                        currentChild = newData.children[j];
-
-                        // Search in the current child
-                        result = findNodebyId(searchId, currentChild);
-                    }
-
-                    // The node has not been found and we have no more options
-                    return false;
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: []})
                 }
+
+            } else {
+
+                for (j = 0; j < newData.children.length; j += 1) {
+                    currentChild = newData.children[j];
+
+                    // Search in the current child
+                    result = findNodebyId(searchId, currentChild);
+                }
+
+                // The node has not been found and we have no more options
+                return false;
             }
-
-            findNodebyId(searchId, newData)
-
-
-            this.setState({
-                data: newData
-            })
-        }
-        else {
-            alert("Select node")
         }
 
+        findNodebyId(searchId, newData)
 
+
+        this.setState({
+            data: newData
+        })
     }
 
     removeNode = () => {
@@ -197,7 +190,12 @@ class GrafD3 extends Component {
     }
 
     openAddNodeForm = () => {
-        this.setState({isOpen: true})
+        if (this.state.selected) {
+            this.setState({isOpen: true})
+        } else {
+            alert("Select node!")
+        }
+
     }
 
     closeAddNodeForm = () => {

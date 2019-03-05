@@ -50,7 +50,6 @@ class ResultForm extends Component {
     }
 
     render() {
-        console.log(this.state.questionList)
         return (
             <div className="ResultForm">
                 {this.state.questionList !==0 ?

@@ -43,9 +43,41 @@ class ListContainer extends Component {
     }
 
     render() {
-        // if ( this.props.items.length === 0 ) {
-        //     return <EmptyList onAdd={this.handleAddItemClick(event)} />
-        // }
+        if ( this.props.items.length === 0 ) {
+            return (
+            <div style={{position: "relative"}}>
+                <EmptyList />
+                {Object.keys(this.props.activeProject).length !== 0 ?
+                    <Fab
+                        style={{position: 'absolute', bottom: '15px', right: '15px'}}
+                        aria-label = "Add"
+                        className  = "myAdd"
+                        size       = "medium"
+                        color      = "secondary"
+                        onClick    = { this.handleClickOpen }
+                    >
+                        <AddIcon />
+                    </Fab>: null
+                }
+
+                { this.state.isOpen ?
+                    this.props.type === 'question' ?
+                        <AddForm
+                            isOpen  = { this.state.isOpen }
+                            onAdd   = { this.saveAddQuestion }
+                            onClose = { this.closeAddForm }
+                            project = { this.props.activeProject.value }
+                        /> :
+                        <AddObject
+                            isOpen  = { this.state.isOpen }
+                            onAdd   = { this.saveAddObject }
+                            onClose = { this.closeAddForm }
+                            project = { this.props.activeProject.value }
+                        /> :
+                    null}
+
+            </div>)
+        }
         return (
             <div className="myList">
                 <List component="nav" style={{paddingTop: 0}}>
