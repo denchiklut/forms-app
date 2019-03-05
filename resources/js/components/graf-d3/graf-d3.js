@@ -41,7 +41,12 @@ class GrafD3 extends Component {
         transitionDuration: 300,
         selected: null,
         isOpen: false,
-        data: {},
+        data: {
+            idd:  0,
+            name: '',
+            answer: '',
+            children: [],
+        },
     }
 
     initGraf() {
@@ -227,7 +232,7 @@ class GrafD3 extends Component {
                             <Chip
                                 className="grafChip"
                                 color="secondary"
-                                label={ this.props.activeProject.value ? this.props.activeProject.value : 'Choose project' }
+                                label={ this.props.activeProject.value  }
                             />
                         </Typography>
                         <div>

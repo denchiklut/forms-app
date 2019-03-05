@@ -3,13 +3,11 @@ import ListContainer from '../list-container';
 import Grid from '@material-ui/core/Grid';
 import GrafD3 from '../graf-d3';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import {compose} from "recompose";
 import {connect} from 'react-redux';
 import {fetchQuestions} from '../../actions/questions'
 import {bindActionCreators} from "redux";
@@ -29,13 +27,6 @@ TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
     dir: PropTypes.string.isRequired,
 };
-
-const styles = theme => ({
-    root: {
-        backgroundColor: theme.palette.background.paper,
-        width: 500,
-    },
-});
 
 class MainPage extends Component {
     state = {
@@ -68,7 +59,6 @@ class MainPage extends Component {
     }
 
     render() {
-        const { theme } = this.props;
         return (
             <div style={{margin: '-3px'}}>
                 <Grid container spacing={0}>
@@ -86,14 +76,14 @@ class MainPage extends Component {
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
-                            axis          = { theme.direction === 'rtl' ? 'x-reverse' : 'x' }
+                            axis          = "x"
                             index         = { this.state.value }
                             onChangeIndex = { this.handleChangeIndex }
                         >
-                            <TabContainer dir={theme.direction}>
+                            <TabContainer dir="ltr">
                                 <ListContainer items={this.props.questions} type="question" />
                             </TabContainer>
-                            <TabContainer dir={theme.direction}>
+                            <TabContainer dir="ltr">
                                 <ListContainer items={this.props.objects} type="object" />
                             </TabContainer>
                         </SwipeableViews>
@@ -119,32 +109,30 @@ class MainPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        questions: state.questions,
-        objects: state.objects,
+        questions:     state.questions,
+        objects:       state.objects,
         activeProject: state.activeProject,
-        nodes: state.nodes
+        nodes:         state.nodes
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchQuestions: fetchQuestions,
-        fetchObjects: fetchObjects,
-        removeNode: onRemoveNode,
-        fetchNodes: fetchNodes,
-        onAddNode: onAddNode,
+        fetchObjects:   fetchObjects,
+        removeNode:     onRemoveNode,
+        fetchNodes:     fetchNodes,
+        onAddNode:      onAddNode,
     }, dispatch)
 }
 
 
 
 MainPage.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
-    activeProject: PropTypes.object.isRequired,
-    questions: PropTypes.array.isRequired,
+    activeProject:  PropTypes.object.isRequired,
+    questions:      PropTypes.array.isRequired,
     fetchQuestions: PropTypes.func.isRequired,
 };
 
-export default compose(withStyles(styles, { withTheme: true }), connect(mapStateToProps, mapDispatchToProps))(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
 

@@ -125,11 +125,11 @@ class ResultForm extends Component {
                                                 </IconButton>
                                             </Toolbar>
                                         </AppBar>
-                                        <Typography variant="div" color="inherit" >
-                                            <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
+                                        <div>
+                                              <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
                                                 {item.objData.dopInformation}
                                             </pre>
-                                        </Typography>
+                                        </div>
                                     </Dialog>
                                 </div>
 
