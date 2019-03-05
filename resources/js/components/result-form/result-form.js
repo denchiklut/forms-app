@@ -10,27 +10,30 @@ class ResultForm extends Component {
 
     state = {
         questionList: [],
+        currentChild: null,
     }
 
-     findNodes = (answer, newData) => {
-        let i, j, currentChild
+    findNodes = (answer, newData) => {
+        let i
 
-        if (newData.answer === answer) {
+        newData.children.map(
+            item => {
+                if (item.answer === answer) {
 
-            let answers = []
-            for (i= 0; i < newData.children.length; i++) {
-                answers.push(newData.children[i].answer)
+                    let answers = []
+                    for (i= 0; i < item.children.length; i++) {
+                        answers.push(item.children[i].answer)
+                    }
+
+                    this.setState(prevState => ({
+                        questionList: [ ...prevState.questionList, {question: item.name, answers: answers}],
+                        currentChild: { ...item }
+                    }))
+                }
             }
+        )
 
-            this.setState(prevState => ({
-                questionList: [...prevState.questionList, {question: newData.name, answers: answers}]
-            }))
-        }
 
-        for (j = 0; j < newData.children.length; j ++) {
-            currentChild = newData.children[j];
-            this.findNodes(answer, currentChild);
-        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -63,15 +66,13 @@ class ResultForm extends Component {
                                     variant="extended"
                                     aria-label=" answer"
                                     style={{margin: "auto 5px", padding: "0 15px"}}
-                                    onClick={() => this.findNodes(item, this.props.nodes)}
+                                    onClick={() => this.findNodes(item, this.state.currentChild)}
                                 >
                                     {item}
                                 </Fab>
                             )}
                         </div>
-                    )
-
-                    : null}
+                    ): null}
             </div>
         );
     }
