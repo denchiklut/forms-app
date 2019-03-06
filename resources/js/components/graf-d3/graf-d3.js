@@ -14,6 +14,7 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import './graf-3d.scss'
@@ -80,22 +81,6 @@ class GrafD3 extends Component {
                 answer: 'Start',
                 children: [],
             }})
-    }
-
-    componentDidMount() {
-        this.initGraf()
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.project !== prevProps.project) {
-            this.initGraf()
-            this.setState({selected: null})
-        }
-
-        if (this.props.grafNodes !== prevProps.grafNodes) {
-            Object.keys(this.props.grafNodes ).length === 0 ? this.initGraf() : this.setState({data: this.props.grafNodes})
-        }
-
     }
 
     addNode = data => {
@@ -221,6 +206,55 @@ class GrafD3 extends Component {
         this.props.removeNode(this.state.selected, newData)
     }
 
+    cutNode = () => {
+        let newData = {...this.state.data}
+        let searched = this.state.selected
+
+        const findNodeById = function(searched, newData) {
+            let j,
+                currentChild,
+                currentParent,
+                result
+
+            if (searched.idd === newData.idd) {
+                return true
+            }
+
+            else {
+
+                for (j = 0; j < newData.children.length; j ++) {
+                    currentChild = newData.children[j];
+
+                    if (currentChild.idd === searched.idd) {
+                        currentParent = newData
+                        console.log("currentParent", currentParent)
+                    }
+                    result = findNodeById(searched, currentChild);
+
+                    if (result) {
+                        console.log("currentParent children", currentParent.children)
+                        console.log("currentNode children", searched.children)
+
+                        currentParent.children = []
+                        currentParent.children.push(...searched.children)
+                        console.log("currentParent children +", currentParent.children)
+
+                        console.log("WRONG", newData.children)
+                        newData.children.map(item => item.parent= {})
+
+                        return false
+                    }
+                }
+                return false;
+            }
+        }
+
+        findNodeById(searched, newData)
+
+        console.log(newData)
+        this.props.removeNode(this.state.selected, newData)
+    }
+
     coloriseNode = (nodeKey) => {
         let newData = {...this.state.data}
         let searchId = nodeKey.idd
@@ -299,14 +333,28 @@ class GrafD3 extends Component {
         this.closeAddNodeForm()
     }
 
+    componentDidMount() {
+        this.initGraf()
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.project !== prevProps.project) {
+            this.initGraf()
+            this.setState({selected: null})
+        }
+
+        if (this.props.grafNodes !== prevProps.grafNodes) {
+            Object.keys(this.props.grafNodes ).length === 0 ? this.initGraf() : this.setState({data: this.props.grafNodes})
+        }
+
+    }
 
     render() {
         const actions = [
-            // { icon: <SaveIcon />, name: ' Save' },
-            { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
             { icon: <AddIcon      onClick = { this.openAddNodeForm } />,   name: 'Add' },
+            { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm } />, name: 'Insert' },
+            { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />, name: ' Cut' },
         ]
 
         const { direction, hidden, open } = this.state
@@ -332,11 +380,10 @@ class GrafD3 extends Component {
                         </Typography>
                         <div style={{display: 'flex'}}>
                             <SpeedDial
-                                style={{transform: 'scale(0.73)', marginRight: '-18px'}}
+                                style={{transform: 'scale(0.73)', marginRight: '-36px'}}
                                 ariaLabel="SpeedDial example"
                                 hidden={hidden}
                                 icon={<SpeedDialIcon />}
-                                onBlumater={this.handleClose}
                                 onClick={this.handleClick}
                                 onClose={this.handleClose}
                                 onFocus={this.handleOpen}
