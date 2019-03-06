@@ -13,6 +13,7 @@ import GrafAddForm from "../garf-add-form"
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import EditIcon from '@material-ui/icons/Edit';
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import Hidden from '@material-ui/core/Hidden';
@@ -126,6 +127,7 @@ class GrafD3 extends Component {
     }
 
     insertNode = data => {
+        console.log("DATA", data)
         let newData = {...this.state.data}
         // let searchVal = this.state.selected.name
 
@@ -140,6 +142,7 @@ class GrafD3 extends Component {
 
             if (searchId === newData.idd) {
                 let oldChildren = newData.children.slice();
+                console.log("OLD", oldChildren)
                 newData.children = []
 
                 if (data.addQst.type === "objects") {
@@ -166,10 +169,7 @@ class GrafD3 extends Component {
 
         findNodebyId(searchId, newData)
 
-
-        this.setState({
-            data: newData
-        })
+        this.props.onAddNode(data, newData)
     }
 
     removeNode = () => {
@@ -335,7 +335,6 @@ class GrafD3 extends Component {
 
         if (this.state.insert)  {
             this.insertNode(data)
-            this.props.onAddNode(data, this.state.data)
             this.setState({insert: false})
         } else {
             this.addNode(data)
@@ -363,10 +362,10 @@ class GrafD3 extends Component {
 
     render() {
         const actions = [
-            { icon: <AddIcon      onClick = { this.openAddNodeForm } />,   name: 'Add' },
+            { icon: <AddIcon      onClick = { this.openAddNodeForm }  />,  name: 'Add' },
             { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
-            { icon: <FileCopyIcon onClick = { this.insertAddNodeForm } />, name: 'Insert' },
-            { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />, name: ' Cut' },
+            { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
+            { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
         ]
 
         const { direction, hidden, open } = this.state
@@ -395,8 +394,9 @@ class GrafD3 extends Component {
                                 style={{transform: 'scale(0.73)', marginRight: '-36px'}}
                                 ariaLabel="SpeedDial example"
                                 hidden={hidden}
-                                icon={<SpeedDialIcon />}
+                                icon={<SpeedDialIcon openIcon={<EditIcon />} />}
                                 onClick={this.handleClick}
+                                onBlur={this.handleClose}
                                 onClose={this.handleClose}
                                 onFocus={this.handleOpen}
                                 onMouseEnter={this.handleOpen}
