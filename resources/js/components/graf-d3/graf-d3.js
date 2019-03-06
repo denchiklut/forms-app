@@ -10,6 +10,11 @@ import PlayArrow from '@material-ui/icons/PlayArrow'
 import Chip from "@material-ui/core/Chip"
 import GrafSelectedPanel from '../graf-selected-panel'
 import GrafAddForm from "../garf-add-form"
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
+import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import './graf-3d.scss'
 
@@ -35,19 +40,37 @@ const svgStyle = {
     }
 }
 
+
 class GrafD3 extends Component {
 
     state = {
-        transitionDuration: 300,
         selected: null,
         isOpen: false,
+        insert: false,
         data: {
             idd:  0,
             name: '',
             answer: '',
             children: [],
         },
+        direction: 'left',
+        open: false,
+        hidden: false,
     }
+
+    handleClick = () => {
+        this.setState(state => ({
+            open: !state.open,
+        }));
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
 
     initGraf() {
         this.setState({data: {
@@ -76,7 +99,6 @@ class GrafD3 extends Component {
     }
 
     addNode = data => {
-        this.setState({transitionDuration: 300})
         let newData = {...this.state.data}
         // let searchVal = this.state.selected.name
 
@@ -118,8 +140,54 @@ class GrafD3 extends Component {
         })
     }
 
+    insertNode = data => {
+        let newData = {...this.state.data}
+        // let searchVal = this.state.selected.name
+
+        //id of question that we trying to add to graf
+        let searchId = this.state.selected.idd
+
+        const findNodebyId = function(searchId, newData) {
+            let j,
+                currentChild,
+                result;
+
+
+            if (searchId === newData.idd) {
+                let oldChildren = newData.children.slice();
+                newData.children = []
+
+                if (data.addQst.type === "objects") {
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: [...oldChildren]})
+                } else {
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: [...oldChildren]})
+                }
+
+
+
+            } else {
+
+                for (j = 0; j < newData.children.length; j += 1) {
+                    currentChild = newData.children[j];
+
+                    // Search in the current child
+                    result = findNodebyId(searchId, currentChild);
+                }
+
+                // The node has not been found and we have no more options
+                return false;
+            }
+        }
+
+        findNodebyId(searchId, newData)
+
+
+        this.setState({
+            data: newData
+        })
+    }
+
     removeNode = () => {
-        this.setState({transitionDuration: 300})
         let newData = {...this.state.data}
         let searchId = this.state.selected.idd
 
@@ -155,7 +223,6 @@ class GrafD3 extends Component {
 
     coloriseNode = (nodeKey) => {
         let newData = {...this.state.data}
-        this.setState({transitionDuration: 0})
         let searchId = nodeKey.idd
 
         const findNodeById = function(searchId, newData) {
@@ -203,6 +270,15 @@ class GrafD3 extends Component {
 
     }
 
+    insertAddNodeForm = () => {
+        if (this.state.selected) {
+            this.setState({isOpen: true, insert: true})
+        } else {
+            alert("Select node!")
+        }
+
+    }
+
     closeAddNodeForm = () => {
         this.setState(( { isOpen } ) => {
             return {isOpen: !isOpen }
@@ -211,49 +287,74 @@ class GrafD3 extends Component {
 
     saveAddNode = data => {
 
-        this.addNode(data)
-
-        this.props.onAddNode(data, this.state.data)
+        if (this.state.insert)  {
+            this.insertNode(data)
+            this.props.onAddNode(data, this.state.data)
+            this.setState({insert: false})
+        } else {
+            this.addNode(data)
+            this.props.onAddNode(data, this.state.data)
+        }
 
         this.closeAddNodeForm()
     }
 
+
+
     render() {
+        const actions = [
+            // { icon: <SaveIcon />, name: ' Save' },
+            { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
+            { icon: <AddIcon      onClick = { this.openAddNodeForm } />,   name: 'Add' },
+            { icon: <FileCopyIcon onClick = { this.insertAddNodeForm } />, name: 'Insert' },
+        ]
+
+        const { direction, hidden, open } = this.state
+
         if (Object.keys(this.props.activeProject).length === 0 )  {
             return (
                 <div><h1>Select Project</h1></div>
             )
         }
+
         return (
             <div id="treeWrapper">
                 <AppBar position="static" className="grafAppBar">
                     <Toolbar className='grafToolBar'>
                         <Typography variant="h6" className="grafToolBarChip">
+                            <Hidden smDown>
                             <Chip
                                 className="grafChip"
                                 color="secondary"
                                 label={ this.props.activeProject.value  }
                             />
+                            </Hidden>
                         </Typography>
-                        <div>
-                            <Fab
-                                color="secondary"
-                                size="small"
-                                aria-label="Add"
-                                onClick={this.openAddNodeForm}
-                                className="grafToolBarBtm"
+                        <div style={{display: 'flex'}}>
+                            <SpeedDial
+                                style={{transform: 'scale(0.73)', marginRight: '-18px'}}
+                                ariaLabel="SpeedDial example"
+                                hidden={hidden}
+                                icon={<SpeedDialIcon />}
+                                onBlumater={this.handleClose}
+                                onClick={this.handleClick}
+                                onClose={this.handleClose}
+                                onFocus={this.handleOpen}
+                                onMouseEnter={this.handleOpen}
+                                onMouseLeave={this.handleClose}
+                                open={open}
+                                direction={direction}
                             >
-                                <AddIcon />
-                            </Fab>
-                            <Fab
-                                color="secondary"
-                                size="small"
-                                aria-label="Edit"
-                                onClick={this.removeNode}
-                                className="grafToolBarBtm"
-                            >
-                                <DeleteIcon fontSize="small" />
-                            </Fab>
+                                {actions.map(action => (
+                                    <SpeedDialAction
+                                        key={action.name}
+                                        icon={action.icon}
+                                        tooltipTitle={action.name}
+                                        onClick={this.handleClick}
+                                    />
+                                ))}
+                            </SpeedDial>
+
                             <Fab
                                 color="secondary"
                                 size="small"
