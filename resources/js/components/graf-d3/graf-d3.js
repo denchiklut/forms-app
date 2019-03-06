@@ -235,12 +235,24 @@ class GrafD3 extends Component {
                         console.log("currentParent children", currentParent.children)
                         console.log("currentNode children", searched.children)
 
-                        currentParent.children = []
+                        currentParent.children.map((item, i) => item.idd === searched.idd ? currentParent.children.splice(i, 1) : item)
                         currentParent.children.push(...searched.children)
                         console.log("currentParent children +", currentParent.children)
 
-                        console.log("WRONG", newData.children)
-                        newData.children.map(item => item.parent= {})
+                        const clrArr =  function (arr) {
+                            arr.map(item => {
+                                console.log("ITEM", item)
+                                item.children ? clrArr(item.children) : item.children = []
+                                delete(item.id)
+                                delete(item.parent)
+                                delete(item.depth)
+                                delete(item._collapsed)
+                                delete(item.x)
+                                delete(item.y)
+                            })
+                        }
+
+                        clrArr(newData.children)
 
                         return false
                     }
