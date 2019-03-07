@@ -120,10 +120,7 @@ class GrafD3 extends Component {
 
         findNodebyId(searchId, newData)
 
-
-        this.setState({
-            data: newData
-        })
+        this.props.onAddNode(data, newData)
     }
 
     insertNode = data => {
@@ -338,7 +335,6 @@ class GrafD3 extends Component {
             this.setState({insert: false})
         } else {
             this.addNode(data)
-            this.props.onAddNode(data, this.state.data)
         }
 
         this.closeAddNodeForm()
