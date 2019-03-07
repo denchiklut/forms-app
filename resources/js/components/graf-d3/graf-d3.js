@@ -90,15 +90,16 @@ class GrafD3 extends Component {
         let newData = {...this.state.data}
 
         //id of question that we trying to add to graf
-        let searchId = this.state.selected.unique
+        let searched = this.state.selected
 
-        const findNodebyId = function(searchId, newData) {
+        const findNodebyId = function(searched, newData) {
             let j,
                 currentChild,
                 result;
 
 
-            if (searchId === newData.unique) {
+            if (searched.unique === newData.unique) {
+
                 if (data.addQst.type === "objects") {
                     newData.children.push(
                         {
@@ -107,7 +108,7 @@ class GrafD3 extends Component {
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
                             objData:  data.addQst.data,
-                            answer:   data.answer,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
                             unique:   uuid.v4(),
                             children: []
                         })
@@ -118,7 +119,7 @@ class GrafD3 extends Component {
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
-                            answer:   data.answer,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
                             unique:   uuid.v4(),
                             children: []
                         })
@@ -130,7 +131,7 @@ class GrafD3 extends Component {
                     currentChild = newData.children[j];
 
                     // Search in the current child
-                    result = findNodebyId(searchId, currentChild);
+                    result = findNodebyId(searched, currentChild);
                 }
 
                 // The node has not been found and we have no more options
@@ -138,25 +139,24 @@ class GrafD3 extends Component {
             }
         }
 
-        findNodebyId(searchId, newData)
+        findNodebyId(searched, newData)
 
         this.props.onAddNode(data, newData)
     }
 
     insertNode = data => {
-        console.log("DATA", data)
         let newData = {...this.state.data}
 
         //id of question that we trying to add to graf
-        let searchId = this.state.selected.unique
+        let searched = this.state.selected
 
-        const findNodebyId = function(searchId, newData) {
+        const findNodebyId = function(searched, newData) {
             let j,
                 currentChild,
                 result;
 
 
-            if (searchId === newData.unique) {
+            if (searched.unique === newData.unique) {
                 let oldChildren = newData.children.slice();
                 newData.children = []
 
@@ -168,7 +168,7 @@ class GrafD3 extends Component {
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
                             objData:  data.addQst.data,
-                            answer:   data.answer,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
                             children: [...oldChildren]})
                 } else {
                     newData.children.push(
@@ -177,7 +177,7 @@ class GrafD3 extends Component {
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
-                            answer:   data.answer,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
                             children: [...oldChildren]})
                 }
 
@@ -187,7 +187,7 @@ class GrafD3 extends Component {
                     currentChild = newData.children[j];
 
                     // Search in the current child
-                    result = findNodebyId(searchId, currentChild);
+                    result = findNodebyId(searched, currentChild);
                 }
 
                 // The node has not been found and we have no more options
@@ -195,7 +195,7 @@ class GrafD3 extends Component {
             }
         }
 
-        findNodebyId(searchId, newData)
+        findNodebyId(searched, newData)
 
         this.props.onAddNode(data, newData)
     }
@@ -255,21 +255,16 @@ class GrafD3 extends Component {
 
                     if (currentChild.unique === searched.unique) {
                         currentParent = newData
-                        console.log("currentParent", currentParent)
                     }
                     result = findNodeById(searched, currentChild);
 
                     if (result) {
-                        console.log("currentParent children", currentParent.children)
-                        console.log("currentNode children", searched.children)
 
                         currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
                         currentParent.children.push(...searched.children)
-                        console.log("currentParent children +", currentParent.children)
 
                         const clrArr =  function (arr) {
                             arr.map(item => {
-                                console.log("ITEM", item)
                                 item.children ? clrArr(item.children) : item.children = []
                                 delete(item.id)
                                 delete(item.parent)
@@ -291,7 +286,6 @@ class GrafD3 extends Component {
 
         findNodeById(searched, newData)
 
-        console.log(newData)
         this.props.removeNode(this.state.selected, newData)
     }
 
