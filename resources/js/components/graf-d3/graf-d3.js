@@ -88,7 +88,6 @@ class GrafD3 extends Component {
 
     addNode = data => {
         let newData = {...this.state.data}
-        // let searchVal = this.state.selected.name
 
         //id of question that we trying to add to graf
         let searchId = this.state.selected.unique
@@ -147,7 +146,6 @@ class GrafD3 extends Component {
     insertNode = data => {
         console.log("DATA", data)
         let newData = {...this.state.data}
-        // let searchVal = this.state.selected.name
 
         //id of question that we trying to add to graf
         let searchId = this.state.selected.unique
@@ -160,16 +158,28 @@ class GrafD3 extends Component {
 
             if (searchId === newData.unique) {
                 let oldChildren = newData.children.slice();
-                console.log("OLD", oldChildren)
                 newData.children = []
 
                 if (data.addQst.type === "objects") {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: [...oldChildren]})
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            objData:  data.addQst.data,
+                            answer:   data.answer,
+                            children: [...oldChildren]})
                 } else {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: [...oldChildren]})
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            answer:   data.answer,
+                            children: [...oldChildren]})
                 }
-
-
 
             } else {
 
