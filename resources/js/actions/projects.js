@@ -19,15 +19,13 @@ export function fetchProjects() {
 
     let testData = [
         {_id: 1,  name: 'Afghanistan' },
-        {_id: 2,  name: 'Aland Islands' },
         {_id: 3,  name: 'Albania' },
         {_id: 4,  name: 'Algeria' },
-        {_id: 5,  name: 'American Samoa' },
+        {_id: 5,  name: 'Samoa' },
         {_id: 6,  name: 'Andorra' },
         {_id: 7,  name: 'Angola' },
         {_id: 8,  name: 'Anguilla' },
         {_id: 9,  name: 'Antarctica' },
-        {_id: 10, name: 'Antigua and Barbuda' },
         {_id: 11, name: 'Argentina' },
         {_id: 12, name: 'Armenia' },
         {_id: 13, name: 'Aruba' },
@@ -44,14 +42,8 @@ export function fetchProjects() {
         {_id: 24, name: 'Benin' },
         {_id: 25, name: 'Bermuda' },
         {_id: 26, name: 'Bhutan' },
-        {_id: 27, name: 'Bolivia, Plurinational State of' },
-        {_id: 28, name: 'Bonaire, Sint Eustatius and Saba' },
-        {_id: 29, name: 'Bosnia and Herzegovina' },
         {_id: 30, name: 'Botswana' },
-        {_id: 31, name: 'Bouvet Island' },
         {_id: 32, name: 'Brazil' },
-        {_id: 33, name: 'British Indian Ocean Territory' },
-        {_id: 34, name: 'Brunei Darussalam' },
     ]
 
     return dispatch => dispatch(setProjects(testData))

@@ -79,6 +79,7 @@ class NodeController extends Controller
                         break;
                     case "objects":
                         $newData["value"] =  Objects::where('_id',$newData["idd"])->value('name');
+                        $newData["name"]  =  Objects::where('_id',$newData["idd"])->value('name');
                         $newData["objData"] =  Objects::where('_id',$newData["idd"])->value('value');
                         break;
                 }
