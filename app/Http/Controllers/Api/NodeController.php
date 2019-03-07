@@ -74,11 +74,11 @@ class NodeController extends Controller
             else {
                 switch ($newData["type"]) {
                     case 'questions':
-                        $newData["name"] =  Question::where('_id',$newData["idd"])->value('name');
+                        $newData["value"] =  Question::where('_id',$newData["idd"])->value('name');
                         $newData["nodeSvgShape"] = null;
                         break;
                     case "objects":
-                        $newData["name"] =  Objects::where('_id',$newData["idd"])->value('name');
+                        $newData["value"] =  Objects::where('_id',$newData["idd"])->value('name');
                         $newData["objData"] =  Objects::where('_id',$newData["idd"])->value('value');
                         break;
                 }

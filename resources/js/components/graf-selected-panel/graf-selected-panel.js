@@ -57,14 +57,14 @@ class GrafSelectedPanel extends Component {
                         </Typography>
                         <Typography variant="h5" component="div">
                             {selected.type === "questions" ?
-                                `${selected.name} (${selected.answer})` : selected.type === "objects" ?
+                                `${selected.value} (${selected.answer})` : selected.type === "objects" ?
                                 <div>
                                     <Button
                                         variant="outlined"
                                         size="small"
                                         onClick={this.openObjectShow}
                                     >
-                                        {selected.name}
+                                        {selected.value}
                                     </Button>
                                     ({selected.answer})</div>: null}
                         </Typography>

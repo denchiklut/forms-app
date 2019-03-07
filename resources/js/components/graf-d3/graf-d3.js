@@ -101,9 +101,28 @@ class GrafD3 extends Component {
 
             if (searchId === newData.unique) {
                 if (data.addQst.type === "objects") {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data, unique: uuid.v4(), answer: data.answer, children: []})
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            objData:  data.addQst.data,
+                            answer:   data.answer,
+                            unique:   uuid.v4(),
+                            children: []
+                        })
                 } else {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, unique: uuid.v4(), children: []})
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            answer:   data.answer,
+                            unique:   uuid.v4(),
+                            children: []
+                        })
                 }
 
             } else {

@@ -133,7 +133,7 @@ class ResultForm extends Component {
                                     </Dialog>
                                 </div>
 
-                                 : <p key={item.idd}>{item.name}</p>
+                                 : <p key={item.idd}>{item.value}</p>
                             }
 
                             {item.answers.map(item =>
