@@ -166,6 +166,7 @@ class GrafD3 extends Component {
                             name:     data.addQst.value,
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
+                            unique:   uuid.v4(),
                             type:     data.addQst.type,
                             objData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
@@ -176,6 +177,7 @@ class GrafD3 extends Component {
                             name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
+                            unique:   uuid.v4(),
                             type:     data.addQst.type,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
                             children: [...oldChildren]})
