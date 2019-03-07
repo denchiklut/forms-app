@@ -16,7 +16,6 @@ import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
-// import {uid} from 'react-uid';
 import uuid from "uuid"
 import AppBar from '@material-ui/core/AppBar'
 import GrafSelectedPanel from '../graf-selected-panel'
@@ -92,7 +91,7 @@ class GrafD3 extends Component {
         // let searchVal = this.state.selected.name
 
         //id of question that we trying to add to graf
-        let searchId = this.state.selected.idd
+        let searchId = this.state.selected.unique
 
         const findNodebyId = function(searchId, newData) {
             let j,
@@ -100,7 +99,7 @@ class GrafD3 extends Component {
                 result;
 
 
-            if (searchId === newData.idd) {
+            if (searchId === newData.unique) {
                 if (data.addQst.type === "objects") {
                     newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data, unique: uuid.v4(), answer: data.answer, children: []})
                 } else {
@@ -132,7 +131,7 @@ class GrafD3 extends Component {
         // let searchVal = this.state.selected.name
 
         //id of question that we trying to add to graf
-        let searchId = this.state.selected.idd
+        let searchId = this.state.selected.unique
 
         const findNodebyId = function(searchId, newData) {
             let j,
@@ -140,7 +139,7 @@ class GrafD3 extends Component {
                 result;
 
 
-            if (searchId === newData.idd) {
+            if (searchId === newData.unique) {
                 let oldChildren = newData.children.slice();
                 console.log("OLD", oldChildren)
                 newData.children = []
@@ -174,14 +173,14 @@ class GrafD3 extends Component {
 
     removeNode = () => {
         let newData = {...this.state.data}
-        let searchId = this.state.selected.idd
+        let searchId = this.state.selected.unique
 
         const findNodeById = function(searchId, newData) {
             let j,
                 currentChild,
                 result
 
-            if (searchId === newData.idd) {
+            if (searchId === newData.unique) {
                 return true
             }
 
@@ -216,7 +215,7 @@ class GrafD3 extends Component {
                 currentParent,
                 result
 
-            if (searched.idd === newData.idd) {
+            if (searched.unique === newData.unique) {
                 return true
             }
 
@@ -225,7 +224,7 @@ class GrafD3 extends Component {
                 for (j = 0; j < newData.children.length; j ++) {
                     currentChild = newData.children[j];
 
-                    if (currentChild.idd === searched.idd) {
+                    if (currentChild.unique === searched.unique) {
                         currentParent = newData
                         console.log("currentParent", currentParent)
                     }
@@ -235,7 +234,7 @@ class GrafD3 extends Component {
                         console.log("currentParent children", currentParent.children)
                         console.log("currentNode children", searched.children)
 
-                        currentParent.children.map((item, i) => item.idd === searched.idd ? currentParent.children.splice(i, 1) : item)
+                        currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
                         currentParent.children.push(...searched.children)
                         console.log("currentParent children +", currentParent.children)
 
@@ -269,12 +268,12 @@ class GrafD3 extends Component {
 
     coloriseNode = (nodeKey) => {
         let newData = {...this.state.data}
-        let searchId = nodeKey.idd
+        let searchId = nodeKey.unique
 
         const findNodeById = function(searchId, newData) {
             let j, currentChild
 
-            if (searchId === newData.idd) {
+            if (searchId === newData.unique) {
                 newData.nodeSvgShape = {
                     shape: 'circle',
                     shapeProps: {
