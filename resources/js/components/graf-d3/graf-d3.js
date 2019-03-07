@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Tree from 'react-d3-tree'
-import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Fab from '@material-ui/core/Fab'
@@ -8,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PlayArrow from '@material-ui/icons/PlayArrow'
 import Chip from "@material-ui/core/Chip"
-import GrafSelectedPanel from '../graf-selected-panel'
 import GrafAddForm from "../garf-add-form"
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
@@ -18,6 +16,10 @@ import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
+// import {uid} from 'react-uid';
+import uuid from "uuid"
+import AppBar from '@material-ui/core/AppBar'
+import GrafSelectedPanel from '../graf-selected-panel'
 import './graf-3d.scss'
 
 const svgStyle = {
@@ -77,6 +79,7 @@ class GrafD3 extends Component {
     initGraf() {
         this.setState({data: {
                 idd:  0,
+                unique: uuid.v4(),
                 project: { _id: this.props.project._id, name: this.props.project.value },
                 name: 'Start',
                 answer: 'Start',
@@ -99,9 +102,9 @@ class GrafD3 extends Component {
 
             if (searchId === newData.idd) {
                 if (data.addQst.type === "objects") {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data , answer: data.answer, children: []})
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, objData: data.addQst.data, unique: uuid.v4(), answer: data.answer, children: []})
                 } else {
-                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, children: []})
+                    newData.children.push({name: data.addQst.value, idd: data.addQst._id, type: data.addQst.type, answer: data.answer, unique: uuid.v4(), children: []})
                 }
 
             } else {
@@ -357,6 +360,7 @@ class GrafD3 extends Component {
     }
 
     render() {
+
         const actions = [
             { icon: <AddIcon      onClick = { this.openAddNodeForm }  />,  name: 'Add' },
             { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
