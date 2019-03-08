@@ -48,7 +48,6 @@ export function onAddNode( node, graf ) {
 }
 
 export function onRemoveNode( node, graf ) {
-    console.log("graf", graf)
     return dispatch => {
         axios
             .post('/api/nodes', {data: graf})

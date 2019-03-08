@@ -216,8 +216,7 @@ class GrafD3 extends Component {
             }
 
             else {
-
-                for (j = 0; j < newData.children.length; j += 1) {
+                for (j = 0; j < newData.children.length; j ++) {
                     currentChild = newData.children[j];
                     result = findNodeById(searchId, currentChild);
 
