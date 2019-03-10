@@ -1,13 +1,18 @@
 #treeWrapper {
     width: 100%;
     height: calc(100vh - 64px - 65px);
-    background: #222;
+    background: #313131;
     position: relative;
 
     .nodeNameBase {
         fill: #ffffff;
         stroke: #ffffff;
         stroke-width: 0.1px;
+    }
+
+    .linkBase {
+        fill: none;
+        stroke: #b7b7b7;
     }
 
     .grafToolBar {
