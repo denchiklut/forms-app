@@ -1,17 +1,17 @@
 #treeWrapper {
     width: 100%;
     height: calc(100vh - 64px - 65px);
-    background: rgb(236, 236, 236);
-    //background: linear-gradient(to right, #232526, #414345);
+    background: #222;
     position: relative;
 
-    //.nodeNameBase {
-    //    fill: #fff;
-    //    /* stroke: #ffffff; */
-    //    stroke-width: 0;
-    //}
+    .nodeNameBase {
+        fill: #ffffff;
+        stroke: #ffffff;
+        stroke-width: 0.1px;
+    }
 
     .grafToolBar {
+        box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
         .grafToolBarChip {
             flex-grow: 1;
             color: inherit;
