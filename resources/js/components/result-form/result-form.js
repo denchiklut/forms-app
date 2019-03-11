@@ -4,6 +4,7 @@ import {bindActionCreators} from "redux";
 import {fetchNodes} from "../../actions/graf/nodes";
 import Fab from "@material-ui/core/Fab";
 import ResultObject from '../result-object'
+import uuid from "uuid"
 import './result-form.scss'
 
 class ResultForm extends Component {
@@ -128,11 +129,11 @@ class ResultForm extends Component {
             <div className="ResultForm">
                 {this.state.questionList !== 0 ?
                     this.state.questionList.map(item =>
-                        <div key={item.idd}>
+                        <div key={uuid.v4()}>
 
                             { item.type === "objects" ? this.renderObj(item) :
                                 <>
-                                    <p key={item.idd}>{item.value}</p>
+                                    <p>{item.value}</p>
                                     { item.answers.map(item =>
                                         <Fab
                                             key={item}
