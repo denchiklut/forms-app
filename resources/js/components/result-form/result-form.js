@@ -36,6 +36,10 @@ class ResultForm extends Component {
         }
     }
 
+    handleClick = (item, lastObj) => {
+        this.findNodes(item, lastObj)
+    }
+
     renderObj = (item) => {
 
         let arr = [], lastObj = {}, kaskad = [], kaskadAnswers = []
@@ -82,13 +86,7 @@ class ResultForm extends Component {
 
         findKaskad(item)
 
-        if (kaskad.length !== 0) {
-            arr = [...kaskad]
-            kaskad = []
-        } else {
-            arr = [item]
-        }
-
+        kaskad.length !== 0 ? arr = [...kaskad] : arr = [item]
 
         return(
             <div>
@@ -101,7 +99,7 @@ class ResultForm extends Component {
                         variant="extended"
                         aria-label=" answer"
                         style={{margin: "auto 5px", padding: "0 15px"}}
-                        onClick={() => this.findNodes(item, lastObj)}
+                        onClick={() => this.handleClick(item, lastObj)}
                     >
                         {item}
                     </Fab>)}

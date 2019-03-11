@@ -36,7 +36,7 @@ class ResultObject extends Component {
             <React.Fragment key={item.objData.name}>
                 <TableRow >
                     <TableCell component="th" scope="row">
-                        <Button variant="outlined" color="primary" onClick={() => this.handleClickOpen(item)}>
+                        <Button color="primary" onClick={() => this.handleClickOpen(item)}>
                             {item.objData.name}
                         </Button>
                     </TableCell>
