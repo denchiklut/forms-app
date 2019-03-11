@@ -38,18 +38,19 @@ class ResultForm extends Component {
 
     renderObj = (item) => {
 
-        let arr,
-            lastObj = {}, kaskad = [], kaskadAnswers = []
+        let arr = [], lastObj = {}, kaskad = [], kaskadAnswers = []
 
-        // const findAnswer = (data) => {
-        //     for (let i = 0; i < data.children.length; i++) {
-        //         if (data.children[i].answer) {
-        //             console.log(data.children[i].answer)
-        //             return false
-        //         }
-        //     }
-        //     return true
-        // }
+        const findAnswer = (data) => {
+            for (let i = 0; i < data.children.length; i++) {
+                if (data.children[i].answer) {
+                    console.log(data.children[i].answer)
+                    console.log('false: ЕСТЬ ОТВЕТЫ', data)
+                    return false
+                }
+            }
+            console.log('true: НЕТ ответов', data)
+            return true
+        }
 
         const findKaskad = (newData) => {
             let i, currentChild
@@ -58,8 +59,6 @@ class ResultForm extends Component {
             if (newData.type === "questions") return true
             //Находим потомков типа - ОБЪЕКТ
             if (newData.type === "objects" ) {
-
-                // ЕСЛИ ЕСТЬ ОТВЕТЫ НЕ КАСКАД!!!!!!
 
                 //Добавляем в массив каскад Объект
                 kaskad.push(newData)
@@ -72,10 +71,14 @@ class ResultForm extends Component {
                 }
             }
 
-            //Ищем рекурсивно в потомках объекты
-            for (i = 0; i < newData.children.length; i++) {
-                currentChild = newData.children[i];
-                findKaskad(currentChild);
+
+            if (findAnswer(newData)) { // ЕСЛИ ЕСТЬ ОТВЕТЫ НЕ КАСКАД!!!!!!
+                //Ищем рекурсивно в потомках объекты
+                for (i = 0; i < newData.children.length; i++) {
+                    currentChild = newData.children[i];
+
+                    findKaskad(currentChild);
+                }
             }
         }
 
