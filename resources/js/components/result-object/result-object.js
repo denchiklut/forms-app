@@ -20,10 +20,13 @@ function Transition(props) {
 class ResultObject extends Component {
     state = {
         open: false,
+        kaskad: [],
+        obg: null,
     }
 
-    handleClickOpen = () => {
-        this.setState({ open: true });
+    handleClickOpen = (item) => {
+        console.log(item)
+        this.setState({ open: true, obg: item });
     };
 
     handleClose = () => {
@@ -35,7 +38,7 @@ class ResultObject extends Component {
             <React.Fragment key={item.objData.name}>
                 <TableRow >
                     <TableCell component="th" scope="row">
-                        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+                        <Button variant="outlined" color="primary" onClick={() => this.handleClickOpen(item)}>
                             {item.objData.name}
                         </Button>
                     </TableCell>
@@ -45,6 +48,35 @@ class ResultObject extends Component {
                     <TableCell align="right">{item.objData.otdelka}</TableCell>
                     <TableCell align="right">{item.objData.view}</TableCell>
                 </TableRow>
+            </React.Fragment>
+
+        )
+    }
+
+    componentDidMount() {
+        this.setState({kaskad: this.props.items})
+    }
+
+    render() {
+        const items = this.state.kaskad
+        return (
+            <div>
+                <Table className="resTable">
+                    <TableHead style={{background: '#d8d8d8'}}>
+                        <TableRow>
+                            <TableCell>Название</TableCell>
+                            <TableCell align="right">Расположение</TableCell>
+                            <TableCell align="right">Цена</TableCell>
+                            <TableCell align="right">Срок сдачи</TableCell>
+                            <TableCell align="right">Отделка</TableCell>
+                            <TableCell align="right">Вид</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        { items.map(item => this.renderObjRow(item)) }
+                    </TableBody>
+                </Table>
+
 
                 <Dialog
                     fullScreen
@@ -61,37 +93,10 @@ class ResultObject extends Component {
                     </AppBar>
                     <div>
                       <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
-                          {item.objData.dopInformation}
+                          {this.state.obg ? this.state.obg.objData.dopInformation : null }
                       </pre>
                     </div>
                 </Dialog>
-            </React.Fragment>
-
-        )
-    }
-
-
-    render() {
-        const { items } = this.props
-
-        return (
-            <div>
-                <Table className="resTable">
-                    <TableHead style={{background: '#d8d8d8'}}>
-                        <TableRow>
-                            <TableCell>Название</TableCell>
-                            <TableCell align="right">Расположение</TableCell>
-                            <TableCell align="right">Цена</TableCell>
-                            <TableCell align="right">Срок сдачи</TableCell>
-                            <TableCell align="right">Отделка</TableCell>
-                            <TableCell align="right">Вид</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {items.map(item => this.renderObjRow(item))}
-                    </TableBody>
-                </Table>
-
             </div>
         );
     }

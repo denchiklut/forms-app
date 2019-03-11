@@ -11,6 +11,7 @@ class ResultForm extends Component {
     state = {
         questionList: [],
         currentChild: null,
+        kaskad: [],
     }
 
     findNodes = (answer, newData) => {
@@ -46,25 +47,28 @@ class ResultForm extends Component {
 
     renderObj = (item) => {
         let arr,
-            lastObj = {},
-            kaskad = [],
-            kaskadAnswers = []
+            lastObj = {}, kaskad = [], kaskadAnswers = []
 
         const findKaskad = (newData) => {
             let i, currentChild
 
+            //Если с реди потомков узла есть хотябы один вопрос - это НЕ КАСКАД
             if (newData.type === "questions") return true
+            //Находим потомков типа - ОБЪЕКТ
             if (newData.type === "objects") {
+                //Добавляем в массив каскад Объект
                 kaskad.push(newData)
+                //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
                 lastObj = newData
-
+                //Находим все ответы текущего объекта
                 for (i = 0; i < lastObj.children.length; i++) {
+                    //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
                     if (lastObj.children[i].answer) kaskadAnswers.push(lastObj.children[i].answer)
                 }
             }
 
+            //Ищем рекурсивно в потомках объекты
             for (i = 0; i < newData.children.length; i++) {
-
                 currentChild = newData.children[i];
                 findKaskad(currentChild);
             }
@@ -75,7 +79,6 @@ class ResultForm extends Component {
         if (kaskad.length !== 0) {
             arr = [...kaskad]
             kaskad = []
-
         } else {
             arr = [item]
         }
