@@ -20,12 +20,10 @@ function Transition(props) {
 class ResultObject extends Component {
     state = {
         open: false,
-        kaskad: [],
         obg: null,
     }
 
     handleClickOpen = (item) => {
-        console.log(item)
         this.setState({ open: true, obg: item });
     };
 
@@ -53,12 +51,8 @@ class ResultObject extends Component {
         )
     }
 
-    componentDidMount() {
-        this.setState({kaskad: this.props.items})
-    }
-
     render() {
-        const items = this.state.kaskad
+        const {items} = this.props
         return (
             <div>
                 <Table className="resTable">

@@ -33,21 +33,20 @@ class ResultForm extends Component {
         )
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.activeProject !== this.props.activeProject) {
-            this.props.history.push(`/play/${this.props.activeProject.value}`)
-            this.props.fetchNodes(this.props.activeProject.value)
-        }
-    }
-
-    componentDidMount() {
-        let newData = {...this.props.nodes}
-        this.findNodes("start", newData)
-    }
-
     renderObj = (item) => {
+
         let arr,
             lastObj = {}, kaskad = [], kaskadAnswers = []
+
+        // const findAnswer = (data) => {
+        //     for (let i = 0; i < data.children.length; i++) {
+        //         if (data.children[i].answer) {
+        //             console.log(data.children[i].answer)
+        //             return false
+        //         }
+        //     }
+        //     return true
+        // }
 
         const findKaskad = (newData) => {
             let i, currentChild
@@ -55,7 +54,10 @@ class ResultForm extends Component {
             //Если с реди потомков узла есть хотябы один вопрос - это НЕ КАСКАД
             if (newData.type === "questions") return true
             //Находим потомков типа - ОБЪЕКТ
-            if (newData.type === "objects") {
+            if (newData.type === "objects" ) {
+
+                // ЕСЛИ ЕСТЬ ОТВЕТЫ НЕ КАСКАД!!!!!!
+
                 //Добавляем в массив каскад Объект
                 kaskad.push(newData)
                 //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
@@ -101,6 +103,21 @@ class ResultForm extends Component {
                     </Fab>)}
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.activeProject !== this.props.activeProject) {
+            this.props.history.push(`/play/${this.props.activeProject.value}`)
+            this.props.fetchNodes(this.props.activeProject.value)
+        }
+
+        if (prevProps.nodes !== this.props.nodes) {
+            this.findNodes("start", this.props.nodes)
+        }
+    }
+
+    componentDidMount() {
+        this.props.fetchNodes(this.props.activeProject.value ? this.props.activeProject.value : this.props.match.params.project )
     }
 
     render() {
