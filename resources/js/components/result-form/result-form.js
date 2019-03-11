@@ -15,22 +15,24 @@ class ResultForm extends Component {
     }
 
     findNodes = (answer, newData) => {
-        newData.children.map(
-            item => {
-                if (item.answer === answer) {
-                    let answers = []
+        if (newData.children) {
+            newData.children.map(
+                item => {
+                    if (item.answer === answer) {
+                        let answers = []
 
-                    for (let i= 0; i < item.children.length; i++) {
-                        answers.push(item.children[i].answer)
+                        for (let i= 0; i < item.children.length; i++) {
+                            answers.push(item.children[i].answer)
+                        }
+
+                        this.setState(prevState => ({
+                            questionList: [ ...prevState.questionList, {...item, answers: answers}],
+                            currentChild: { ...item }
+                        }))
                     }
-
-                    this.setState(prevState => ({
-                        questionList: [ ...prevState.questionList, {...item, answers: answers}],
-                        currentChild: { ...item }
-                    }))
                 }
-            }
-        )
+            )
+        }
     }
 
     renderObj = (item) => {
@@ -107,6 +109,7 @@ class ResultForm extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.activeProject !== this.props.activeProject) {
+            this.setState({questionList: [], currentChild: null, kaskad: [] })
             this.props.history.push(`/play/${this.props.activeProject.value}`)
             this.props.fetchNodes(this.props.activeProject.value)
         }
