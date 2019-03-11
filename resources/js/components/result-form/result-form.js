@@ -42,14 +42,12 @@ class ResultForm extends Component {
 
         const findAnswer = (data) => {
             for (let i = 0; i < data.children.length; i++) {
+
                 if (data.children[i].answer) {
-                    console.log(data.children[i].answer)
-                    console.log('false: ЕСТЬ ОТВЕТЫ', data)
-                    return false
+                    return false // false: ЕСТЬ ОТВЕТЫ
                 }
             }
-            console.log('true: НЕТ ответов', data)
-            return true
+            return true //true: НЕТ ответов
         }
 
         const findKaskad = (newData) => {
@@ -72,7 +70,7 @@ class ResultForm extends Component {
             }
 
 
-            if (findAnswer(newData)) { // ЕСЛИ ЕСТЬ ОТВЕТЫ НЕ КАСКАД!!!!!!
+            if (findAnswer(newData)) { // ЕСЛИ НЕТ ОТВЕТОВ КАСКАД!
                 //Ищем рекурсивно в потомках объекты
                 for (i = 0; i < newData.children.length; i++) {
                     currentChild = newData.children[i];
