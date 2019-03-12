@@ -86,6 +86,29 @@ class GrafD3 extends Component {
             }})
     }
 
+    onAnswerUpdate = data => {
+        let newData = {...this.state.data}
+        let searchId = data.unique
+
+        const findNodeById = function(searchId, newData) {
+            let j, currentChild
+
+            if (searchId === newData.unique) {
+                newData.answer = data.answer
+            }
+
+            for (j = 0; j < newData.children.length; j += 1) {
+                currentChild = newData.children[j];
+                findNodeById(searchId, currentChild);
+            }
+        }
+
+        findNodeById(searchId, newData)
+
+        this.props.onAddNode(data, newData)
+
+    }
+
     addNode = data => {
         let newData = {...this.state.data}
 
@@ -462,7 +485,7 @@ class GrafD3 extends Component {
                     scaleExtent        = {{ min: 0.1, max: 8 }}
                 />
 
-                <GrafSelectedPanel selected={this.state.selected}/>
+                <GrafSelectedPanel onAnswer={this.onAnswerUpdate} selected={this.state.selected}/>
 
 
                 {this.state.isOpen ?

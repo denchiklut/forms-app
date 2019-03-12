@@ -6,12 +6,13 @@ import Button from "@material-ui/core/Button"
 import CardHeader from "@material-ui/core/CardHeader"
 import EditIcon from '@material-ui/icons/Edit'
 import Avatar from "@material-ui/core/Avatar"
-import IconButton from "@material-ui/core/IconButton"
+import Fab from "@material-ui/core/Fab";
 
 import ShowObject from '../show-object'
 import EmptySelectedPanel from '../empty-selected-panel'
 import GrafEditForm from "../graf-edit-form";
 import './graf-selected-panel.scss'
+
 
 class GrafSelectedPanel extends Component {
     state = {
@@ -21,6 +22,13 @@ class GrafSelectedPanel extends Component {
 
     openObjectShow = () => {
         this.setState({isOpen: true})
+    }
+
+    onSaveAnswer = (data) => {
+        this.setState(({ isOpenEdit }) => {
+            return {isOpenEdit: !isOpenEdit }
+        })
+        this.props.onAnswer(data)
     }
 
     closeEdit = () => {
@@ -53,21 +61,24 @@ class GrafSelectedPanel extends Component {
                             </Avatar>
                         }
                         action={
-                            <IconButton
+                            <Fab
+                                color="primary"
+                                size="small"
+                                aria-label="Play"
                                 onClick={() => this.setState({isOpenEdit: true})}
                             >
                                 <EditIcon />
-                            </IconButton>
+                            </Fab>
                         }
                         title= {selected.type === "questions" ? `${selected.value}` :
-                                selected.type === "objects" ?
-                                    <Button
-                                        size="small"
-                                        style={{ marginLeft: '-6px'}}
-                                        onClick={this.openObjectShow}
-                                    >
-                                        {selected.value}
-                                    </Button>: null}
+                            selected.type === "objects" ?
+                                <Button
+                                    size="small"
+                                    style={{ marginLeft: '-6px'}}
+                                    onClick={this.openObjectShow}
+                                >
+                                    {selected.value}
+                                </Button>: null}
                         subheader={selected.answer}
                         style={{padding: 16}}
                     />
@@ -77,8 +88,7 @@ class GrafSelectedPanel extends Component {
                                 <ul style={{margin: 0}}> {children} </ul>
                             </Typography>
                         </CardContent>:
-                    null}
-
+                        null}
                 </Card>
                 {this.state.isOpen ?
                     <ShowObject
@@ -92,6 +102,7 @@ class GrafSelectedPanel extends Component {
                     <GrafEditForm
                         item    = { selected }
                         isOpen  = { this.state.isOpenEdit }
+                        onEdit  = { this.onSaveAnswer }
                         onClose = { this.closeEdit }
                     />:
                     null}

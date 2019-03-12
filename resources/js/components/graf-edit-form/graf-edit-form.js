@@ -22,8 +22,7 @@ class GrafEditForm extends Component {
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.state.value;
-        const data = {...this.props.editItem, name: newMessage}
-        this.props.onEdit(data)
+        this.props.onEdit({...this.props.item, answer: newMessage})
         this.setState({value: ''})
     }
 
@@ -56,18 +55,18 @@ class GrafEditForm extends Component {
                         <DialogContent className="form-container">
                             <input
                                 autoFocus
-                                className  = "answerInput"
-                                placeholder= "Enter Post"
-                                value      = { this.state.value }
-                                onChange   ={ this.onValueChange }
+                                className   = "answerInput"
+                                placeholder = "Enter Post"
+                                value       = { this.state.value }
+                                onChange    = { this.onValueChange }
                             />
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={this.props.onClose}  className="delete">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleSubmit} className="edit">
-                                Добавить
+                            <Button onClick={this.handleEditSubmit} className="edit">
+                                Изменить
                             </Button>
                         </DialogActions>
                     </form>

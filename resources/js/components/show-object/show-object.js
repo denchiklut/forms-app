@@ -26,7 +26,7 @@ class ShowObject extends Component {
                     className  = "form-container"
 
                 >
-                    <AppBar position="static" className="grafAppBar">
+                    <AppBar position="static" style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
                         <Toolbar className='showObjToolBar'>
                             <Typography variant="h6" className="grafToolBarChip">
                                 <Chip
