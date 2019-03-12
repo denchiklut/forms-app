@@ -401,7 +401,7 @@ class GrafD3 extends Component {
 
         return (
             <div id="treeWrapper">
-                <AppBar position="static" className="grafAppBar">
+                <AppBar position="static" style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
                     <Toolbar className='grafToolBar'>
                         <Typography variant="h6" className="grafToolBarChip">
                             <Hidden smDown>

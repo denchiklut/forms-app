@@ -4,10 +4,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import withMobileDialog from '@material-ui/core/withMobileDialog';
-import './graf-edit-form.scss'
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import './graf-edit-form.scss'
 
 class GrafEditForm extends Component {
 
@@ -41,12 +41,13 @@ class GrafEditForm extends Component {
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className="form-container"
+                    className="grafEditForm"
 
                 >
-                    <AppBar position="static" className="grafAppBar">
+                    <AppBar position="static" style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
                         <Toolbar>
-                            <Typography variant="h6" >
+                            <Typography variant="h6" color="inherit"
+                            >
                                 Edit answer
                             </Typography>
                         </Toolbar>
@@ -55,7 +56,6 @@ class GrafEditForm extends Component {
                         <DialogContent className="form-container">
                             <input
                                 autoFocus
-                                required
                                 className  = "answerInput"
                                 placeholder= "Enter Post"
                                 value      = { this.state.value }

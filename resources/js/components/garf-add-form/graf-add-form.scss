@@ -1,26 +1,67 @@
-.grafAppBar {
-    background: linear-gradient(to right, #536976, #292e49);
+.grafAddForm {
+    text-align: center;
+    padding: 0!important;
+
+    .form {
+        justify-content: center;
+        align-items: center;
+        font-family:'Work Sans',sans-serif;
+        background: #efefef;
+
+        .form-container {
+            padding: 0;
+
+            .answerInput {
+                width:80%;
+                margin: 12px auto;
+                border: 1px solid #dbe2e8;
+                font-size:14px;
+                padding: 12px;
+                border-radius:2px;
+                color:#636363;
+                font-family: 'Work Sans,',sans-serif;
+                box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
+                outline:none;
+            }
+
+            .grafFormSelect {
+                width: 80%!important;
+                margin: auto!important;
+            }
+
+            .helpText {
+                color: gray!important;
+                font-style: oblique!important;
+            }
+        }
+
+        .control-buttons {
+            justify-content: space-between;
+            padding: 14px;
+
+            .delete {
+                background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+                box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                border: 0;
+                border-radius: 3px;
+                color: white;
+                height: 48px;
+                padding: 0 30px;
+            }
+
+
+            .edit {
+                background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);
+                box-shadow: 0 3px 5px 2px rgba(33, 203, 243, .3);
+                border: 0;
+                border-radius: 3px;
+                color: white;
+                height: 48px;
+                padding: 0 30px;
+            }
+        }
+
+    }
+
 }
 
-.answerInput {
-    width:80%;
-    margin: 12px auto;
-    border: 1px solid #dbe2e8;
-    font-size:14px;
-    padding: 12px;
-    border-radius:2px;
-    color:#636363;
-    font-family: 'Work Sans,',sans-serif;
-    box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
-    outline:none;
-}
-
-.grafFormSelect {
-    width: 80%!important;
-    margin: auto!important;
-}
-
-.helpText {
-    color: gray!important;
-    font-style: oblique!important;
-}

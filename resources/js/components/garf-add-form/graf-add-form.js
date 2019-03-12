@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import SelectProject from '../select-project';
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Typography from '@material-ui/core/Typography';
@@ -12,9 +11,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Toolbar from "@material-ui/core/Toolbar";
 import './graf-add-form.scss'
-import Popper from "@material-ui/core/Popper";
-import Popover from "@material-ui/core/Popover";
 
 
 function TabContainer({ children, dir }) {
@@ -78,13 +76,18 @@ class GrafAddForm extends Component {
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className="form-container"
+                    className="grafAddForm"
 
                 >
+                    <AppBar position="static"  style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
+                        <Toolbar>
+                            <Typography variant="h6" color="inherit">
+                                Добавление Node
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
                     <form className="form">
-                        <DialogTitle className="form_heading">Добавление Node</DialogTitle>
-                        <DialogContent className="form-container grafFormContainer">
-
+                        <DialogContent className="form-container">
                             <AppBar position="static" color="default">
                                 <Tabs
                                     indicatorColor = "primary"
