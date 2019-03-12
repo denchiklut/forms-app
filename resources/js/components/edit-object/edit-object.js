@@ -17,6 +17,7 @@ import Tab from '@material-ui/core/Tab';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import './edit-object.scss'
+import Toolbar from "@material-ui/core/Toolbar";
 
 function TabContainer({ children, dir }) {
     return (
@@ -89,10 +90,17 @@ class EditObject extends Component {
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className  = "form-container"
+                    className="editObject"
                 >
+                    <AppBar position="static"  style={{background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)'}}>
+                        <Toolbar>
+                            <Typography variant="h6" color="inherit">
+                                Редактирование обьекта
+                            </Typography>
+
+                        </Toolbar>
+                    </AppBar>
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                        <DialogTitle className="form_heading"> Редактирование обьекта </DialogTitle>
                         <DialogContent className="form-container">
                             <AppBar position="static" color="default">
                                 <Tabs

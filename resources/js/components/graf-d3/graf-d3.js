@@ -103,7 +103,7 @@ class GrafD3 extends Component {
                 if (data.addQst.type === "objects") {
                     newData.children.push(
                         {
-                            name:     data.addQst.value,
+                            name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
                             type:     data.addQst.type,

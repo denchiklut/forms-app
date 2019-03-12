@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import { fetchAddQuestion, fetchDeleteQuestion, selectQuestion } from '../../actions/questions'
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
+
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from "prop-types";
 import classNames from 'classnames';
+
+import {fetchAddObject, fetchDeleteObject} from "../../actions/objects";
+import { fetchAddQuestion, fetchDeleteQuestion, selectQuestion } from '../../actions/questions'
+
 import ListItemEl from '../list-item-el'
 import AddForm from '../add-form'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
-import {fetchAddObject, fetchDeleteObject} from "../../actions/objects";
 
 class ListContainer extends Component {
     state = {
@@ -32,7 +35,6 @@ class ListContainer extends Component {
     }
 
     saveAddObject = (data) => {
-        console.log(data)
         this.props.fetchAddObject({name: data.name, value: data})
         this.closeAddForm()
     }

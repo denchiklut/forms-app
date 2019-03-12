@@ -1,36 +1,66 @@
 import React, {Component} from 'react';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import './graf-edit-form.scss'
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 class GrafEditForm extends Component {
+
+    state = {
+        value: '',
+    }
+
+    onValueChange = (e) => {
+        this.setState({value: e.target.value})
+    }
+
+    handleEditSubmit = (e) => {
+        e.preventDefault();
+        const newMessage =  this.state.value;
+        const data = {...this.props.editItem, name: newMessage}
+        this.props.onEdit(data)
+        this.setState({value: ''})
+    }
+
+    componentDidMount() {
+        this.setState({value: this.props.item.answer})
+    }
+
     render() {
+        const { fullScreen } = this.props;
+
         return (
             <div>
                 <Dialog
-                    fullWidth={true}
-                    maxWidth="lg"
-                    open={this.props.isOpen}
-                    aria-labelledby="draggable-dialog-title"
+                    fullWidth  = { true }
+                    maxWidth   = { false }
+                    fullScreen = { fullScreen }
+                    open       = { this.props.isOpen }
                     className="form-container"
 
                 >
+                    <AppBar position="static" className="grafAppBar">
+                        <Toolbar>
+                            <Typography variant="h6" >
+                                Edit answer
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
                     <form className="form">
-                        <DialogTitle className="form_heading">Добавление {this.props.type}</DialogTitle>
                         <DialogContent className="form-container">
-                            <textarea
+                            <input
                                 autoFocus
                                 required
-                                rows="12"
-                                cols="28"
-                                onChange={this.onValueChange}
-                                placeholder="Enter Post"
-                                value={this.state.val}
+                                className  = "answerInput"
+                                placeholder= "Enter Post"
+                                value      = { this.state.value }
+                                onChange   ={ this.onValueChange }
                             />
-                            <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={this.props.onClose}  className="delete">
@@ -47,4 +77,4 @@ class GrafEditForm extends Component {
     }
 }
 
-export default GrafEditForm;
+export default withMobileDialog()(GrafEditForm);

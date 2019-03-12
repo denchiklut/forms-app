@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import './edit-form.scss'
-
 
 class EditFormDialog extends Component {
 
@@ -40,10 +41,16 @@ class EditFormDialog extends Component {
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className  = "form-container"
+                    className  = "editFormDialog"
                 >
+                    <AppBar position="static"  style={{background: 'linear-gradient(to right, #dc2430, #7b4397)'}}>
+                        <Toolbar>
+                            <Typography variant="h6" color="inherit">
+                                Редактирование вопроса
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
                     <form className="form">
-                        <DialogTitle className="form_heading">Редактирование вопроса</DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus

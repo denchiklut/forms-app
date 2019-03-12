@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from "prop-types";
 import { Field, reduxForm } from 'redux-form'
 import withMobileDialog from '@material-ui/core/withMobileDialog';
+import Toolbar from "@material-ui/core/Toolbar";
 import {compose} from "recompose";
 import './add-object.scss'
 
@@ -82,11 +83,18 @@ class AddObject extends Component {
                     fullScreen = { fullScreen }
                     open={this.props.isOpen}
                     aria-labelledby="draggable-dialog-title"
-                    className="form-container"
+                    className="addObject"
 
                 >
+                    <AppBar position="static"  style={{background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)'}}>
+                        <Toolbar>
+                            <Typography variant="h6" color="inherit">
+                                Создание обьекта
+                            </Typography>
+
+                        </Toolbar>
+                    </AppBar>
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
-                        <DialogTitle className="form_heading"> Создание обьекта </DialogTitle>
                         <DialogContent className="form-container">
                             <AppBar position="static" color="default">
                                 <Tabs

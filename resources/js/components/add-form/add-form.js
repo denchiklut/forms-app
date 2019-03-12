@@ -6,6 +6,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
 import './add-form.scss'
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 class AddForm extends Component {
 
@@ -39,22 +42,26 @@ class AddForm extends Component {
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className="form-container"
+                    className="addForm"
 
                 >
+                    <AppBar position="static"  style={{background: 'linear-gradient(to right, #dc2430, #7b4397)'}}>
+                        <Toolbar>
+                            <Typography variant="h6" color="inherit">
+                                Добавление вопроса
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
                     <form className="form">
-                        <DialogTitle className="form_heading">Добавление вопроса</DialogTitle>
                         <DialogContent className="form-container">
                             <textarea
                                 autoFocus
-                                required
                                 rows="12"
                                 cols="28"
                                 onChange={this.onValueChange}
                                 placeholder="Enter Post"
                                 value={this.state.value}
                             />
-                            <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={this.props.onClose}  className="delete">

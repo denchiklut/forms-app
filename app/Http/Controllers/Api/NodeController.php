@@ -75,11 +75,12 @@ class NodeController extends Controller
                 switch ($newData["type"]) {
                     case 'questions':
                         $newData["value"] =  Question::where('_id',$newData["idd"])->value('name');
+                        $newData["name"]  =  mb_strimwidth(Question::where('_id',$newData["idd"])->value('name'), 0 ,11);
                         $newData["nodeSvgShape"] = null;
                         break;
                     case "objects":
                         $newData["value"] =  Objects::where('_id',$newData["idd"])->value('name');
-                        $newData["name"]  =  Objects::where('_id',$newData["idd"])->value('name');
+                        $newData["name"]  =  mb_strimwidth(Objects::where('_id',$newData["idd"])->value('name'), 0 ,11);
                         $newData["objData"] =  Objects::where('_id',$newData["idd"])->value('value');
                         break;
                 }

@@ -1,20 +1,33 @@
-.noList {
-    background: linear-gradient(to right, #d25555ad, #979eafd1);
-    position: relative;
-    width: 100%;
-    padding-top: 100%;
-    display: flex;
-    margin: auto;
-    align-items: center;
-    border-radius: 50%;
-    box-shadow: 1px 2px 20px -1px #364056;
+.EmptyList {
+    .empty-grid {
+        height: calc(100vh - 64px - 48px);
+        border-right: 1px solid #0e0e0e24;
+        background: #e0e0e091;
 
-    .noMsg {
-        position: absolute;
-        top: 40%;
-        text-align: center;
-        width: 100%;
-        color: white;
-        font-family: cursive;
+        .noMsgContainer {
+            width: 70%;
+            margin: auto;
+
+            .noList {
+                background: linear-gradient(to right, #d25555ad, #979eafd1);
+                position: relative;
+                width: 100%;
+                padding-top: 100%;
+                display: flex;
+                margin: auto;
+                align-items: center;
+                border-radius: 50%;
+                box-shadow: 1px 2px 20px -1px #364056;
+
+                .noMsg {
+                    position: absolute;
+                    top: 40%;
+                    text-align: center;
+                    width: 100%;
+                    color: white;
+                    font-family: cursive;
+                }
+            }
+        }
     }
 }

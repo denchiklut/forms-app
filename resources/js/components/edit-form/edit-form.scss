@@ -1,4 +1,4 @@
-.form-container {
+.editFormDialog {
     text-align: center;
     padding: 0!important;
 
@@ -8,24 +8,6 @@
         box-shadow:0 5px 15px 0 rgba(46, 61, 73, 0.12);
         font-family:'Work Sans',sans-serif;
         background: #f4f4ef;
-
-
-        .form_heading {
-            background:#fff;
-            text-align:center;
-            padding:1.5rem 0;
-            width:100%;
-            justify-content: center;
-            align-items: center;
-            box-shadow:0 5px 15px 0 rgba(46, 61, 73, 0.12);
-
-            h2 {
-                text-align:center;
-                font-weight:400;
-                font-size:40px;
-                color:#636363;
-            }
-        }
 
         textarea {
             width:80%;
@@ -70,3 +52,4 @@
 
 
 }
+
