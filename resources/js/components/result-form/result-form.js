@@ -15,6 +15,9 @@ class ResultForm extends Component {
         kaskad: [],
     }
 
+    prevItem = null
+    prevObj = null
+
     findNodes = (answer, newData) => {
         if (newData.children) {
             newData.children.map(
@@ -37,7 +40,12 @@ class ResultForm extends Component {
     }
 
     handleClick = (item, lastObj) => {
-        this.findNodes(item, lastObj)
+        if (item !== this.prevItem && lastObj !== this.prevObj ) {
+            this.findNodes(item, lastObj)
+            this.prevItem = item
+            this.prevObj = lastObj
+        }
+
     }
 
     renderObj = (item) => {
