@@ -56,7 +56,7 @@ class GrafEditForm extends Component {
                             <input
                                 autoFocus
                                 className   = "answerInput"
-                                placeholder = "Enter Post"
+                                placeholder = "Введите ответ"
                                 value       = { this.state.value }
                                 onChange    = { this.onValueChange }
                             />
