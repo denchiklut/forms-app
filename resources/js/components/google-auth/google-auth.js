@@ -11,7 +11,7 @@ class GoogleAuth extends Component {
         window.gapi.load('client:auth2', () => {
             window.gapi.client.init({
                 clientId: '526406641065-dhd8ns8af28hqc2c6e082bof6qvhp786.apps.googleusercontent.com',
-                scope: 'email'
+                scope: 'profile email'
             }).then(()=> {
                 this.auth = window.gapi.auth2.getAuthInstance()
 
@@ -23,7 +23,13 @@ class GoogleAuth extends Component {
 
     onAuthChange = (isSignedIn) => {
        if (isSignedIn) {
-           this.props.signIn()
+           const profile = {
+               userId: this.auth.currentUser.get().getBasicProfile().getId(),
+               email:  this.auth.currentUser.get().getBasicProfile().getEmail(),
+               avatar: this.auth.currentUser.get().getBasicProfile().getImageUrl(),
+               name:   this.auth.currentUser.get().getBasicProfile().getName(),
+           }
+           this.props.signIn(profile)
        }else {
            this.props.signOut()
        }

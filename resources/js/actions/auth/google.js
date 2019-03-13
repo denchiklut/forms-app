@@ -1,9 +1,10 @@
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_OUT = 'SIGN_OT'
 
-export const signIn = () => {
+export const signIn = (profile) => {
     return {
-        type: SIGN_IN
+        type: SIGN_IN,
+        payload: profile
     }
 }
 
