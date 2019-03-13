@@ -55,8 +55,8 @@ class ListContainer extends Component {
                         aria-label = "Add"
                         className  = "myAdd"
                         size       = "medium"
-                        color      = "secondary"
                         onClick    = { this.handleClickOpen }
+                        color      = {this.props.type === 'question' ? "secondary" : "primary"}
                     >
                         <AddIcon />
                     </Fab>: null
@@ -86,7 +86,7 @@ class ListContainer extends Component {
                     {this.props.items.map((item) => (
                         <div
                             key={item._id}
-                            className={classNames("myListItem", (item._id === this.props.activeQst._id) && 'selected')}
+                            className={classNames(this.props.type === 'question' ? 'questionItem': 'objectItem', (item._id === this.props.activeQst._id) && 'selected')}
                         >
                             <ListItemEl
                                 item          = { item }
@@ -106,8 +106,8 @@ class ListContainer extends Component {
                     aria-label = "Add"
                     className  = "myAdd"
                     size       = "medium"
-                    color      = "secondary"
                     onClick    = { this.handleClickOpen }
+                    color      = {this.props.type === 'question' ? "secondary" : "primary"}
                 >
                     <AddIcon />
                 </Fab>

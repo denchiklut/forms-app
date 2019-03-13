@@ -6,6 +6,7 @@ import ActiveProject from './active-project'
 import ActiveQuestion from './question-active'
 import ObjectsReducers from './objects'
 import EditedObject from './edit-object'
+import GoogleAuth from './auth/googleReducer'
 import { reducer  as formReducer } from 'redux-form'
 
 
@@ -15,6 +16,7 @@ const rootReducers = combineReducers({
     activeQuestion: ActiveQuestion,
     activeProject:  ActiveProject,
     editObjects:    EditedObject,
+    auth:           GoogleAuth,
     nodes:          GrafNodes,
     projects:       Projects,
     form: formReducer

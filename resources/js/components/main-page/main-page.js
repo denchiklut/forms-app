@@ -14,6 +14,8 @@ import {bindActionCreators} from "redux";
 import {fetchNodes, onAddNode, onRemoveNode,} from "../../actions/graf/nodes";
 import {fetchObjects} from "../../actions/objects";
 import './main-page.scss'
+import HeaderBar from "../header-bar";
+import {fetchProjects, selectProject} from "../../actions/projects";
 
 function TabContainer({ children, dir }) {
     return (
@@ -43,6 +45,7 @@ class MainPage extends Component {
 
     componentDidMount() {
         this.props.fetchObjects()
+        this.props.fetchProjects()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -60,48 +63,53 @@ class MainPage extends Component {
 
     render() {
         return (
-            <div style={{margin: '-3px'}}>
-                <Grid container spacing={0}>
-                    <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
-                        <AppBar position="static" color="default">
-                            <Tabs
-                                indicatorColor = "primary"
-                                textColor      = "primary"
-                                variant        = "fullWidth"
-                                value          = { this.state.value }
-                                onChange       = { this.handleChange }
+            <>
+                <HeaderBar
+                    projects      = { this.props.projects }
+                    selectProject = { this.props.selectProject }
+                />
+                <div style={{margin: '-3px'}}>
+                    <Grid container spacing={0}>
+                        <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
+                            <AppBar position="static" color="default">
+                                <Tabs
+                                    indicatorColor = "primary"
+                                    textColor      = "primary"
+                                    variant        = "fullWidth"
+                                    value          = { this.state.value }
+                                    onChange       = { this.handleChange }
+                                >
+                                    <Tab label="Вопросы" />
+                                    <Tab label="Обьекты" />
+                                </Tabs>
+                            </AppBar>
+                            <SwipeableViews
+                                axis          = "x"
+                                index         = { this.state.value }
+                                onChangeIndex = { this.handleChangeIndex }
                             >
-                                <Tab label="Вопросы" />
-                                <Tab label="Обьекты" />
-                            </Tabs>
-                        </AppBar>
-                        <SwipeableViews
-                            axis          = "x"
-                            index         = { this.state.value }
-                            onChangeIndex = { this.handleChangeIndex }
-                        >
-                            <TabContainer dir="ltr">
-                                <ListContainer items={this.props.questions} type="question" />
-                            </TabContainer>
-                            <TabContainer dir="ltr">
-                                <ListContainer items={this.props.objects} type="object" />
-                            </TabContainer>
-                        </SwipeableViews>
-
+                                <TabContainer dir="ltr">
+                                    <ListContainer items={this.props.questions} type="question" />
+                                </TabContainer>
+                                <TabContainer dir="ltr">
+                                    <ListContainer items={this.props.objects} type="object" />
+                                </TabContainer>
+                            </SwipeableViews>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
+                            <GrafD3
+                                grafNodes     = { this.props.nodes }
+                                onAddNode     = { this.props.onAddNode }
+                                questions     = { this.props.questions }
+                                objects       = { this.props.objects }
+                                removeNode    = { this.props.removeNode }
+                                project       = { this.props.activeProject }
+                                activeProject = { this.props.activeProject }
+                            />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
-                        <GrafD3
-                            grafNodes     = { this.props.nodes }
-                            onAddNode     = { this.props.onAddNode }
-                            questions     = { this.props.questions }
-                            objects       = { this.props.objects }
-                            removeNode    = { this.props.removeNode }
-                            project       = { this.props.activeProject }
-                            activeProject = { this.props.activeProject }
-                        />
-                    </Grid>
-                </Grid>
-            </div>
+                </div>
+            </>
         );
     }
 }
@@ -109,6 +117,7 @@ class MainPage extends Component {
 
 function mapStateToProps(state) {
     return {
+        projects: state.projects,
         questions:     state.questions,
         objects:       state.objects,
         activeProject: state.activeProject,
@@ -118,6 +127,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        fetchProjects: fetchProjects,
+        selectProject: selectProject,
         fetchQuestions: fetchQuestions,
         fetchObjects:   fetchObjects,
         removeNode:     onRemoveNode,

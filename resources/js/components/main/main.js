@@ -1,8 +1,6 @@
 import React from 'react';
 import MainPage from '../main-page'
 import ResultForm from '../result-form'
-
-
 import {Switch, Route} from 'react-router-dom'
 
 const Main = () => (

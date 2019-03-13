@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import {fetchProjects, selectProject} from "../../actions/projects";
 import {bindActionCreators} from "redux";
 import {fetchNodes} from "../../actions/graf/nodes";
 import Fab from "@material-ui/core/Fab";
 import ResultObject from '../result-object'
+import HeaderBar from '../header-bar'
 import uuid from "uuid"
 import './result-form.scss'
 
@@ -128,38 +130,47 @@ class ResultForm extends Component {
     }
 
     componentDidMount() {
+        this.props.fetchProjects()
         this.props.fetchNodes(this.props.activeProject.value ? this.props.activeProject.value : this.props.match.params.project )
     }
 
     render() {
         return (
-            <div className="ResultForm">
-                {this.state.questionList !== 0 ?
-                    this.state.questionList.map(item =>
-                        <div key={uuid.v4()}>
+            <>
+                {this.props.auth.isSignedIn ?
+                    <HeaderBar
+                        projects      = { this.props.projects }
+                        selectProject = { this.props.selectProject }
+                    />: null}
 
-                            { item.type === "objects" ? this.renderObj(item) :
-                                <>
-                                    <p>{item.value}</p>
-                                    { item.answers.map(item =>
-                                        <Fab
-                                            key={item}
-                                            size="small"
-                                            color="primary"
-                                            variant="extended"
-                                            aria-label=" answer"
-                                            style={{margin: "auto 5px", padding: "0 15px"}}
-                                            onClick={() => this.findNodes(item, this.state.currentChild)}
-                                        >
-                                            {item}
-                                        </Fab>
-                                    )}
-                                </>
-                            }
+                <div className="ResultForm">
+                    {this.state.questionList !== 0 ?
+                        this.state.questionList.map(item =>
+                            <div key={uuid.v4()}>
 
-                        </div>
-                    ): null}
-            </div>
+                                { item.type === "objects" ? this.renderObj(item) :
+                                    <>
+                                        <p>{item.value}</p>
+                                        { item.answers.map(item =>
+                                            <Fab
+                                                key={item}
+                                                size="small"
+                                                color="primary"
+                                                variant="extended"
+                                                aria-label=" answer"
+                                                style={{margin: "auto 5px", padding: "0 15px"}}
+                                                onClick={() => this.findNodes(item, this.state.currentChild)}
+                                            >
+                                                {item}
+                                            </Fab>
+                                        )}
+                                    </>
+                                }
+
+                            </div>
+                        ): null}
+                </div>
+            </>
         );
     }
 }
@@ -167,13 +178,17 @@ class ResultForm extends Component {
 function mapStateToProps(state) {
     return {
         activeProject: state.activeProject,
-        nodes: state.nodes
+        nodes: state.nodes,
+        projects: state.projects,
+        auth: state.auth
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         fetchNodes: fetchNodes,
+        fetchProjects: fetchProjects,
+        selectProject: selectProject,
     }, dispatch)
 }
 

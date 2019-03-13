@@ -1,0 +1,20 @@
+.header-bar {
+    .app-header {
+        z-index: 1201;
+        background: linear-gradient(to right, #dc2430, #7b4397);
+        transition: width 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+
+
+        .app-toolbar {
+            padding-right: 0;
+
+            .menu-btn {
+                margin-left: -12px;
+            }
+
+            .menu-title {
+                flex-grow: 1;
+            }
+        }
+    }
+}

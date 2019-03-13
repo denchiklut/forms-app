@@ -12,6 +12,7 @@ import ShowObject from '../show-object'
 import EmptySelectedPanel from '../empty-selected-panel'
 import GrafEditForm from "../graf-edit-form";
 import './graf-selected-panel.scss'
+import IconButton from "@material-ui/core/IconButton";
 
 
 class GrafSelectedPanel extends Component {
@@ -61,21 +62,19 @@ class GrafSelectedPanel extends Component {
                             </Avatar>
                         }
                         action={
-                            <Fab
-                                color="primary"
-                                size="small"
-                                aria-label="Play"
+                            <IconButton
                                 onClick={() => this.setState({isOpenEdit: true})}
                             >
                                 <EditIcon />
-                            </Fab>
+                            </IconButton>
                         }
                         title= {selected.type === "questions" ? `${selected.value}` :
                             selected.type === "objects" ?
                                 <Button
-                                    size="small"
-                                    style={{ marginLeft: '-6px'}}
-                                    onClick={this.openObjectShow}
+                                    size    = "small"
+                                    color   = "primary"
+                                    style   = {{ marginLeft: '-6px'}}
+                                    onClick = { this.openObjectShow }
                                 >
                                     {selected.value}
                                 </Button>: null}
@@ -85,7 +84,7 @@ class GrafSelectedPanel extends Component {
                     {selected.children ?
                         <CardContent style={{padding: 0}}>
                             <Typography component="div">
-                                <ul style={{margin: 0}}> {children} </ul>
+                                <ul style={{margin: '0 0 0 -21px', listStyleType: 'none'}}> {children} </ul>
                             </Typography>
                         </CardContent>:
                         null}

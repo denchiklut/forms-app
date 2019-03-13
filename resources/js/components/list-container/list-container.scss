@@ -6,12 +6,20 @@
     padding-bottom: 0;
     margin-bottom: 0;
 
-    .myListItem {
+    .questionItem {
         color: #111;
         background: linear-gradient(to left, #ff818169, #ffd9b2);
         box-shadow: 0 0 3px -1px #d82d4573;
         margin: 1px 0;
     }
+
+    .objectItem {
+        color: #111;
+        background: linear-gradient(to right, #83b6d4, #f0b6ff);
+        box-shadow: 0 0 3px -1px #d82d4573;
+        margin: 1px 0;
+    }
+
     .myAdd {
         position: absolute;
         bottom: 24px;

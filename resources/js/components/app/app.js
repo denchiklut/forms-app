@@ -1,52 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Main from '../main'
-import {fetchProjects, selectProject} from '../../actions/projects'
-import {bindActionCreators} from "redux";
-import {connect} from 'react-redux';
-import HeaderBar from '../header-bar'
-import { withRouter } from 'react-router-dom';
 import './app.scss'
 
-class App extends React.Component {
+const App = () => (
+    <div className='App'>
+        <main className="main">
+            <Main />
+        </main>
+    </div>
+);
 
-    componentDidMount() {
-        this.props.fetchProjects()
-    }
-
-    render() {
-
-        return (
-            <div className='App'>
-                <HeaderBar
-                    projects      = { this.props.projects }
-                    selectProject = { this.props.selectProject }
-                />
-                <main className="main">
-                    <div className='appBarSpacer' />
-                    <Main />
-                </main>
-            </div>
-        );
-    }
-}
-
-App.propTypes = {
-    fetchProjects: PropTypes.func.isRequired,
-    selectProject: PropTypes.func.isRequired,
-};
-
-function mapStateToProps(state) {
-    return {
-        projects: state.projects,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        fetchProjects: fetchProjects,
-        selectProject: selectProject
-    }, dispatch)
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default App;
