@@ -8,6 +8,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import SelectProject from '../select-project'
 import { Link } from 'react-router-dom'
 import GoogleAuth from '../google-auth'
+import Hidden from '@material-ui/core/Hidden';
 import './header-bar.scss'
 
 
@@ -25,20 +26,23 @@ const HeaderBar = props => (
                     aria-label="Open drawer"
                     className="menu-btn"
                 >
-                    <MenuIcon />
-                </IconButton>
-                <Typography
-                    component="h1"
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    className="menu-title"
-                >
                     <Link to="/" style={{textDecoration: "none", color: "white"}}>
-                        Editor
+                        <MenuIcon />
                     </Link>
-                </Typography>
-
+                </IconButton>
+                <Hidden smDown>
+                    <Typography
+                        component="h1"
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        className="menu-title"
+                    >
+                        <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                            Editor
+                        </Link>
+                    </Typography>
+                </Hidden>
                 <SelectProject
                     type       = "projects"
                     items      = { props.projects }
