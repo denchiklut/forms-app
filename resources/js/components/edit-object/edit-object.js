@@ -92,7 +92,7 @@ class EditObject extends Component {
                     open       = { this.props.isOpen }
                     className="editObject"
                 >
-                    <AppBar position="static"  style={{background: 'linear-gradient(45deg, #7221f3 30%, #d321f3 90%)'}}>
+                    <AppBar position="static"  style={{background: 'linear-gradient(to right, #8b0dda, #f78b4d)'}}>
                         <Toolbar>
                             <Typography variant="h6" color="inherit">
                                 Редактирование обьекта
