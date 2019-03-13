@@ -37,7 +37,7 @@ const HeaderBar = props => (
                             <MenuIcon />}
                     </Link>
                 </IconButton>
-                <Hidden smDown>
+
                     <Typography
                         component="h1"
                         variant="h6"
@@ -45,11 +45,13 @@ const HeaderBar = props => (
                         noWrap
                         className="menu-title"
                     >
-                        <Link to="/" style={{textDecoration: "none", color: "white"}}>
-                            {props.profile.name ? props.profile.name : 'Editor' }
-                        </Link>
+                        <Hidden xsDown>
+                            <Link to="/" style={{textDecoration: "none", color: "white"}}>
+                                {props.profile.name ? props.profile.name : 'Editor' }
+                            </Link>
+                        </Hidden>
                     </Typography>
-                </Hidden>
+
                 <SelectProject
                     type       = "projects"
                     items      = { props.projects }
