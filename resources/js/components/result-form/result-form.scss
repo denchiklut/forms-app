@@ -1,20 +1,28 @@
 .ResultForm {
     padding: 15px;
 
-    p {
-        font-size: 22px;
-        margin-bottom: 6px;
-        padding-left: 10px;
-    }
-    .pre {
-        white-space: pre-wrap!important;
-        word-wrap: break-word!important;
+    .answerCard{
+        box-shadow: 0 0 3px 1px #0000002e;
+        background-color: #c1c1c145;
+        margin-bottom: 22px;
+        padding: 5px;
+
+        p {
+            font-size: 20px;
+            margin: 5px 0;
+            padding-left: 10px;
+        }
+        .pre {
+            white-space: pre-wrap!important;
+            word-wrap: break-word!important;
+        }
+
+        .resTable {
+            background: #fff;
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+            border: none;
+            margin: 15px auto;
+        }
     }
 
-    .resTable {
-        background: #fff;
-        box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
-        border: none;
-        margin: 15px auto;
-    }
 }

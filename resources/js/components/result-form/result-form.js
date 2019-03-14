@@ -186,11 +186,11 @@ class ResultForm extends Component {
                 <div className="ResultForm">
                     {this.state.questionList !== 0 ?
                         this.state.questionList.map(item =>
-                            <div key={uuid.v4()}>
+                            <div key={uuid.v4()} className="answerCard">
 
                                 { item.type === "objects" ? this.renderObj(item) :
                                     <>
-                                        <p>{this.renderQuestion(item)}</p>
+                                        <>{this.renderQuestion(item)}</>
                                         { item.answers.map(item =>
                                             <Fab
                                                 key={item}
@@ -198,7 +198,7 @@ class ResultForm extends Component {
                                                 color="primary"
                                                 variant="extended"
                                                 aria-label=" answer"
-                                                style={{margin: "auto 5px", padding: "0 15px"}}
+                                                style={{margin: "auto 5px", padding: "0 10px"}}
                                                 onClick={() => this.findNodes(item, this.state.currentChild)}
                                             >
                                                 {item}
