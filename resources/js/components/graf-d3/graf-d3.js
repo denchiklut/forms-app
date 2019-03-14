@@ -140,6 +140,7 @@ class GrafD3 extends Component {
                         {
                             name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
+                            webValue:    data.addQst.webValue,
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
                             answer:   searched.idd === 0 ? 'start' : data.answer,

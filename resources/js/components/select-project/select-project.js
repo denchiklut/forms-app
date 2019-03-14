@@ -210,6 +210,7 @@ class SelectProject extends Component {
                 _id: suggestion._id,
                 type: "questions",
                 value: suggestion.name,
+                webValue:  suggestion.webName,
                 label: suggestion.name,
             }));
         } else {

@@ -118,6 +118,19 @@ class ResultForm extends Component {
         )
     }
 
+    renderQuestion = item => {
+        let span = document.createElement('span');
+        span.innerHTML= item.webValue;
+
+        const rawMarkup = () => {
+            let rawMarkup = span.innerHTML
+            return { __html: rawMarkup };
+        }
+
+        return  <span dangerouslySetInnerHTML={rawMarkup()} />
+
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.activeProject !== this.props.activeProject) {
             this.setState({questionList: [], currentChild: null, kaskad: [] })
@@ -177,7 +190,7 @@ class ResultForm extends Component {
 
                                 { item.type === "objects" ? this.renderObj(item) :
                                     <>
-                                        <p>{item.value}</p>
+                                        <p>{this.renderQuestion(item)}</p>
                                         { item.answers.map(item =>
                                             <Fab
                                                 key={item}
@@ -203,22 +216,11 @@ class ResultForm extends Component {
 }
 
 const mapStateToProps = ({activeProject, nodes, projects, auth}) => {
-    return {
-        activeProject,
-        nodes,
-        projects,
-        auth
-    }
+    return { activeProject, nodes, projects,  auth }
 }
 
 const mapDispatchToProps = dispatch => {
-    return bindActionCreators({
-        fetchNodes,
-        fetchProjects,
-        selectProject,
-        signIn,
-        signOut
-    }, dispatch)
+    return bindActionCreators({ fetchNodes, fetchProjects, selectProject, signIn, signOut }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResultForm);

@@ -21,16 +21,33 @@ class EditFormDialog extends Component {
         this.setState({value: e.target.getContent()})
     }
 
+    extractContent = (s, space) => {
+        let span = document.createElement('span');
+        span.innerHTML= s;
+        if(space) {
+            let children= span.querySelectorAll('*');
+            for(let i = 0 ; i < children.length ; i++) {
+                if(children[i].textContent)
+                    children[i].textContent+= ' ';
+                else
+                    children[i].innerText+= ' ';
+            }
+        }
+        return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+    }
+
     handleEditSubmit = (e) => {
         e.preventDefault();
         const newMessage =  this.state.value;
-        const data = {...this.props.editItem, name: newMessage}
+        const clearMsg = this.extractContent(this.state.value)
+
+        const data = {...this.props.editItem, name: clearMsg, webName: newMessage}
         this.props.onEdit(data)
         this.setState({value: ''})
     }
 
     componentDidMount() {
-        this.setState({value: this.props.editItem.name})
+        this.setState({value: this.props.editItem.webName})
     }
 
     render() {
@@ -56,7 +73,7 @@ class EditFormDialog extends Component {
                         <DialogContent className="form-container">
                             <Editor
                                 apiKey={tinyMceKEY}
-                                initialValue ={ `<p>${this.state.value}</p>` }
+                                initialValue = { this.state.value }
                                 init={{
                                     height: 250,
                                     menubar: false,
