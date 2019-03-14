@@ -82,13 +82,12 @@ class AddForm extends Component {
                                 initialValue = "Добавьте вопрос"
                                 init={{
                                     height: 250,
-                                    menubar: true,
+                                    // menubar: true,
                                     plugins: [
                                         'advlist autolink lists link image charmap print preview anchor textcolor',
                                         'searchreplace visualblocks code fullscreen',
                                         'insertdatetime media table paste code help wordcount'
                                     ],
-                                    toolbar: 'fontselect forecolor | alignleft aligncenter alignright | table ',
                                 }}
                                 onChange={this.onValueChange}
                             />
