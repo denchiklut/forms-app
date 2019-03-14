@@ -82,6 +82,7 @@ class EditFormDialog extends Component {
                                         'searchreplace visualblocks code fullscreen',
                                         'insertdatetime media table paste code help wordcount'
                                     ],
+                                    toolbar: 'bold italic forecolor | align | bullist numlist | table ',
                                 }}
                                 onChange={this.onValueChange}
                             />
