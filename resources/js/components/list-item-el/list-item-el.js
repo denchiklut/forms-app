@@ -21,6 +21,8 @@ class ListItemEl extends Component {
         editItem: {},
     }
 
+    qstRef = React.createRef()
+
     //Open Edit form
     handleClickOpenEdit = (item) => {
         this.setState({ editItem: item, isOpen: true })
@@ -90,6 +92,26 @@ class ListItemEl extends Component {
 
     }
 
+    renderQst = (item) => {
+
+        function extractContent(s, space) {
+            let span = document.createElement('span');
+            span.innerHTML= s;
+            if(space) {
+                let children= span.querySelectorAll('*');
+                for(let i = 0 ; i < children.length ; i++) {
+                    if(children[i].textContent)
+                        children[i].textContent+= ' ';
+                    else
+                        children[i].innerText+= ' ';
+                }
+            }
+            return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+        }
+
+        return extractContent(item.name)
+    }
+
     render() {
         const { selectedIndex, item, type }= this.props
         return (
@@ -102,7 +124,7 @@ class ListItemEl extends Component {
                 >
                     <ListItemText
                         disableTypography
-                        primary={<Typography type="body2">{item.name}</Typography>}
+                        primary={<div ref={this.qstRef}>{type === 'question' ? this.renderQst(item) : item.name}</div>}
                     />
 
                     <ListItemSecondaryAction>
