@@ -460,16 +460,17 @@ class GrafD3 extends Component {
                                 ))}
                             </SpeedDial>
 
-                            <Fab
-                                color="secondary"
-                                size="small"
-                                aria-label="Play"
-                                className="grafToolBarBtm"
-                            >
-                                <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
+                            <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
+                                <Fab
+                                    color="secondary"
+                                    size="small"
+                                    aria-label="Play"
+                                    className="grafToolBarBtm"
+                                >
                                     <PlayArrow fontSize="small" />
-                                </Link>
-                            </Fab>
+                                </Fab>
+                            </Link>
+
                         </div>
                     </Toolbar>
                 </AppBar>

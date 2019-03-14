@@ -64,7 +64,7 @@ const styles = theme => ({
         marginLeft: 'auto',
         borderRadius: '3px',
         paddingRight: 0,
-        minWidth: '250px',
+        minWidth: '243px',
     },
 });
 

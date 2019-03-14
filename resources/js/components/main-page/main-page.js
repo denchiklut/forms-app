@@ -117,7 +117,7 @@ class MainPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        projects: state.projects,
+        projects:      state.projects,
         questions:     state.questions,
         objects:       state.objects,
         activeProject: state.activeProject,

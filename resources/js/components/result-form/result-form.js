@@ -7,6 +7,7 @@ import Fab from "@material-ui/core/Fab";
 import ResultObject from '../result-object'
 import HeaderBar from '../header-bar'
 import uuid from "uuid"
+import {signIn, signOut} from '../../actions/auth/google'
 import './result-form.scss'
 
 class ResultForm extends Component {
@@ -130,8 +131,34 @@ class ResultForm extends Component {
     }
 
     componentDidMount() {
+
+        window.gapi.load('client:auth2', () => {
+            window.gapi.client.init({
+                clientId: '526406641065-dhd8ns8af28hqc2c6e082bof6qvhp786.apps.googleusercontent.com',
+                scope: 'profile email'
+            }).then(()=> {
+                this.auth = window.gapi.auth2.getAuthInstance()
+
+                this.onAuthChange(this.auth.isSignedIn.get())
+                this.auth.isSignedIn.listen(this.onAuthChange)
+            })
+        })
         this.props.fetchProjects()
         this.props.fetchNodes(this.props.activeProject.value ? this.props.activeProject.value : this.props.match.params.project )
+    }
+
+    onAuthChange = (isSignedIn) => {
+        if (isSignedIn) {
+            const profile = {
+                userId: this.auth.currentUser.get().getBasicProfile().getId(),
+                email:  this.auth.currentUser.get().getBasicProfile().getEmail(),
+                avatar: this.auth.currentUser.get().getBasicProfile().getImageUrl(),
+                name:   this.auth.currentUser.get().getBasicProfile().getName(),
+            }
+            this.props.signIn(profile)
+        }else {
+            this.props.signOut()
+        }
     }
 
     render() {
@@ -175,20 +202,22 @@ class ResultForm extends Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = ({activeProject, nodes, projects, auth}) => {
     return {
-        activeProject: state.activeProject,
-        nodes: state.nodes,
-        projects: state.projects,
-        auth: state.auth
+        activeProject,
+        nodes,
+        projects,
+        auth
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return bindActionCreators({
-        fetchNodes: fetchNodes,
-        fetchProjects: fetchProjects,
-        selectProject: selectProject,
+        fetchNodes,
+        fetchProjects,
+        selectProject,
+        signIn,
+        signOut
     }, dispatch)
 }
 
