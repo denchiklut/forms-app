@@ -6,7 +6,9 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Editor } from '@tinymce/tinymce-react';
 import Typography from "@material-ui/core/Typography";
+import {tinyMceKEY} from "../../consts";
 import './edit-form.scss'
 
 class EditFormDialog extends Component {
@@ -16,7 +18,7 @@ class EditFormDialog extends Component {
     }
 
     onValueChange = (e) => {
-        this.setState({value: e.target.value})
+        this.setState({value: e.target.getContent()})
     }
 
     handleEditSubmit = (e) => {
@@ -52,16 +54,21 @@ class EditFormDialog extends Component {
                     </AppBar>
                     <form className="form">
                         <DialogContent className="form-container">
-                            <textarea
-                                autoFocus
-                                required
-                                rows="12"
-                                cols="28"
-                                onChange = { this.onValueChange }
-                                value    = { this.state.value  }
-                                placeholder="Enter Post"
+                            <Editor
+                                apiKey={tinyMceKEY}
+                                initialValue ={ `<p>${this.state.value}</p>` }
+                                init={{
+                                    height: 250,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor textcolor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                    ],
+                                    toolbar: 'bold italic forecolor | align | bullist numlist | table ',
+                                }}
+                                onChange={this.onValueChange}
                             />
-                            <br /><br />
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={this.props.onClose} className="delete">

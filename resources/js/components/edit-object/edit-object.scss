@@ -10,20 +10,26 @@
 
         .form-container {
             padding: 0;
+            min-height: 200px;
+
+            .answerInput {
+                width:80%;
+                margin: 12px auto;
+                border: 1px solid #dbe2e8;
+                font-size:14px;
+                padding: 12px;
+                border-radius:2px;
+                color:#636363;
+                font-family: 'Work Sans,',sans-serif;
+                box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
+                outline:none;
+            }
+
+            .wrap-myeditor {
+                overflow-x: hidden;
+            }
         }
 
-        .answerInput, textarea {
-            width:80%;
-            margin: 12px auto;
-            border: 1px solid #dbe2e8;
-            font-size:14px;
-            padding: 12px;
-            border-radius:2px;
-            color:#636363;
-            font-family: 'Work Sans,',sans-serif;
-            box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
-            outline:none;
-        }
 
         .control-buttons {
             justify-content: space-between;

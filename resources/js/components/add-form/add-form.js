@@ -6,7 +6,9 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Editor } from '@tinymce/tinymce-react';
 import Typography from "@material-ui/core/Typography";
+import {tinyMceKEY} from "../../consts";
 import './add-form.scss'
 
 class AddForm extends Component {
@@ -16,7 +18,7 @@ class AddForm extends Component {
     }
 
     onValueChange = (e) => {
-        this.setState({value: e.target.value})
+        this.setState({value: e.target.getContent()})
     }
 
     handleSubmit = (e) => {
@@ -53,13 +55,20 @@ class AddForm extends Component {
                     </AppBar>
                     <form className="form">
                         <DialogContent className="form-container">
-                            <textarea
-                                autoFocus
-                                rows="12"
-                                cols="28"
+                            <Editor
+                                apiKey={tinyMceKEY}
+                                initialValue = "Добавьте вопрос"
+                                init={{
+                                    height: 250,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist autolink lists link image charmap print preview anchor textcolor',
+                                        'searchreplace visualblocks code fullscreen',
+                                        'insertdatetime media table paste code help wordcount'
+                                    ],
+                                    toolbar: 'bold italic forecolor | align | bullist numlist | table ',
+                                }}
                                 onChange={this.onValueChange}
-                                placeholder="Enter Post"
-                                value={this.state.value}
                             />
                         </DialogContent>
                         <DialogActions className="control-buttons">

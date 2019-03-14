@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { Editor } from '@tinymce/tinymce-react';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Typography from '@material-ui/core/Typography';
@@ -18,6 +18,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import './edit-object.scss'
 import Toolbar from "@material-ui/core/Toolbar";
+import {tinyMceKEY} from "../../consts";
 
 function TabContainer({ children, dir }) {
     return (
@@ -37,6 +38,11 @@ TabContainer.propTypes = {
 class EditObject extends Component {
     state = {
         value: 0,
+        dopInformation: '',
+    }
+
+    onValueChange = (e) => {
+        this.setState({dopInformation: e.target.getContent()})
     }
 
     handleChange = ( event, value ) => {
@@ -48,8 +54,7 @@ class EditObject extends Component {
     };
 
     onSubmit = ( formProps ) => {
-        const data = {...this.props.editItem, value: formProps, name: formProps.name}
-
+        const data = {...this.props.editItem, value: {...formProps, dopInformation: this.state.dopInformation}, name: formProps.name}
         this.props.onEdit( data )
     }
 
@@ -63,15 +68,24 @@ class EditObject extends Component {
         )
     }
 
-    renderTextArea({ input, placeHolder }) {
+    renderTextArea() {
         return (
-            <div>
-               <textarea
-                   {...input}
-                   rows        = "12"
-                   cols        = "28"
-                   placeholder = { placeHolder }
-               />
+            <div className="wrap-myeditor">
+                <Editor
+                    apiKey={tinyMceKEY}
+                    initialValue = {`<p>${this.props.initialValues.dopInformation}</p>`}
+                    init={{
+                        height: 200,
+                        menubar: false,
+                        plugins: [
+                            'advlist autolink lists link image charmap print preview anchor textcolor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media table paste code help wordcount'
+                        ],
+                        toolbar: 'bold italic forecolor | align | bullist numlist | table ',
+                    }}
+                    onChange={this.onValueChange}
+                />
             </div>
         )
     }
@@ -136,7 +150,7 @@ class EditObject extends Component {
                                 </TabContainer>
 
                                 <TabContainer dir="ltr">
-                                    <Field name="dopInformation" component = { this.renderTextArea } placeHolder="Дополнительная информация"/>
+                                    {this.renderTextArea()}
                                 </TabContainer>
                             </SwipeableViews>
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import { Editor } from '@tinymce/tinymce-react';
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
@@ -16,6 +16,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Toolbar from "@material-ui/core/Toolbar";
 import {compose} from "recompose";
 import './add-object.scss'
+import {tinyMceKEY} from "../../consts";
 
 
 function TabContainer({ children, dir }) {
@@ -35,6 +36,11 @@ TabContainer.propTypes = {
 class AddObject extends Component {
     state = {
         value: 0,
+        dopInformation: '',
+    }
+
+    onValueChange = (e) => {
+        this.setState({dopInformation: e.target.getContent()})
     }
 
     handleChange = ( event, value ) => {
@@ -46,7 +52,7 @@ class AddObject extends Component {
     };
 
     onSubmit = ( formProps ) => {
-        this.props.onAdd( formProps )
+        this.props.onAdd( {...formProps, dopInformation: this.state.dopInformation} )
     }
 
     renderInput({ input, placeHolder }) {
@@ -59,15 +65,24 @@ class AddObject extends Component {
         )
     }
 
-    renderTextArea({ input, placeHolder }) {
+    renderTextArea() {
         return (
-            <div>
-               <textarea
-                   {...input}
-                   rows        = "12"
-                   cols        = "28"
-                   placeholder = { placeHolder }
-               />
+            <div className="wrap-myeditor">
+                <Editor
+                    apiKey={tinyMceKEY}
+                    initialValue = "Дополнительная информация"
+                    init={{
+                        height: 200,
+                        menubar: false,
+                        plugins: [
+                            'advlist autolink lists link image charmap print preview anchor textcolor',
+                            'searchreplace visualblocks code fullscreen',
+                            'insertdatetime media table paste code help wordcount'
+                        ],
+                        toolbar: 'bold italic forecolor | align | bullist numlist | table ',
+                    }}
+                    onChange={this.onValueChange}
+                />
             </div>
         )
     }
@@ -130,7 +145,7 @@ class AddObject extends Component {
                                 </TabContainer>
 
                                 <TabContainer dir="ltr">
-                                    <Field name="dopInformation" component = { this.renderTextArea } placeHolder="Дополнительная информация"/>
+                                    {this.renderTextArea()}
                                 </TabContainer>
                             </SwipeableViews>
 
