@@ -47,7 +47,7 @@ class AddForm extends Component {
 
         const data = {
             name: clearMsg,
-            webNane: message,
+            webName: message,
             project: project
         }
 
