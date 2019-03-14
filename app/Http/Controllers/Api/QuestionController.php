@@ -39,7 +39,8 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $question = new Question();
-        $question -> name    = $request ->    name;
+        $question -> name    = $request -> name;
+        $question -> webName = $request -> webName;
         $question -> project = $request -> project;
         $question -> save();
 
@@ -84,7 +85,8 @@ class QuestionController extends Controller
         $question = Question::find($id);
 
         $question->update([
-            'name' => $request->input('name'),
+            'name'    => $request->input('name'),
+            'webName' => $request->input('webName'),
         ]);
 
         return response()->json(['message' => 'question updated successful'.$request->input('name')]);

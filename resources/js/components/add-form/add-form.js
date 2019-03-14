@@ -21,14 +21,36 @@ class AddForm extends Component {
         this.setState({value: e.target.getContent()})
     }
 
+    extractContent = (s, space) => {
+        let span = document.createElement('span');
+        span.innerHTML= s;
+        if(space) {
+            let children= span.querySelectorAll('*');
+            for(let i = 0 ; i < children.length ; i++) {
+                if(children[i].textContent)
+                    children[i].textContent+= ' ';
+                else
+                    children[i].innerText+= ' ';
+            }
+        }
+        return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+    }
+
+
+
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.state.value
+        const clearMsg = this.extractContent(this.state.value)
+
         const project = this.props.project
+
         const data = {
-            name: message,
+            name: clearMsg,
+            webNane: message,
             project: project
         }
+
         this.props.onAdd(data)
         this.setState({value: ''})
     }
