@@ -75,14 +75,18 @@ class EditObject extends Component {
                     apiKey={tinyMceKEY}
                     initialValue = {`<p>${this.props.initialValues.dopInformation}</p>`}
                     init={{
-                        height: 200,
-                        menubar: false,
+                        height: 250,
                         plugins: [
                             'advlist autolink lists link image charmap print preview anchor textcolor',
-                            'searchreplace visualblocks code fullscreen',
-                            'insertdatetime media table paste code help wordcount'
+                            'searchreplace visualblocks code fullscreen ',
+                            'insertdatetime media table paste wordcount'
                         ],
-                        toolbar: 'bold italic forecolor | align | bullist numlist | table ',
+                        toolbar: ' bold italic forecolor | align | bullist numlist | table ',
+                        mobile: {
+                            theme: 'mobile',
+                            plugins: [ 'autosave', 'lists', 'autolink' ],
+                            toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
+                        }
                     }}
                     onChange={this.onValueChange}
                 />
