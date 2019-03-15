@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import './result-object.scss'
 
 function Transition(props) {
     return <Slide direction="right" {...props} />;
@@ -67,7 +68,7 @@ class ResultObject extends Component {
     render() {
         const {items} = this.props
         return (
-            <div>
+            <div className="objectWrapperTable">
                 <Table className="resTable">
                     <TableHead style={{background: '#d8d8d8'}}>
                         <TableRow>
@@ -79,7 +80,7 @@ class ResultObject extends Component {
                             <TableCell align="right">Вид</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className="objectBodyTable">
                         { items.map(item => this.renderObjRow(item)) }
                     </TableBody>
                 </Table>

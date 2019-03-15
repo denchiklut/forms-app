@@ -102,7 +102,7 @@ class ListItemEl extends Component {
                 >
                     <ListItemText
                         disableTypography
-                        primary={<Typography type="body2">{item.name}</Typography>}
+                        primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
                     />
 
                     <ListItemSecondaryAction>

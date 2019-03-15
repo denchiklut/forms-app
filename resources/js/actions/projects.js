@@ -18,8 +18,8 @@ export const selectProject = ( project ) => {
 export function fetchProjects() {
 
     let testData = [
+        {_id: 3,  name: 'KVSSPB' },
         {_id: 1,  name: 'Afghanistan' },
-        {_id: 3,  name: 'Albania' },
         {_id: 4,  name: 'Algeria' },
         {_id: 5,  name: 'Samoa' },
         {_id: 6,  name: 'Andorra' },

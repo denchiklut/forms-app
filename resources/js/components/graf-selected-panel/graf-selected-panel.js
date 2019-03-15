@@ -68,7 +68,7 @@ class GrafSelectedPanel extends Component {
                                 <EditIcon />
                             </IconButton>
                         }
-                        title= {selected.type === "questions" ? `${selected.value}` :
+                        title= {selected.type === "questions" ? `${selected.value.substr(0, 50)}` :
                             selected.type === "objects" ?
                                 <Button
                                     size    = "small"

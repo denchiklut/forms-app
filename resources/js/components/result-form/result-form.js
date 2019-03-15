@@ -9,6 +9,7 @@ import HeaderBar from '../header-bar'
 import uuid from "uuid"
 import {signIn, signOut} from '../../actions/auth/google'
 import './result-form.scss'
+import Button from "@material-ui/core/Button";
 
 class ResultForm extends Component {
 
@@ -103,17 +104,17 @@ class ResultForm extends Component {
             <div>
                 <ResultObject items={arr} />
                 {kaskadAnswers.map(item =>
-                    <Fab
+                    <Button
                         key={item}
                         size="small"
                         color="primary"
-                        variant="extended"
+                        variant="outlined"
                         aria-label=" answer"
-                        style={{margin: "auto 5px", padding: "0 15px"}}
+                        style={{margin: "5px", padding: "0 15px"}}
                         onClick={() => this.handleClick(item, lastObj)}
                     >
                         {item}
-                    </Fab>)}
+                    </Button>)}
             </div>
         )
     }
@@ -192,17 +193,17 @@ class ResultForm extends Component {
                                     <>
                                         <>{this.renderQuestion(item)}</>
                                         { item.answers.map(item =>
-                                            <Fab
+                                            <Button
                                                 key={item}
                                                 size="small"
                                                 color="primary"
-                                                variant="extended"
+                                                variant="outlined"
                                                 aria-label=" answer"
-                                                style={{margin: "auto 5px", padding: "0 10px"}}
+                                                style={{margin: "5px", padding: "0 10px"}}
                                                 onClick={() => this.findNodes(item, this.state.currentChild)}
                                             >
                                                 {item}
-                                            </Fab>
+                                            </Button>
                                         )}
                                     </>
                                 }

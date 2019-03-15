@@ -1,10 +1,10 @@
 .ResultForm {
     padding: 15px;
 
-    .answerCard{
-        box-shadow: 0 0 3px 1px #0000002e;
+    .answerCard:last-of-type {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12);
         background-color: #c1c1c145;
-        margin-bottom: 22px;
+        margin: 22px auto;
         padding: 5px;
 
         p {
