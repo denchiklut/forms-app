@@ -51,9 +51,26 @@ class AddObject extends Component {
         this.setState({ value: index });
     };
 
-    onSubmit = ( formProps ) => {
-        this.props.onAdd( {...formProps, dopInformation: this.state.dopInformation} )
+    extractContent = (s, space) => {
+        let span = document.createElement('span');
+        span.innerHTML= s;
+        console.log(span)
+        if(space) {
+            let children= span.querySelectorAll('*');
+            for(let i = 0 ; i < children.length ; i++) {
+                if(children[i].textContent)
+                    children[i].textContent+= ' ';
+                else
+                    children[i].innerText+= ' ';
+            }
+        }
+        return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
     }
+
+    onSubmit = ( formProps ) => {
+        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )
+    }
+
 
     renderInput({ input, placeHolder }) {
         return (
@@ -69,14 +86,15 @@ class AddObject extends Component {
         return (
             <div className="wrap-myeditor">
                 <Editor
-                    apiKey={tinyMceKEY}
+                    // apiKey={tinyMceKEY}
                     initialValue = "Дополнительная информация"
                     init={{
                         height: 250,
                         plugins: [
-                            'advlist autolink lists link image charmap print preview anchor textcolor',
-                            'searchreplace visualblocks code fullscreen ',
-                            'insertdatetime media table paste wordcount'
+                            'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
+                            'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
+                            'toc insertdatetime advlist lists wordcount imagetools textpattern ',
+                            // 'powerpaste'
                         ],
                         toolbar: ' bold italic forecolor | align | bullist numlist | table ',
                         mobile: {
@@ -85,6 +103,7 @@ class AddObject extends Component {
                             toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
                         }
                     }}
+
                     onChange={this.onValueChange}
                 />
             </div>

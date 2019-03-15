@@ -9,7 +9,6 @@
           </mappings>
           <excludedPaths>
             <excludedPath path="/node_modules" />
-            <excludedPath path="/public" />
             <excludedPath path="/storage" />
             <excludedPath path="/tests" />
             <excludedPath path="/vendor" />
@@ -19,6 +18,7 @@
             <excludedPath path="/config" />
             <excludedPath path="/bootstrap" />
             <excludedPath path="/composer.lock" />
+            <excludedPath path="/public" />
           </excludedPaths>
         </serverdata>
       </paths>

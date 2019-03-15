@@ -72,14 +72,15 @@ class EditFormDialog extends Component {
                     <form className="form">
                         <DialogContent className="form-container">
                             <Editor
-                                apiKey={tinyMceKEY}
+                                // apiKey={tinyMceKEY}
                                 initialValue = { this.state.value }
                                 init={{
                                     height: 250,
                                     plugins: [
-                                        'advlist autolink lists link image charmap print preview anchor textcolor',
-                                        'searchreplace visualblocks code fullscreen ',
-                                        'insertdatetime media table paste wordcount'
+                                        'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
+                                        'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
+                                        'toc insertdatetime advlist lists wordcount imagetools textpattern ',
+                                        // 'powerpaste'
                                     ],
                                     toolbar: ' bold italic forecolor | align | bullist numlist | table ',
                                     mobile: {

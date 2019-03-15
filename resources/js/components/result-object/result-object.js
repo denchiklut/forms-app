@@ -31,6 +31,19 @@ class ResultObject extends Component {
         this.setState({ open: false });
     };
 
+    renderDopInformation = item => {
+        let span = document.createElement('span');
+        span.innerHTML= item;
+
+        const rawMarkup = () => {
+            let rawMarkup = span.innerHTML
+            return { __html: rawMarkup };
+        }
+
+        return  <span dangerouslySetInnerHTML={rawMarkup()} />
+
+    }
+
     renderObjRow = (item) => {
         return(
             <React.Fragment key={item.objData.name}>
@@ -87,7 +100,7 @@ class ResultObject extends Component {
                     </AppBar>
                     <div>
                       <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
-                          {this.state.obg ? this.state.obg.objData.dopInformation : null }
+                          {this.state.obg ? this.renderDopInformation(this.state.obg.objData.webDopInformation) : null }
                       </pre>
                     </div>
                 </Dialog>

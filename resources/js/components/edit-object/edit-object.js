@@ -16,9 +16,9 @@ import {bindActionCreators} from "redux";
 import Tab from '@material-ui/core/Tab';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import './edit-object.scss'
 import Toolbar from "@material-ui/core/Toolbar";
 import {tinyMceKEY} from "../../consts";
+import './edit-object.scss'
 
 function TabContainer({ children, dir }) {
     return (
@@ -53,8 +53,24 @@ class EditObject extends Component {
         this.setState({ value: index });
     };
 
+    extractContent = (s, space) => {
+        let span = document.createElement('span');
+        span.innerHTML= s;
+        console.log(span)
+        if(space) {
+            let children= span.querySelectorAll('*');
+            for(let i = 0 ; i < children.length ; i++) {
+                if(children[i].textContent)
+                    children[i].textContent+= ' ';
+                else
+                    children[i].innerText+= ' ';
+            }
+        }
+        return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+    }
+
     onSubmit = ( formProps ) => {
-        const data = {...this.props.editItem, value: {...formProps, dopInformation: this.state.dopInformation}, name: formProps.name}
+        const data = {...this.props.editItem, value: {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation}, name: formProps.name}
         this.props.onEdit( data )
     }
 
@@ -72,14 +88,15 @@ class EditObject extends Component {
         return (
             <div className="wrap-myeditor">
                 <Editor
-                    apiKey={tinyMceKEY}
-                    initialValue = {`<p>${this.props.initialValues.dopInformation}</p>`}
+                    // apiKey={tinyMceKEY}
+                    initialValue = {`<p>${this.props.initialValues.webDopInformation}</p>`}
                     init={{
                         height: 250,
                         plugins: [
-                            'advlist autolink lists link image charmap print preview anchor textcolor',
-                            'searchreplace visualblocks code fullscreen ',
-                            'insertdatetime media table paste wordcount'
+                            'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
+                            'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
+                            'toc insertdatetime advlist lists wordcount imagetools textpattern ',
+                            // 'powerpaste'
                         ],
                         toolbar: ' bold italic forecolor | align | bullist numlist | table ',
                         mobile: {

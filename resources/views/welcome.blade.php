@@ -9,8 +9,10 @@
     <link href="css/app.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
-    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=njxv7t3qzqkd3a7tmtvc697vlwm5aixy0mu356hxoguyzmc1"></script>
     <script src="https://apis.google.com/js/api.js"></script>
+    {{--<link href="tinyMCE/skin.css" rel="stylesheet" type="text/css">--}}
+    {{--<script src="tinyMCE/timyMCE.js"></script>--}}
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=njxv7t3qzqkd3a7tmtvc697vlwm5aixy0mu356hxoguyzmc1"></script>
 </head>
 <body>
 <div id="root"></div>
