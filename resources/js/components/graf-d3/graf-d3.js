@@ -140,7 +140,7 @@ class GrafD3 extends Component {
                         {
                             name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
-                            webValue:    data.addQst.webValue,
+                            webValue: data.addQst.webValue,
                             idd:      data.addQst._id,
                             type:     data.addQst.type,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
@@ -187,7 +187,7 @@ class GrafD3 extends Component {
                 if (data.addQst.type === "objects") {
                     newData.children.push(
                         {
-                            name:     data.addQst.value,
+                            name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
                             unique:   uuid.v4(),
@@ -200,6 +200,7 @@ class GrafD3 extends Component {
                         {
                             name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
+                            webValue: data.addQst.webValue,
                             idd:      data.addQst._id,
                             unique:   uuid.v4(),
                             type:     data.addQst.type,
