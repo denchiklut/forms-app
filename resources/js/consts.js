@@ -5,7 +5,7 @@ export const tinyConfig = {
         'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
         'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
         'toc insertdatetime advlist lists wordcount imagetools textpattern ',
-        'powerpaste'
+        // 'powerpaste'
     ],
     toolbar: ' bold italic forecolor | align | bullist numlist | table ',
     language: 'ru',
