@@ -8,7 +8,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import { Editor } from '@tinymce/tinymce-react';
 import Typography from "@material-ui/core/Typography";
-import {tinyMceKEY} from "../../consts";
+import {tinyConfig, tinyMceKEY} from "../../consts";
 import './add-form.scss'
 
 class AddForm extends Component {
@@ -80,21 +80,7 @@ class AddForm extends Component {
                             <Editor
                                 // apiKey={tinyMceKEY}
                                 initialValue = "Добавьте вопрос"
-                                init={{
-                                    height: 250,
-                                    plugins: [
-                                        'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
-                                        'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
-                                        'toc insertdatetime advlist lists wordcount imagetools textpattern ',
-                                        // 'powerpaste'
-                                    ],
-                                    toolbar: ' bold italic forecolor | align | bullist numlist | table ',
-                                    mobile: {
-                                        theme: 'mobile',
-                                        plugins: [ 'autosave', 'lists', 'autolink' ],
-                                        toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
-                                    }
-                                }}
+                                init={ tinyConfig }
                                 onChange={this.onValueChange}
                             />
                         </DialogContent>

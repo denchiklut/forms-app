@@ -16,7 +16,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Toolbar from "@material-ui/core/Toolbar";
 import {compose} from "recompose";
 import './add-object.scss'
-import {tinyMceKEY} from "../../consts";
+import {tinyConfig, tinyMceKEY} from "../../consts";
 
 
 function TabContainer({ children, dir }) {
@@ -88,21 +88,7 @@ class AddObject extends Component {
                 <Editor
                     // apiKey={tinyMceKEY}
                     initialValue = "Дополнительная информация"
-                    init={{
-                        height: 250,
-                        plugins: [
-                            'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
-                            'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
-                            'toc insertdatetime advlist lists wordcount imagetools textpattern ',
-                            // 'powerpaste'
-                        ],
-                        toolbar: ' bold italic forecolor | align | bullist numlist | table ',
-                        mobile: {
-                            theme: 'mobile',
-                            plugins: [ 'autosave', 'lists', 'autolink' ],
-                            toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
-                        }
-                    }}
+                    init={ tinyConfig }
 
                     onChange={this.onValueChange}
                 />

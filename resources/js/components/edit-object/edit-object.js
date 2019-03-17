@@ -17,7 +17,7 @@ import Tab from '@material-ui/core/Tab';
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Toolbar from "@material-ui/core/Toolbar";
-import {tinyMceKEY} from "../../consts";
+import {tinyConfig, tinyMceKEY} from "../../consts";
 import './edit-object.scss'
 
 function TabContainer({ children, dir }) {
@@ -90,21 +90,7 @@ class EditObject extends Component {
                 <Editor
                     // apiKey={tinyMceKEY}
                     initialValue = {`<p>${this.props.initialValues.webDopInformation}</p>`}
-                    init={{
-                        height: 250,
-                        plugins: [
-                            'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
-                            'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
-                            'toc insertdatetime advlist lists wordcount imagetools textpattern ',
-                            // 'powerpaste'
-                        ],
-                        toolbar: ' bold italic forecolor | align | bullist numlist | table ',
-                        mobile: {
-                            theme: 'mobile',
-                            plugins: [ 'autosave', 'lists', 'autolink' ],
-                            toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
-                        }
-                    }}
+                    init={ tinyConfig }
                     onChange={this.onValueChange}
                 />
             </div>
