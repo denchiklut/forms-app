@@ -35,6 +35,7 @@
     "classnames": "^2.2.6",
     "history": "latest",
     "prop-types": "latest",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-d3-tree": "^1.12.2",
     "react-draggable": "^3.1.1",
     "react-redux": "^6.0.0",

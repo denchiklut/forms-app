@@ -1,17 +1,20 @@
-import React, {Component} from 'react';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { fetchUpdateQuestion } from "../../actions/questions";
-import { fetchUpdateObject } from "../../actions/objects";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import EditObject from "../edit-object/edit-object";
-import DeleteIcon from '@material-ui/icons/Delete';
-import ListItem from '@material-ui/core/ListItem';
-import EditIcon from '@material-ui/icons/Edit';
+import React, {Component} from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import {connect} from 'react-redux'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import IconButton from "@material-ui/core/IconButton"
+import Typography from "@material-ui/core/Typography"
+import EditObject from "../edit-object/edit-object"
+import DeleteIcon from '@material-ui/icons/Delete'
+import ListItem from '@material-ui/core/ListItem'
+import EditIcon from '@material-ui/icons/Edit'
+
+import { fetchUpdateQuestion } from "../../actions/questions"
+import { fetchUpdateObject } from "../../actions/objects"
+import {bindActionCreators} from "redux"
+
 import EditFormDialog from '../edit-form'
-import {bindActionCreators} from "redux";
-import {connect} from 'react-redux';
 import './list-item-el.scss'
 
 
@@ -40,12 +43,12 @@ class ListItemEl extends Component {
     }
 
     saveEdit = (data) => {
-       this.props.editQuestion(data)
+       this.props.fetchUpdateQuestion(data)
        this.closeEditForm()
     }
 
     saveUpdate = (data) => {
-        this.props.editObject(data)
+        this.props.fetchUpdateObject(data)
         this.closeEditForm()
     }
 
@@ -93,63 +96,67 @@ class ListItemEl extends Component {
     render() {
         const { selectedIndex, item, type }= this.props
         return (
-            <div>
-                <ListItem
-                    button
-                    selected={item._id === selectedIndex}
-                    onClick={event => this.handleListItemClick(event, item)}
-                    style={{padding: "15px 8px"}}
-                >
-                    <ListItemText
-                        disableTypography
-                        primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
-                    />
+            <ReactCSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={900}
+                transitionLeaveTimeout={500}
+                transitionAppear={true}
+                transitionAppearTimeout={900}
+            >
 
-                    <ListItemSecondaryAction>
-                        <IconButton
-                            aria-label="Edit"
-                            onClick={() => this.handleClickOpenEdit(item)}
-                        >
-                            <EditIcon />
-                        </IconButton>
-                        <IconButton
-                            aria-label="Delete"
-                            onClick={()=> this.handleDel(item)}
-                        >
-                            <DeleteIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
+                <div>
+                    <ListItem
+                        button
+                        selected={item._id === selectedIndex}
+                        onClick={event => this.handleListItemClick(event, item)}
+                        style={{padding: "15px 8px"}}
+                    >
+                        <ListItemText
+                            disableTypography
+                            primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
+                        />
 
-                { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
-                    this.props.type === 'question' ?
-                        <EditFormDialog
-                            onEdit   = { this.saveEdit }
-                            isOpen   = { this.state.isOpen }
-                            onClose  = { this.closeEditForm }
-                            editItem = { this.state.editItem }
-                        />:
-                        <EditObject
-                            onEdit   = { this.saveUpdate }
-                            isOpen   = { this.state.isOpen }
-                            onClose  = { this.closeEditForm }
-                            editItem = { this.state.editItem }
-                        />:
-                    null
-                }
+                        <ListItemSecondaryAction>
+                            <IconButton
+                                aria-label="Edit"
+                                onClick={() => this.handleClickOpenEdit(item)}
+                            >
+                                <EditIcon />
+                            </IconButton>
+                            <IconButton
+                                aria-label="Delete"
+                                onClick={()=> this.handleDel(item)}
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
 
-            </div>
+                    { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
+                        this.props.type === 'question' ?
+                            <EditFormDialog
+                                onEdit   = { this.saveEdit }
+                                isOpen   = { this.state.isOpen }
+                                onClose  = { this.closeEditForm }
+                                editItem = { this.state.editItem }
+                            />:
+                            <EditObject
+                                onEdit   = { this.saveUpdate }
+                                isOpen   = { this.state.isOpen }
+                                onClose  = { this.closeEditForm }
+                                editItem = { this.state.editItem }
+                            />:
+                        null
+                    }
+
+                </div>
+            </ReactCSSTransitionGroup>
+
         );
     }
 }
 
 
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators(
-        {
-            editQuestion: fetchUpdateQuestion,
-            editObject: fetchUpdateObject,
-        }, dispatch)
-}
+const matchDispatchToProps = dispatch => bindActionCreators({ fetchUpdateQuestion, fetchUpdateObject }, dispatch)
 
 export default connect(null, matchDispatchToProps)(ListItemEl);
