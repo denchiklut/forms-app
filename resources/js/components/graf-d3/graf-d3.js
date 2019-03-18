@@ -7,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PlayArrow from '@material-ui/icons/PlayArrow'
 import Chip from "@material-ui/core/Chip"
-import GrafAddForm from "../garf-add-form"
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
@@ -17,6 +16,8 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import uuid from "uuid"
+
+import GrafAddForm from "../garf-add-form"
 import AppBar from '@material-ui/core/AppBar'
 import GrafSelectedPanel from '../graf-selected-panel'
 import './graf-3d.scss'
@@ -56,7 +57,6 @@ class GrafD3 extends Component {
             answer: '',
             children: [],
         },
-        direction: 'left',
         open: false,
         hidden: false,
     }
@@ -416,7 +416,7 @@ class GrafD3 extends Component {
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
         ]
 
-        const { direction, hidden, open } = this.state
+        const { hidden, open } = this.state
 
         if (Object.keys(this.props.activeProject).length === 0 )  {
             return (
@@ -439,18 +439,18 @@ class GrafD3 extends Component {
                         </Typography>
                         <div style={{display: 'flex'}}>
                             <SpeedDial
-                                style={{transform: 'scale(0.73)', marginRight: '-36px'}}
-                                ariaLabel="SpeedDial example"
-                                hidden={hidden}
-                                icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-                                onClick={this.handleClick}
-                                onBlur={this.handleClose}
-                                onClose={this.handleClose}
-                                onFocus={this.handleOpen}
-                                onMouseEnter={this.handleOpen}
-                                onMouseLeave={this.handleClose}
-                                open={open}
-                                direction={direction}
+                                direction    = "left"
+                                ariaLabel    = "SpeedDial example"
+                                open         = { open }
+                                hidden       = { hidden}
+                                onFocus      = { this.handleOpen }
+                                onMouseEnter = { this.handleOpen }
+                                onClick      = { this.handleClick }
+                                onBlur       = { this.handleClose }
+                                onClose      = { this.handleClose }
+                                onMouseLeave = { this.handleClose }
+                                icon         = { <SpeedDialIcon openIcon={<EditIcon />} /> }
+                                style        = {{ transform: 'scale(0.73)', marginRight: '-36px' }}
                             >
                                 {actions.map(action => (
                                     <SpeedDialAction
