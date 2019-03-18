@@ -5,7 +5,7 @@ export const REMOVE_NODE ="REMOVE_NODE"
 
 
 export const fetchNodes = project => async dispatch => {
-    const result = axios.get(`/api/nodes/${project}`)
+    const result = await axios.get(`/api/nodes/${project}`)
     dispatch({ type: SET_NODES, payload: result.data })
 }
 
