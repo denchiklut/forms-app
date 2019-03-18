@@ -420,7 +420,7 @@ class GrafD3 extends Component {
 
         if (Object.keys(this.props.activeProject).length === 0 )  {
             return (
-                <div><h1>Select Project</h1></div>
+                <div><h1 style={{paddingLeft: 15}}>Select Project</h1></div>
             )
         }
 
