@@ -33,6 +33,6 @@ export const fetchDeleteQuestion = delQuestion => async dispatch => {
 
 export const fetchUpdateQuestion = question => async dispatch => {
     await axios.patch(`/api/questions/${question._id}`, question)
-    dispatch({ type: UPDATE_QUESTION, payload: editQuestion })
+    dispatch({ type: UPDATE_QUESTION, payload: question })
 }
 
