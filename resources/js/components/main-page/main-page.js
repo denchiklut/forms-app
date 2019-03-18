@@ -115,14 +115,8 @@ class MainPage extends Component {
 }
 
 
-function mapStateToProps(state) {
-    return {
-        projects:      state.projects,
-        questions:     state.questions,
-        objects:       state.objects,
-        activeProject: state.activeProject,
-        nodes:         state.nodes
-    }
+const  mapStateToProps = ({projects, questions, objects, activeProject, nodes}) => {
+    return { projects, questions, objects, activeProject, nodes }
 }
 
 function mapDispatchToProps(dispatch) {

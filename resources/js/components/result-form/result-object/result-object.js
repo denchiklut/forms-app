@@ -13,10 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import './result-object.scss'
 
-function Transition(props) {
-    return <Slide direction="right" {...props} />;
-}
-
+const Transition = props => <Slide direction="right" {...props} />
 
 class ResultObject extends Component {
     state = {
