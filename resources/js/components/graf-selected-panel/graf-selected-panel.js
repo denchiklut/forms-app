@@ -5,14 +5,13 @@ import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import CardHeader from "@material-ui/core/CardHeader"
 import EditIcon from '@material-ui/icons/Edit'
+import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar"
-import Fab from "@material-ui/core/Fab";
 
 import ShowObject from '../show-object'
 import EmptySelectedPanel from '../empty-selected-panel'
 import GrafEditForm from "../graf-edit-form";
 import './graf-selected-panel.scss'
-import IconButton from "@material-ui/core/IconButton";
 
 
 class GrafSelectedPanel extends Component {
@@ -46,12 +45,9 @@ class GrafSelectedPanel extends Component {
 
     render() {
         const { selected } = this.props
-        if (!selected) {
-            return <EmptySelectedPanel />
-        }
+        if (!selected) return <EmptySelectedPanel />
 
         const children = selected.children ? selected.children.map(item => <li key={item.idd}>{item.answer}: {item.name}</li> ) : null
-
         return(
             <div>
                 <Card className="btmCard" style={{position: 'absolute', bottom: '-64px', width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
