@@ -12,7 +12,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 import { fetchUpdateQuestion } from "../../actions/questions"
 import { fetchUpdateObject } from "../../actions/objects"
-import {bindActionCreators} from "redux"
+import { bindActionCreators } from "redux"
 
 import EditFormDialog from '../edit-form'
 import './list-item-el.scss'

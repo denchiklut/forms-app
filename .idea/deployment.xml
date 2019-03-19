@@ -19,6 +19,7 @@
             <excludedPath path="/bootstrap" />
             <excludedPath path="/composer.lock" />
             <excludedPath path="/public" />
+            <excludedPath path="/.env" />
           </excludedPaths>
         </serverdata>
       </paths>

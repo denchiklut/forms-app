@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
-import SwipeableViews from 'react-swipeable-views'
-import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import Typography from '@material-ui/core/Typography'
 import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
 
@@ -15,14 +10,12 @@ import {fetchNodes, onAddNode, onRemoveNode,} from "../../actions/graf/nodes"
 import {fetchObjects} from "../../actions/objects"
 
 import ListContainer from '../list-container'
-import GrafD3 from '../graf-d3'
+import SwipeView from "../swipe-view"
 import HeaderBar from "../header-bar"
+import GrafD3 from '../graf-d3'
 import './main-page.scss'
 
 class MainPage extends Component {
-    state = {
-        value: 0,
-    }
 
     componentDidMount() {
         this.props.fetchObjects()
@@ -52,26 +45,10 @@ class MainPage extends Component {
                 <div style={{margin: '-3px'}}>
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
-                            <AppBar position="static" color="default">
-                                <Tabs
-                                    indicatorColor = "primary"
-                                    textColor      = "primary"
-                                    variant        = "fullWidth"
-                                    value          = { this.state.value }
-                                    onChange       = { (e, value) => this.setState({value}) }
-                                >
-                                    <Tab label="Вопросы" />
-                                    <Tab label="Обьекты" />
-                                </Tabs>
-                            </AppBar>
-                            <SwipeableViews
-                                axis          = "x"
-                                index         = { this.state.value }
-                                onChangeIndex = { (e, index) => this.setState({ value: index }) }
-                            >
+                            <SwipeView lables={['Вопросы', 'ОбЪекты']}>
                                 <ListContainer items={this.props.questions} type="question" />
                                 <ListContainer items={this.props.objects} type="object" />
-                            </SwipeableViews>
+                            </SwipeView>
                         </Grid>
                         <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
                             <GrafD3
