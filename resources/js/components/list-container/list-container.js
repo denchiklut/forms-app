@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux"
 import { connect } from 'react-redux'
 import PropTypes from "prop-types"
 import classNames from 'classnames'
+import Grow from '@material-ui/core/Grow'
 
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
@@ -88,8 +89,13 @@ class ListContainer extends Component {
             <div className="myList">
                 <List component="nav" style={{paddingTop: 0}}>
                     {this.props.items.map((item) => (
-                        <div
+                        <Grow
+                            in={true}
+                            style={{ transformOrigin: '0 0 0' }}
+                            {...{ timeout: 1000 }}
                             key={item._id}
+                        >
+                        <div
                             className={classNames(this.props.type === 'question' ? 'questionItem': 'objectItem', (item._id === this.props.activeQuestion._id) && 'selected')}
                         >
                             <ListItemEl
@@ -104,6 +110,7 @@ class ListContainer extends Component {
                             />
                             <Divider />
                         </div>
+                        </Grow>
                     ))}
                 </List>
 

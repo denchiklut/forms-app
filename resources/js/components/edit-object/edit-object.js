@@ -31,19 +31,19 @@ class EditObject extends Component {
     }
 
     extractContent = (s, space) => {
-        let span = document.createElement('span');
-        span.innerHTML= s;
-        console.log(span)
+        let span = document.createElement('span')
+        span.innerHTML= s
+
         if(space) {
-            let children= span.querySelectorAll('*');
+            let children= span.querySelectorAll('*')
             for(let i = 0 ; i < children.length ; i++) {
                 if(children[i].textContent)
-                    children[i].textContent+= ' ';
+                    children[i].textContent+= ' '
                 else
-                    children[i].innerText+= ' ';
+                    children[i].innerText+= ' '
             }
         }
-        return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
+        return [span.textContent || span.innerText].toString().replace(/ +/g,' ')
     }
 
     onSubmit = ( formProps ) => {
@@ -51,7 +51,7 @@ class EditObject extends Component {
         this.props.onEdit( data )
     }
 
-    renderInput({ input, placeHolder }) {
+    renderInput = ({ input, placeHolder }) => {
         return (
             <input
                 {...input}
@@ -61,7 +61,7 @@ class EditObject extends Component {
         )
     }
 
-    renderTextArea() {
+    renderTextArea = () => {
         return (
             <div className="wrap-myeditor">
                 <Editor

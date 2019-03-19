@@ -7,31 +7,3 @@
         color: #ffffff!important;
     }
 }
-.example-appear {
-    opacity: 0.01 !important;
-}
-
-.example-appear.example-appear-active {
-    opacity: 1 !important;
-    transition: opacity .9s ease-in !important;
-}
-
-.example-enter {
-    opacity: 0.01!important;
-    //right: 900px!important;
-}
-
-.example-enter.example-enter-active {
-    opacity: 1 !important;
-    //right: 0 !important;
-    transition: .9s ease-in all !important;
-}
-
-.example-leave {
-    opacity: 1 !important;
-}
-
-.example-leave.example-leave-active {
-    opacity: 0.01 !important;
-    transition: opacity .5s ease-in !important;
-}

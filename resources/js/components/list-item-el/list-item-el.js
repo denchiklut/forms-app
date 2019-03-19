@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import {connect} from 'react-redux'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
@@ -96,61 +95,52 @@ class ListItemEl extends Component {
     render() {
         const { selectedIndex, item, type }= this.props
         return (
-            <ReactCSSTransitionGroup
-                transitionName="example"
-                transitionEnterTimeout={900}
-                transitionLeaveTimeout={500}
-                transitionAppear={true}
-                transitionAppearTimeout={900}
-            >
+            <div>
+                <ListItem
+                    button
+                    selected={item._id === selectedIndex}
+                    onClick={event => this.handleListItemClick(event, item)}
+                    style={{padding: "15px 8px"}}
+                >
+                    <ListItemText
+                        disableTypography
+                        primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
+                    />
 
-                <div>
-                    <ListItem
-                        button
-                        selected={item._id === selectedIndex}
-                        onClick={event => this.handleListItemClick(event, item)}
-                        style={{padding: "15px 8px"}}
-                    >
-                        <ListItemText
-                            disableTypography
-                            primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
-                        />
+                    <ListItemSecondaryAction>
+                        <IconButton
+                            aria-label="Edit"
+                            onClick={() => this.handleClickOpenEdit(item)}
+                        >
+                            <EditIcon />
+                        </IconButton>
+                        <IconButton
+                            aria-label="Delete"
+                            onClick={()=> this.handleDel(item)}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
 
-                        <ListItemSecondaryAction>
-                            <IconButton
-                                aria-label="Edit"
-                                onClick={() => this.handleClickOpenEdit(item)}
-                            >
-                                <EditIcon />
-                            </IconButton>
-                            <IconButton
-                                aria-label="Delete"
-                                onClick={()=> this.handleDel(item)}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction>
-                    </ListItem>
+                { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
+                    this.props.type === 'question' ?
+                        <EditFormDialog
+                            onEdit   = { this.saveEdit }
+                            isOpen   = { this.state.isOpen }
+                            onClose  = { this.closeEditForm }
+                            editItem = { this.state.editItem }
+                        />:
+                        <EditObject
+                            onEdit   = { this.saveUpdate }
+                            isOpen   = { this.state.isOpen }
+                            onClose  = { this.closeEditForm }
+                            editItem = { this.state.editItem }
+                        />:
+                    null
+                }
 
-                    { ( Object.keys(this.state.editItem).length !== 0 && this.state.isOpen ) ?
-                        this.props.type === 'question' ?
-                            <EditFormDialog
-                                onEdit   = { this.saveEdit }
-                                isOpen   = { this.state.isOpen }
-                                onClose  = { this.closeEditForm }
-                                editItem = { this.state.editItem }
-                            />:
-                            <EditObject
-                                onEdit   = { this.saveUpdate }
-                                isOpen   = { this.state.isOpen }
-                                onClose  = { this.closeEditForm }
-                                editItem = { this.state.editItem }
-                            />:
-                        null
-                    }
-
-                </div>
-            </ReactCSSTransitionGroup>
+            </div>
 
         );
     }
