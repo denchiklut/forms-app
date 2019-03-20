@@ -1,61 +1,57 @@
-FROM nginx/unit:1.7.1-php7.0
-
-LABEL maintainer="21h@blindage.org"
-LABEL description="More information here https://blindage.org/?p=9575"
+FROM ubuntu:18.04
 
 # install base dependencies
+
+COPY ./docker/sources.list /etc/apt/sources.list
 
 RUN apt-get ${APT_FLAGS_COMMON} update && \
     apt-get ${APT_FLAGS_PERSISTENT} -y install apt-utils
 
-RUN apt-get ${APT_FLAGS_PERSISTENT} -y install php7.0-gd php7.0-mysql php7.0-curl php7.0-mcrypt php7.0-xml php7.0-json php7.0-mbstring php-mongodb curl
+# Install PHP dependencies
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get ${APT_FLAGS_PERSISTENT} -y install \
+    curl ca-certificates unzip cron supervisor rsyslog php7.2-fpm nginx npm \
+    php7.2-cli php7.2-curl php-apcu php-apcu-bc php7.2-json php7.2-mbstring php-ssh2 php7.2-opcache \
+    php7.2-readline php7.2-xml php7.2-zip php7.2-pdo php7.2-mysqli php7.2-pgsql php-mongodb
+
+RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 RUN apt-get ${APT_FLAGS_COMMON} purge -y apt-utils && \
     apt-get ${APT_FLAGS_COMMON} autoremove -y && \
     apt-get ${APT_FLAGS_COMMON} clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN set -xe \
-    && mkdir -p "$COMPOSER_HOME" \
-    # install composer
-    && php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
-    && php -r "if(hash_file('SHA384','/tmp/composer-setup.php')==='93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f'.\
-    '115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8'){echo 'Verified';}else{unlink('/tmp/composer-setup.php');}" \
-    && php /tmp/composer-setup.php --no-ansi --install-dir=/usr/bin --filename=composer --version=$COMPOSER_VERSION \
-    && composer --ansi --version --no-interaction \
-    && composer --no-interaction global require 'hirak/prestissimo' \
-    && composer clear-cache \
-    && rm -rf /tmp/composer-setup.php /tmp/.htaccess \
-    # show php info
-    && php -v \
-    && php-fpm -v \
-    && php -m
-
-
-# do not autostart
-RUN rm -f /etc/init.d/unit
+# Composer and dependencies
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer global require hirak/prestissimo
 
-COPY config.json /state/new_config.json
+# Cleanup
 
-WORKDIR /www
+RUN composer clear-cache && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
 
-COPY . .
-
-VOLUME .:/www:rw
-
-RUN mkdir preview
-RUN chown -R www-data:www-data /www
-
-# upload config to unitd and die
-RUN unitd --state /state --pid /tmp/unitd.pid && \
-    curl -s -X PUT -d @/state/new_config.json \
-         --unix-socket /run/control.unit.sock \
-         http://localhost/config/ && \
-    kill -9 $(cat /tmp/unitd.pid)
+# Settings
 
 EXPOSE 80
+COPY ./docker/php.ini /etc/php/7.2/fpm/php.ini
+#COPY ./docker/php-fpm.conf /etc/php/7.2/fpm/php-fpm.conf
+COPY ./docker/site.conf /etc/nginx/sites-enabled/site.conf
+RUN rm -f /etc/nginx/sites-enabled/default*
+RUN touch /tmp/cron.log
 
-# now container ready to start with predefined config
-CMD ["unitd", "--no-daemon", "--state", "/state"]
+# Sources
+
+WORKDIR /www
+COPY . .
+RUN chown www-data:www-data . -R
+RUN npm install
+RUN composer install
+
+# Entrypoint
+
+CMD /etc/init.d/php7.2-fpm start && \
+    /etc/init.d/nginx start && \
+    cron && tail -f /tmp/cron.log
