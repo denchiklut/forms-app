@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="9bf27f79-62e2-4e81-bb4c-3d999f88b4f7" name="@dev: web-worms" url="http://web-forms.dmrse.ru/">
-        <fileTransfer host="159.69.120.96" port="22" privateKey="$USER_HOME$/Desktop/daleksandrov.pem" rootFolder="/var/www/html/web-forms.dmrse.ru" accessType="SFTP" keyPair="true">
+        <fileTransfer host="95.216.168.147" port="22" privateKey="$USER_HOME$/Desktop/daleksandrov.pem" rootFolder="/var/www/html/forms-app" accessType="SFTP" keyPair="true">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

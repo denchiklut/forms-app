@@ -19,8 +19,11 @@
             <excludedPath path="/bootstrap" />
             <excludedPath path="/composer.lock" />
             <excludedPath path="/public" />
-            <excludedPath path="/.env" />
             <excludedPath path="/daleksandrov.pem" />
+            <excludedPath path="/docker" />
+            <excludedPath path="/Dockerfile" />
+            <excludedPath path="/docker_build.sh" />
+            <excludedPath path="/config.json" />
           </excludedPaths>
         </serverdata>
       </paths>
