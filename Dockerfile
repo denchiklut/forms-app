@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 COPY ./docker/sources.list /etc/apt/sources.list
 
 RUN apt-get ${APT_FLAGS_COMMON} update && \
-    apt-get ${APT_FLAGS_PERSISTENT} -y install apt-utils
+    apt-get ${APT_FLAGS_PERSISTENT} -y install apt-utils gnupg
 
 # Install PHP dependencies
 
@@ -48,7 +48,7 @@ WORKDIR /www
 COPY . .
 RUN chown www-data:www-data . -R
 RUN npm install
-RUN composer install
+RUN composer install --ignore-platform-reqs
 
 # Entrypoint
 
