@@ -20,6 +20,7 @@
             <excludedPath path="/composer.lock" />
             <excludedPath path="/public" />
             <excludedPath path="/.env" />
+            <excludedPath path="/daleksandrov.pem" />
           </excludedPaths>
         </serverdata>
       </paths>
