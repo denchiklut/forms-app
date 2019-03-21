@@ -5,6 +5,8 @@
 /vendor
 .env
 .phpunit.result.cache
+.package-lock.json
+.composer.lock
 daleksandrov.pem
 Homestead.json
 Homestead.yaml
