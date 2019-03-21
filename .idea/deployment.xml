@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="@dev: web-worms" autoUploadExternalChanges="true" notifyRemoteChanges="true" showNewOnSourceInSync="false">
+  <component name="PublishConfigData" autoUpload="Always" promptOnRemoteOverwrite="CHECK_CONTENT" serverName="@dev" autoUploadExternalChanges="true" notifyRemoteChanges="true" showNewOnSourceInSync="false">
     <serverData>
-      <paths name="@dev: web-worms">
+      <paths name="@dev">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
+            <excludedPath path="/bootstrap" />
+            <excludedPath path="/config" />
+            <excludedPath path="/database" />
             <excludedPath path="/node_modules" />
+            <excludedPath path="/public" />
             <excludedPath path="/storage" />
             <excludedPath path="/tests" />
-            <excludedPath path="/vendor" />
-            <excludedPath path="/package-lock.json" />
             <excludedPath path="/v8-compile-cache-0" />
-            <excludedPath path="/phpunit.xml" />
-            <excludedPath path="/config" />
-            <excludedPath path="/bootstrap" />
+            <excludedPath path="/vendor" />
+            <excludedPath path="/.editorconfig" />
+            <excludedPath path="/.babelrc" />
+            <excludedPath path="/.env" />
+            <excludedPath path="/.env.example" />
+            <excludedPath path="/.gitattributes" />
+            <excludedPath path="/.gitignore" />
+            <excludedPath path="/artisan" />
+            <excludedPath path="/composer.json" />
             <excludedPath path="/composer.lock" />
-            <excludedPath path="/public" />
-            <excludedPath path="/daleksandrov.pem" />
-            <excludedPath path="/docker" />
-            <excludedPath path="/Dockerfile" />
-            <excludedPath path="/docker_build.sh" />
             <excludedPath path="/config.json" />
+            <excludedPath path="/daleksandrov.pem" />
+            <excludedPath path="/docker_build.sh" />
+            <excludedPath path="/Dockerfile" />
+            <excludedPath path="/package-lock.json" />
+            <excludedPath path="/phpunit.xml" />
+            <excludedPath path="/readme.md" />
+            <excludedPath path="/server.php" />
+            <excludedPath path="/webpack.mix.js" />
+            <excludedPath path="/docker" />
           </excludedPaths>
         </serverdata>
       </paths>
