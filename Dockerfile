@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get ${APT_FLAGS_PERSISTENT} -y install \
     curl ca-certificates unzip cron supervisor rsyslog php7.2-fpm nginx npm \
     php7.2-cli php7.2-curl php-apcu php-apcu-bc php7.2-json php7.2-mbstring php-ssh2 php7.2-opcache \
     php7.2-readline php7.2-xml php7.2-zip php7.2-pdo php7.2-mysqli php7.2-pgsql php-mongodb \
-    php7.2-dev libcurl4-openssl-dev pkg-config libssl-dev libsslcommon2-dev php-pear
+    php7.2-dev php-pear
 
 RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 RUN dpkg-reconfigure --frontend noninteractive tzdata
