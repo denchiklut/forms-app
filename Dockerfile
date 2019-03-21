@@ -46,7 +46,7 @@ RUN touch /tmp/cron.log
 
 WORKDIR /www
 COPY . .
-VOLUME . .
+
 RUN chown www-data:www-data . -R
 RUN npm install
 RUN composer install --ignore-platform-reqs
