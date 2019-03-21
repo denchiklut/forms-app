@@ -45,9 +45,10 @@ class MainPage extends Component {
                 <div style={{margin: '-3px'}}>
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
-                            <SwipeView lables={['Вопросы', 'ОбЪекты']}>
+                            <SwipeView lables={['Вопросы', 'Жк', 'Авто']}>
                                 <ListContainer items={this.props.questions} type="question" />
                                 <ListContainer items={this.props.objects} type="object" />
+                                <ListContainer items={this.props.objects} type="avto" />
                             </SwipeView>
                         </Grid>
                         <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>

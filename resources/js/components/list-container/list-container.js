@@ -15,6 +15,7 @@ import { fetchAddQuestion, fetchDeleteQuestion, selectQuestion } from '../../act
 
 import ListItemEl from '../list-item-el'
 import AddForm from '../add-form'
+import AddAvto  from '../add-avto'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
@@ -44,21 +45,33 @@ class ListContainer extends Component {
         this.closeAddForm()
     }
 
-    renderAddForm = () => (
-        this.props.type === 'question' ?
-            <AddForm
-                isOpen  = { this.state.isOpen }
-                onAdd   = { this.saveAddQuestion }
-                onClose = { this.closeAddForm }
-                project = { this.props.activeProject.value }
-            /> :
-            <AddObject
-                isOpen  = { this.state.isOpen }
-                onAdd   = { this.saveAddObject }
-                onClose = { this.closeAddForm }
-                project = { this.props.activeProject.value }
-            />
-    )
+    renderAddForm = () => {
+
+        switch (this.props.type) {
+            case 'question':
+                return <AddForm
+                        isOpen  = { this.state.isOpen }
+                        onAdd   = { this.saveAddQuestion }
+                        onClose = { this.closeAddForm }
+                        project = { this.props.activeProject.value }
+                    />
+            case 'object':
+                return <AddObject
+                           isOpen  = { this.state.isOpen }
+                           onAdd   = { this.saveAddObject }
+                           onClose = { this.closeAddForm }
+                           project = { this.props.activeProject.value }
+                       />
+            case 'avto':
+                return <AddAvto
+                            isOpen  = { this.state.isOpen }
+                            onAdd   = { this.saveAddObject }
+                            onClose = { this.closeAddForm }
+                            project = { this.props.activeProject.value }
+                        />
+            default: return null
+        }
+    }
 
     renderEmtyList = () => (
         <div style={{position: "relative"}}>

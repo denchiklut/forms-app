@@ -13,5 +13,6 @@ export const tinyConfig = {
         theme: 'mobile',
         plugins: [ 'autosave', 'lists', 'autolink' ],
         toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
-    }
+    },
+    // table_appearance_options: false
 }
