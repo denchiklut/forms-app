@@ -1,7 +1,6 @@
-deb http://archive.ubuntu.com/ubuntu bionic main universe
-deb http://archive.ubuntu.com/ubuntu bionic-security main
-deb http://archive.ubuntu.com/ubuntu bionic-updates main
-deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse
-deb http://archive.ubuntu.com/ubuntu bionic universe
-deb http://archive.ubuntu.com/ubuntu bionic-updates universe
-deb http://archive.ubuntu.com/ubuntu bionic multiverse
+deb http://archive.ubuntu.com/ubuntu cosmic main universe
+deb http://archive.ubuntu.com/ubuntu cosmic-security main
+deb http://archive.ubuntu.com/ubuntu cosmic-updates main
+deb http://archive.ubuntu.com/ubuntu cosmic-backports main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu cosmic-updates universe
+deb http://archive.ubuntu.com/ubuntu cosmic multiverse
