@@ -10,19 +10,19 @@ export const fetchAvto = () => async dispatch => {
     dispatch({ type: SET_AVTO, payload: result.data })
 }
 
-export const fetchAddObject = newAvto => async dispatch => {
+export const fetchAddAvto = newAvto => async dispatch => {
     const result = await axios.post('/api/avto', newAvto)
     dispatch({ type: ADD_AVTO, payload: result.data })
 }
 
 
-export const fetchDeleteObject = delAvto => async dispatch => {
+export const fetchDeleteAvto = delAvto => async dispatch => {
     await axios.delete(`/api/avto/${delAvto._id}`)
     dispatch({ type: DELETE_AVTO, payload: delAvto })
 }
 
 
-export const fetchUpdateObject = avto => async dispatch =>{
+export const fetchUpdateAvto = avto => async dispatch =>{
     await axios.patch(`/api/avto/${avto._id}`, avto)
     dispatch({ type: UPDATE_AVTO, payload: avto })
 }
