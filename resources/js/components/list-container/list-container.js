@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 
+import {fetchAddAvto, fetchDeleteAvto} from "../../actions/avto"
 import {fetchAddObject, fetchDeleteObject} from "../../actions/objects"
 import { fetchAddQuestion, fetchDeleteQuestion, selectQuestion } from '../../actions/questions'
 
@@ -34,8 +35,10 @@ class ListContainer extends Component {
           return {isOpen: !isOpen }
         })
     }
+
     saveAddAvto = data => {
-        console.log(data)
+        console.log({name: this.props.activeProject.value, value: data})
+        this.props.fetchAddAvto({name: this.props.activeProject.value, value: data})
         this.closeAddForm()
     }
     saveAddObject = (data) => {
@@ -155,6 +158,6 @@ const mapStateToProps = ({activeQuestion, activeProject, nodes}) => {
     return { activeQuestion, activeProject, nodes }
 }
 
-const matchDispatchToProps = dispatch => bindActionCreators({selectQuestion, fetchAddQuestion, fetchAddObject, fetchDeleteQuestion, fetchDeleteObject}, dispatch)
+const matchDispatchToProps = dispatch => bindActionCreators({selectQuestion, fetchAddQuestion, fetchAddObject, fetchDeleteQuestion, fetchDeleteObject, fetchAddAvto, fetchDeleteAvto}, dispatch)
 
 export default connect(mapStateToProps, matchDispatchToProps)(ListContainer);

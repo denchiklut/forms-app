@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Avto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -35,7 +36,13 @@ class AvtoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $avto = new Avto();
+
+        $avto -> name  = $request -> name;
+        $avto -> value = $request -> value;
+        $avto -> save();
+
+        return response()->json($avto);
     }
 
     /**
