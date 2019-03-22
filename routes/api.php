@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 */
 Route::namespace('Api')->group(function () {
 
+    Route::resource('/avto', 'AvtoController');
     Route::resource('/nodes',         'NodeController');
     Route::resource('/objects',     'ObjectController');
     Route::resource('/questions', 'QuestionController');

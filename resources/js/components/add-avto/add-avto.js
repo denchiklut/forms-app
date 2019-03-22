@@ -9,61 +9,139 @@ import Toolbar from "@material-ui/core/Toolbar"
 import { Editor } from '@tinymce/tinymce-react'
 import Typography from "@material-ui/core/Typography"
 import {tinyConfig, tinyMceKEY} from "../../consts"
+import {Field, FieldArray, reduxForm, Fields} from 'redux-form'
+import Fab from "@material-ui/core/Fab";
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SwipeView from "../swipe-view";
+import {compose} from "recompose";
+import './add-avto.scss'
+
 
 class AddAvto extends Component {
     state = {
-        value: '',
-    }
-
-    onValueChange = (e) => {
-        this.setState({value: e.target.getContent()})
+        dopInformation: '',
     }
 
     extractContent = (s, space) => {
-        let span = document.createElement('span');
-        span.innerHTML= s;
+        let span = document.createElement('span')
+        span.innerHTML= s
         if(space) {
-            let children= span.querySelectorAll('*');
+            let children= span.querySelectorAll('*')
             for(let i = 0 ; i < children.length ; i++) {
                 if(children[i].textContent)
-                    children[i].textContent+= ' ';
+                    children[i].textContent+= ' '
                 else
-                    children[i].innerText+= ' ';
+                    children[i].innerText+= ' '
             }
         }
         return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
     }
 
-
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        const message =  this.state.value
-        const clearMsg = this.extractContent(this.state.value)
-
-        const project = this.props.project
-
-        const data = {
-            name: clearMsg,
-            webName: message,
-            project: project
-        }
-
-        this.props.onAdd(data)
-        this.setState({value: ''})
+    onValueChange = (e) => {
+        this.setState({dopInformation: e.target.getContent()})
     }
+
+    renderTextArea = () => {
+        return (
+            <div className="wrap-myeditor">
+                <Editor
+                    // apiKey={tinyMceKEY}
+                    initialValue = "Дополнительная информация"
+                    init={ tinyConfig }
+                    onChange={this.onValueChange}
+                />
+            </div>
+        )
+    }
+
+    renderField = ({ input, placeHolder }) => {
+        return(
+            <input {...input} placeholder={placeHolder} className  = "answerInput"/>
+        )
+    }
+
+    renderRows = ({ fields }) => {
+        // console.log(fields)
+        return(
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Модель</th>
+                        <th>Стоимость</th>
+                        <th>Выгода</th>
+                        <th>Условия</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {fields.map((member, index) => (
+                        <tr key={index}>
+                            <td>
+                                <Field
+                                    name={`${member}.name`}
+                                    type="text"
+                                    component={this.renderField}
+                                    placeHolder="Модель"
+                                />
+                            </td>
+                            <td>
+                                <Field
+                                    name={`${member}.cost`}
+                                    type="text"
+                                    component={this.renderField}
+                                    placeHolder="Стоимость"
+                                />
+                            </td>
+                            <td>
+                                <Field
+                                    name={`${member}.benefit`}
+                                    type="text"
+                                    component={this.renderField}
+                                    placeHolder="Выгода"
+                                />
+                            </td>
+                            <td>
+                                <Field
+                                    name={`${member}.conditions`}
+                                    type="text"
+                                    component={this.renderField}
+                                    placeHolder="Условия"
+                                />
+                            </td>
+                            <td >
+                                {index ===  0 ?
+                                    <Fab size="small" color="secondary" aria-label="Add" className="btnRow" onClick={() => fields.push({})}>
+                                        <AddIcon />
+                                    </Fab>:
+                                    <Fab size="small" color="primary" aria-label="Delit" className="btnRow" onClick={() => fields.remove(index)}>
+                                        <DeleteIcon />
+                                    </Fab>}
+
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
+    onSubmit = ( formProps ) => {
+        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )    }
 
     render() {
         const { fullScreen } = this.props;
 
         return (
-            <div>
+            <div >
                 <Dialog
                     fullWidth  = { true }
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className="addForm"
+                    className="addAvto"
 
                 >
                     <AppBar position="static"  style={{background: 'linear-gradient(to right, #dc2430, #7b4397)'}}>
@@ -73,39 +151,18 @@ class AddAvto extends Component {
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    <form className="form">
+                    <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogContent className="form-container">
-                            <Editor
-                                apiKey={tinyMceKEY}
-                                initialValue = {
-                                    `<table style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 25%">Модель</th>
-                                                <th style="width: 25%">Стоимость</th>
-                                                <th style="width: 25%">Выгда</th>
-                                                <th style="width: 25%">Условия</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td/>
-                                                <td/>
-                                                <td/>
-                                                <td/>
-                                            </tr>
-                                        </tbody>
-                                    </table>`
-                                }
-                                init={ tinyConfig }
-                                onChange={this.onValueChange}
-                            />
+                            <SwipeView lables={['Главвная', 'Дополнительно']}>
+                                <FieldArray name="members" component={this.renderRows}/>
+                                {this.renderTextArea()}
+                            </SwipeView>
                         </DialogContent>
                         <DialogActions className="control-buttons">
                             <Button onClick={this.props.onClose}  className="delete">
                                 Отмена
                             </Button>
-                            <Button onClick={this.handleSubmit} className="edit">
+                            <Button type="submit"  className="edit">
                                 Добавить
                             </Button>
                         </DialogActions>
@@ -116,4 +173,4 @@ class AddAvto extends Component {
     }
 }
 
-export default withMobileDialog()(AddAvto);
+export default compose(withMobileDialog(), reduxForm({ form: 'avtoCreate' , enableReinitialize : true, initialValues: {members: [{}]} })) (AddAvto);

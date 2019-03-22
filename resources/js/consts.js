@@ -8,7 +8,7 @@ export const tinyConfig = {
         // 'powerpaste'
     ],
     toolbar: ' bold italic forecolor | align | bullist numlist | table ',
-    language: 'ru',
+    // language: 'ru',
     mobile: {
         theme: 'mobile',
         plugins: [ 'autosave', 'lists', 'autolink' ],

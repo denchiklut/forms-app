@@ -34,7 +34,10 @@ class ListContainer extends Component {
           return {isOpen: !isOpen }
         })
     }
-
+    saveAddAvto = data => {
+        console.log(data)
+        this.closeAddForm()
+    }
     saveAddObject = (data) => {
         this.props.fetchAddObject({name: data.name, value: data})
         this.closeAddForm()
@@ -65,7 +68,7 @@ class ListContainer extends Component {
             case 'avto':
                 return <AddAvto
                             isOpen  = { this.state.isOpen }
-                            onAdd   = { this.saveAddObject }
+                            onAdd   = { this.saveAddAvto }
                             onClose = { this.closeAddForm }
                             project = { this.props.activeProject.value }
                         />

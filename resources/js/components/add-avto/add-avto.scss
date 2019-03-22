@@ -1,0 +1,93 @@
+.addAvto {
+
+    .form {
+
+        .form-container {
+            padding: 0;
+
+            table {
+                width: 100%;
+                overflow-x: auto;
+                border-collapse: collapse;
+
+                thead {
+                    background: #d2d2d2;
+                    box-shadow: 0 2px 3px #0000004a;
+
+                    th {
+                        width: 25%;
+                        padding: 15px;
+                        text-transform: uppercase;
+                        color: #6b6b6b;
+                        text-shadow: 1px 1px 1px #0000001c;
+                        font-weight: bolder;
+                        font-family: sans-serif;
+                    }
+                }
+
+                tr {
+                    td {
+                        text-align: center;
+                        border-bottom: 1px solid #d2d0d0;
+
+                        .answerInput {
+                            width:90%;
+                            margin: 12px auto;
+                            border: 1px solid #dbe2e8;
+                            font-size:14px;
+                            padding: 12px;
+                            border-radius:2px;
+                            color:#636363;
+                            font-family: 'Work Sans,',sans-serif;
+                            box-shadow: 0 2px 2px 0 rgba(46, 60, 73, 0.05);
+                            outline:none;
+                        }
+                    }
+                }
+
+
+            }
+
+            .wrap-myeditor {
+                overflow-x: hidden;
+            }
+
+        }
+
+        .controll-row {
+            text-align: center;
+
+            .btnRow {
+                margin: 8px;
+            }
+        }
+
+        .control-buttons {
+            justify-content: space-between;
+            padding: 14px;
+
+            .delete {
+                background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+                box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+                border: 0;
+                border-radius: 3px;
+                color: white;
+                height: 48px;
+                padding: 0 30px;
+            }
+
+
+            .edit {
+                background: linear-gradient(45deg, #2196F3 30%, #21CBF3 90%);
+                box-shadow: 0 3px 5px 2px rgba(33, 203, 243, .3);
+                border: 0;
+                border-radius: 3px;
+                color: white;
+                height: 48px;
+                padding: 0 30px;
+            }
+        }
+    }
+
+}
+
