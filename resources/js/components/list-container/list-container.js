@@ -37,8 +37,7 @@ class ListContainer extends Component {
     }
 
     saveAddAvto = data => {
-        console.log({name: this.props.activeProject.value, value: data})
-        this.props.fetchAddAvto({name: this.props.activeProject.value, value: data})
+        this.props.fetchAddAvto({name: data.name, value: data})
         this.closeAddForm()
     }
 
@@ -135,7 +134,6 @@ class ListContainer extends Component {
                     ))}
                 </List>
 
-                {Object.keys(this.props.activeProject).length !== 0 ?
                 <Fab
                     aria-label = "Add"
                     className  = "myAdd"
@@ -144,7 +142,7 @@ class ListContainer extends Component {
                     color      = {this.props.type === 'question' ? "secondary" : "primary"}
                 >
                     <AddIcon />
-                </Fab>:null}
+                </Fab>
 
                 { this.state.isOpen ? this.renderAddForm() : null}
             </div>

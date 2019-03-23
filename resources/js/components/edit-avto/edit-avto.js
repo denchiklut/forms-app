@@ -14,11 +14,13 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SwipeView from "../swipe-view";
-import {compose} from "recompose";
-import './add-avto.scss'
+import {connect} from "react-redux"
+import PropTypes from "prop-types"
+import {bindActionCreators} from "redux"
+import {fetchLoad} from "../../actions/edit-avto"
+import './edit-avto.scss'
 
-
-class AddAvto extends Component {
+class EditAvto extends Component {
     state = {
         dopInformation: '',
     }
@@ -140,19 +142,27 @@ class AddAvto extends Component {
     }
 
     onSubmit = ( formProps ) => {
-        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )    }
+
+        const data = {...this.props.editItem, value: {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation}, name: formProps.name}
+
+        this.props.onEdit(data)
+    }
+
+    componentDidMount() {
+        this.props.load(this.props.editItem.value)
+    }
 
     render() {
         const { fullScreen } = this.props;
 
         return (
-            <div >
+            <div>
                 <Dialog
                     fullWidth  = { true }
                     maxWidth   = { false }
                     fullScreen = { fullScreen }
                     open       = { this.props.isOpen }
-                    className="addAvto"
+                    className="editAvto"
 
                 >
                     <AppBar position="static"  style={{background: 'linear-gradient(to right, #dc2430, #7b4397)'}}>
@@ -174,14 +184,31 @@ class AddAvto extends Component {
                                 Отмена
                             </Button>
                             <Button type="submit"  className="edit">
-                                Добавить
+                                Изменить
                             </Button>
                         </DialogActions>
                     </form>
                 </Dialog>
             </div>
-        );
+        )
     }
 }
 
-export default compose(withMobileDialog(), reduxForm({ form: 'avtoCreate' , enableReinitialize : true, initialValues: {members: [{}]} })) (AddAvto);
+const mapStateToProps = state => {
+    return {
+        initialValues: state.editAvto,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({
+        load: fetchLoad,
+    }, dispatch)
+}
+
+
+EditAvto = reduxForm({ form: 'avtoEdit', enableReinitialize : true })( EditAvto )
+EditAvto = connect(mapStateToProps, mapDispatchToProps)(EditAvto)
+EditAvto.propTypes = { fullScreen: PropTypes.bool.isRequired }
+
+export default withMobileDialog()(EditAvto);
