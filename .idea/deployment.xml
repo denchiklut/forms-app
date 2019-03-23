@@ -11,14 +11,15 @@
             <excludedPath path="/bootstrap" />
             <excludedPath path="/config" />
             <excludedPath path="/database" />
+            <excludedPath path="/docker" />
             <excludedPath path="/node_modules" />
             <excludedPath path="/public" />
             <excludedPath path="/storage" />
             <excludedPath path="/tests" />
             <excludedPath path="/v8-compile-cache-0" />
             <excludedPath path="/vendor" />
-            <excludedPath path="/.editorconfig" />
             <excludedPath path="/.babelrc" />
+            <excludedPath path="/.editorconfig" />
             <excludedPath path="/.env" />
             <excludedPath path="/.env.example" />
             <excludedPath path="/.gitattributes" />
@@ -27,15 +28,14 @@
             <excludedPath path="/composer.json" />
             <excludedPath path="/composer.lock" />
             <excludedPath path="/config.json" />
-            <excludedPath path="/daleksandrov.pem" />
             <excludedPath path="/docker_build.sh" />
             <excludedPath path="/Dockerfile" />
             <excludedPath path="/package-lock.json" />
+            <excludedPath path="/package.json" />
             <excludedPath path="/phpunit.xml" />
             <excludedPath path="/readme.md" />
             <excludedPath path="/server.php" />
             <excludedPath path="/webpack.mix.js" />
-            <excludedPath path="/docker" />
           </excludedPaths>
         </serverdata>
       </paths>

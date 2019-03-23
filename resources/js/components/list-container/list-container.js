@@ -41,6 +41,7 @@ class ListContainer extends Component {
         this.props.fetchAddAvto({name: this.props.activeProject.value, value: data})
         this.closeAddForm()
     }
+
     saveAddObject = (data) => {
         this.props.fetchAddObject({name: data.name, value: data})
         this.closeAddForm()
@@ -103,7 +104,7 @@ class ListContainer extends Component {
     render() {
         if ( this.props.items.length === 0 ) return this.renderEmtyList()
 
-        const {type, nodes, selectQuestion, fetchDeleteObject, fetchDeleteQuestion, editQuestion, activeQuestion} = this.props
+        const {type, nodes, selectQuestion, fetchDeleteObject, fetchDeleteQuestion, editQuestion, activeQuestion, fetchDeleteAvto} = this.props
         return (
             <div className="myList">
                 <List component="nav" style={{paddingTop: 0}}>
@@ -121,10 +122,11 @@ class ListContainer extends Component {
                                 item          = { item }
                                 type          = { type }
                                 nodes         = { nodes }
+                                editQuestion  = { editQuestion }
                                 select        = { selectQuestion }
+                                delAvto       = { fetchDeleteAvto }
                                 delObject     = { fetchDeleteObject }
                                 delQuestion   = { fetchDeleteQuestion }
-                                editQuestion  = { editQuestion }
                                 selectedIndex = { activeQuestion._id }
                             />
                             <Divider />
@@ -133,6 +135,7 @@ class ListContainer extends Component {
                     ))}
                 </List>
 
+                {Object.keys(this.props.activeProject).length !== 0 ?
                 <Fab
                     aria-label = "Add"
                     className  = "myAdd"
@@ -141,7 +144,7 @@ class ListContainer extends Component {
                     color      = {this.props.type === 'question' ? "secondary" : "primary"}
                 >
                     <AddIcon />
-                </Fab>
+                </Fab>:null}
 
                 { this.state.isOpen ? this.renderAddForm() : null}
             </div>

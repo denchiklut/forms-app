@@ -14,12 +14,14 @@ import SwipeView from "../swipe-view"
 import HeaderBar from "../header-bar"
 import GrafD3 from '../graf-d3'
 import './main-page.scss'
+import {fetchAvto} from "../../actions/avto";
 
 class MainPage extends Component {
 
     componentDidMount() {
         this.props.fetchObjects()
         this.props.fetchProjects()
+        this.props.fetchAvto()
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -48,7 +50,7 @@ class MainPage extends Component {
                             <SwipeView lables={['Вопросы', 'Жк', 'Авто']}>
                                 <ListContainer items={this.props.questions} type="question" />
                                 <ListContainer items={this.props.objects} type="object" />
-                                <ListContainer items={this.props.objects} type="avto" />
+                                <ListContainer items={this.props.avto} type="avto" />
                             </SwipeView>
                         </Grid>
                         <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
@@ -70,11 +72,11 @@ class MainPage extends Component {
 }
 
 
-const  mapStateToProps = ({projects, questions, objects, activeProject, nodes}) => {
-    return { projects, questions, objects, activeProject, nodes }
+const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto}) => {
+    return { projects, questions, objects, activeProject, nodes, avto }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions, fetchAvto}, dispatch)
 
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,

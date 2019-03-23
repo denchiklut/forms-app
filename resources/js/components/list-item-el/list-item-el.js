@@ -88,6 +88,8 @@ class ListItemEl extends Component {
             case "object":
                 this.props.delObject(item)
                 break
+            case "avto":
+                this.props.delAvto(item)
         }
 
     }

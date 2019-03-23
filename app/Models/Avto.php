@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
-class Avto extends Model
+
+class Avto extends Eloquent
 {
     protected $table = 'avto';
     protected $guarded = ['id'];

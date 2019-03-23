@@ -15,7 +15,7 @@ class AvtoController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Avto::all());
     }
 
     /**
@@ -76,7 +76,14 @@ class AvtoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $avto = Avto::find($id);
+
+        $avto->update([
+            'name'  => $request->input('name'),
+            'value' => $request->input('value'),
+        ]);
+
+        return response()->json(['message' => 'avto updated successful'.$request->input('name')]);
     }
 
     /**
@@ -87,6 +94,7 @@ class AvtoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Avto::destroy($id);
+        return response()->json(['message' => 'Avto deleted successfully']);
     }
 }
