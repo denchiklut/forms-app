@@ -51,7 +51,7 @@ class EditAvto extends Component {
             <div className="wrap-myeditor">
                 <Editor
                     // apiKey={tinyMceKEY}
-                    initialValue = "Дополнительная информация"
+                    initialValue = {`<p>${this.props.initialValues.webDopInformation}</p>`}
                     init={ tinyConfig }
                     onChange={this.onValueChange}
                 />
