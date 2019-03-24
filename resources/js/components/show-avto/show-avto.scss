@@ -7,10 +7,10 @@
 
     .avtoInfo {
         padding: 0;
+        overflow-x: auto;
 
         table {
             width: 100%;
-            min-width: 1000px;
             border-collapse: collapse;
 
             thead {
@@ -47,7 +47,6 @@
         background: #27221f;
         color: #fff;
         padding: 15px;
-        height: 100%;
 
         pre {
             white-space: pre-wrap;

@@ -206,18 +206,19 @@ class GrafD3 extends Component {
                             type:     data.addQst.type,
                             objData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren]})
+                            children: [...oldChildren]
+                        })
                 } else if (data.addQst.type === "avto") {
                     newData.children.push(
                         {
                             name:     data.addQst.value.substr(0, 11),
                             value:    data.addQst.value,
                             idd:      data.addQst._id,
+                            unique:   uuid.v4(),
                             type:     data.addQst.type,
                             avtData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: []
+                            children: [...oldChildren]
                         })
                 }  else {
                     newData.children.push(
