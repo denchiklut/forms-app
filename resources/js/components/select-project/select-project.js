@@ -204,7 +204,15 @@ class SelectProject extends Component {
                 label: suggestion.name,
                 data: suggestion.value,
                 type: "objects"
-            }));
+            }))
+        } else if (this.props.type === "avto") {
+            suggestions = this.props.items.map(suggestion => ({
+                _id: suggestion._id,
+                value: suggestion.name,
+                label: suggestion.name,
+                data: suggestion.value,
+                type: "avto"
+            }))
         } else if (this.props.type === "questions") {
             suggestions = this.props.items.map(suggestion => ({
                 _id: suggestion._id,
@@ -212,14 +220,14 @@ class SelectProject extends Component {
                 value: suggestion.name,
                 webValue:  suggestion.webName,
                 label: suggestion.name,
-            }));
+            }))
         } else {
             suggestions = this.props.items.map(suggestion => ({
                 _id: suggestion._id,
                 type: "projects",
                 value: suggestion.name,
                 label: suggestion.name,
-            }));
+            }))
         }
 
 

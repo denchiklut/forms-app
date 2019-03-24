@@ -63,6 +63,7 @@ class GrafAddForm extends Component {
     }
 
     addFromSelect = (item) => {
+        console.log(item)
         this.setState({addQst: item})
     }
 
@@ -98,6 +99,7 @@ class GrafAddForm extends Component {
                                 >
                                     <Tab label="Вопрос" />
                                     <Tab label="Объект" />
+                                    <Tab label="Авто" />
                                 </Tabs>
                             </AppBar>
                             <SwipeableViews
@@ -149,8 +151,28 @@ class GrafAddForm extends Component {
                                                 items      = { this.props.objects }
                                             />
                                         </div>
+                                    </div>
+                                </TabContainer>
 
+                                <TabContainer dir="ltr">
+                                    <div style={{width: '80%', margin: '20px auto 0'}}>
+                                        <input
+                                            required
+                                            type        = "text"
+                                            className   = "answerInput"
+                                            placeholder = "Добавить ответ"
+                                            onChange    = { this.setAnswer }
+                                            value       = { this.state.answer }
+                                        />
 
+                                        <div style={{width: '80%', margin: '0 auto 150px'}}>
+                                            <SelectProject
+                                                type       = "avto"
+                                                className  = "grafFormSelect"
+                                                selectItem = { this.addFromSelect }
+                                                items      = { this.props.avto }
+                                            />
+                                        </div>
                                     </div>
                                 </TabContainer>
                             </SwipeableViews>

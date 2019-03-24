@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Avto;
 use App\Models\Node;
 use App\Models\Objects;
 use App\Models\Question;
@@ -83,6 +84,11 @@ class NodeController extends Controller
                         $newData["value"] =  Objects::where('_id',$newData["idd"])->value('name');
                         $newData["name"]  =  mb_strimwidth(Objects::where('_id',$newData["idd"])->value('name'), 0 ,11);
                         $newData["objData"] =  Objects::where('_id',$newData["idd"])->value('value');
+                        break;
+                    case "avto":
+                        $newData["value"] =  Avto::where('_id',$newData["idd"])->value('name');
+                        $newData["name"]  =  mb_strimwidth(Avto::where('_id',$newData["idd"])->value('name'), 0 ,11);
+                        $newData["avtData"] =  Avto::where('_id',$newData["idd"])->value('value');
                         break;
                 }
             }

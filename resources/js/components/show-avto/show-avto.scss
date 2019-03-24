@@ -1,0 +1,62 @@
+.showObjToolBar {
+    justify-content: space-between;
+}
+
+.showAvtoContainer {
+    padding: 0!important;
+
+    .avtoInfo {
+        padding: 0;
+
+        table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+
+            thead {
+                background: #27221f;
+                color: white;
+                box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+
+                th {
+                    padding: 12px;
+                }
+            }
+
+            tbody {
+                tr {
+                    td {
+                        padding: 8px;
+                    }
+                }
+                tr:hover {
+                    background: #27221f85!important;
+                    cursor: pointer;
+                    color: white;
+                }
+
+                tr:nth-child(2n) {
+                    background-color: #fbe5e5;
+                }
+            }
+        }
+    }
+
+    .dopInfo {
+        text-align: left;
+        background: #27221f;
+        color: #fff;
+        padding: 15px;
+        height: 100%;
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    }
+}
+
+
+
+
+

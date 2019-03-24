@@ -135,6 +135,18 @@ class GrafD3 extends Component {
                             unique:   uuid.v4(),
                             children: []
                         })
+                } else if (data.addQst.type === "avto") {
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            avtData:  data.addQst.data,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
+                            unique:   uuid.v4(),
+                            children: []
+                        })
                 } else {
                     newData.children.push(
                         {
@@ -195,7 +207,19 @@ class GrafD3 extends Component {
                             objData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
                             children: [...oldChildren]})
-                } else {
+                } else if (data.addQst.type === "avto") {
+                    newData.children.push(
+                        {
+                            name:     data.addQst.value.substr(0, 11),
+                            value:    data.addQst.value,
+                            idd:      data.addQst._id,
+                            type:     data.addQst.type,
+                            avtData:  data.addQst.data,
+                            answer:   searched.idd === 0 ? 'start' : data.answer,
+                            unique:   uuid.v4(),
+                            children: []
+                        })
+                }  else {
                     newData.children.push(
                         {
                             name:     data.addQst.value.substr(0, 11),
@@ -497,6 +521,7 @@ class GrafD3 extends Component {
                         answers    = { this.props.nodes }
                         isOpen     = { this.state.isOpen }
                         objects    = { this.props.objects }
+                        avto       = { this.props.avto }
                         questions  = { this.props.questions }
                         onClose    = { this.closeAddNodeForm }
                         currentQst = { this.state.selected.idd }

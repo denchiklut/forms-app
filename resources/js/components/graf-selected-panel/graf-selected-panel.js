@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar"
 
 import ShowObject from '../show-object'
+import ShowAvto from '../show-avto'
 import EmptySelectedPanel from '../empty-selected-panel'
 import GrafEditForm from "../graf-edit-form";
 import './graf-selected-panel.scss'
@@ -65,7 +66,7 @@ class GrafSelectedPanel extends Component {
                             </IconButton>
                         }
                         title= {selected.type === "questions" ? `${selected.value.substr(0, 50)}` :
-                            selected.type === "objects" ?
+                            selected.type === "objects" || "avto" ?
                                 <Button
                                     size    = "small"
                                     color   = "primary"
@@ -86,12 +87,17 @@ class GrafSelectedPanel extends Component {
                         null}
                 </Card>
                 {this.state.isOpen ?
+                    selected.type === "objects" ?
                     <ShowObject
                         item    = { selected.objData }
                         isOpen  = { this.state.isOpen }
                         onClose = { this.closeObjectShow }
                     />:
-                    null}
+                    <ShowAvto
+                        item    = { selected.avtData }
+                        isOpen  = { this.state.isOpen }
+                        onClose = { this.closeObjectShow }
+                    />:  null}
 
                 {this.state.isOpenEdit ?
                     <GrafEditForm

@@ -30,14 +30,14 @@ class MainPage extends Component {
             this.props.fetchNodes(this.props.activeProject.value)
         }
 
-        if (this.props.questions !== prevProps.questions || this.props.objects !== prevProps.objects) {
+        if (this.props.questions !== prevProps.questions || this.props.objects !== prevProps.objects || this.props.avto !== prevProps.avto) {
             this.props.fetchNodes(this.props.activeProject.value)
         }
 
     }
 
     render() {
-        const {nodes, onAddNode, questions, objects, onRemoveNode, activeProject, } = this.props
+        const {nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, } = this.props
         return (
             <>
                 <HeaderBar
@@ -59,6 +59,7 @@ class MainPage extends Component {
                                 onAddNode     = { onAddNode }
                                 questions     = { questions }
                                 objects       = { objects }
+                                avto          = { avto }
                                 removeNode    = { onRemoveNode }
                                 project       = { activeProject }
                                 activeProject = { activeProject }
@@ -81,6 +82,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, select
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,
     questions:      PropTypes.array.isRequired,
+    avto:           PropTypes.array.isRequired,
     fetchQuestions: PropTypes.func.isRequired,
 };
 
