@@ -55,7 +55,7 @@ class ResultAvto extends Component {
                 ))}
 
                 <TableRow>
-                    <TableCell component="td" scope="row">
+                    <TableCell component="td" colSpan={4} scope="row">
                         <Button color="primary" onClick={() => this.handleClickOpen(item)}>
                             Дополнительная информация
                         </Button>
