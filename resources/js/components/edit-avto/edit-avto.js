@@ -50,7 +50,7 @@ class EditAvto extends Component {
         return (
             <div className="wrap-myeditor">
                 <Editor
-                    // apiKey={tinyMceKEY}
+                    apiKey={tinyMceKEY}
                     initialValue = {`<p>${this.props.initialValues.webDopInformation}</p>`}
                     init={ tinyConfig }
                     onChange={this.onValueChange}
@@ -143,7 +143,16 @@ class EditAvto extends Component {
 
     onSubmit = ( formProps ) => {
 
-        const data = {...this.props.editItem, value: {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation}, name: formProps.name}
+        const data = {
+            ...this.props.editItem,
+            value:
+                {
+                    ...formProps,
+                    dopInformation: this.state.dopInformation !== '' ? this.extractContent(this.state.dopInformation) : this.props.initialValues.dopInformation,
+                    webDopInformation: this.state.dopInformation !== '' ? this.state.dopInformation : this.props.initialValues.webDopInformation
+                },
+            name: formProps.name
+        }
 
         this.props.onEdit(data)
     }
