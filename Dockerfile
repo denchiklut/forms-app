@@ -45,8 +45,8 @@ RUN chown www-data:www-data . -R
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get ${APT_FLAGS_PERSISTENT} -y install npm
 RUN npm install
-RUN npm run dev
-RUN composer install --ignore-platform-reqs
+
+RUN composer install
 
 # Cleanup
 
