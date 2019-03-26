@@ -2,6 +2,9 @@ import React, {Component} from 'react'
 import uuid from "uuid"
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux"
+import Fab from "@material-ui/core/Fab"
+import {Link} from "react-router-dom"
+import Cached from '@material-ui/icons/Cached'
 
 import {fetchProjects, selectProject} from "../../actions/projects"
 import {signIn, signOut} from '../../actions/auth/google'
@@ -10,6 +13,7 @@ import {fetchNodes} from "../../actions/graf/nodes"
 import ResultItem from './result-item'
 import HeaderBar from '../header-bar'
 import './result-form.scss'
+
 
 class ResultForm extends Component {
 
@@ -95,6 +99,21 @@ class ResultForm extends Component {
                     />: null}
 
                 <div className = "ResultForm">
+
+                    <Link to={`/play/${this.props.activeProject.value ? this.props.activeProject.value : this.props.match.params.project}`}
+                          style={{textDecoration: "none", color: "white"}}
+                          className="myLink"
+                          onClick={() => window.location.reload() }>
+                        <Fab
+                            color="secondary"
+                            size="small"
+                            aria-label="Play"
+                            className="grafToolBarBtm"
+                        >
+                            <Cached fontSize="small" />
+                        </Fab>
+                    </Link>
+
                     {questionList.length !== 0 ? questionList.map(item =>
                         <ResultItem
                             item         = { item }
