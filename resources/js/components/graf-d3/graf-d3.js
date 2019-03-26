@@ -435,8 +435,6 @@ class GrafD3 extends Component {
     render() {
 
         const actions = [
-            { icon: <AddIcon      onClick = { this.openAddNodeForm }  />,  name: 'Add' },
-            { icon: <DeleteIcon   onClick = { this.removeNode } />,        name: 'Delete' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
         ]
@@ -474,8 +472,8 @@ class GrafD3 extends Component {
                                 onBlur       = { this.handleClose }
                                 onClose      = { this.handleClose }
                                 onMouseLeave = { this.handleClose }
-                                icon         = { <SpeedDialIcon openIcon={<EditIcon />} /> }
-                                style        = {{ transform: 'scale(0.73)', marginRight: '-36px' }}
+                                icon         = { <EditIcon /> }
+                                style        = {{ transform: 'scale(0.73)', marginRight: '-16px' }}
                             >
                                 {actions.map(action => (
                                     <SpeedDialAction
@@ -486,6 +484,26 @@ class GrafD3 extends Component {
                                     />
                                 ))}
                             </SpeedDial>
+
+                            <Fab
+                                color="secondary"
+                                size="small"
+                                aria-label="Delete"
+                                className="grafToolBarBtm"
+                                onClick = { this.removeNode }
+                            >
+                                <DeleteIcon />
+                            </Fab>
+
+                            <Fab
+                                color="secondary"
+                                size="small"
+                                aria-label="Add"
+                                className="grafToolBarBtm"
+                                onClick = { this.openAddNodeForm }
+                            >
+                                <AddIcon />
+                            </Fab>
 
                             <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
                                 <Fab
