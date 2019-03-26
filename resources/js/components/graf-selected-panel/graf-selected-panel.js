@@ -48,7 +48,7 @@ class GrafSelectedPanel extends Component {
         const { selected } = this.props
         if (!selected) return <EmptySelectedPanel />
 
-        const children = selected.children ? selected.children.map(item => <li key={item.idd}>{item.answer}: {item.name}</li> ) : null
+        const children = selected.children ? selected.children.map(item => <li key={item.answer}>{item.answer}: {item.name}</li> ) : null
         return(
             <div>
                 <Card className="btmCard" style={{position: 'absolute', bottom: '-64px', width: '100%', boxShadow: '-1px -4px 5px -2px #00000066'}}>
