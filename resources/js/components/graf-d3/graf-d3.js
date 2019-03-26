@@ -81,6 +81,8 @@ class GrafD3 extends Component {
                 unique: uuid.v4(),
                 project: { _id: this.props.project._id, name: this.props.project.value },
                 name: 'Start',
+                type: 'start',
+                value: 'Start',
                 answer: 'Start',
                 children: [],
             }})
