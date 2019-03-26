@@ -140,7 +140,12 @@ class AddAvto extends Component {
     }
 
     onSubmit = ( formProps ) => {
-        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )    }
+        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )
+    }
+
+    componentDidMount() {
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
+    }
 
     render() {
         const { fullScreen } = this.props;
@@ -164,7 +169,7 @@ class AddAvto extends Component {
                     </AppBar>
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogContent className="form-container">
-                            <SwipeView lables={['Главвная', 'Дополнительно']}>
+                            <SwipeView lables={['Главная', 'Дополнительно']}>
                                 <FieldArray name="members" component={this.renderRows}/>
                                 {this.renderTextArea()}
                             </SwipeView>

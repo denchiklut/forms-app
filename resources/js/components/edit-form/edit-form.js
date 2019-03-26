@@ -48,6 +48,7 @@ class EditFormDialog extends Component {
 
     componentDidMount() {
         this.setState({value: this.props.editItem.webName})
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
     }
 
     render() {

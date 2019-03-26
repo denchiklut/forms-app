@@ -159,6 +159,7 @@ class EditAvto extends Component {
 
     componentDidMount() {
         this.props.load(this.props.editItem.value)
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
     }
 
     render() {
@@ -177,13 +178,13 @@ class EditAvto extends Component {
                     <AppBar position="static"  style={{background: 'linear-gradient(to right, #dc2430, #7b4397)'}}>
                         <Toolbar>
                             <Typography variant="h6" color="inherit">
-                                Добавление авто
+                                Редактирование авто
                             </Typography>
                         </Toolbar>
                     </AppBar>
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogContent className="form-container">
-                            <SwipeView lables={['Главвная', 'Дополнительно']}>
+                            <SwipeView lables={['Главная', 'Дополнительно']}>
                                 <FieldArray name="members" component={this.renderRows}/>
                                 {this.renderTextArea()}
                             </SwipeView>

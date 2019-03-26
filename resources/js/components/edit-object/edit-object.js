@@ -86,6 +86,7 @@ class EditObject extends Component {
 
     componentDidMount() {
         this.props.load(this.props.editItem.value)
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
     }
 
     render() {

@@ -70,6 +70,10 @@ class AddObject extends Component {
         )
     }
 
+    componentDidMount() {
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
+    }
+
     render() {
         const { fullScreen } = this.props;
 
@@ -95,7 +99,7 @@ class AddObject extends Component {
                     <form className="form" onSubmit={this.props.handleSubmit(this.onSubmit)}>
                         <DialogContent className="form-container">
 
-                            <SwipeView lables={['Главная', 'Дполнительно']}>
+                            <SwipeView lables={['Главная', 'Дополнительно']}>
                                 <Grid container spacing={0}>
                                     <Grid item xs={12} sm={6} style={{paddingBottom: 0}}>
                                         <Field name="name"     component = { this.renderInput } placeHolder="Название" />

@@ -14,10 +14,11 @@ import './add-form.scss'
 class AddForm extends Component {
 
     state = {
-        value: '',
+        value: '<p>Добавьте вопрос</p>',
     }
 
     onValueChange = (e) => {
+        console.log(e.target.getContent())
         this.setState({value: e.target.getContent()})
     }
 
@@ -36,8 +37,6 @@ class AddForm extends Component {
         return [span.textContent || span.innerText].toString().replace(/ +/g,' ');
     }
 
-
-
     handleSubmit = (e) => {
         e.preventDefault();
         const message =  this.state.value
@@ -53,6 +52,11 @@ class AddForm extends Component {
 
         this.props.onAdd(data)
         this.setState({value: ''})
+    }
+
+
+    componentDidMount() {
+        setTimeout(() => document.querySelectorAll('[tabindex="-1"]').forEach(item => item.removeAttribute('tabindex')), 1000)
     }
 
     render() {
@@ -79,7 +83,8 @@ class AddForm extends Component {
                         <DialogContent className="form-container">
                             <Editor
                                 // apiKey={tinyMceKEY}
-                                initialValue = "Добавьте вопрос"
+                                cloudChannel='dev'
+                                value = {this.state.value}
                                 init={ tinyConfig }
                                 onChange={this.onValueChange}
                             />

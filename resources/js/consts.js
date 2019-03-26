@@ -4,15 +4,15 @@ export const tinyConfig = {
     plugins: [
         'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
         'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
-        'toc insertdatetime advlist lists wordcount imagetools textpattern ',
+        'toc insertdatetime advlist lists wordcount imagetools textpattern autoresize',
         // 'powerpaste'
     ],
-    toolbar: ' bold italic forecolor | align | bullist numlist | table ',
-    // language: 'ru',
+    toolbar: 'forecolor bold| align | bullist numlist | table ',
+    language: 'ru',
     mobile: {
         theme: 'mobile',
         plugins: [ 'autosave', 'lists', 'autolink' ],
         toolbar: [ 'undo', 'bold', 'italic', 'styleselect' , 'forecolor']
     },
-    // table_appearance_options: false
+    min_height: 350
 }
