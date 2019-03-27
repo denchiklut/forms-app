@@ -2,22 +2,22 @@
     position: relative;
     height: calc(100vh - 64px - 48px);
     border-right: 1px solid #0e0e0e24;
-    background: #69696940;
+    background: #29282891;
     padding-bottom: 0;
     margin-bottom: 0;
 
     .questionItem {
         color: #111;
-        background: linear-gradient(to left, #ff818169, #ffd9b2);
+        background: linear-gradient(to left, #e7b5b3, #ffd9b2);
         box-shadow: 0 0 3px -1px #d82d4573;
-        margin: 1px 0;
+        margin: 0;
     }
 
     .objectItem {
         color: #111;
         background: linear-gradient(to right, #e5a3fb, #f9b0b0);
         box-shadow: 0 0 3px -1px #d82d4573;
-        margin: 1px 0;
+        margin: 0;
     }
 
     .myAdd {

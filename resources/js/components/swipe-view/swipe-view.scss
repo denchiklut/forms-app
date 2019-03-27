@@ -1,0 +1,10 @@
+.myTabs {
+    background: #545454;
+    color: white;
+}
+
+@media (min-width: 960px) {
+    .myTab {
+        min-width: 100px!important;
+    }
+}

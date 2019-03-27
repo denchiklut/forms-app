@@ -14,7 +14,7 @@ const EmptyList = () => (
             <Grid item xs={12}>
                 <div className="noMsgContainer">
                     <div className="noList" >
-                        <h1 className="noMsg">There is nothing yet </h1>
+                        <h2 className="noMsg">There is nothing yet </h2>
                     </div>
                 </div>
             </Grid>

@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar"
 import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import SwipeableViews from 'react-swipeable-views'
+import './swipe-view.scss'
 
 
 class SwipeView extends Component {
@@ -13,16 +14,15 @@ class SwipeView extends Component {
     render() {
         return (
             <div>
-                <AppBar position="static" color="default">
+                <AppBar position="static" color="default" >
                     <Tabs
-                        indicatorColor = "primary"
-                        textColor      = "primary"
-                        variant        = "fullWidth"
+                        className="myTabs"
+                        centered
                         value          = { this.state.value }
                         onChange       = { (e, value) => this.setState({value}) }
                     >
                         {this.props.lables.map(item => (
-                            <Tab key={item} label={item} />
+                            <Tab key={item} label={item} className='myTab'/>
                         ))}
                     </Tabs>
                 </AppBar>
