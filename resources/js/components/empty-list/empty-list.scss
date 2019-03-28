@@ -4,26 +4,12 @@
         border-right: 1px solid #0e0e0e24;
         background: #29282891;
 
-        .noMsgContainer {
-            width: 70%;
-            margin: auto;
-
-            .noList {
-                position: relative;
-                width: 100%;
-                padding-top: 100%;
-                display: flex;
-                margin: auto;
-                align-items: center;
-
-                .noIcon {
-                    position: absolute;
-                    top: 35%;
-                    width: 100%;
-                    color: white;
-                    font-size: 165px;
-                }
-            }
+        .noIcon {
+            position: absolute;
+            top: 35%;
+            width: 100%;
+            color: white;
+            font-size: 165px;
         }
     }
 }

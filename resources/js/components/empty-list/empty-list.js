@@ -13,11 +13,7 @@ const EmptyList = () => (
             className="empty-grid"
         >
             <Grid item xs={12}>
-                <div className="noMsgContainer">
-                    <div className="noList" >
-                        <History className="noIcon"/>
-                    </div>
-                </div>
+                <History className="noIcon"/>
             </Grid>
         </Grid>
     </div>

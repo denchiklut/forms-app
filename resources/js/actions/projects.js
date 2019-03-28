@@ -1,3 +1,6 @@
+import axios from "axios";
+import {SET_OBJECTS} from "./objects";
+
 export const SET_PTOJECTS ="SET_PTOJECTS"
 export const PROJECT_SELECTED ="PROJECT_SELECTED"
 
@@ -48,3 +51,8 @@ export function fetchProjects() {
 
     return dispatch => dispatch(setProjects(testData))
 }
+
+// export const fetchProjects = () => async dispatch => {
+//     const result = await axios.get(`https://lk.reffection.com/api/project/list`)
+//     dispatch({ type: SET_OBJECTS, payload: result.data })
+// }
