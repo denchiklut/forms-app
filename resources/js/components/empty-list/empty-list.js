@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
+import History from '@material-ui/icons/History'
 import './empty-list.scss'
 
 const EmptyList = () => (
@@ -14,7 +15,7 @@ const EmptyList = () => (
             <Grid item xs={12}>
                 <div className="noMsgContainer">
                     <div className="noList" >
-                        <h2 className="noMsg">There is nothing yet </h2>
+                        <History className="noIcon"/>
                     </div>
                 </div>
             </Grid>

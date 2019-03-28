@@ -9,23 +9,19 @@
             margin: auto;
 
             .noList {
-                background: linear-gradient(to right, #d25555ad, #979eafd1);
                 position: relative;
                 width: 100%;
                 padding-top: 100%;
                 display: flex;
                 margin: auto;
                 align-items: center;
-                border-radius: 50%;
-                box-shadow: 1px 2px 20px -1px #364056;
 
-                .noMsg {
+                .noIcon {
                     position: absolute;
-                    top: 40%;
-                    text-align: center;
+                    top: 35%;
                     width: 100%;
                     color: white;
-                    font-family: cursive;
+                    font-size: 165px;
                 }
             }
         }

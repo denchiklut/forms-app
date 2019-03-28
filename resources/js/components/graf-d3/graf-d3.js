@@ -7,18 +7,19 @@ import AddIcon from '@material-ui/icons/Add'
 import DeleteIcon from '@material-ui/icons/Delete'
 import PlayArrow from '@material-ui/icons/PlayArrow'
 import Chip from "@material-ui/core/Chip"
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import EditIcon from '@material-ui/icons/Edit';
-import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
-import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
-import Hidden from '@material-ui/core/Hidden';
-import { Link } from 'react-router-dom';
+import SpeedDial from '@material-ui/lab/SpeedDial'
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
+import EditIcon from '@material-ui/icons/Edit'
+import FileCopyIcon from '@material-ui/icons/FileCopyOutlined'
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
+import Hidden from '@material-ui/core/Hidden'
+import { Link } from 'react-router-dom'
 import uuid from "uuid"
 
 import GrafAddForm from "../garf-add-form"
 import AppBar from '@material-ui/core/AppBar'
 import GrafSelectedPanel from '../graf-selected-panel'
+import EmptyGraf from "../empty-graf"
 import './graf-3d.scss'
 
 const svgStyle = {
@@ -443,9 +444,7 @@ class GrafD3 extends Component {
         const { hidden, open } = this.state
 
         if (Object.keys(this.props.activeProject).length === 0 )  {
-            return (
-                <div><h1 style={{paddingLeft: 15, color: '#7b7b7b'}}>Select Project</h1></div>
-            )
+            return <EmptyGraf />
         }
 
         return (

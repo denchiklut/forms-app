@@ -53,7 +53,7 @@ class MainPage extends Component {
                                 <ListContainer items={this.props.avto} type="avto" />
                             </SwipeView>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0}}>
+                        <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0, background: '#828282'}}>
                             <GrafD3
                                 grafNodes     = { nodes }
                                 onAddNode     = { onAddNode }
