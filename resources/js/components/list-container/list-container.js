@@ -9,6 +9,7 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
+import SearchIcon from '@material-ui/icons/Search'
 
 import {fetchAddAvto, fetchDeleteAvto} from "../../actions/avto"
 import {fetchAddObject, fetchDeleteObject} from "../../actions/objects"
@@ -20,10 +21,15 @@ import AddAvto  from '../add-avto'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
 import './list-container.scss'
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import InputBase from "@material-ui/core/InputBase";
 
 class ListContainer extends Component {
     state = {
-        isOpen: false
+        isOpen: false,
+        term: '',
+        items: [],
     }
 
     handleClickOpen = () => {
@@ -79,35 +85,54 @@ class ListContainer extends Component {
         }
     }
 
-    renderEmtyList = () => (
-        <div style={{position: "relative"}}>
-            <EmptyList />
-            {Object.keys(this.props.activeProject).length !== 0 ?
-                <Fab
-                    style={{position: 'absolute', bottom: '15px', right: '15px'}}
-                    aria-label = "Add"
-                    className  = "myAdd"
-                    size       = "medium"
-                    onClick    = { this.handleClickOpen }
-                    color      = { this.props.type === 'question' ? "secondary" : "primary"}
-                >
-                    <AddIcon />
-                </Fab>: null
-            }
+    renderEmtyList = () => {
+        return (
+            <div style={{position: "relative"}}>
+                <EmptyList />
+                {Object.keys(this.props.activeProject).length !== 0 ?
+                    <Fab
+                        style={{position: 'absolute', bottom: '15px', right: '15px'}}
+                        aria-label = "Add"
+                        className  = "myAdd"
+                        size       = "medium"
+                        onClick    = { this.handleClickOpen }
+                        color      = { this.props.type === 'question' ? "secondary" : "primary"}
+                    >
+                        <AddIcon />
+                    </Fab>: null
+                }
 
-            { this.state.isOpen ? this.renderAddForm() : null}
+                { this.state.isOpen ? this.renderAddForm() : null}
 
-        </div>
-    )
+            </div>
+        )
+    }
 
     render() {
         if ( this.props.items.length === 0 ) return this.renderEmtyList()
 
+        const filtered = this.props.items.filter((item) => item.name.toLowerCase().indexOf(this.state.term.toLowerCase()) !== -1)
         const {type, nodes, selectQuestion, fetchDeleteObject, fetchDeleteQuestion, editQuestion, activeQuestion, fetchDeleteAvto} = this.props
+
         return (
             <div className="myList">
                 <List component="nav" style={{paddingTop: 0}}>
-                    {this.props.items.map((item) => (
+                    <AppBar position="static">
+                        <Toolbar className="searchWrp">
+                            <div className="searchCnt">
+                                <div className="searchIcn">
+                                    <SearchIcon />
+                                </div>
+                                <InputBase
+                                    className="searchInp"
+                                    placeholder="Search…"
+                                    value={this.state.term}
+                                    onChange={(e) => this.setState({term: e.target.value})}
+                                />
+                            </div>
+                        </Toolbar>
+                    </AppBar>
+                    {filtered.map((item) => (
                         <Grow
                             in={true}
                             style={{ transformOrigin: '0 0 0' }}
