@@ -13,20 +13,24 @@ const renderQuestion = (item, currentChild, onNext) => {
         return { __html: rawMarkup };
     }
 
+    const onClick = (item, lastObj, fnode) => {
+        onNext(item, lastObj, fnode)
+    }
+
     return  (
         <div>
             <span dangerouslySetInnerHTML={rawMarkup()} />
-            {item.answers.map(item =>
+            {item.answers.map(el =>
                 <Button
-                    key={item}
+                    key={el}
                     size="small"
                     color="primary"
                     variant="outlined"
                     aria-label=" answer"
                     style={{margin: "5px", padding: "0 10px"}}
-                    onClick={() => onNext (item, currentChild)}
+                    onClick={() => onClick(el, currentChild, item)}
                 >
-                    {item}
+                    {el}
                 </Button>
             )}
         </div>

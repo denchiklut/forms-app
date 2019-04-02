@@ -23,7 +23,38 @@ class ResultForm extends Component {
         kaskad: [],
     }
 
-    findNodes = (answer, newData) => {
+    findNodes = (answer, newData, clickedNode) => {
+        let idx =null
+
+        if (clickedNode) console.log(clickedNode.value)
+        if (this.state.questionList.length !== 0) {
+
+            if (this.state.questionList[this.state.questionList.length - 1].value !== clickedNode.value) {
+                console.log("***", clickedNode.value)
+                console.log("***", newData.value)
+
+                this.state.questionList.filter((item, index) => {
+                    if (item.value === clickedNode.value)  {
+                        console.log(clickedNode.value, index)
+                        console.log(newData.value, index)
+                        idx = index
+                    }
+                })
+
+                if (idx !== null) {
+                    let prevList = [...this.state.questionList]
+                    console.log('prevList', prevList)
+                    let newList = prevList.slice(0, idx + 1)
+                    console.log('newList', newList)
+                    this.setState({questionList: newList, currentChild: { ...newList[newList.length-1] }},
+                        () => this.findNodes(answer, this.state.currentChild, this.state.currentChild))
+
+                }
+
+            }
+
+        }
+
         if (newData.children) {
             newData.children.map(
                 item => {
@@ -88,6 +119,7 @@ class ResultForm extends Component {
 
     render() {
         const {questionList} = this.state
+        console.log('RENDER', questionList)
         const { projects, selectProject } = this.props
 
         return (
