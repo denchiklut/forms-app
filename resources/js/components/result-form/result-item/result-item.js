@@ -6,9 +6,7 @@ import ResultAvto from "../result-avto"
 
 class ResultItem extends Component {
 
-    lastObj = {
-        value: null
-    }
+    lastObj = { value: null }
 
     renderQuestion = (item, currentChild, onNext) => {
         let span = document.createElement('span');
@@ -68,9 +66,10 @@ class ResultItem extends Component {
 
                 //Добавляем в массив каскад Объект
                 kaskad.push(newData)
+
                 //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
                 this.lastObj = newData
-                this.props.onKaskad(newData)
+
                 //Находим все ответы текущего объекта
                 for (i = 0; i < this.lastObj.children.length; i++) {
                     //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
@@ -91,27 +90,29 @@ class ResultItem extends Component {
 
         findKaskad(item)
 
-        const click = (answer, lastObject) => {
-
-            if (lastObject.value == this.lastObj.value) {
-                onNext(answer, lastObject, item.lost )
+        const click = (answer, lastObj, lost) => {
+            if (kaskad.length > 1) {
+                onNext(answer, lastObj, lost)
+            } else {
+                onNext(answer, lastObj, lastObj)
             }
+
         }
 
         return(
             <div>
                 <ResultObject items={ kaskad.length !== 0 ? [...kaskad] : [item] } />
-                {kaskadAnswers.map(item =>
+                {kaskadAnswers.map(answer =>
                     <Button
-                        key={item}
+                        key={answer}
                         size="small"
                         color="primary"
                         variant="outlined"
                         aria-label=" answer"
                         style={{margin: "5px", padding: "0 15px"}}
-                        onClick={() => click(item, this.lastObj)}
+                        onClick={() => click(answer, this.lastObj, item.lost)}
                     >
-                        {item}
+                        {answer}
                     </Button>)}
             </div>
         )

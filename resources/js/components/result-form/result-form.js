@@ -19,13 +19,12 @@ class ResultForm extends Component {
 
     state = {
         questionList: [],
-        currentChild: null,
-        kaskad: [],
-
+        currentChild: null
     }
 
 
     findNodes = (answer, lastNode, clickedNode) => {
+        console.log(clickedNode)
 
         if (!clickedNode) clickedNode = lastNode
         let idx = null
@@ -169,13 +168,8 @@ class ResultForm extends Component {
         }
     }
 
-    onKaskadLast = (lastObj) => {
-        console.log("NEW NEW NEW", lastObj)
-    }
-
     render() {
         const {questionList} = this.state
-        console.log('RENDER', questionList)
         const { projects, selectProject } = this.props
 
         return (
@@ -208,7 +202,6 @@ class ResultForm extends Component {
                             key          = { uuid.v4() }
                             onNext       = { this.findNodes }
                             currentChild = { this.state.currentChild }
-                            onKaskad = {this.onKaskadLast}
                         />) : null}
                 </div>
             </div>
