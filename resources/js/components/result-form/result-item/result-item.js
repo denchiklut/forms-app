@@ -6,8 +6,6 @@ import ResultAvto from "../result-avto"
 
 class ResultItem extends Component {
 
-    lastObj = { value: null }
-
     renderQuestion = (item, currentChild, onNext) => {
         let span = document.createElement('span');
         span.innerHTML= item.webValue;
@@ -44,7 +42,7 @@ class ResultItem extends Component {
 
     renderObj = (item, currentChild, onNext) => {
 
-        let  kaskad = [], kaskadAnswers = []
+        let lastObject={}, kaskad = [], kaskadAnswers = []
 
         const findAnswer = (data) => {
             for (let i = 0; i < data.children.length; i++) {
@@ -68,12 +66,12 @@ class ResultItem extends Component {
                 kaskad.push(newData)
 
                 //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
-                this.lastObj = newData
+                lastObject = newData
 
                 //Находим все ответы текущего объекта
-                for (i = 0; i < this.lastObj.children.length; i++) {
+                for (i = 0; i < lastObject.children.length; i++) {
                     //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
-                    if (this.lastObj.children[i].answer) kaskadAnswers.push(this.lastObj.children[i].answer)
+                    if (lastObject.children[i].answer) kaskadAnswers.push(lastObject.children[i].answer)
                 }
             }
 
@@ -110,7 +108,7 @@ class ResultItem extends Component {
                         variant="outlined"
                         aria-label=" answer"
                         style={{margin: "5px", padding: "0 15px"}}
-                        onClick={() => click(answer, this.lastObj, item.lost)}
+                        onClick={() => click(answer, lastObject, item.lost)}
                     >
                         {answer}
                     </Button>)}
@@ -138,12 +136,14 @@ class ResultItem extends Component {
             //Если с реди потомков узла есть хотябы один вопрос - это НЕ КАСКАД
             if (newData.type === "questions") return true
             //Находим потомков типа - ОБЪЕКТ
-            if (newData.type === "objects" || newData.type === "avto") {
+            if (newData.type === "avto") {
 
                 //Добавляем в массив каскад Объект
                 kaskad.push(newData)
+
                 //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
                 lastObj = newData
+
                 //Находим все ответы текущего объекта
                 for (i = 0; i < lastObj.children.length; i++) {
                     //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
@@ -164,20 +164,29 @@ class ResultItem extends Component {
 
         findKaskad(item)
 
+        const click = (answer, lastObj, lost) => {
+            if (kaskad.length > 1) {
+                onNext(answer, lastObj, lost)
+            } else {
+                onNext(answer, lastObj, lastObj)
+            }
+
+        }
+
         return(
             <div>
                 <ResultAvto items={ kaskad.length !== 0 ? [...kaskad] : [item] } />
-                {kaskadAnswers.map(item =>
+                {kaskadAnswers.map(answer =>
                     <Button
-                        key={item}
+                        key={answer}
                         size="small"
                         color="primary"
                         variant="outlined"
                         aria-label=" answer"
                         style={{margin: "5px", padding: "0 15px"}}
-                        onClick={() => onNext(item, lastObj)}
+                        onClick={() => click(answer, lastObj, item.lost)}
                     >
-                        {item}
+                        {answer}
                     </Button>)}
             </div>
         )
