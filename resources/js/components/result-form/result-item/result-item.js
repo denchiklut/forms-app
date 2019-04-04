@@ -6,37 +6,35 @@ import ResultAvto from "../result-avto"
 
 class ResultItem extends Component {
 
-    lastObj = {
-        value: null
-    }
-
-    renderQuestion = (item, currentChild, onNext) => {
+    renderQuestion = (currentNode, lastNode, onNext) => {
         let span = document.createElement('span');
-        span.innerHTML= item.webValue;
+        span.innerHTML= currentNode.webValue;
 
         const rawMarkup = () => {
             let rawMarkup = span.innerHTML
             return { __html: rawMarkup };
         }
 
-        const onClick = (item, lastObj, clicked) => {
-            onNext(item, lastObj, clicked)
+        const onClick = (answer, lastNode, clickedNode) => {
+            // console.log("answer", answer, "lastNode", lastNode, "clickedNode", clickedNode)
+            // console.log("============== onClick =============")
+            onNext(answer, lastNode, clickedNode)
         }
 
         return  (
             <div>
                 <span dangerouslySetInnerHTML={rawMarkup()} />
-                {item.answers.map(el =>
+                {currentNode.answers.map(answer =>
                     <Button
-                        key={el}
+                        key={answer}
                         size="small"
                         color="primary"
                         variant="outlined"
                         aria-label=" answer"
                         style={{margin: "5px", padding: "0 10px"}}
-                        onClick={() => onClick(el, currentChild, item)}
+                        onClick={() => onClick(answer, lastNode, currentNode)}
                     >
-                        {el}
+                        {answer}
                     </Button>
                 )}
             </div>
@@ -44,75 +42,31 @@ class ResultItem extends Component {
 
     }
 
-    renderObj = (item, currentChild, onNext) => {
+    renderObj = (currentNode, lastNode, onNext) => {
 
-        let  kaskad = [], kaskadAnswers = []
-
-        const findAnswer = (data) => {
-            for (let i = 0; i < data.children.length; i++) {
-
-                if (data.children[i].answer) {
-                    return false // false: ЕСТЬ ОТВЕТЫ
-                }
-            }
-            return true //true: НЕТ ответов
+        const onClick = (answer, lastNode, clickedNode) => {
+            onNext(answer, lastNode, clickedNode)
         }
 
-        const findKaskad = (newData) => {
-            let i, currentChild
+        const answersList = currentNode.isKaskad ? currentNode.kaskadAnswers : currentNode.answers
+        const objectsList = currentNode.isKaskad ? [...currentNode.kaskad] : [currentNode]
 
-            //Если с реди потомков узла есть хотябы один вопрос - это НЕ КАСКАД
-            if (newData.type === "questions") return true
-            //Находим потомков типа - ОБЪЕКТ
-            if (newData.type === "objects" ) {
-
-                //Добавляем в массив каскад Объект
-                kaskad.push(newData)
-                //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
-                this.lastObj = newData
-                this.props.onKaskad(newData)
-                //Находим все ответы текущего объекта
-                for (i = 0; i < this.lastObj.children.length; i++) {
-                    //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
-                    if (this.lastObj.children[i].answer) kaskadAnswers.push(this.lastObj.children[i].answer)
-                }
-            }
-
-
-            if (findAnswer(newData)) { // ЕСЛИ НЕТ ОТВЕТОВ КАСКАД!
-                //Ищем рекурсивно в потомках объекты
-                for (i = 0; i < newData.children.length; i++) {
-                    currentChild = newData.children[i];
-
-                    findKaskad(currentChild);
-                }
-            }
-        }
-
-        findKaskad(item)
-
-        const click = (answer, lastObject) => {
-
-            if (lastObject.value == this.lastObj.value) {
-                onNext(answer, lastObject, item.lost )
-            }
-        }
-
-        return(
+        return  (
             <div>
-                <ResultObject items={ kaskad.length !== 0 ? [...kaskad] : [item] } />
-                {kaskadAnswers.map(item =>
+                <ResultObject items={ objectsList } />
+                {answersList.map(answer =>
                     <Button
-                        key={item}
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                        aria-label=" answer"
-                        style={{margin: "5px", padding: "0 15px"}}
-                        onClick={() => click(item, this.lastObj)}
+                        key        = { answer }
+                        size       = "small"
+                        color      = "primary"
+                        variant    = "outlined"
+                        aria-label = " answer"
+                        style      = {{margin: "5px", padding: "0 10px"}}
+                        onClick    = {() => onClick(answer, lastNode, currentNode)}
                     >
-                        {item}
-                    </Button>)}
+                        {answer}
+                    </Button>
+                )}
             </div>
         )
     }
@@ -184,13 +138,13 @@ class ResultItem extends Component {
 
 
     render() {
-        const {item, currentChild, onNext} = this.props
+        const {currentNode, lastNode , onNext} = this.props
 
         return (
             <div className="answerCard">
-                { item.type === "objects" ? this.renderObj(item, currentChild, onNext) :
-                    item.type === "avto" ? this.renderAvto(item, currentChild, onNext) :
-                        this.renderQuestion(item, currentChild, onNext)
+                { currentNode.type === "objects" ? this.renderObj(currentNode, lastNode, onNext) :
+                    currentNode.type === "avto" ? this.renderAvto(currentNode, lastNode, onNext) :
+                        this.renderQuestion(currentNode, lastNode, onNext)
                 }
             </div>
         )

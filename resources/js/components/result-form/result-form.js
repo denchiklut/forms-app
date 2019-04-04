@@ -19,123 +19,81 @@ class ResultForm extends Component {
 
     state = {
         questionList: [],
-        currentChild: null,
-        kaskad: [],
-
+        lastNode: null,
     }
-
 
     findNodes = (answer, lastNode, clickedNode) => {
 
-        if (!clickedNode) clickedNode = lastNode
-        let idx = null
+        //Проверяем если кликнули на ответ По вопросу выше последнего
+        if (clickedNode.idd !== lastNode.idd) {
 
-        if (this.state.questionList.length !== 0) {
+            let idx = this.state.questionList.indexOf(clickedNode)
+            let prevList = [...this.state.questionList]
+            let newList = prevList.slice(0, idx + 1)
 
-            if (this.state.questionList[this.state.questionList.length - 1].value !== clickedNode.value) {
+            clickedNode.children.map( item => {
+                    if (item.answer === answer) {
 
-                this.state.questionList.filter((item, index) => {
-                    if (item.value === clickedNode.value)  {
-                        idx = index
+                        let answers = []
+
+                        for (let i= 0; i < item.children.length; i++) {
+                            answers.push(item.children[i].answer)
+                        }
+
+                        this.setState({
+                            questionList: [ ...newList, {...item, answers: answers}],
+                            lastNode: { ...item }
+                        })
                     }
                 })
+            return true
+        }
 
-                if (idx !== null) {
-                    let prevList = [...this.state.questionList]
-                    let newList = prevList.slice(0, idx + 1)
+        lastNode.children.map(
+            node => {
+                if (node.answer === answer) {
+                    let answers = [], isKaskad = false
+                    // let kaskadAnswers = [], kaskad =[]
 
-                    this.setState(
-                        {questionList: newList, currentChild: { ...newList[newList.length-1] }},
-                        () => this.findNodes(answer, this.state.currentChild, this.state.currentChild)
-                    )
+                    for (let i= 0; i < node.children.length; i++) {
+
+                        // if (!node.children[i].answer) {
+                        //     isKaskad = true
+                        //     kaskad.push(node, node.children[i])
+                        //     for (let i= 0; i < kaskad[kaskad.length-1].children.length; i++) {
+                        //         kaskadAnswers.push(kaskad[kaskad.length-1].children[i].answer)
+                        //     }
+                        // }
+
+                        if (node.children[i].answer) answers.push(node.children[i].answer)
+                    }
+
+                    if (isKaskad) {
+                        // this.setState(prevState => ({
+                        //     questionList: [ ...prevState.questionList, {...kaskad[kaskad.length-1], answers: answers, isKaskad: isKaskad, kaskadAnswers: kaskadAnswers, kaskad: kaskad}],
+                        //     lastNode: { ...kaskad[kaskad.length-1] }
+                        // }))
+                    } else {
+                        this.setState(prevState => ({
+                            questionList: [ ...prevState.questionList, {...node, answers: answers, isKaskad: isKaskad}],
+                            lastNode: { ...node }
+                        }))
+                    }
                 }
 
             }
-
-        }
-
-        if (lastNode.children) {
-            lastNode.children.map(
-                item => {
-                    let  kaskad = [], kaskadAnswers = []
-
-                    const findAnswer = (data) => {
-                        for (let i = 0; i < data.children.length; i++) {
-
-                            if (data.children[i].answer) {
-                                return false // false: ЕСТЬ ОТВЕТЫ
-                            }
-                        }
-                        return true //true: НЕТ ответов
-                    }
-
-                    const findKaskad = (newData) => {
-                        let i, currentChild
-
-                        //Если с реди потомков узла есть хотябы один вопрос - это НЕ КАСКАД
-                        if (newData.type === "questions") return true
-                        //Находим потомков типа - ОБЪЕКТ
-                        if (newData.type === "objects" || newData.type === "avto") {
-
-                            //Добавляем в массив каскад Объект
-                            kaskad.push(newData)
-                            //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
-                            currentChild = newData
-
-                            //Находим все ответы текущего объекта
-                            for (i = 0; i < currentChild.children.length; i++) {
-                                //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
-                                if (currentChild.children[i].answer) kaskadAnswers.push(currentChild.children[i].answer)
-                            }
-                        }
-
-
-                        if (findAnswer(newData)) { // ЕСЛИ НЕТ ОТВЕТОВ КАСКАД!
-                            //Ищем рекурсивно в потомках объекты
-                            for (i = 0; i < newData.children.length; i++) {
-                                currentChild = newData.children[i];
-
-                                findKaskad(currentChild);
-                            }
-                        }
-                    }
-
-                    findKaskad(item)
-
-                    if (kaskad.length < 2) {
-                        if (item.answer === answer) {
-                            let answers = []
-
-                            for (let i= 0; i < item.children.length; i++) {
-                                answers.push(item.children[i].answer)
-                            }
-
-                            this.setState(prevState => ({
-                                questionList: [ ...prevState.questionList, {...item, answers: answers}],
-                                currentChild: { ...item }
-                            }))
-                        }
-                    } else {
-                        this.setState(prevState => ({
-                            questionList: [ ...prevState.questionList, {...item, answers: kaskadAnswers, lost: {...kaskad[0]}}],
-                            currentChild: { ...item }
-                        }))
-                    }
-
-                }
-            )
-        }
+        )
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.activeProject !== this.props.activeProject) {
-            this.setState({questionList: [], currentChild: null, kaskad: [] })
+            this.setState({questionList: [], lastNode: null, kaskad: [] })
             this.props.history.push(`/play/${this.props.activeProject.value}`)
             this.props.fetchNodes(this.props.activeProject.value)
         }
 
         if (prevProps.nodes !== this.props.nodes) {
-            this.findNodes("start", this.props.nodes)
+            this.findNodes("start", this.props.nodes, this.props.nodes)
         }
     }
 
@@ -169,13 +127,8 @@ class ResultForm extends Component {
         }
     }
 
-    onKaskadLast = (lastObj) => {
-        console.log("NEW NEW NEW", lastObj)
-    }
-
     render() {
         const {questionList} = this.state
-        console.log('RENDER', questionList)
         const { projects, selectProject } = this.props
 
         return (
@@ -204,11 +157,10 @@ class ResultForm extends Component {
 
                     {questionList.length !== 0 ? questionList.map(item =>
                         <ResultItem
-                            item         = { item }
+                            currentNode  = { item }
                             key          = { uuid.v4() }
                             onNext       = { this.findNodes }
-                            currentChild = { this.state.currentChild }
-                            onKaskad = {this.onKaskadLast}
+                            lastNode     = { this.state.lastNode }
                         />) : null}
                 </div>
             </div>

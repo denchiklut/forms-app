@@ -4,10 +4,10 @@ export const tinyConfig = {
     plugins: [
         'print preview noneditable searchreplace autolink directionality visualblocks visualchars fullscreen',
         'image link media template codesample table charmap hr pagebreak nonbreaking anchor',
-        'toc insertdatetime advlist lists wordcount imagetools textpattern autoresize',
+        'toc insertdatetime advlist lists wordcount imagetools textpattern autoresize emoticons',
         // 'powerpaste'
     ],
-    toolbar: 'forecolor bold| align | bullist numlist | table ',
+    toolbar: 'forecolor bold| align | bullist numlist | emoticons | table ',
     language: 'ru',
     mobile: {
         theme: 'mobile',
