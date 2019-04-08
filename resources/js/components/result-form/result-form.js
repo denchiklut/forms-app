@@ -23,9 +23,8 @@ class ResultForm extends Component {
     }
 
     findNodes = (answer, lastNode, clickedNode) => {
-
         //Проверяем если кликнули на ответ По вопросу выше последнего
-        if (clickedNode.idd !== lastNode.idd) {
+        if (clickedNode.idd !== lastNode.idd && (clickedNode.children.indexOf(lastNode) === -1)) {
 
             let idx = this.state.questionList.indexOf(clickedNode)
             let prevList = [...this.state.questionList]
@@ -49,40 +48,45 @@ class ResultForm extends Component {
             return true
         }
 
-        lastNode.children.map(
-            node => {
+        lastNode.children.map( node => {
+
                 if (node.answer === answer) {
-                    let answers = [], isKaskad = false
-                    // let kaskadAnswers = [], kaskad =[]
+                    let answers = []
 
                     for (let i= 0; i < node.children.length; i++) {
-
-                        // if (!node.children[i].answer) {
-                        //     isKaskad = true
-                        //     kaskad.push(node, node.children[i])
-                        //     for (let i= 0; i < kaskad[kaskad.length-1].children.length; i++) {
-                        //         kaskadAnswers.push(kaskad[kaskad.length-1].children[i].answer)
-                        //     }
-                        // }
 
                         if (node.children[i].answer) answers.push(node.children[i].answer)
                     }
 
-                    if (isKaskad) {
-                        // this.setState(prevState => ({
-                        //     questionList: [ ...prevState.questionList, {...kaskad[kaskad.length-1], answers: answers, isKaskad: isKaskad, kaskadAnswers: kaskadAnswers, kaskad: kaskad}],
-                        //     lastNode: { ...kaskad[kaskad.length-1] }
-                        // }))
-                    } else {
-                        this.setState(prevState => ({
-                            questionList: [ ...prevState.questionList, {...node, answers: answers, isKaskad: isKaskad}],
-                            lastNode: { ...node }
-                        }))
-                    }
+                    this.setState(prevState => ({
+                        questionList: [ ...prevState.questionList, { ...node, answers: answers }],
+                        lastNode: { ...node }
+                    }))
                 }
 
             }
         )
+    }
+
+    drawKaskad = (first, next) => {
+
+        let idx = this.state.questionList.indexOf(first);
+        let arrK = [...this.state.questionList];
+
+
+        let answers = []
+        next.children.map( node => {
+            answers.push(node.answer)
+        })
+
+
+        let arr = [...arrK.splice(0, idx), first, {...next, answers: answers}]
+
+        this.setState({
+            questionList: arr,
+            lastNode: { ...next }
+        })
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -160,6 +164,7 @@ class ResultForm extends Component {
                             currentNode  = { item }
                             key          = { uuid.v4() }
                             onNext       = { this.findNodes }
+                            onKaskad     = { this.drawKaskad }
                             lastNode     = { this.state.lastNode }
                         />) : null}
                 </div>
