@@ -6,15 +6,17 @@ import {connect} from 'react-redux'
 
 import {fetchQuestions} from '../../actions/questions'
 import {fetchProjects, selectProject} from "../../actions/projects"
-import {fetchNodes, onAddNode, onRemoveNode,} from "../../actions/graf/nodes"
+import {fetchNodes, onAddNode, onRemoveNode, selectNode,} from "../../actions/graf/nodes"
 import {fetchObjects} from "../../actions/objects"
+import {fetchAvto} from "../../actions/avto"
 
+import ShowNode from '../show-node'
 import ListContainer from '../list-container'
 import SwipeView from "../swipe-view"
 import HeaderBar from "../header-bar"
 import GrafD3 from '../graf-d3'
 import './main-page.scss'
-import {fetchAvto} from "../../actions/avto";
+
 
 class MainPage extends Component {
 
@@ -37,7 +39,7 @@ class MainPage extends Component {
     }
 
     render() {
-        const {nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, } = this.props
+        const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode } = this.props
         return (
             <>
                 <HeaderBar
@@ -47,14 +49,16 @@ class MainPage extends Component {
                 <div style={{margin: '-3px'}}>
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
-                            <SwipeView lables={['Вопросы', 'Жк', 'Авто']}>
+                            <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
                                 <ListContainer items={this.props.questions} type="question" />
                                 <ListContainer items={this.props.objects} type="object" />
                                 <ListContainer items={this.props.avto} type="avto" />
+                                <ShowNode node={this.props.activeNode} />
                             </SwipeView>
                         </Grid>
                         <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0, background: '#828282'}}>
                             <GrafD3
+                                showNode      = { selectNode }
                                 grafNodes     = { nodes }
                                 onAddNode     = { onAddNode }
                                 questions     = { questions }
@@ -73,11 +77,11 @@ class MainPage extends Component {
 }
 
 
-const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto}) => {
-    return { projects, questions, objects, activeProject, nodes, avto }
+const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto, activeNode}) => {
+    return { projects, questions, objects, activeProject, nodes, avto, activeNode }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions, fetchAvto}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions, fetchAvto, selectNode}, dispatch)
 
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,

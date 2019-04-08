@@ -379,6 +379,7 @@ class GrafD3 extends Component {
 
     click = (nodeKey) => {
         this.setState({selected: nodeKey})
+        this.props.showNode(nodeKey)
         this.coloriseNode(nodeKey)
     }
 

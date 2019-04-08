@@ -20,10 +20,10 @@ import AddForm from '../add-form'
 import AddAvto  from '../add-avto'
 import AddObject  from '../add-object'
 import EmptyList from '../empty-list'
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import InputBase from "@material-ui/core/InputBase"
 import './list-container.scss'
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import InputBase from "@material-ui/core/InputBase";
 
 class ListContainer extends Component {
     state = {

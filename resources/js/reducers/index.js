@@ -4,6 +4,7 @@ import Projects from './projects'
 import GrafNodes from './graf/nodes'
 import ActiveProject from './active-project'
 import ActiveQuestion from './question-active'
+import ActiveNode from './node-active'
 import ObjectsReducers from './objects'
 import EditedObject from './edit-object'
 import EditedAvto  from './edit-avto'
@@ -19,6 +20,7 @@ const rootReducers = combineReducers({
     activeProject:  ActiveProject,
     editObjects:    EditedObject,
     avto:           AvtoReducer,
+    activeNode:     ActiveNode,
     editAvto:       EditedAvto,
     auth:           GoogleAuth,
     nodes:          GrafNodes,
