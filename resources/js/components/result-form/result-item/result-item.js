@@ -131,9 +131,17 @@ class ResultItem extends Component {
     }
 
 
-    renderAvto = (item, currentChild, onNext) => {
+    renderAvto = (currentNode, lastNode, onNext) => {
+        let kaskad = [], kaskadAnswers= [], lastObject = {}
 
-        let lastObj = {}, kaskad = [], kaskadAnswers = []
+        const onClick = (answer, lastNode, clickedNode) => {
+
+            if (kaskad.length > 1) {
+                this.props.onKaskad(kaskad[0], this.findChild(kaskad[kaskad.length - 1], answer))
+            } else {
+                onNext(answer, lastNode, clickedNode)
+            }
+        }
 
         const findAnswer = (data) => {
             for (let i = 0; i < data.children.length; i++) {
@@ -156,11 +164,11 @@ class ResultItem extends Component {
                 //Добавляем в массив каскад Объект
                 kaskad.push(newData)
                 //Текущем узлом (нужен для поиска потомков по ответу) делаем найденный обьект
-                lastObj = newData
+                lastObject = newData
                 //Находим все ответы текущего объекта
-                for (i = 0; i < lastObj.children.length; i++) {
+                for (i = 0; i < lastObject.children.length; i++) {
                     //Добавляем ответы в массив ответов (У одного объекта может быть несколько потомков)
-                    if (lastObj.children[i].answer) kaskadAnswers.push(lastObj.children[i].answer)
+                    if (lastObject.children[i].answer) kaskadAnswers.push(lastObject.children[i].answer)
                 }
             }
 
@@ -175,22 +183,26 @@ class ResultItem extends Component {
             }
         }
 
-        findKaskad(item)
+        findKaskad(currentNode)
+
+        const answersList = kaskad.length > 1 ? kaskadAnswers : currentNode.answers
+        const objectsList = kaskad.length > 1 ? [...kaskad] : [currentNode]
+
 
         return(
             <div>
-                <ResultAvto items={ kaskad.length !== 0 ? [...kaskad] : [item] } />
-                {kaskadAnswers.map(item =>
+                <ResultAvto items={ objectsList }  />
+                {answersList.map(answer =>
                     <Button
-                        key={item}
+                        key={answer}
                         size="small"
                         color="primary"
                         variant="outlined"
                         aria-label=" answer"
                         style={{margin: "5px", padding: "0 15px"}}
-                        onClick={() => onNext(item, lastObj)}
+                        onClick={() => onClick(answer, lastNode, currentNode)}
                     >
-                        {item}
+                        {answer}
                     </Button>)}
             </div>
         )
