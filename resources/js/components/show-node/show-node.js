@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
+import EmptyList from "../empty-list";
 import './show-node.scss'
 
 class ShowNode extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(this.props)
         if (this.props.node.type === "questions") {
             this.renderQuestion()
         } else if (this.props.node.type === "objects") {
@@ -51,8 +51,11 @@ class ShowNode extends Component {
     }
 
     render() {
-        if (this.props.node.type === "objects")  return <div className="showNode"> {this.renderObject()} </div>
-        return <div className="showNode"> {this.renderQuestion()} </div>
+        const { node } = this.props
+
+        if ( Object.keys(node).length === 0 ) return <EmptyList/>
+        if ( node.type === "objects")  return <div className="showNode"> {this.renderObject()} </div>
+        return <div className="showNode showQst"> {this.renderQuestion()} </div>
     }
 }
 

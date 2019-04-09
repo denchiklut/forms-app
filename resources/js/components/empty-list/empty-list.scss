@@ -1,4 +1,6 @@
 .EmptyList {
+    width: calc(100% - 0px);
+
     .empty-grid {
         height: calc(100vh - 64px - 48px);
         border-right: 1px solid #0e0e0e24;

@@ -46,31 +46,31 @@ class MainPage extends Component {
                     projects      = { this.props.projects }
                     selectProject = { this.props.selectProject }
                 />
-                <div style={{margin: '-3px'}}>
-                    <Grid container spacing={0}>
-                        <Grid item xs={12} sm={6} md={3} style={{paddingBottom: 0}}>
-                            <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
-                                <ListContainer items={this.props.questions} type="question" />
-                                <ListContainer items={this.props.objects} type="object" />
-                                <ListContainer items={this.props.avto} type="avto" />
-                                <ShowNode node={this.props.activeNode} />
-                            </SwipeView>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={9} style={{paddingLeft: 0, paddingBottom: 0, background: '#828282'}}>
-                            <GrafD3
-                                showNode      = { selectNode }
-                                grafNodes     = { nodes }
-                                onAddNode     = { onAddNode }
-                                questions     = { questions }
-                                objects       = { objects }
-                                avto          = { avto }
-                                removeNode    = { onRemoveNode }
-                                project       = { activeProject }
-                                activeProject = { activeProject }
-                            />
-                        </Grid>
+                <Grid container spacing={0}>
+                    <Grid item xs={12} sm={6} md={3} className="left">
+                        <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
+                            <ListContainer items={this.props.questions} type="question" />
+                            <ListContainer items={this.props.objects} type="object" />
+                            <ListContainer items={this.props.avto} type="avto" />
+                            <ShowNode node={this.props.activeNode} />
+                        </SwipeView>
                     </Grid>
-                </div>
+                    <Grid item xs={12} sm={6} md={9}
+                          className="right"
+                    >
+                        <GrafD3
+                            showNode      = { selectNode }
+                            grafNodes     = { nodes }
+                            onAddNode     = { onAddNode }
+                            questions     = { questions }
+                            objects       = { objects }
+                            avto          = { avto }
+                            removeNode    = { onRemoveNode }
+                            project       = { activeProject }
+                            activeProject = { activeProject }
+                        />
+                    </Grid>
+                </Grid>
             </>
         );
     }
