@@ -30,6 +30,7 @@ class SwipeView extends Component {
                     axis          = "x"
                     index         = { this.state.value }
                     onChangeIndex = { (e, index) => this.setState({ value: index }) }
+                    style={{marginRight: -3}}
                 >
                     {this.props.children}
                 </SwipeableViews>

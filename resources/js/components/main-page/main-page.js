@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from "redux"
-import {connect} from 'react-redux'
 
+import {connect} from 'react-redux'
 import {fetchQuestions} from '../../actions/questions'
 import {fetchProjects, selectProject} from "../../actions/projects"
 import {fetchNodes, onAddNode, onRemoveNode, selectNode,} from "../../actions/graf/nodes"
 import {fetchObjects} from "../../actions/objects"
-import {fetchAvto} from "../../actions/avto"
 
+import ResizablePanels from "../resizable-panels";
+import {fetchAvto} from "../../actions/avto"
 import ShowNode from '../show-node'
 import ListContainer from '../list-container'
 import SwipeView from "../swipe-view"
@@ -46,18 +46,15 @@ class MainPage extends Component {
                     projects      = { this.props.projects }
                     selectProject = { this.props.selectProject }
                 />
-                <Grid container spacing={0}>
-                    <Grid item xs={12} sm={6} md={3} className="left">
+
+                <div>
+                    <ResizablePanels>
                         <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
                             <ListContainer items={this.props.questions} type="question" />
                             <ListContainer items={this.props.objects} type="object" />
                             <ListContainer items={this.props.avto} type="avto" />
-                            <ShowNode node={this.props.activeNode} />
+                            <ShowNode       node={this.props.activeNode} />
                         </SwipeView>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={9}
-                          className="right"
-                    >
                         <GrafD3
                             showNode      = { selectNode }
                             grafNodes     = { nodes }
@@ -69,13 +66,37 @@ class MainPage extends Component {
                             project       = { activeProject }
                             activeProject = { activeProject }
                         />
-                    </Grid>
-                </Grid>
+                    </ResizablePanels>
+                </div>
+                {/*<Grid container spacing={0}>*/}
+                    {/*<Grid item xs={12} sm={6} md={3} className="left">*/}
+                        {/*<SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>*/}
+                            {/*<ListContainer items={this.props.questions} type="question" />*/}
+                            {/*<ListContainer items={this.props.objects} type="object" />*/}
+                            {/*<ListContainer items={this.props.avto} type="avto" />*/}
+                            {/*<ShowNode node={this.props.activeNode} />*/}
+                        {/*</SwipeView>*/}
+                    {/*</Grid>*/}
+                    {/*<Grid item xs={12} sm={6} md={9}*/}
+                          {/*className="right"*/}
+                    {/*>*/}
+                        {/*<GrafD3*/}
+                            {/*showNode      = { selectNode }*/}
+                            {/*grafNodes     = { nodes }*/}
+                            {/*onAddNode     = { onAddNode }*/}
+                            {/*questions     = { questions }*/}
+                            {/*objects       = { objects }*/}
+                            {/*avto          = { avto }*/}
+                            {/*removeNode    = { onRemoveNode }*/}
+                            {/*project       = { activeProject }*/}
+                            {/*activeProject = { activeProject }*/}
+                        {/*/>*/}
+                    {/*</Grid>*/}
+                {/*</Grid>*/}
             </>
         );
     }
 }
-
 
 const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto, activeNode}) => {
     return { projects, questions, objects, activeProject, nodes, avto, activeNode }
