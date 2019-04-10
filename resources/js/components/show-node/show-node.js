@@ -20,7 +20,7 @@ class ShowNode extends Component {
         return { __html: rawMarkup };
     }
 
-    renderQuestion = () => <span dangerouslySetInnerHTML={this.rawMarkup()} />
+    renderQuestion = () => <span dangerouslySetInnerHTML={this.rawMarkup()} style={{ overflowX: 'hidden' }}/>
 
     renderObject = () => {
         return (

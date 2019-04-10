@@ -10,6 +10,7 @@ import EditedObject from './edit-object'
 import EditedAvto  from './edit-avto'
 import GoogleAuth from './auth/googleReducer'
 import AvtoReducer from './avto'
+import ShareProject from './share'
 import { reducer  as formReducer } from 'redux-form'
 
 
@@ -25,6 +26,7 @@ const rootReducers = combineReducers({
     auth:           GoogleAuth,
     nodes:          GrafNodes,
     projects:       Projects,
+    isShared: ShareProject,
     form: formReducer
 })
 

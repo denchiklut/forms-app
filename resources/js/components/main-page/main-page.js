@@ -20,10 +20,38 @@ import './main-page.scss'
 
 class MainPage extends Component {
 
+    state = {
+        client : false
+    }
+
+    renderSwipe = () => {
+        if (this.state.client) {
+            return(
+                <SwipeView lables={['Просмотр']}>
+                    <ShowNode node={this.props.activeNode} />
+                </SwipeView>
+            )
+        } else {
+            return(
+                <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
+                    <ListContainer items={this.props.questions} type="question" />
+                    <ListContainer items={this.props.objects} type="object" />
+                    <ListContainer items={this.props.avto} type="avto" />
+                    <ShowNode       node={this.props.activeNode} />
+                </SwipeView>
+            )
+        }
+    }
+
     componentDidMount() {
         this.props.fetchObjects()
         this.props.fetchProjects()
         this.props.fetchAvto()
+
+        if (window.location.href.indexOf("/#/share") !== -1) {
+            this.setState({client: true})
+            this.props.selectProject({value: this.props.match.params.project, label: this.props.match.params.project, type: "projects"})
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,12 +77,7 @@ class MainPage extends Component {
 
                 <div>
                     <ResizablePanels>
-                        <SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>
-                            <ListContainer items={this.props.questions} type="question" />
-                            <ListContainer items={this.props.objects} type="object" />
-                            <ListContainer items={this.props.avto} type="avto" />
-                            <ShowNode       node={this.props.activeNode} />
-                        </SwipeView>
+                        { this.renderSwipe() }
                         <GrafD3
                             showNode      = { selectNode }
                             grafNodes     = { nodes }
@@ -68,31 +91,6 @@ class MainPage extends Component {
                         />
                     </ResizablePanels>
                 </div>
-                {/*<Grid container spacing={0}>*/}
-                    {/*<Grid item xs={12} sm={6} md={3} className="left">*/}
-                        {/*<SwipeView lables={['Вопросы', 'Жк', 'Авто', 'Просмотр']}>*/}
-                            {/*<ListContainer items={this.props.questions} type="question" />*/}
-                            {/*<ListContainer items={this.props.objects} type="object" />*/}
-                            {/*<ListContainer items={this.props.avto} type="avto" />*/}
-                            {/*<ShowNode node={this.props.activeNode} />*/}
-                        {/*</SwipeView>*/}
-                    {/*</Grid>*/}
-                    {/*<Grid item xs={12} sm={6} md={9}*/}
-                          {/*className="right"*/}
-                    {/*>*/}
-                        {/*<GrafD3*/}
-                            {/*showNode      = { selectNode }*/}
-                            {/*grafNodes     = { nodes }*/}
-                            {/*onAddNode     = { onAddNode }*/}
-                            {/*questions     = { questions }*/}
-                            {/*objects       = { objects }*/}
-                            {/*avto          = { avto }*/}
-                            {/*removeNode    = { onRemoveNode }*/}
-                            {/*project       = { activeProject }*/}
-                            {/*activeProject = { activeProject }*/}
-                        {/*/>*/}
-                    {/*</Grid>*/}
-                {/*</Grid>*/}
             </>
         );
     }

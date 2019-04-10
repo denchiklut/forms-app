@@ -10,6 +10,7 @@ import Chip from "@material-ui/core/Chip"
 import SpeedDial from '@material-ui/lab/SpeedDial'
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import EditIcon from '@material-ui/icons/Edit'
+import ShareIcon from '@material-ui/icons/Share'
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import Hidden from '@material-ui/core/Hidden'
@@ -59,6 +60,7 @@ class GrafD3 extends Component {
         },
         open: false,
         hidden: false,
+        client: false
     }
 
     handleClick = () => {
@@ -421,6 +423,10 @@ class GrafD3 extends Component {
 
     componentDidMount() {
         this.initGraf()
+
+        if (window.location.href.indexOf("/#/share") !== -1) {
+            this.setState({client: true})
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -436,8 +442,8 @@ class GrafD3 extends Component {
     }
 
     render() {
-
         const actions = [
+            { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
         ]
@@ -461,63 +467,70 @@ class GrafD3 extends Component {
                             />
                             </Hidden>
                         </Typography>
-                        <div style={{display: 'flex'}}>
-                            <SpeedDial
-                                direction    = "left"
-                                ariaLabel    = "SpeedDial example"
-                                open         = { open }
-                                hidden       = { hidden}
-                                onFocus      = { this.handleOpen }
-                                onMouseEnter = { this.handleOpen }
-                                onClick      = { this.handleClick }
-                                onBlur       = { this.handleClose }
-                                onClose      = { this.handleClose }
-                                onMouseLeave = { this.handleClose }
-                                icon         = { <EditIcon /> }
-                                style        = {{ transform: 'scale(0.73)', marginRight: '-16px' }}
-                            >
-                                {actions.map(action => (
-                                    <SpeedDialAction
-                                        key={action.name}
-                                        icon={action.icon}
-                                        tooltipTitle={action.name}
-                                        onClick={this.handleClick}
-                                    />
-                                ))}
-                            </SpeedDial>
 
-                            <Fab
-                                color="secondary"
-                                size="small"
-                                aria-label="Delete"
-                                className="grafToolBarBtm"
-                                onClick = { this.removeNode }
-                            >
-                                <DeleteIcon />
-                            </Fab>
+                        {/* hide controll toolbar from client*/}
+                        {this.state.client ? null:
+                            <div style={{display: 'flex'}}>
+                                <SpeedDial
+                                    direction    = "left"
+                                    ariaLabel    = "SpeedDial example"
+                                    open         = { open }
+                                    hidden       = { hidden}
+                                    onFocus      = { this.handleOpen }
+                                    onMouseEnter = { this.handleOpen }
+                                    onClick      = { this.handleClick }
+                                    onBlur       = { this.handleClose }
+                                    onClose      = { this.handleClose }
+                                    onMouseLeave = { this.handleClose }
+                                    icon         = { <EditIcon /> }
+                                    style        = {{ transform: 'scale(0.73)', marginRight: -24 }}
+                                >
+                                    {actions.map(action => (
+                                        <SpeedDialAction
+                                            key={action.name}
+                                            icon={action.icon}
+                                            tooltipTitle={action.name}
+                                            onClick={this.handleClick}
+                                        />
+                                    ))}
+                                </SpeedDial>
 
-                            <Fab
-                                color="secondary"
-                                size="small"
-                                aria-label="Add"
-                                className="grafToolBarBtm"
-                                onClick = { this.openAddNodeForm }
-                            >
-                                <AddIcon />
-                            </Fab>
-
-                            <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
                                 <Fab
                                     color="secondary"
                                     size="small"
-                                    aria-label="Play"
+                                    aria-label="Delete"
                                     className="grafToolBarBtm"
+                                    onClick = { this.removeNode }
                                 >
-                                    <PlayArrow fontSize="small" />
+                                    <DeleteIcon />
                                 </Fab>
-                            </Link>
 
-                        </div>
+                                <Fab
+                                    color="secondary"
+                                    size="small"
+                                    aria-label="Add"
+                                    className="grafToolBarBtm"
+                                    onClick = { this.openAddNodeForm }
+                                >
+                                    <AddIcon />
+                                </Fab>
+
+                                <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
+                                    <Fab
+                                        color="secondary"
+                                        size="small"
+                                        aria-label="Play"
+                                        className="grafToolBarBtm"
+                                    >
+                                        <PlayArrow fontSize="small" />
+                                    </Fab>
+                                </Link>
+
+                            </div>
+                        }
+
+
+
                     </Toolbar>
                 </AppBar>
 
