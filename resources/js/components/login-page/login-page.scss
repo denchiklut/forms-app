@@ -1,0 +1,61 @@
+.loginPage {
+    width: 330px;
+    text-align: center;
+    box-shadow: 1px 1px 8px #0000006b;
+    border-radius: 16px;
+    margin: 60px auto;
+    background: #b1b1b1;
+
+    h3 {
+        margin: 0;
+        color: #eaeaea;
+        text-shadow: 1px 1px 1px #00000045;
+    }
+
+    p {
+        color: #828282;
+        padding: 5px;
+        background: #dadada;
+    }
+
+    img {
+        text-align: center;
+    }
+
+    .myBtn {
+        width: 100%;
+        color: #fff;
+        background-color: #f50057;
+        box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+        font-size: 0.875rem;
+        min-width: 64px;
+        box-sizing: border-box;
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        line-height: 1.75;
+        font-weight: 500;
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        border-radius: 4px;
+        text-transform: uppercase;
+        cursor: pointer;
+        display: inline-flex;
+        outline: none;
+        padding: 5px;
+        position: relative;
+        align-items: center;
+        user-select: none;
+        vertical-align: middle;
+        justify-content: center;
+        -moz-appearance: none;
+        text-decoration: none;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .myBtn:hover {
+        background-color: rgb(171, 0, 60);
+    }
+
+    .myBtn:active {
+        box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+    }
+}

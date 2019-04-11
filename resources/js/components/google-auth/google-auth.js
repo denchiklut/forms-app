@@ -48,21 +48,31 @@ class GoogleAuth extends Component {
             return null
         } else if(this.props.isSignedIn) {
             return(
-                <IconButton
-                    color="inherit"
+                <div
                     onClick={this.onSignedOutClick}
                 >
-                    <VerifiedUser />
-                </IconButton>
+                    {this.props.children}
+                    <IconButton
+                        color="inherit"
+                    >
+                        <VerifiedUser />
+                    </IconButton>
+                </div>
+
             )
         } else {
             return (
-                <IconButton
-                    color="inherit"
+                <div
                     onClick={this.onSignedInCLick}
                 >
-                    <AccountCircle />
-                </IconButton>
+                    {this.props.children}
+                    <IconButton
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                </div>
+
             )
         }
     }

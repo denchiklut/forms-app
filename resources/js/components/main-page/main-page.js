@@ -64,6 +64,10 @@ class MainPage extends Component {
             this.props.fetchNodes(this.props.activeProject.value)
         }
 
+        if (this.props.auth.isSignedIn === false) {
+            this.props.history.push("/login");
+        }
+
     }
 
     render() {
@@ -96,8 +100,8 @@ class MainPage extends Component {
     }
 }
 
-const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto, activeNode}) => {
-    return { projects, questions, objects, activeProject, nodes, avto, activeNode }
+const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, avto, activeNode, auth}) => {
+    return { projects, questions, objects, activeProject, nodes, avto, activeNode, auth }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions, fetchAvto, selectNode}, dispatch)
