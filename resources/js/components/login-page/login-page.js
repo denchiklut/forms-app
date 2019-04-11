@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import Button from '@material-ui/core/Button';
+import PropTypes from "prop-types";
 import GoogleAuth from '../google-auth'
 import './login-page.scss'
-import PropTypes from "prop-types";
 
 class LoginPage extends Component {
 
