@@ -137,7 +137,19 @@ class GrafD3 extends Component {
                             objData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
                             unique:   uuid.v4(),
-                            children: []
+                            children: [],
+                            nodeSvgShape: {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: '#21cbf3',
+                                    stroke: '#939fe4',
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                                }
+                            }
+
                         })
                 } else if (data.addQst.type === "avto") {
                     newData.children.push(
@@ -149,7 +161,18 @@ class GrafD3 extends Component {
                             avtData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
                             unique:   uuid.v4(),
-                            children: []
+                            children: [],
+                            nodeSvgShape: {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: '#21cbf3',
+                                    stroke: '#939fe4',
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                                }
+                            }
                         })
                 } else {
                     newData.children.push(
@@ -210,7 +233,18 @@ class GrafD3 extends Component {
                             type:     data.addQst.type,
                             objData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren]
+                            children: [...oldChildren],
+                            nodeSvgShape: {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: '#21cbf3',
+                                    stroke: '#939fe4',
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                                }
+                            }
                         })
                 } else if (data.addQst.type === "avto") {
                     newData.children.push(
@@ -222,7 +256,18 @@ class GrafD3 extends Component {
                             type:     data.addQst.type,
                             avtData:  data.addQst.data,
                             answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren]
+                            children: [...oldChildren],
+                            nodeSvgShape: {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: '#21cbf3',
+                                    stroke: '#939fe4',
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                                }
+                            }
                         })
                 }  else {
                     newData.children.push(
@@ -352,20 +397,57 @@ class GrafD3 extends Component {
             let j, currentChild
 
             if (searchId === newData.unique) {
-                newData.nodeSvgShape = {
-                    shape: 'circle',
-                    shapeProps: {
-                        r: 10,
-                        fill:"#ca2750",
-                        stroke: '#f50057'
-                    },
+                if (newData.nodeSvgShape) {
+                    if (newData.nodeSvgShape.shape !== "rect") {
+                        newData.nodeSvgShape = {
+                            shape: 'circle',
+                            shapeProps: {
+                                r: 10,
+                                fill: "#ca2750",
+                                stroke: '#f50057'
+                            },
+                        }
+                    } else if (newData.nodeSvgShape.shape === "rect") {
+                        newData.nodeSvgShape = {
+                            shape: 'rect',
+                                shapeProps: {
+                                    fill: "#ca2750",
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                            }
+                        }
+                    }
+                }else {
+                    newData.nodeSvgShape = {
+                        shape: 'circle',
+                        shapeProps: {
+                            r: 10,
+                            fill: "#ca2750",
+                            stroke: '#f50057'
+                        },
+                    }
                 }
+
             }
 
             else {
-                newData.nodeSvgShape = {}
+                if (newData.nodeSvgShape) {
+                    if (newData.nodeSvgShape.shapeProps) {
+                        if (newData.nodeSvgShape.shape !== "rect") {
+                            newData.nodeSvgShape.shapeProps.fill = "#a94690"
+                            newData.nodeSvgShape.shapeProps.stroke = "#837086"
+                        } else {
+                            newData.nodeSvgShape.shapeProps.fill = "#21cbf3"
+                            newData.nodeSvgShape.shapeProps.stroke = "#939fe4"
+                        }
+                    }
+
+                }
+
             }
-            for (j = 0; j < newData.children.length; j += 1) {
+            for (j = 0; j < newData.children.length; j ++) {
                 currentChild = newData.children[j];
                 findNodeById(searchId, currentChild);
             }
