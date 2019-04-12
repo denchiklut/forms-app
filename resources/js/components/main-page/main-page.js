@@ -64,10 +64,11 @@ class MainPage extends Component {
             this.props.fetchNodes(this.props.activeProject.value)
         }
 
-        if (this.props.auth.isSignedIn === false) {
-            this.props.history.push("/login");
+        if (window.location.href.indexOf("/#/share") === -1) {
+            if (this.props.auth.isSignedIn === false) {
+                this.props.history.push("/login");
+            }
         }
-
     }
 
     render() {
