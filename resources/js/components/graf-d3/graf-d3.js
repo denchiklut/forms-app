@@ -577,6 +577,10 @@ class GrafD3 extends Component {
             typography: { useNextVariants: true },
         });
 
+        const dop = {
+            "value": "Дополнительная информация",
+            "webValue": "<p>Дополнительная информация</p>"
+        }
 
         return (
             <div id="treeWrapper">
@@ -702,7 +706,7 @@ class GrafD3 extends Component {
                         isOpen  = { this.state.dopInfo }
                         onAdd   = { this.saveDopInfo }
                         onClose = { this.closeDopInfoForm }
-                        value   = { this.state.data.dopInformation }
+                        value   = { this.state.data.dopInformation ? this.state.data.dopInformation : dop }
                         project = { this.props.activeProject.value }
                     />
                     :null}

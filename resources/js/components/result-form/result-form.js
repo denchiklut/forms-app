@@ -3,8 +3,7 @@ import uuid from "uuid"
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux"
 import Fab from "@material-ui/core/Fab"
-import {Link} from "react-router-dom"
-import Cached from '@material-ui/icons/Cached'
+import InsertComment from '@material-ui/icons/InsertComment'
 
 import {fetchProjects, selectProject} from "../../actions/projects"
 import {signIn, signOut} from '../../actions/auth/google'
@@ -14,12 +13,21 @@ import ResultItem from './result-item'
 import HeaderBar from '../header-bar'
 import './result-form.scss'
 
+import Dialog from "@material-ui/core/Dialog"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import IconButton from "@material-ui/core/IconButton"
+import CloseIcon from '@material-ui/icons/Close'
+import Slide from "@material-ui/core/Slide";
+
+const Transition = props => <Slide direction="up" {...props} />
 
 class ResultForm extends Component {
 
     state = {
         questionList: [],
         lastNode: null,
+        isOpen: false
     }
 
     findNodes = (answer, lastNode, clickedNode) => {
@@ -89,6 +97,28 @@ class ResultForm extends Component {
 
     }
 
+    openDopInfo = () => {
+        this.setState({isOpen: true})
+    }
+
+    handleClose = () => {
+        this.setState({isOpen: false})
+    }
+
+    renderDopInformation = item => {
+        let span = document.createElement('span');
+        span.innerHTML= item;
+
+        const rawMarkup = () => {
+            let rawMarkup = span.innerHTML
+            return { __html: rawMarkup };
+        }
+
+        return  <span dangerouslySetInnerHTML={rawMarkup()} />
+
+    }
+
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.activeProject !== this.props.activeProject) {
             this.setState({questionList: [], lastNode: null, kaskad: [] })
@@ -145,19 +175,15 @@ class ResultForm extends Component {
 
                 <div className = "ResultForm">
 
-                    <Link to={`/play/${this.props.activeProject.value ? this.props.activeProject.value : this.props.match.params.project}`}
-                          style={{textDecoration: "none", color: "white"}}
-                          className="myLink"
-                          onClick={() => window.location.reload() }>
-                        <Fab
-                            color="secondary"
-                            size="small"
-                            aria-label="Play"
-                            className="grafToolBarBtm"
-                        >
-                            <Cached fontSize="small" />
-                        </Fab>
-                    </Link>
+                    <Fab
+                        color="secondary"
+                        size="small"
+                        aria-label="Play"
+                        className="dopick"
+                        onClick = { this.openDopInfo }
+                    >
+                        <InsertComment fontSize="small" />
+                    </Fab>
 
                     {questionList.length !== 0 ? questionList.map(item =>
                         <ResultItem
@@ -168,6 +194,26 @@ class ResultForm extends Component {
                             lastNode     = { this.state.lastNode }
                         />) : null}
                 </div>
+
+                <Dialog
+                    fullScreen
+                    open={this.state.isOpen}
+                    onClose={this.handleClose}
+                    TransitionComponent={Transition}
+                >
+                    <AppBar position="static" >
+                        <Toolbar>
+                            <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                                <CloseIcon />
+                            </IconButton>
+                        </Toolbar>
+                    </AppBar>
+                    <div>
+                      <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
+                          {this.props.nodes.dopInformation ? this.renderDopInformation(this.props.nodes.dopInformation.webValue) : null }
+                      </pre>
+                    </div>
+                </Dialog>
             </div>
         )
     }
