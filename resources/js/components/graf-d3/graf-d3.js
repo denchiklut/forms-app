@@ -12,12 +12,17 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import EditIcon from '@material-ui/icons/Edit'
 import ShareIcon from '@material-ui/icons/Share'
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined'
+import AddComment from '@material-ui/icons/AddComment'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import purple from '@material-ui/core/colors/purple'
+import red from '@material-ui/core/colors/red'
 import uuid from "uuid"
 
 import GrafAddForm from "../garf-add-form"
+import AddDopInfo from "../add-dopInfo"
 import AppBar from '@material-ui/core/AppBar'
 import GrafSelectedPanel from '../graf-selected-panel'
 import EmptyGraf from "../empty-graf"
@@ -57,10 +62,12 @@ class GrafD3 extends Component {
             name: '',
             answer: '',
             children: [],
+            dopInformation: null
         },
         open: false,
         hidden: false,
-        client: false
+        client: false,
+        dopInfo: false,
     }
 
     handleClick = () => {
@@ -87,6 +94,10 @@ class GrafD3 extends Component {
                 value: 'Start',
                 answer: 'Start',
                 children: [],
+                dopInformation: {
+                    value: "Дополнительная информация",
+                    webValue: "<p>Дополнительная информация</p>"
+                }
             }})
     }
 
@@ -473,7 +484,21 @@ class GrafD3 extends Component {
         } else {
             alert("Select node!")
         }
+    }
 
+    openDopInfoForm = () => {
+        this.setState({dopInfo: true})
+    }
+
+    closeDopInfoForm = () => {
+        this.setState({dopInfo: false})
+    }
+
+    saveDopInfo = data => {
+        let newData = {...this.state.data, dopInformation: data}
+
+        this.props.onAddNode(data, newData)
+        this.closeDopInfoForm()
     }
 
     insertAddNodeForm = () => {
@@ -536,6 +561,23 @@ class GrafD3 extends Component {
             return <EmptyGraf />
         }
 
+        const purpleT = createMuiTheme({
+            palette: {
+                primary: { main: purple[500] }, // Purple and green play nicely together.
+                secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+            },
+            typography: { useNextVariants: true },
+        });
+
+        const redT = createMuiTheme({
+            palette: {
+                primary: { main: red[500] }, // Purple and green play nicely together.
+                secondary: { main: '#0d33ef' }, // This is just green.A700 as hex.
+            },
+            typography: { useNextVariants: true },
+        });
+
+
         return (
             <div id="treeWrapper">
                 <AppBar position="static" style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
@@ -552,66 +594,78 @@ class GrafD3 extends Component {
 
                         {/* hide controll toolbar from client*/}
                         {this.state.client ? null:
-                            <div style={{display: 'flex'}}>
-                                <SpeedDial
-                                    direction    = "left"
-                                    ariaLabel    = "SpeedDial example"
-                                    open         = { open }
-                                    hidden       = { hidden}
-                                    onFocus      = { this.handleOpen }
-                                    onMouseEnter = { this.handleOpen }
-                                    onClick      = { this.handleClick }
-                                    onBlur       = { this.handleClose }
-                                    onClose      = { this.handleClose }
-                                    onMouseLeave = { this.handleClose }
-                                    icon         = { <EditIcon /> }
-                                    style        = {{ transform: 'scale(0.73)', marginRight: -24 }}
-                                >
-                                    {actions.map(action => (
-                                        <SpeedDialAction
-                                            key={action.name}
-                                            icon={action.icon}
-                                            tooltipTitle={action.name}
-                                            onClick={this.handleClick}
-                                        />
-                                    ))}
-                                </SpeedDial>
 
-                                <Fab
-                                    color="secondary"
-                                    size="small"
-                                    aria-label="Delete"
-                                    className="grafToolBarBtm"
-                                    onClick = { this.removeNode }
-                                >
-                                    <DeleteIcon />
-                                </Fab>
+                                <div style={{display: 'flex'}}>
+                                    <MuiThemeProvider theme={purpleT}>
+                                    <SpeedDial
+                                        direction    = "left"
+                                        ariaLabel    = "SpeedDial example"
+                                        open         = { open }
+                                        hidden       = { hidden}
+                                        onFocus      = { this.handleOpen }
+                                        onMouseEnter = { this.handleOpen }
+                                        onClick      = { this.handleClick }
+                                        onBlur       = { this.handleClose }
+                                        onClose      = { this.handleClose }
+                                        onMouseLeave = { this.handleClose }
+                                        icon         = { <EditIcon /> }
+                                        style        = {{ transform: 'scale(0.73)', marginRight: -24 }}
+                                    >
+                                        {actions.map(action => (
+                                            <SpeedDialAction
+                                                key={action.name}
+                                                icon={action.icon}
+                                                tooltipTitle={action.name}
+                                                onClick={this.handleClick}
+                                            />
+                                        ))}
+                                    </SpeedDial>
 
-                                <Fab
-                                    color="secondary"
-                                    size="small"
-                                    aria-label="Add"
-                                    className="grafToolBarBtm"
-                                    onClick = { this.openAddNodeForm }
-                                >
-                                    <AddIcon />
-                                </Fab>
-
-                                <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
                                     <Fab
                                         color="secondary"
                                         size="small"
-                                        aria-label="Play"
+                                        aria-label="Add"
                                         className="grafToolBarBtm"
+                                        onClick = { this.openDopInfoForm }
                                     >
-                                        <PlayArrow fontSize="small" />
+                                        <AddComment />
                                     </Fab>
-                                </Link>
+                                    </MuiThemeProvider>
 
-                            </div>
+                                    <Fab
+                                        color="secondary"
+                                        size="small"
+                                        aria-label="Delete"
+                                        className="grafToolBarBtm"
+                                        onClick = { this.removeNode }
+                                    >
+                                        <DeleteIcon />
+                                    </Fab>
+                                    <MuiThemeProvider theme={redT}>
+                                    <Fab
+                                        color="primary"
+                                        size="small"
+                                        aria-label="Add"
+                                        className="grafToolBarBtm"
+                                        onClick = { this.openAddNodeForm }
+                                    >
+                                        <AddIcon />
+                                    </Fab>
+
+
+                                    <Link to={`/play/${this.props.activeProject.value}`} style={{textDecoration: "none", color: "white"}}>
+                                        <Fab
+                                            color="secondary"
+                                            size="small"
+                                            aria-label="Play"
+                                            className="grafToolBarBtm"
+                                        >
+                                            <PlayArrow fontSize="small" />
+                                        </Fab>
+                                    </Link>
+                                    </MuiThemeProvider>
+                                </div>
                         }
-
-
 
                     </Toolbar>
                 </AppBar>
@@ -641,8 +695,17 @@ class GrafD3 extends Component {
                         onClose    = { this.closeAddNodeForm }
                         currentQst = { this.state.selected.idd }
                     />
-                    : null
-                }
+                    : null}
+
+                {this.state.dopInfo ?
+                    <AddDopInfo
+                        isOpen  = { this.state.dopInfo }
+                        onAdd   = { this.saveDopInfo }
+                        onClose = { this.closeDopInfoForm }
+                        value   = { this.state.data.dopInformation }
+                        project = { this.props.activeProject.value }
+                    />
+                    :null}
             </div>
         )
     }
