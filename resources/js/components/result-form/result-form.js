@@ -129,6 +129,9 @@ class ResultForm extends Component {
         if (prevProps.nodes !== this.props.nodes) {
             this.findNodes("start", this.props.nodes, this.props.nodes)
         }
+
+        if (document.querySelector('.answerCard:last-child')) document.querySelector('.answerCard:last-child').scrollIntoView()
+
     }
 
     componentDidMount() {

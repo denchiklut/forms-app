@@ -91,7 +91,7 @@ class AddDopInfo extends Component {
                                 Отмена
                             </Button>
                             <Button onClick={this.handleSubmit} className="edit">
-                                Добавить
+                                Сохранить
                             </Button>
                         </DialogActions>
                     </form>
