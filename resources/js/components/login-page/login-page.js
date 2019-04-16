@@ -12,6 +12,11 @@ class LoginPage extends Component {
         }
     }
 
+    renderText = () => {
+        return this.props.auth.unknownUser ? 'У вас нет праыв на просмотр содержимого' : 'Это временная авторизация, пока нет авторизации в ЛК Reffection!'
+    }
+
+
     render() {
         return (
             <div className="loginPage">
@@ -25,9 +30,7 @@ class LoginPage extends Component {
 
                 <h3>Tap login button to logged in</h3>
 
-                <p>
-                    Это временная авторизация, пока нет авторизации в ЛК Reffection!
-                </p>
+                <p>{this.renderText()}</p>
                 <div className="myBtn">
                     <GoogleAuth> Log in </GoogleAuth>
                 </div>

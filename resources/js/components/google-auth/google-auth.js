@@ -44,9 +44,9 @@ class GoogleAuth extends Component {
     }
 
     renderAuthButton() {
-        if (this.props.isSignedIn === null) {
+        if (this.props.auth.isSignedIn === null) {
             return null
-        } else if(this.props.isSignedIn) {
+        } else if(this.props.auth.isSignedIn) {
             return(
                 <div
                     onClick={this.onSignedOutClick}
@@ -87,7 +87,7 @@ class GoogleAuth extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {isSignedIn: state.auth.isSignedIn}
+    return {auth: state.auth}
 }
 
 export default connect(mapStateToProps, {signIn, signOut})(GoogleAuth);

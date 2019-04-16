@@ -1,4 +1,4 @@
-import { SIGN_IN } from "../actions/auth/google";
+import { SIGN_IN, UNKNOWN_USER } from "../actions/auth/google";
 
 export const authMiddleware = store => next => action => {
     const users = [
@@ -14,7 +14,12 @@ export const authMiddleware = store => next => action => {
     ]
 
     if (action.type === SIGN_IN) {
-        if (users.indexOf(action.payload.email) !== -1) next(action);
+        if (users.indexOf(action.payload.email) !== -1) {
+            next(action)
+        } else {
+            next({ type: UNKNOWN_USER })
+        }
+
         return true;
     }
 
