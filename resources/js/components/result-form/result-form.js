@@ -216,6 +216,7 @@ class ResultForm extends Component {
                             <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                                 <CloseIcon />
                             </IconButton>
+                            <span className="dopTitle">Дополнительная инфомация</span>
                         </Toolbar>
                     </AppBar>
                     <div style={{overflowY: 'auto'}}>
