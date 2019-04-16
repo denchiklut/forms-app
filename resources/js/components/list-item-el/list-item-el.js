@@ -93,7 +93,13 @@ class ListItemEl extends Component {
                 }
                 break
             case "object":
-                this.props.delObject(item)
+                const obj = prompt('Введите название обьекта для удаления', 'Обьект');
+
+                if (item.name === obj) {
+                    this.props.delObject(item)
+                } else {
+                    alert('Неправильное имя обьекта! Обьект: ' + obj + ' не найден!')
+                }
                 break
             case "avto":
                 this.props.delAvto(item)
