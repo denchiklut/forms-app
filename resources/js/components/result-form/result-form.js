@@ -22,6 +22,12 @@ import Slide from "@material-ui/core/Slide";
 
 const Transition = props => <Slide direction="up" {...props} />
 
+const styles = {
+    dialogPaper: {
+        top: '40%',
+    },
+};
+
 class ResultForm extends Component {
 
     state = {
@@ -203,6 +209,7 @@ class ResultForm extends Component {
                     open={this.state.isOpen}
                     onClose={this.handleClose}
                     TransitionComponent={Transition}
+                    style={ styles.dialogPaper }
                 >
                     <AppBar position="static" >
                         <Toolbar>
@@ -211,7 +218,7 @@ class ResultForm extends Component {
                             </IconButton>
                         </Toolbar>
                     </AppBar>
-                    <div>
+                    <div style={{overflowY: 'auto'}}>
                       <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
                           {this.props.nodes.dopInformation ? this.renderDopInformation(this.props.nodes.dopInformation.webValue) : null }
                       </pre>
