@@ -68,6 +68,7 @@ class GrafD3 extends Component {
         hidden: false,
         client: false,
         dopInfo: false,
+        selectedArr: []
     }
 
     handleClick = () => {
@@ -126,94 +127,98 @@ class GrafD3 extends Component {
 
     addNode = data => {
         let newData = {...this.state.data}
+        let searches = [...this.state.selectedArr]
 
-        //id of question that we trying to add to graf
-        let searched = this.state.selected
-
-        const findNodebyId = function(searched, newData) {
-            let j,
-                currentChild,
-                result;
+        const findNodebyId = () => {
+            let add = (searched, newData) => {
+                let j,
+                    currentChild,
+                    result;
 
 
-            if (searched.unique === newData.unique) {
+                if (searched.unique === newData.unique) {
 
-                if (data.addQst.type === "objects") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            objData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: [],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                    if (data.addQst.type === "objects") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                objData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: [],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
 
-                        })
-                } else if (data.addQst.type === "avto") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            avtData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: [],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                            })
+                    } else if (data.addQst.type === "avto") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                avtData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: [],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
+                            })
+                    } else {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                webValue: data.addQst.webValue,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: []
+                            })
+                    }
+
                 } else {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            webValue: data.addQst.webValue,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: []
-                        })
+
+                    for (j = 0; j < newData.children.length; j += 1) {
+                        currentChild = newData.children[j];
+
+                        // Search in the current child
+                        result = add(searched, currentChild);
+                    }
+
+                    // The node has not been found and we have no more options
+                    return false;
                 }
-
-            } else {
-
-                for (j = 0; j < newData.children.length; j += 1) {
-                    currentChild = newData.children[j];
-
-                    // Search in the current child
-                    result = findNodebyId(searched, currentChild);
-                }
-
-                // The node has not been found and we have no more options
-                return false;
             }
+
+            searches.map(item => add(item, newData))
+
         }
 
-        findNodebyId(searched, newData)
+        findNodebyId()
+
 
         this.props.onAddNode(data, newData)
     }
@@ -400,16 +405,64 @@ class GrafD3 extends Component {
         this.props.removeNode(this.state.selected, newData)
     }
 
-    coloriseNode = (nodeKey) => {
+    clr = (newData) => {
+        console.log("clr")
+        let currentChild, i;
+
+        if (newData.nodeSvgShape) {
+            if (newData.nodeSvgShape.shapeProps) {
+                if (newData.nodeSvgShape.shape !== "rect") {
+                    newData.nodeSvgShape.shapeProps.fill = "#a94690"
+                    newData.nodeSvgShape.shapeProps.stroke = "#837086"
+                } else {
+                    newData.nodeSvgShape.shapeProps.fill = "#21cbf3"
+                    newData.nodeSvgShape.shapeProps.stroke = "#939fe4"
+                }
+            }
+
+        }
+
+        for (i = 0; i < newData.children.length; i ++) {
+            currentChild = newData.children[i];
+            this.clr(currentChild);
+        }
+
+        this.setState({data: newData})
+    }
+
+    coloriseNode = nodeArr => {
         let newData = {...this.state.data}
-        let searchId = nodeKey.unique
+        let searchIds = nodeArr.map(node => node.unique)
 
-        const findNodeById = function(searchId, newData) {
-            let j, currentChild
+        const findNodeById = () => {
+            // colorize matched nodes
+            let color = (searchId, newData) => {
+                let j, currentChild
 
-            if (searchId === newData.unique) {
-                if (newData.nodeSvgShape) {
-                    if (newData.nodeSvgShape.shape !== "rect") {
+                if (searchId === newData.unique) {
+                    if (newData.nodeSvgShape) {
+                        if (newData.nodeSvgShape.shape !== "rect") {
+                            newData.nodeSvgShape = {
+                                shape: 'circle',
+                                shapeProps: {
+                                    r: 10,
+                                    fill: "#ca2750",
+                                    stroke: '#f50057'
+                                },
+                            }
+                        } else if (newData.nodeSvgShape.shape === "rect") {
+                            newData.nodeSvgShape = {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: "#ca2750",
+                                    width: 20,
+                                    height: 20,
+                                    x: -10,
+                                    y: -10,
+                                }
+                            }
+                        }
+                    }else {
                         newData.nodeSvgShape = {
                             shape: 'circle',
                             shapeProps: {
@@ -418,64 +471,46 @@ class GrafD3 extends Component {
                                 stroke: '#f50057'
                             },
                         }
-                    } else if (newData.nodeSvgShape.shape === "rect") {
-                        newData.nodeSvgShape = {
-                            shape: 'rect',
-                                shapeProps: {
-                                    fill: "#ca2750",
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
-                            }
-                        }
-                    }
-                }else {
-                    newData.nodeSvgShape = {
-                        shape: 'circle',
-                        shapeProps: {
-                            r: 10,
-                            fill: "#ca2750",
-                            stroke: '#f50057'
-                        },
-                    }
-                }
-
-            }
-
-            else {
-                if (newData.nodeSvgShape) {
-                    if (newData.nodeSvgShape.shapeProps) {
-                        if (newData.nodeSvgShape.shape !== "rect") {
-                            newData.nodeSvgShape.shapeProps.fill = "#a94690"
-                            newData.nodeSvgShape.shapeProps.stroke = "#837086"
-                        } else {
-                            newData.nodeSvgShape.shapeProps.fill = "#21cbf3"
-                            newData.nodeSvgShape.shapeProps.stroke = "#939fe4"
-                        }
                     }
 
                 }
 
+                for (j = 0; j < newData.children.length; j ++) {
+                    currentChild = newData.children[j];
+                    color(searchId, currentChild);
+                }
             }
-            for (j = 0; j < newData.children.length; j ++) {
-                currentChild = newData.children[j];
-                findNodeById(searchId, currentChild);
-            }
+
+            searchIds.map(searchId => color(searchId, newData))
         }
 
-        findNodeById(searchId, newData)
+        findNodeById()
 
-        this.setState({
-            data: newData
-        });
+        this.setState({ data: newData });
 
     }
 
-    click = (nodeKey) => {
-        this.setState({selected: nodeKey})
-        this.props.showNode(nodeKey)
-        this.coloriseNode(nodeKey)
+    click = (nodeKey, e) => {
+        this.clr(this.state.data)
+
+        if (e.altKey) {
+
+            let arr = [...this.state.selectedArr];
+
+            if (arr.find(item => item.unique === nodeKey.unique) !== undefined) {
+                this.setState({selectedArr: [...arr.filter(item => item.unique !== nodeKey.unique)]},
+                    () => this.coloriseNode(this.state.selectedArr))
+            } else {
+                this.setState({selectedArr: [...arr, nodeKey]},
+                    () => this.coloriseNode(this.state.selectedArr))
+            }
+            return true
+        }
+
+        this.setState({selected: nodeKey, selectedArr: [nodeKey]}, () => {
+            this.coloriseNode(this.state.selectedArr)
+            this.props.showNode(nodeKey)
+        })
     }
 
     openAddNodeForm = () => {
