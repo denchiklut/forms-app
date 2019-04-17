@@ -214,7 +214,6 @@ class GrafD3 extends Component {
             }
 
             searches.map(item => add(item, newData))
-
         }
 
         findNodebyId()
@@ -225,94 +224,96 @@ class GrafD3 extends Component {
 
     insertNode = data => {
         let newData = {...this.state.data}
+        let searches = [...this.state.selectedArr]
 
-        //id of question that we trying to add to graf
-        let searched = this.state.selected
-
-        const findNodebyId = function(searched, newData) {
-            let j,
-                currentChild,
-                result;
+        const findNodebyId = () => {
+            let insert = (searched, newData) => {
+                let j,
+                    currentChild,
+                    result;
 
 
-            if (searched.unique === newData.unique) {
-                let oldChildren = newData.children.slice();
-                newData.children = []
+                if (searched.unique === newData.unique) {
+                    let oldChildren = newData.children.slice();
+                    newData.children = []
 
-                if (data.addQst.type === "objects") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            objData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                    if (data.addQst.type === "objects") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                objData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
-                } else if (data.addQst.type === "avto") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            avtData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                            })
+                    } else if (data.addQst.type === "avto") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                avtData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
-                }  else {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            webValue: data.addQst.webValue,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren]})
+                            })
+                    }  else {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                webValue: data.addQst.webValue,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren]})
+                    }
+
+                } else {
+
+                    for (j = 0; j < newData.children.length; j += 1) {
+                        currentChild = newData.children[j];
+
+                        // Search in the current child
+                        result = insert(searched, currentChild);
+                    }
+
+                    // The node has not been found and we have no more options
+                    return false;
                 }
-
-            } else {
-
-                for (j = 0; j < newData.children.length; j += 1) {
-                    currentChild = newData.children[j];
-
-                    // Search in the current child
-                    result = findNodebyId(searched, currentChild);
-                }
-
-                // The node has not been found and we have no more options
-                return false;
             }
+
+            searches.map(item => insert(item, newData))
         }
 
-        findNodebyId(searched, newData)
+        findNodebyId()
 
         this.props.onAddNode(data, newData)
     }
