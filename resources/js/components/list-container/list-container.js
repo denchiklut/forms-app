@@ -159,15 +159,16 @@ class ListContainer extends Component {
                     ))}
                 </List>
 
-                <Fab
-                    aria-label = "Add"
-                    className  = "myAdd"
-                    size       = "medium"
-                    onClick    = { this.handleClickOpen }
-                    color      = {this.props.type === 'question' ? "secondary" : "primary"}
-                >
-                    <AddIcon />
-                </Fab>
+                <div className  = "myAdd">
+                    <Fab
+                        aria-label = "Add"
+                        size       = "medium"
+                        onClick    = { this.handleClickOpen }
+                        color      = {this.props.type === 'question' ? "secondary" : "primary"}
+                    >
+                        <AddIcon />
+                    </Fab>
+                </div>
 
                 { this.state.isOpen ? this.renderAddForm() : null}
             </div>

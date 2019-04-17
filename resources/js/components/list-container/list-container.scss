@@ -47,9 +47,11 @@
     }
 
     .myAdd {
-        position: absolute;
+        width: 100%;
         bottom: 24px;
-        right: 22px;
+        position: fixed;
+        text-align: right;
+        padding-right: 8px;
     }
 
 }
