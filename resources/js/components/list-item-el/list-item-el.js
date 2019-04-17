@@ -97,6 +97,8 @@ class ListItemEl extends Component {
 
                 if (item.name === obj) {
                     this.props.delObject(item)
+                } else if (obj === null) {
+                    return true;
                 } else {
                     alert('Неправильное имя обьекта! Обьект: ' + obj + ' не найден!')
                 }
