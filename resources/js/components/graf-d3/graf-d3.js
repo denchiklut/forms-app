@@ -357,55 +357,59 @@ class GrafD3 extends Component {
 
     cutNode = () => {
         let newData = {...this.state.data}
-        let searched = this.state.selected
+        let searches = [...this.state.selectedArr]
 
-        const findNodeById = function(searched, newData) {
-            let j,
-                currentChild,
-                currentParent,
-                result
+        const findNodeById = () => {
+            let cut = (searched, newData) => {
+                let j,
+                    currentChild,
+                    currentParent,
+                    result
 
-            if (searched.unique === newData.unique) {
-                return true
-            }
-
-            else {
-
-                for (j = 0; j < newData.children.length; j ++) {
-                    currentChild = newData.children[j];
-
-                    if (currentChild.unique === searched.unique) {
-                        currentParent = newData
-                    }
-                    result = findNodeById(searched, currentChild);
-
-                    if (result) {
-
-                        currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
-                        currentParent.children.push(...searched.children)
-
-                        const clrArr =  function (arr) {
-                            arr.map(item => {
-                                item.children ? clrArr(item.children) : item.children = []
-                                delete(item.id)
-                                delete(item.parent)
-                                delete(item.depth)
-                                delete(item._collapsed)
-                                delete(item.x)
-                                delete(item.y)
-                            })
-                        }
-
-                        clrArr(newData.children)
-
-                        return false
-                    }
+                if (searched.unique === newData.unique) {
+                    return true
                 }
-                return false;
+
+                else {
+
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+
+                        if (currentChild.unique === searched.unique) {
+                            currentParent = newData
+                        }
+                        result = cut(searched, currentChild);
+
+                        if (result) {
+
+                            currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
+                            currentParent.children.push(...searched.children)
+
+                            const clrArr =  function (arr) {
+                                arr.map(item => {
+                                    item.children ? clrArr(item.children) : item.children = []
+                                    delete(item.id)
+                                    delete(item.parent)
+                                    delete(item.depth)
+                                    delete(item._collapsed)
+                                    delete(item.x)
+                                    delete(item.y)
+                                })
+                            }
+
+                            clrArr(newData.children)
+
+                            return false
+                        }
+                    }
+                    return false;
+                }
             }
+
+            searches.map(item => cut(item, newData))
         }
 
-        findNodeById(searched, newData)
+        findNodeById()
 
         this.props.removeNode(this.state.selected, newData)
     }
