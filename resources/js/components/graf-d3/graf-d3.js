@@ -319,33 +319,37 @@ class GrafD3 extends Component {
 
     removeNode = () => {
         let newData = {...this.state.data}
-        let searchId = this.state.selected.unique
+        let searches = [...this.state.selectedArr]
 
-        const findNodeById = function(searchId, newData) {
-            let j,
-                currentChild,
-                result
+        const findNodeById = () => {
+            let remove = (searchId, newData) => {
+                let j,
+                    currentChild,
+                    result
 
-            if (searchId === newData.unique) {
-                return true
-            }
-
-            else {
-                for (j = 0; j < newData.children.length; j ++) {
-                    currentChild = newData.children[j];
-                    result = findNodeById(searchId, currentChild);
-
-                    if (result) {
-                        currentChild = null
-                        newData.children.splice(j, 1)
-                        return false
-                    }
+                if (searchId === newData.unique) {
+                    return true
                 }
-                return false;
+
+                else {
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+                        result = remove(searchId, currentChild);
+
+                        if (result) {
+                            currentChild = null
+                            newData.children.splice(j, 1)
+                            return false
+                        }
+                    }
+                    return false;
+                }
             }
+
+            searches.map(item => remove(item.unique, newData))
         }
 
-        findNodeById(searchId, newData)
+        findNodeById()
 
         this.props.removeNode(this.state.selected, newData)
     }
