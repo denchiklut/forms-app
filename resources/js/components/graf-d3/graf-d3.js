@@ -12,8 +12,10 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import EditIcon from '@material-ui/icons/Edit'
 import ShareIcon from '@material-ui/icons/Share'
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined'
-import AddComment from '@material-ui/icons/AddComment'
+import AddCommentIcon from '@material-ui/icons/AddComment'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
+import UnarchiveIcon from '@material-ui/icons/Unarchive'
+import ArchiveIcon from '@material-ui/icons/Archive'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
@@ -100,6 +102,41 @@ class GrafD3 extends Component {
                     webValue: "<p>Дополнительная информация</p>"
                 }
             }})
+    }
+
+    copyBranch = () => {
+        let newData = {...this.state.selected}
+
+        const clrData = newData => {
+            let i, currentChild
+
+            newData.unique = uuid.v4()
+            delete(newData.id)
+            delete(newData.parent)
+            delete(newData.depth)
+            delete(newData._collapsed)
+            delete(newData.x)
+            delete(newData.y)
+
+            if (newData.children)  {
+                for (i = 0; i < newData.children.length; i ++) {
+                    currentChild = newData.children[i];
+                    clrData(currentChild);
+                }
+            }
+
+
+        }
+
+        clrData(newData)
+
+        console.log("before", this.state.selected)
+        console.log("after", newData)
+
+    }
+
+    pasteBranch = () => {
+        alert("paste branch")
     }
 
     onAnswerUpdate = data => {
@@ -241,7 +278,7 @@ class GrafD3 extends Component {
 
 
                 if (searched.unique === newData.unique) {
-                    let oldChildren = newData.children.slice();
+                    let oldChildren = newData.children ? newData.children.slice(): [];
                     newData.children = []
 
                     if (data.addQst.type === "objects") {
@@ -610,6 +647,8 @@ class GrafD3 extends Component {
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
+            { icon: <ArchiveIcon onClick={this.pasteBranch} />,  name: ' Paste branch' },
+            { icon: <UnarchiveIcon onClick={this.copyBranch} />,  name: 'Copy branch' },
         ]
 
         const { hidden, open } = this.state
@@ -670,7 +709,7 @@ class GrafD3 extends Component {
                                         onClose      = { this.handleClose }
                                         onMouseLeave = { this.handleClose }
                                         icon         = { <EditIcon /> }
-                                        style        = {{ transform: 'scale(0.73)', marginRight: -24 }}
+                                        style        = {{ transform: 'scale(0.73)', marginRight: -42 }}
                                     >
                                         {actions.map(action => (
                                             <SpeedDialAction
@@ -689,7 +728,7 @@ class GrafD3 extends Component {
                                         className="grafToolBarBtm"
                                         onClick = { this.openDopInfoForm }
                                     >
-                                        <AddComment />
+                                        <AddCommentIcon />
                                     </Fab>
                                     </MuiThemeProvider>
 
