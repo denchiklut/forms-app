@@ -128,6 +128,7 @@ class GrafD3 extends Component {
     addNode = data => {
         let newData = {...this.state.data}
         let searches = [...this.state.selectedArr]
+        let newSelected = []
 
         const findNodebyId = () => {
             let add = (searched, newData) => {
@@ -199,6 +200,8 @@ class GrafD3 extends Component {
                             })
                     }
 
+                    newSelected.push(newData.children[0])
+
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {
@@ -217,7 +220,10 @@ class GrafD3 extends Component {
         }
 
         findNodebyId()
+        this.clr(this.state.data)
 
+        this.setState({selectedArr: newSelected },
+            () => this.coloriseNode(this.state.selectedArr))
 
         this.props.onAddNode(data, newData)
     }
@@ -225,6 +231,7 @@ class GrafD3 extends Component {
     insertNode = data => {
         let newData = {...this.state.data}
         let searches = [...this.state.selectedArr]
+        let newSelected = []
 
         const findNodebyId = () => {
             let insert = (searched, newData) => {
@@ -296,6 +303,8 @@ class GrafD3 extends Component {
                                 children: [...oldChildren]})
                     }
 
+                    newSelected.push(newData.children[0])
+
                 } else {
 
                     for (j = 0; j < newData.children.length; j += 1) {
@@ -314,6 +323,10 @@ class GrafD3 extends Component {
         }
 
         findNodebyId()
+        this.clr(this.state.data)
+
+        this.setState({selectedArr: newSelected },
+            () => this.coloriseNode(this.state.selectedArr))
 
         this.props.onAddNode(data, newData)
     }
@@ -415,7 +428,6 @@ class GrafD3 extends Component {
     }
 
     clr = (newData) => {
-        console.log("clr")
         let currentChild, i;
 
         if (newData.nodeSvgShape) {
@@ -507,12 +519,13 @@ class GrafD3 extends Component {
             let arr = [...this.state.selectedArr];
 
             if (arr.find(item => item.unique === nodeKey.unique) !== undefined) {
-                this.setState({selectedArr: [...arr.filter(item => item.unique !== nodeKey.unique)]},
+                this.setState({selectedArr: [...arr.filter(item => item.unique !== nodeKey.unique)].sort((a, b) => a.depth - b.depth)},
                     () => this.coloriseNode(this.state.selectedArr))
             } else {
-                this.setState({selectedArr: [...arr, nodeKey]},
+                this.setState({selectedArr: [...arr, nodeKey].sort((a, b) => a.depth - b.depth)},
                     () => this.coloriseNode(this.state.selectedArr))
             }
+
             return true
         }
 
