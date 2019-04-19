@@ -12,8 +12,10 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction'
 import EditIcon from '@material-ui/icons/Edit'
 import ShareIcon from '@material-ui/icons/Share'
 import FileCopyIcon from '@material-ui/icons/FileCopyOutlined'
-import AddComment from '@material-ui/icons/AddComment'
+import AddCommentIcon from '@material-ui/icons/AddComment'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
+import UnarchiveIcon from '@material-ui/icons/Unarchive'
+import ArchiveIcon from '@material-ui/icons/Archive'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
@@ -68,6 +70,8 @@ class GrafD3 extends Component {
         hidden: false,
         client: false,
         dopInfo: false,
+        selectedArr: [],
+        copied: null
     }
 
     handleClick = () => {
@@ -101,6 +105,87 @@ class GrafD3 extends Component {
             }})
     }
 
+    copyBranch = () => {
+        let newData = {...this.state.selected}
+        let newSelected = []
+
+        const clrData = newData => {
+            let i, currentChild
+
+            newSelected.push(newData)
+            delete(newData.id)
+            delete(newData.parent)
+            delete(newData.depth)
+            delete(newData._collapsed)
+            delete(newData.x)
+            delete(newData.y)
+
+            if (newData.children)  {
+                for (i = 0; i < newData.children.length; i ++) {
+                    currentChild = newData.children[i];
+                    clrData(currentChild);
+                }
+            }
+        }
+
+        clrData(newData)
+        this.coloriseNode(newSelected, "#ff821c", "#ff9e59")
+
+        this.setState({copied: newData})
+
+    }
+
+    pasteBranch = () => {
+        let newData = {...this.state.data}
+        let searches = [...this.state.selectedArr]
+        let pastedData = {...this.state.copied}
+
+        const findNodebyId = () => {
+
+            const cngData = myData => {
+                let i, currentChild
+
+                myData.unique = uuid.v4()
+                if (myData.children)  {
+
+                    for (i = 0; i < myData.children.length; i++) {
+                        currentChild = myData.children[i];
+                        currentChild.unique = uuid.v4()
+
+                        cngData(currentChild);
+                    }
+                } else {
+                    myData.children = []
+                }
+                return myData
+            }
+
+            let add = (searched, newData) => {
+
+                if (searched.unique === newData.unique) {
+                    newData.children.push( cngData(JSON.parse(JSON.stringify(pastedData))) )
+
+                } else {
+
+                    if (newData.children)
+                    for (let i = 0; i < newData.children.length; i ++) {
+                        add(searched, newData.children[i])
+                    }
+                    return false;
+                }
+            }
+
+            searches.map(item => add(item, newData))
+        }
+
+        findNodebyId()
+
+        this.setState({selectedArr: [], selected: null},
+            () => this.clr(this.state.data))
+
+        this.props.onAddNode(pastedData, newData)
+    }
+
     onAnswerUpdate = data => {
         let newData = {...this.state.data}
         let searchId = data.unique
@@ -126,356 +211,417 @@ class GrafD3 extends Component {
 
     addNode = data => {
         let newData = {...this.state.data}
+        let searches = [...this.state.selectedArr]
+        let newSelected = []
 
-        //id of question that we trying to add to graf
-        let searched = this.state.selected
-
-        const findNodebyId = function(searched, newData) {
-            let j,
-                currentChild,
-                result;
+        const findNodebyId = () => {
+            let add = (searched, newData) => {
+                let j,
+                    currentChild,
+                    result;
 
 
-            if (searched.unique === newData.unique) {
+                if (searched.unique === newData.unique) {
 
-                if (data.addQst.type === "objects") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            objData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: [],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                    if (data.addQst.type === "objects") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                objData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: [],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
 
-                        })
-                } else if (data.addQst.type === "avto") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            avtData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: [],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                            })
+                    } else if (data.addQst.type === "avto") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                avtData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: [],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
+                            })
+                    } else {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                webValue: data.addQst.webValue,
+                                idd:      data.addQst._id,
+                                type:     data.addQst.type,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                unique:   uuid.v4(),
+                                children: []
+                            })
+                    }
+
+                    newSelected.push(newData.children[0])
+
                 } else {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            webValue: data.addQst.webValue,
-                            idd:      data.addQst._id,
-                            type:     data.addQst.type,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            unique:   uuid.v4(),
-                            children: []
-                        })
+
+                    for (j = 0; j < newData.children.length; j += 1) {
+                        currentChild = newData.children[j];
+
+                        // Search in the current child
+                        result = add(searched, currentChild);
+                    }
+
+                    // The node has not been found and we have no more options
+                    return false;
                 }
-
-            } else {
-
-                for (j = 0; j < newData.children.length; j += 1) {
-                    currentChild = newData.children[j];
-
-                    // Search in the current child
-                    result = findNodebyId(searched, currentChild);
-                }
-
-                // The node has not been found and we have no more options
-                return false;
             }
+
+            searches.map(item => add(item, newData))
         }
 
-        findNodebyId(searched, newData)
+        findNodebyId()
+        this.clr(this.state.data)
+
+        this.setState({selectedArr: newSelected },
+            () => this.coloriseNode(this.state.selectedArr))
 
         this.props.onAddNode(data, newData)
     }
 
     insertNode = data => {
         let newData = {...this.state.data}
+        let searches = [...this.state.selectedArr]
+        let newSelected = []
 
-        //id of question that we trying to add to graf
-        let searched = this.state.selected
-
-        const findNodebyId = function(searched, newData) {
-            let j,
-                currentChild,
-                result;
+        const findNodebyId = () => {
+            let insert = (searched, newData) => {
+                let j,
+                    currentChild,
+                    result;
 
 
-            if (searched.unique === newData.unique) {
-                let oldChildren = newData.children.slice();
-                newData.children = []
+                if (searched.unique === newData.unique) {
+                    let oldChildren = newData.children ? newData.children.slice(): [];
+                    newData.children = []
 
-                if (data.addQst.type === "objects") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            objData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                    if (data.addQst.type === "objects") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                objData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
-                } else if (data.addQst.type === "avto") {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            avtData:  data.addQst.data,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren],
-                            nodeSvgShape: {
-                                shape: 'rect',
-                                shapeProps: {
-                                    fill: '#21cbf3',
-                                    stroke: '#939fe4',
-                                    width: 20,
-                                    height: 20,
-                                    x: -10,
-                                    y: -10,
+                            })
+                    } else if (data.addQst.type === "avto") {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                avtData:  data.addQst.data,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren],
+                                nodeSvgShape: {
+                                    shape: 'rect',
+                                    shapeProps: {
+                                        fill: '#21cbf3',
+                                        stroke: '#939fe4',
+                                        width: 20,
+                                        height: 20,
+                                        x: -10,
+                                        y: -10,
+                                    }
                                 }
-                            }
-                        })
-                }  else {
-                    newData.children.push(
-                        {
-                            name:     data.addQst.value.substr(0, 11),
-                            value:    data.addQst.value,
-                            webValue: data.addQst.webValue,
-                            idd:      data.addQst._id,
-                            unique:   uuid.v4(),
-                            type:     data.addQst.type,
-                            answer:   searched.idd === 0 ? 'start' : data.answer,
-                            children: [...oldChildren]})
+                            })
+                    }  else {
+                        newData.children.push(
+                            {
+                                name:     data.addQst.value.substr(0, 11),
+                                value:    data.addQst.value,
+                                webValue: data.addQst.webValue,
+                                idd:      data.addQst._id,
+                                unique:   uuid.v4(),
+                                type:     data.addQst.type,
+                                answer:   searched.idd === 0 ? 'start' : data.answer,
+                                children: [...oldChildren]})
+                    }
+
+                    newSelected.push(newData.children[0])
+
+                } else {
+
+                    for (j = 0; j < newData.children.length; j += 1) {
+                        currentChild = newData.children[j];
+
+                        // Search in the current child
+                        result = insert(searched, currentChild);
+                    }
+
+                    // The node has not been found and we have no more options
+                    return false;
                 }
-
-            } else {
-
-                for (j = 0; j < newData.children.length; j += 1) {
-                    currentChild = newData.children[j];
-
-                    // Search in the current child
-                    result = findNodebyId(searched, currentChild);
-                }
-
-                // The node has not been found and we have no more options
-                return false;
             }
+
+            searches.map(item => insert(item, newData))
         }
 
-        findNodebyId(searched, newData)
+        findNodebyId()
+        this.clr(this.state.data)
+
+        this.setState({selectedArr: newSelected },
+            () => this.coloriseNode(this.state.selectedArr))
 
         this.props.onAddNode(data, newData)
     }
 
     removeNode = () => {
         let newData = {...this.state.data}
-        let searchId = this.state.selected.unique
+        let searches = [...this.state.selectedArr]
 
-        const findNodeById = function(searchId, newData) {
-            let j,
-                currentChild,
-                result
+        const findNodeById = () => {
+            let remove = (searchId, newData) => {
+                let j,
+                    currentChild,
+                    result
 
-            if (searchId === newData.unique) {
-                return true
-            }
-
-            else {
-                for (j = 0; j < newData.children.length; j ++) {
-                    currentChild = newData.children[j];
-                    result = findNodeById(searchId, currentChild);
-
-                    if (result) {
-                        currentChild = null
-                        newData.children.splice(j, 1)
-                        return false
-                    }
+                if (searchId === newData.unique) {
+                    return true
                 }
-                return false;
+
+                else {
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+                        result = remove(searchId, currentChild);
+
+                        if (result) {
+                            currentChild = null
+                            newData.children.splice(j, 1)
+                            return false
+                        }
+                    }
+                    return false;
+                }
             }
+
+            searches.map(item => remove(item.unique, newData))
         }
 
-        findNodeById(searchId, newData)
+        findNodeById()
 
         this.props.removeNode(this.state.selected, newData)
     }
 
     cutNode = () => {
         let newData = {...this.state.data}
-        let searched = this.state.selected
+        let searches = [...this.state.selectedArr]
 
-        const findNodeById = function(searched, newData) {
-            let j,
-                currentChild,
-                currentParent,
-                result
+        const findNodeById = () => {
+            let cut = (searched, newData) => {
+                let j,
+                    currentChild,
+                    currentParent,
+                    result
 
-            if (searched.unique === newData.unique) {
-                return true
-            }
-
-            else {
-
-                for (j = 0; j < newData.children.length; j ++) {
-                    currentChild = newData.children[j];
-
-                    if (currentChild.unique === searched.unique) {
-                        currentParent = newData
-                    }
-                    result = findNodeById(searched, currentChild);
-
-                    if (result) {
-
-                        currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
-                        currentParent.children.push(...searched.children)
-
-                        const clrArr =  function (arr) {
-                            arr.map(item => {
-                                item.children ? clrArr(item.children) : item.children = []
-                                delete(item.id)
-                                delete(item.parent)
-                                delete(item.depth)
-                                delete(item._collapsed)
-                                delete(item.x)
-                                delete(item.y)
-                            })
-                        }
-
-                        clrArr(newData.children)
-
-                        return false
-                    }
+                if (searched.unique === newData.unique) {
+                    return true
                 }
-                return false;
+
+                else {
+
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+
+                        if (currentChild.unique === searched.unique) {
+                            currentParent = newData
+                        }
+                        result = cut(searched, currentChild);
+
+                        if (result) {
+
+                            currentParent.children.map((item, i) => item.unique === searched.unique ? currentParent.children.splice(i, 1) : item)
+                            currentParent.children.push(...searched.children)
+
+                            const clrArr =  function (arr) {
+                                arr.map(item => {
+                                    item.children ? clrArr(item.children) : item.children = []
+                                    delete(item.id)
+                                    delete(item.parent)
+                                    delete(item.depth)
+                                    delete(item._collapsed)
+                                    delete(item.x)
+                                    delete(item.y)
+                                })
+                            }
+
+                            clrArr(newData.children)
+
+                            return false
+                        }
+                    }
+                    return false;
+                }
             }
+
+            searches.map(item => cut(item, newData))
         }
 
-        findNodeById(searched, newData)
+        findNodeById()
 
         this.props.removeNode(this.state.selected, newData)
     }
 
-    coloriseNode = (nodeKey) => {
+    clr = (newData) => {
+        let currentChild, i;
+
+        if (newData.nodeSvgShape) {
+            if (newData.nodeSvgShape.shapeProps) {
+                if (newData.nodeSvgShape.shape !== "rect") {
+                    newData.nodeSvgShape.shapeProps.fill = "#a94690"
+                    newData.nodeSvgShape.shapeProps.stroke = "#837086"
+                } else {
+                    newData.nodeSvgShape.shapeProps.fill = "#21cbf3"
+                    newData.nodeSvgShape.shapeProps.stroke = "#939fe4"
+                }
+            }
+
+        }
+
+        if (newData.children) {
+            for (i = 0; i < newData.children.length; i ++) {
+                currentChild = newData.children[i];
+                this.clr(currentChild);
+            }
+        }
+
+
+        this.setState({data: newData})
+    }
+
+    coloriseNode = (nodeArr, fill="#ca2750", stroke="#f50057") => {
         let newData = {...this.state.data}
-        let searchId = nodeKey.unique
+        let searchIds = nodeArr.map(node => node.unique)
 
-        const findNodeById = function(searchId, newData) {
-            let j, currentChild
+        const findNodeById = () => {
+            // colorize matched nodes
+            let color = (searchId, newData) => {
+                let j, currentChild
 
-            if (searchId === newData.unique) {
-                if (newData.nodeSvgShape) {
-                    if (newData.nodeSvgShape.shape !== "rect") {
-                        newData.nodeSvgShape = {
-                            shape: 'circle',
-                            shapeProps: {
-                                r: 10,
-                                fill: "#ca2750",
-                                stroke: '#f50057'
-                            },
-                        }
-                    } else if (newData.nodeSvgShape.shape === "rect") {
-                        newData.nodeSvgShape = {
-                            shape: 'rect',
+                if (searchId === newData.unique) {
+                    if (newData.nodeSvgShape) {
+                        if (newData.nodeSvgShape.shape !== "rect") {
+                            newData.nodeSvgShape = {
+                                shape: 'circle',
                                 shapeProps: {
-                                    fill: "#ca2750",
+                                    r: 10,
+                                    fill: fill,
+                                    stroke: stroke
+                                },
+                            }
+                        } else if (newData.nodeSvgShape.shape === "rect") {
+                            newData.nodeSvgShape = {
+                                shape: 'rect',
+                                shapeProps: {
+                                    fill: fill,
                                     width: 20,
                                     height: 20,
                                     x: -10,
                                     y: -10,
+                                }
                             }
                         }
-                    }
-                }else {
-                    newData.nodeSvgShape = {
-                        shape: 'circle',
-                        shapeProps: {
-                            r: 10,
-                            fill: "#ca2750",
-                            stroke: '#f50057'
-                        },
-                    }
-                }
-
-            }
-
-            else {
-                if (newData.nodeSvgShape) {
-                    if (newData.nodeSvgShape.shapeProps) {
-                        if (newData.nodeSvgShape.shape !== "rect") {
-                            newData.nodeSvgShape.shapeProps.fill = "#a94690"
-                            newData.nodeSvgShape.shapeProps.stroke = "#837086"
-                        } else {
-                            newData.nodeSvgShape.shapeProps.fill = "#21cbf3"
-                            newData.nodeSvgShape.shapeProps.stroke = "#939fe4"
+                    }else {
+                        newData.nodeSvgShape = {
+                            shape: 'circle',
+                            shapeProps: {
+                                r: 10,
+                                fill: fill,
+                                stroke: stroke
+                            },
                         }
                     }
 
                 }
 
+                if (newData.children) {
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+                        color(searchId, currentChild);
+                    }
+                }
             }
-            for (j = 0; j < newData.children.length; j ++) {
-                currentChild = newData.children[j];
-                findNodeById(searchId, currentChild);
-            }
+
+            searchIds.map(searchId => color(searchId, newData))
         }
 
-        findNodeById(searchId, newData)
+        findNodeById()
 
-        this.setState({
-            data: newData
-        });
+        this.setState({ data: newData });
 
     }
 
-    click = (nodeKey) => {
-        this.setState({selected: nodeKey})
-        this.props.showNode(nodeKey)
-        this.coloriseNode(nodeKey)
+    click = (nodeKey, e) => {
+        this.clr(this.state.data)
+
+        if (e.altKey) {
+
+            let arr = [...this.state.selectedArr];
+
+            if (arr.find(item => item.unique === nodeKey.unique) !== undefined) {
+                this.setState({selectedArr: [...arr.filter(item => item.unique !== nodeKey.unique)].sort((a, b) => a.depth - b.depth)},
+                    () => this.coloriseNode(this.state.selectedArr))
+            } else {
+                this.setState({selectedArr: [...arr, nodeKey].sort((a, b) => a.depth - b.depth)},
+                    () => this.coloriseNode(this.state.selectedArr))
+            }
+
+            return true
+        }
+
+        this.setState({selected: nodeKey, selectedArr: [nodeKey]}, () => {
+            this.coloriseNode(this.state.selectedArr)
+            this.props.showNode(nodeKey)
+        })
     }
 
     openAddNodeForm = () => {
@@ -553,6 +699,8 @@ class GrafD3 extends Component {
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
+            { icon: <ArchiveIcon onClick={this.pasteBranch} />,  name: ' Paste branch' },
+            { icon: <UnarchiveIcon onClick={this.copyBranch} />,  name: 'Copy branch' },
         ]
 
         const { hidden, open } = this.state
@@ -613,7 +761,7 @@ class GrafD3 extends Component {
                                         onClose      = { this.handleClose }
                                         onMouseLeave = { this.handleClose }
                                         icon         = { <EditIcon /> }
-                                        style        = {{ transform: 'scale(0.73)', marginRight: -24 }}
+                                        style        = {{ transform: 'scale(0.73)', marginRight: -42 }}
                                     >
                                         {actions.map(action => (
                                             <SpeedDialAction
@@ -632,7 +780,7 @@ class GrafD3 extends Component {
                                         className="grafToolBarBtm"
                                         onClick = { this.openDopInfoForm }
                                     >
-                                        <AddComment />
+                                        <AddCommentIcon />
                                     </Fab>
                                     </MuiThemeProvider>
 

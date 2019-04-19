@@ -13,7 +13,6 @@
             <excludedPath path="/database" />
             <excludedPath path="/docker" />
             <excludedPath path="/node_modules" />
-            <excludedPath path="/public" />
             <excludedPath path="/storage" />
             <excludedPath path="/tests" />
             <excludedPath path="/v8-compile-cache-0" />
@@ -36,6 +35,7 @@
             <excludedPath path="/readme.md" />
             <excludedPath path="/server.php" />
             <excludedPath path="/webpack.mix.js" />
+            <excludedPath path="/public" />
           </excludedPaths>
         </serverdata>
       </paths>
