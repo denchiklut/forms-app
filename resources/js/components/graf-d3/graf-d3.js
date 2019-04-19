@@ -136,63 +136,54 @@ class GrafD3 extends Component {
     }
 
     pasteBranch = () => {
-        let DataAll = {...this.state.data}
+        let newData = {...this.state.data}
         let searches = [...this.state.selectedArr]
-        let pastedData1 = {...this.state.copied}
+        let pastedData = {...this.state.copied}
 
+        const findNodebyId = () => {
 
-        const cngData = function (_myData) {
-            let i, currentChild
+            const cngData = myData => {
+                let i, currentChild
 
-            _myData.unique = uuid.v4()
-            if (_myData.children)  {
+                myData.unique = uuid.v4()
+                if (myData.children)  {
 
-                for (i = 0; i < _myData.children.length; i++) {
-                    currentChild = _myData.children[i];
-                    currentChild.unique = uuid.v4()
+                    for (i = 0; i < myData.children.length; i++) {
+                        currentChild = myData.children[i];
+                        currentChild.unique = uuid.v4()
 
-                    cngData(currentChild);
+                        cngData(currentChild);
+                    }
+                } else {
+                    myData.children = []
                 }
-            } else {
-                _myData.children = []
+                return myData
             }
-        }
 
-        function addBranch(searchedNode, node) {
+            let add = (searched, newData) => {
 
-            if (searchedNode.unique ===  node.unique) return node
+                if (searched.unique === newData.unique) {
+                    newData.children.push( cngData(JSON.parse(JSON.stringify(pastedData))) )
 
-            for (let j = 0; j < node.children.length; j++) {
+                } else {
 
-                const currentChild = node.children[j];
-
-                if(node.children) {
-                    const res = addBranch(searchedNode, currentChild)
-                    if (res) return res
+                    if (newData.children)
+                    for (let i = 0; i < newData.children.length; i ++) {
+                        add(searched, newData.children[i])
+                    }
+                    return false;
                 }
-
             }
-            return false
+
+            searches.map(item => add(item, newData))
         }
 
-        let serch_res = []
+        findNodebyId()
 
-        for (let i = 0; i < searches.length; i++) {
-            let n = addBranch(searches[i], DataAll)
-            serch_res.push( n )
-       }
+        this.setState({selectedArr: [], selected: null},
+            () => this.clr(this.state.data))
 
-        for (let i = 0; i < serch_res.length; i++) {
-            let n = serch_res[i]
-
-            n.children.push(  JSON.parse(JSON.stringify(pastedData1)) )
-
-            n.children.map(cngData)
-
-        }
-
-        this.setState({selectedArr: [], selected: null})
-        this.props.onAddNode(pastedData1, DataAll)
+        this.props.onAddNode(pastedData, newData)
     }
 
     onAnswerUpdate = data => {
