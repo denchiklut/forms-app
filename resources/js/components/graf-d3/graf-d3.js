@@ -70,7 +70,8 @@ class GrafD3 extends Component {
         hidden: false,
         client: false,
         dopInfo: false,
-        selectedArr: []
+        selectedArr: [],
+        copied: null
     }
 
     handleClick = () => {
@@ -106,11 +107,12 @@ class GrafD3 extends Component {
 
     copyBranch = () => {
         let newData = {...this.state.selected}
+        let newSelected = []
 
         const clrData = newData => {
             let i, currentChild
 
-            newData.unique = uuid.v4()
+            newSelected.push(newData)
             delete(newData.id)
             delete(newData.parent)
             delete(newData.depth)
@@ -124,19 +126,73 @@ class GrafD3 extends Component {
                     clrData(currentChild);
                 }
             }
-
-
         }
 
         clrData(newData)
+        this.coloriseNode(newSelected, "#ff821c", "#ff9e59")
 
-        console.log("before", this.state.selected)
-        console.log("after", newData)
+        this.setState({copied: newData})
 
     }
 
     pasteBranch = () => {
-        alert("paste branch")
+        let DataAll = {...this.state.data}
+        let searches = [...this.state.selectedArr]
+        let pastedData1 = {...this.state.copied}
+
+
+        const cngData = function (_myData) {
+            let i, currentChild
+
+            _myData.unique = uuid.v4()
+            if (_myData.children)  {
+
+                for (i = 0; i < _myData.children.length; i++) {
+                    currentChild = _myData.children[i];
+                    currentChild.unique = uuid.v4()
+
+                    cngData(currentChild);
+                }
+            } else {
+                _myData.children = []
+            }
+        }
+
+        function addBranch(searchedNode, node) {
+
+            if (searchedNode.unique ===  node.unique) return node
+
+            for (let j = 0; j < node.children.length; j++) {
+
+                const currentChild = node.children[j];
+
+                if(node.children) {
+                    const res = addBranch(searchedNode, currentChild)
+                    if (res) return res
+                }
+
+            }
+            return false
+        }
+
+        let serch_res = []
+
+        for (let i = 0; i < searches.length; i++) {
+            let n = addBranch(searches[i], DataAll)
+            serch_res.push( n )
+       }
+
+        for (let i = 0; i < serch_res.length; i++) {
+            let n = serch_res[i]
+
+            n.children.push(  JSON.parse(JSON.stringify(pastedData1)) )
+
+            n.children.map(cngData)
+
+        }
+
+        this.setState({selectedArr: [], selected: null})
+        this.props.onAddNode(pastedData1, DataAll)
     }
 
     onAnswerUpdate = data => {
@@ -480,15 +536,18 @@ class GrafD3 extends Component {
 
         }
 
-        for (i = 0; i < newData.children.length; i ++) {
-            currentChild = newData.children[i];
-            this.clr(currentChild);
+        if (newData.children) {
+            for (i = 0; i < newData.children.length; i ++) {
+                currentChild = newData.children[i];
+                this.clr(currentChild);
+            }
         }
+
 
         this.setState({data: newData})
     }
 
-    coloriseNode = nodeArr => {
+    coloriseNode = (nodeArr, fill="#ca2750", stroke="#f50057") => {
         let newData = {...this.state.data}
         let searchIds = nodeArr.map(node => node.unique)
 
@@ -504,15 +563,15 @@ class GrafD3 extends Component {
                                 shape: 'circle',
                                 shapeProps: {
                                     r: 10,
-                                    fill: "#ca2750",
-                                    stroke: '#f50057'
+                                    fill: fill,
+                                    stroke: stroke
                                 },
                             }
                         } else if (newData.nodeSvgShape.shape === "rect") {
                             newData.nodeSvgShape = {
                                 shape: 'rect',
                                 shapeProps: {
-                                    fill: "#ca2750",
+                                    fill: fill,
                                     width: 20,
                                     height: 20,
                                     x: -10,
@@ -525,17 +584,19 @@ class GrafD3 extends Component {
                             shape: 'circle',
                             shapeProps: {
                                 r: 10,
-                                fill: "#ca2750",
-                                stroke: '#f50057'
+                                fill: fill,
+                                stroke: stroke
                             },
                         }
                     }
 
                 }
 
-                for (j = 0; j < newData.children.length; j ++) {
-                    currentChild = newData.children[j];
-                    color(searchId, currentChild);
+                if (newData.children) {
+                    for (j = 0; j < newData.children.length; j ++) {
+                        currentChild = newData.children[j];
+                        color(searchId, currentChild);
+                    }
                 }
             }
 

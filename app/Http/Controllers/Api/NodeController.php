@@ -68,11 +68,15 @@ class NodeController extends Controller
         function findNodeName ($newData)
         {
 
-            if ($newData["idd"] == 0) {
-                $newData["name"] = 'start';
+            if (!isset( $newData['children'] ))
+            {
+                $newData['children'] = [];
             }
 
-            else {
+
+            if ($newData["idd"] == 0) {
+                $newData["name"] = 'start';
+            } else {
                 switch ($newData["type"]) {
                     case 'questions':
                         $newData["value"] =  Question::where('_id',$newData["idd"])->value('name');
@@ -93,10 +97,15 @@ class NodeController extends Controller
                 }
             }
 
-            for ($i = 0; $i < count($newData['children']); $i++)
-            {
-                $newData['children'][$i] = findNodeName( $newData['children'][$i] );
-            }
+           if (isset( $newData['children'] ))
+           {
+               for ($i = 0; $i < count($newData['children']); $i++)
+               {
+                   $newData['children'][$i] = findNodeName( $newData['children'][$i] );
+               }
+           }
+
+
 
             return $newData;
         }
