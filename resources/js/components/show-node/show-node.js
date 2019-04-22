@@ -24,7 +24,7 @@ class ShowNode extends Component {
 
     renderObject = () => {
         return (
-            <div>
+            <div style={{width: '100%'}}>
                 <div className="objectInfo">
                     <h4>Цена</h4>
                     <p>{this.props.node.objData.cost}</p>
@@ -50,11 +50,48 @@ class ShowNode extends Component {
         )
     }
 
+    renderAvto = () => {
+        return (
+            <div style={{width: '100%'}}>
+                <div className="avtoInfo">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>МОДЕЛЬ</th>
+                            <th>СТОИМОСТЬ</th>
+                            <th>ВЫГОДА</th>
+                            <th>УСЛОВИЯ</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.props.node.avtData.members.map(avto => (
+                            <tr key={avto.name}>
+                                <td>{avto.name}</td>
+                                <td>{avto.cost}</td>
+                                <td>{avto.benefit}</td>
+                                <td>{avto.conditions}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="dopInfo">
+                    <pre>
+                        {this.props.node.avtData.dopInformation}
+                    </pre>
+                </div>
+            </div>
+        )
+    }
+
+
     render() {
         const { node } = this.props
+        console.log(node)
 
         if ( Object.keys(node).length === 0 ) return <EmptyList/>
         if ( node.type === "objects")  return <div className="showNode"> {this.renderObject()} </div>
+        if ( node.type === "avto")  return <div className="showNode"> {this.renderAvto()} </div>
         return <div className="showNode showQst"> {this.renderQuestion()} </div>
     }
 }
