@@ -11,7 +11,7 @@ const EmptySelectedPanel = () => (
             <CardActionArea>
                 <CardContent>
                     <Typography variant="h5" component="h2">
-                        Select some node
+                        Select one node
                     </Typography>
                 </CardContent>
             </CardActionArea>

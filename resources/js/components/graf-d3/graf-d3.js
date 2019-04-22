@@ -56,7 +56,6 @@ const svgStyle = {
 class GrafD3 extends Component {
 
     state = {
-        selected: null,
         isOpen: false,
         insert: false,
         data: {
@@ -70,7 +69,7 @@ class GrafD3 extends Component {
         hidden: false,
         client: false,
         dopInfo: false,
-        selectedArr: [],
+        selected: [],
         copied: null
     }
 
@@ -106,8 +105,13 @@ class GrafD3 extends Component {
     }
 
     copyBranch = () => {
-        let newData = {...this.state.selected}
+        let newData = {...this.state.selected[0]}
         let newSelected = []
+
+        if (Object.keys(newData).length === 0) {
+            alert("Сначала виделите узел в графе")
+            return true
+        }
 
         const clrData = newData => {
             let i, currentChild
@@ -137,7 +141,7 @@ class GrafD3 extends Component {
 
     pasteBranch = () => {
         let newData = {...this.state.data}
-        let searches = [...this.state.selectedArr]
+        let searches = [...this.state.selected]
         let pastedData = {...this.state.copied}
 
         const findNodebyId = () => {
@@ -175,12 +179,18 @@ class GrafD3 extends Component {
                 }
             }
 
-            searches.map(item => add(item, newData))
+            if (Object.keys(pastedData).length === 0) {
+                alert("Сначала склонируйте ветку")
+                return true
+            } else {
+                searches.map(item => add(item, newData))
+            }
+
         }
 
         findNodebyId()
 
-        this.setState({selectedArr: [], selected: null},
+        this.setState({selected: []},
             () => this.clr(this.state.data))
 
         this.props.onAddNode(pastedData, newData)
@@ -211,7 +221,7 @@ class GrafD3 extends Component {
 
     addNode = data => {
         let newData = {...this.state.data}
-        let searches = [...this.state.selectedArr]
+        let searches = [...this.state.selected]
         let newSelected = []
 
         const findNodebyId = () => {
@@ -306,15 +316,15 @@ class GrafD3 extends Component {
         findNodebyId()
         this.clr(this.state.data)
 
-        this.setState({selectedArr: newSelected },
-            () => this.coloriseNode(this.state.selectedArr))
+        this.setState({selected: newSelected },
+            () => this.coloriseNode(this.state.selected))
 
         this.props.onAddNode(data, newData)
     }
 
     insertNode = data => {
         let newData = {...this.state.data}
-        let searches = [...this.state.selectedArr]
+        let searches = [...this.state.selected]
         let newSelected = []
 
         const findNodebyId = () => {
@@ -409,15 +419,15 @@ class GrafD3 extends Component {
         findNodebyId()
         this.clr(this.state.data)
 
-        this.setState({selectedArr: newSelected },
-            () => this.coloriseNode(this.state.selectedArr))
+        this.setState({selected: newSelected },
+            () => this.coloriseNode(this.state.selected))
 
         this.props.onAddNode(data, newData)
     }
 
     removeNode = () => {
         let newData = {...this.state.data}
-        let searches = [...this.state.selectedArr]
+        let searches = [...this.state.selected]
 
         const findNodeById = () => {
             let remove = (searchId, newData) => {
@@ -449,12 +459,12 @@ class GrafD3 extends Component {
 
         findNodeById()
 
-        this.props.removeNode(this.state.selected, newData)
+        this.props.removeNode(this.state.selected[0], newData)
     }
 
     cutNode = () => {
         let newData = {...this.state.data}
-        let searches = [...this.state.selectedArr]
+        let searches = [...this.state.selected]
 
         const findNodeById = () => {
             let cut = (searched, newData) => {
@@ -508,7 +518,7 @@ class GrafD3 extends Component {
 
         findNodeById()
 
-        this.props.removeNode(this.state.selected, newData)
+        this.props.removeNode(this.state.selected[0], newData)
     }
 
     clr = (newData) => {
@@ -605,27 +615,27 @@ class GrafD3 extends Component {
 
         if (e.altKey) {
 
-            let arr = [...this.state.selectedArr];
+            let arr = [...this.state.selected];
 
             if (arr.find(item => item.unique === nodeKey.unique) !== undefined) {
-                this.setState({selectedArr: [...arr.filter(item => item.unique !== nodeKey.unique)].sort((a, b) => a.depth - b.depth)},
-                    () => this.coloriseNode(this.state.selectedArr))
+                this.setState({selected: [...arr.filter(item => item.unique !== nodeKey.unique)].sort((a, b) => a.depth - b.depth)},
+                    () => this.coloriseNode(this.state.selected))
             } else {
-                this.setState({selectedArr: [...arr, nodeKey].sort((a, b) => a.depth - b.depth)},
-                    () => this.coloriseNode(this.state.selectedArr))
+                this.setState({selected: [...arr, nodeKey].sort((a, b) => a.depth - b.depth)},
+                    () => this.coloriseNode(this.state.selected))
             }
 
             return true
         }
 
-        this.setState({selected: nodeKey, selectedArr: [nodeKey]}, () => {
-            this.coloriseNode(this.state.selectedArr)
+        this.setState({selected: [nodeKey]}, () => {
+            this.coloriseNode(this.state.selected)
             this.props.showNode(nodeKey)
         })
     }
 
     openAddNodeForm = () => {
-        if (this.state.selected) {
+        if (this.state.selected.length > 0) {
             this.setState({isOpen: true})
         } else {
             alert("Select node!")
@@ -648,7 +658,7 @@ class GrafD3 extends Component {
     }
 
     insertAddNodeForm = () => {
-        if (this.state.selected) {
+        if (this.state.selected.length > 0) {
             this.setState({isOpen: true, insert: true})
         } else {
             alert("Select node!")
@@ -685,7 +695,7 @@ class GrafD3 extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.project !== prevProps.project) {
             this.initGraf()
-            this.setState({selected: null})
+            this.setState({selected: []})
         }
 
         if (this.props.grafNodes !== prevProps.grafNodes) {
@@ -833,7 +843,10 @@ class GrafD3 extends Component {
                     scaleExtent        = {{ min: 0.1, max: 8 }}
                 />
 
-                <GrafSelectedPanel onAnswer={this.onAnswerUpdate} selected={this.state.selected}/>
+                <GrafSelectedPanel
+                    onAnswer={this.onAnswerUpdate}
+                    selected={this.state.selected.length === 1 ? this.state.selected[0] : null}
+                />
 
 
                 {this.state.isOpen ?
@@ -845,7 +858,7 @@ class GrafD3 extends Component {
                         avto       = { this.props.avto }
                         questions  = { this.props.questions }
                         onClose    = { this.closeAddNodeForm }
-                        currentQst = { this.state.selected.idd }
+                        currentQst = { this.state.selected[0].idd }
                     />
                     : null}
 
