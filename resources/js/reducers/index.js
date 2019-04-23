@@ -11,6 +11,7 @@ import EditedAvto  from './edit-avto'
 import GoogleAuth from './auth/googleReducer'
 import AvtoReducer from './avto'
 import ShareProject from './share'
+import BackupReducer from './backup'
 import { reducer  as formReducer } from 'redux-form'
 
 
@@ -19,6 +20,7 @@ const rootReducers = combineReducers({
     objects:        ObjectsReducers,
     activeQuestion: ActiveQuestion,
     activeProject:  ActiveProject,
+    backup:         BackupReducer,
     editObjects:    EditedObject,
     avto:           AvtoReducer,
     activeNode:     ActiveNode,

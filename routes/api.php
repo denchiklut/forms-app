@@ -20,6 +20,7 @@ Route::namespace('Api')->group(function () {
 
     Route::resource('/avto',          'AvtoController');
     Route::resource('/nodes',         'NodeController');
+    Route::resource('/backup',      'BackupController');
     Route::resource('/objects',     'ObjectController');
     Route::resource('/questions', 'QuestionController');
 });

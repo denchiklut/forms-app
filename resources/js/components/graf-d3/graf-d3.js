@@ -16,6 +16,8 @@ import AddCommentIcon from '@material-ui/icons/AddComment'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import UnarchiveIcon from '@material-ui/icons/Unarchive'
 import ArchiveIcon from '@material-ui/icons/Archive'
+import CloudUpload from '@material-ui/icons/CloudUpload'
+import CloudDownload from '@material-ui/icons/CloudDownload'
 import Hidden from '@material-ui/core/Hidden'
 import { Link } from 'react-router-dom'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
@@ -23,10 +25,11 @@ import purple from '@material-ui/core/colors/purple'
 import red from '@material-ui/core/colors/red'
 import uuid from "uuid"
 
+import GrafSelectedPanel from '../graf-selected-panel'
+import AppBar from '@material-ui/core/AppBar'
 import GrafAddForm from "../garf-add-form"
 import AddDopInfo from "../add-dopInfo"
-import AppBar from '@material-ui/core/AppBar'
-import GrafSelectedPanel from '../graf-selected-panel'
+import AddBackup from "../add-backup"
 import EmptyGraf from "../empty-graf"
 import './graf-3d.scss'
 
@@ -57,6 +60,7 @@ class GrafD3 extends Component {
 
     state = {
         isOpen: false,
+        openUpload: false,
         insert: false,
         data: {
             idd:  0,
@@ -82,6 +86,21 @@ class GrafD3 extends Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+
+    handleCloseUpload = () => {
+        this.setState({ openUpload: false });
+    };
+
+    onSaveUpload = desc => {
+        let data = {project: this.props.project.value, desc: desc, nodes: this.state.data}
+        this.props.onAddBackup(data)
+        console.log("data", data)
+        this.handleCloseUpload()
+    }
+
+    openUpload = () => {
+        this.setState({openUpload: true})
+    }
 
     handleOpen = () => {
         this.setState({ open: true });
@@ -707,6 +726,8 @@ class GrafD3 extends Component {
     render() {
         const actions = [
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
+            { icon: <CloudDownload onClick = { ()=>{alert("Cloud Download")} }/>,  name: 'CloudDownload' },
+            { icon: <CloudUpload onClick = { this.openUpload }/>,  name: 'CloudUpload' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
             { icon: <ArchiveIcon onClick={this.pasteBranch} />,  name: ' Paste branch' },
@@ -771,14 +792,14 @@ class GrafD3 extends Component {
                                         onClose      = { this.handleClose }
                                         onMouseLeave = { this.handleClose }
                                         icon         = { <EditIcon /> }
-                                        style        = {{ transform: 'scale(0.73)', marginRight: -42 }}
+                                        style        = {{ transform: 'scale(0.73)', marginRight: -56 }}
                                     >
                                         {actions.map(action => (
                                             <SpeedDialAction
-                                                key={action.name}
-                                                icon={action.icon}
-                                                tooltipTitle={action.name}
-                                                onClick={this.handleClick}
+                                                key          = { action.name }
+                                                icon         = { action.icon }
+                                                tooltipTitle = { action.name }
+                                                onClick      = { this.handleClick }
                                             />
                                         ))}
                                     </SpeedDial>
@@ -871,6 +892,14 @@ class GrafD3 extends Component {
                         project = { this.props.activeProject.value }
                     />
                     :null}
+
+                {this.state.openUpload ?
+                    <AddBackup
+                        isOpen  = { this.state.openUpload }
+                        onAdd   = { this.onSaveUpload }
+                        onClose = { this.handleCloseUpload }
+                    />
+                :null}
             </div>
         )
     }

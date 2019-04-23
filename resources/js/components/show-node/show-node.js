@@ -87,7 +87,6 @@ class ShowNode extends Component {
 
     render() {
         const { node } = this.props
-        console.log(node)
 
         if ( Object.keys(node).length === 0 ) return <EmptyList/>
         if ( node.type === "objects")  return <div className="showNode"> {this.renderObject()} </div>

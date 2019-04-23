@@ -16,6 +16,7 @@ import SwipeView from "../swipe-view"
 import HeaderBar from "../header-bar"
 import GrafD3 from '../graf-d3'
 import './main-page.scss'
+import {fetchAddBackup} from "../../actions/backaup";
 
 
 class MainPage extends Component {
@@ -72,7 +73,7 @@ class MainPage extends Component {
     }
 
     render() {
-        const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode } = this.props
+        const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode, fetchAddBackup } = this.props
         return (
             <>
                 <HeaderBar
@@ -87,6 +88,7 @@ class MainPage extends Component {
                             showNode      = { selectNode }
                             grafNodes     = { nodes }
                             onAddNode     = { onAddNode }
+                            onAddBackup   = { fetchAddBackup }
                             questions     = { questions }
                             objects       = { objects }
                             avto          = { avto }
@@ -105,7 +107,16 @@ const  mapStateToProps = ({projects, questions, objects, activeProject, nodes, a
     return { projects, questions, objects, activeProject, nodes, avto, activeNode, auth }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({fetchProjects, selectProject, fetchObjects, onRemoveNode, fetchNodes,onAddNode, fetchQuestions, fetchAvto, selectNode}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchProjects,
+                                                            selectProject,
+                                                            fetchObjects,
+                                                            onRemoveNode,
+                                                            fetchNodes,
+                                                            onAddNode,
+                                                            fetchQuestions,
+                                                            fetchAvto,
+                                                            selectNode,
+                                                            fetchAddBackup }, dispatch)
 
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,
