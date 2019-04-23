@@ -133,7 +133,7 @@ class GrafD3 extends Component {
         }
 
         clrData(newData)
-        this.coloriseNode(newSelected, "#ff821c", "#ff9e59")
+        this.coloriseNode(newSelected, "#ff8e53", "#f57100")
 
         this.setState({copied: newData})
 

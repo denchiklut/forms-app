@@ -25,12 +25,10 @@ class ListItemEl extends Component {
         editItem: {},
     }
 
-    //Open Edit form
     handleClickOpenEdit = (item) => {
         this.setState({ editItem: item, isOpen: true })
     };
 
-    //Select Item in list
     handleListItemClick = (event, item) => {
         this.props.select(item)
     }
@@ -110,7 +108,7 @@ class ListItemEl extends Component {
     }
 
     render() {
-        const { selectedIndex, item, type }= this.props
+        const { selectedIndex, item }= this.props
         return (
             <div>
                 <ListItem
@@ -121,7 +119,7 @@ class ListItemEl extends Component {
                 >
                     <ListItemText
                         disableTypography
-                        primary={<Typography type="body2">{item.name.substr(0, 50)}</Typography>}
+                        primary={<Typography type="body2" style={{width: 'calc(100% - 82px)'}}>{item.name.substr(0, 45)}...</Typography>}
                     />
 
                     <ListItemSecondaryAction>
