@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Avto;
 use App\Models\BackupNodes;
+use App\Models\Node;
+use App\Models\Objects;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -41,6 +45,7 @@ class BackupController extends Controller
         $backup -> project      = $request -> project;
         $backup -> description  = $request -> desc;
         $backup -> value        = $request -> nodes;
+        $backup -> user        = $request -> user;
 
         $backup -> save();
 
@@ -61,6 +66,56 @@ class BackupController extends Controller
 
 
         return $result;
+    }
+
+
+    public function restore(Request $request)
+    {
+
+        $project_name = $request -> project;
+
+        $node = Node::where('project', $project_name)->first();
+        $node->update(['value' => $request -> value]);
+
+
+        function findNodeName ($newData)
+        {
+
+            if (!isset( $newData['children'] ))
+            {
+                $newData['children'] = [];
+            }
+
+
+            if ($newData["idd"] == 0) {
+                $newData["name"] = 'start';
+            } else {
+                switch ($newData["type"]) {
+                    case 'questions':
+                        Question::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'webName' => $newData["webValue"]]);
+                        break;
+                    case "objects":
+                        Objects::where('_id', $newData["idd"])->update(['name' => $newData["idd"] -> name, 'value' => $newData["value"]]);
+                        break;
+                    case "avto":
+                        Avto::where('_id', $newData["idd"])->update(['name' => $newData["idd"] -> name, 'value' => $newData["value"]]);
+                        break;
+                }
+            }
+
+            if (isset( $newData['children'] ))
+            {
+                for ($i = 0; $i < count($newData['children']); $i++)
+                {
+                    $newData['children'][$i] = findNodeName( $newData['children'][$i] );
+                }
+            }
+
+
+            return $newData;
+        }
+
+        return $node ? findNodeName ( $node -> value ) : response()->json([]);
     }
 
     /**

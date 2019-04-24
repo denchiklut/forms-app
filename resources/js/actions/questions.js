@@ -14,6 +14,9 @@ export const selectQuestion = (question) => {
 }
 
 export const fetchQuestions = project => async dispatch =>{
+    console.log('%c fetchQuestions ',
+        'color: white; background-color: #95B46A',
+        project )
     const result = await axios.get(`/api/questions/${project}`)
     dispatch({ type: SET_QUESTIONS, payload: result.data })
 }

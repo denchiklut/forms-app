@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
 
 const Transition = props => <Slide direction="up" {...props} />
 
@@ -53,19 +55,24 @@ class GetBackup extends Component {
                             </Button>
                         </Toolbar>
                     </AppBar>
-                    <List component="nav">
 
-                        {this.props.backups.map((backup, idx) => (
-                            <ListItem
-                                key={backup._id}
-                                button
-                                selected={this.state.selectedIndex === idx}
-                                onClick={event => this.handleListItemClick(event, idx, backup)}
-                            >
-                                <ListItemText primary={backup.description} secondary={backup.created_at}  />
-                            </ListItem>
-                        ))}
-                    </List>
+                    <Grid container spacing={0}>
+                        <Grid item xs={12} >
+                            <List component="nav">
+                                {this.props.backups.map((backup, idx) => (
+                                    <ListItem
+                                        key={backup._id}
+                                        button
+                                        selected={this.state.selectedIndex === idx}
+                                        onClick={event => this.handleListItemClick(event, idx, backup)}
+                                    >
+                                        <Avatar alt={backup.user.name} src= {backup.user.avatar} />
+                                        <ListItemText primary={backup.description} secondary={backup.created_at}  />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Grid>
+                    </Grid>
                 </Dialog>
             </div>
         );

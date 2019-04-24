@@ -14,3 +14,9 @@ export const fetchAddBackup = backaupData => async dispatch => {
     const result = await axios.post('/api/backup', backaupData)
     dispatch({ type: STORE_BACKUP, payload: result.data })
 }
+
+
+export const fetchRestore = data => async dispatch => {
+    const result = await axios.post('/api/restore', data)
+    dispatch({type: "RESTORED", payload: result.data})
+}

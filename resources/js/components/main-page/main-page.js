@@ -16,7 +16,7 @@ import SwipeView from "../swipe-view"
 import HeaderBar from "../header-bar"
 import GrafD3 from '../graf-d3'
 import './main-page.scss'
-import {fetchAddBackup, fetchbackups} from "../../actions/backaup";
+import {fetchAddBackup, fetchbackups, fetchRestore} from "../../actions/backaup";
 
 
 class MainPage extends Component {
@@ -72,8 +72,18 @@ class MainPage extends Component {
         }
     }
 
+    restore = data => {
+        console.log('%c Restore ',
+            'color: white; background-color: #2274A5',
+            this.props.activeProject.value)
+        this.props.fetchRestore(data)
+        this.props.fetchQuestions(this.props.activeProject.value)
+        this.props.fetchObjects()
+        this.props.fetchAvto()
+    }
+
     render() {
-        const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode, fetchAddBackup, fetchbackups, backup } = this.props
+        const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode, fetchAddBackup, fetchbackups, backup, auth } = this.props
         return (
             <>
                 <HeaderBar
@@ -85,18 +95,20 @@ class MainPage extends Component {
                     <ResizablePanels>
                         { this.renderSwipe() }
                         <GrafD3
-                            showNode      = { selectNode }
-                            grafNodes     = { nodes }
-                            onAddNode     = { onAddNode }
-                            onAddBackup   = { fetchAddBackup }
-                            questions     = { questions }
-                            objects       = { objects }
+                            auth          = { auth }
                             avto          = { avto }
+                            grafNodes     = { nodes }
+                            backups       = { backup }
+                            objects       = { objects }
+                            questions     = { questions }
+                            onAddNode     = { onAddNode }
+                            showNode      = { selectNode }
+                            getBackups    = { fetchbackups }
                             removeNode    = { onRemoveNode }
+                            onResore      = { this.restore }
                             project       = { activeProject }
                             activeProject = { activeProject }
-                            getBackups    = { fetchbackups }
-                            backups       = { backup }
+                            onAddBackup   = { fetchAddBackup }
                         />
                     </ResizablePanels>
                 </div>
@@ -119,7 +131,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({ fetchProjects,
                                                             fetchAvto,
                                                             selectNode,
                                                             fetchAddBackup,
-                                                            fetchbackups}, dispatch)
+                                                            fetchbackups,
+                                                            fetchRestore}, dispatch)
 
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,

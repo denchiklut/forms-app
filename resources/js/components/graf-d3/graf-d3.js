@@ -95,7 +95,8 @@ class GrafD3 extends Component {
 
 
     onSaveBackup = data => {
-        console.log(data)
+        console.table(data)
+        this.props.onResore(data)
         this.closeGetBackup()
     }
 
@@ -108,9 +109,8 @@ class GrafD3 extends Component {
     }
 
     onSaveUpload = desc => {
-        let data = {project: this.props.project.value, desc: desc, nodes: this.state.data}
+        let data = {project: this.props.project.value, desc: desc, nodes: this.state.data, user: this.props.auth}
         this.props.onAddBackup(data)
-        console.log("data", data)
         this.handleCloseUpload()
     }
 

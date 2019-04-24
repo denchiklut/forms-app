@@ -23,4 +23,6 @@ Route::namespace('Api')->group(function () {
     Route::resource('/backup',      'BackupController');
     Route::resource('/objects',     'ObjectController');
     Route::resource('/questions', 'QuestionController');
+
+    Route::post('/restore', 'BackupController@restore');
 });
