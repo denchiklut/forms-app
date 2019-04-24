@@ -72,11 +72,12 @@ class MainPage extends Component {
         }
     }
 
-    restore = data => {
+    restore = async data => {
         console.log('%c Restore ',
             'color: white; background-color: #2274A5',
             this.props.activeProject.value)
-        this.props.fetchRestore(data)
+
+        await this.props.fetchRestore(data)
         this.props.fetchQuestions(this.props.activeProject.value)
         this.props.fetchObjects()
         this.props.fetchAvto()
