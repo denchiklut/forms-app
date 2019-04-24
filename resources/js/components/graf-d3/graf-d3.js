@@ -30,6 +30,7 @@ import AppBar from '@material-ui/core/AppBar'
 import GrafAddForm from "../garf-add-form"
 import AddDopInfo from "../add-dopInfo"
 import AddBackup from "../add-backup"
+import GetBackup from "../get-backup"
 import EmptyGraf from "../empty-graf"
 import './graf-3d.scss'
 
@@ -61,6 +62,7 @@ class GrafD3 extends Component {
     state = {
         isOpen: false,
         openUpload: false,
+        getBackup: false,
         insert: false,
         data: {
             idd:  0,
@@ -90,6 +92,20 @@ class GrafD3 extends Component {
     handleCloseUpload = () => {
         this.setState({ openUpload: false });
     };
+
+
+    onSaveBackup = data => {
+        console.log(data)
+        this.closeGetBackup()
+    }
+
+    openGetBackup = () => {
+        this.setState({getBackup: true})
+    }
+
+    closeGetBackup = () => {
+        this.setState({getBackup: false})
+    }
 
     onSaveUpload = desc => {
         let data = {project: this.props.project.value, desc: desc, nodes: this.state.data}
@@ -726,7 +742,7 @@ class GrafD3 extends Component {
     render() {
         const actions = [
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
-            { icon: <CloudDownload onClick = { ()=>{alert("Cloud Download")} }/>,  name: 'CloudDownload' },
+            { icon: <CloudDownload onClick = { this.openGetBackup }/>,  name: 'CloudDownload' },
             { icon: <CloudUpload onClick = { this.openUpload }/>,  name: 'CloudUpload' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
             { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
@@ -900,6 +916,18 @@ class GrafD3 extends Component {
                         onClose = { this.handleCloseUpload }
                     />
                 :null}
+
+
+                {this.state.getBackup ?
+                    <GetBackup
+                        isOpen     = { this.state.getBackup }
+                        onAdd      = { this.onSaveBackup }
+                        onClose    = { this.closeGetBackup }
+                        getBackups = { this.props.getBackups }
+                        backups    = {this.props.backups}
+                        project    = { this.props.activeProject.value }
+                    />
+                    :null}
             </div>
         )
     }

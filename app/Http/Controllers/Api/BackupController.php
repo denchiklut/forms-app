@@ -53,9 +53,14 @@ class BackupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($project)
     {
-        //
+        $project_name = $project;
+
+        $result = BackupNodes::where('project',$project_name)->get();
+
+
+        return $result;
     }
 
     /**
