@@ -95,10 +95,10 @@ class BackupController extends Controller
                         Question::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'webName' => $newData["webValue"]]);
                         break;
                     case "objects":
-                        Objects::where('_id', $newData["idd"])->update(['name' => $newData["idd"] -> name, 'value' => $newData["value"]]);
+                        Objects::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["objData"]]);
                         break;
                     case "avto":
-                        Avto::where('_id', $newData["idd"])->update(['name' => $newData["idd"] -> name, 'value' => $newData["value"]]);
+                        Avto::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["avtData"]]);
                         break;
                 }
             }

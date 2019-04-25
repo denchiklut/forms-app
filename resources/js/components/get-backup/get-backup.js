@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+import classNames from 'classnames'
+import './get-backup.scss'
 
 const Transition = props => <Slide direction="up" {...props} />
 
@@ -24,6 +26,9 @@ class GetBackup extends Component {
     };
 
     handleListItemClick = (event, index, backup) => {
+        console.log('%c selected ',
+            'color: white; background-color: #95B46A',
+            backup);
         this.setState({ selectedIndex: index, selected: backup });
     };
 
@@ -57,20 +62,23 @@ class GetBackup extends Component {
                     </AppBar>
 
                     <Grid container spacing={0}>
-                        <Grid item xs={12} >
-                            <List component="nav">
+                        <Grid item xs={12} sm={6} md={3} >
+                            <List component="nav" className="backupList">
                                 {this.props.backups.map((backup, idx) => (
                                     <ListItem
-                                        key={backup._id}
                                         button
-                                        selected={this.state.selectedIndex === idx}
+                                        key={backup._id}
                                         onClick={event => this.handleListItemClick(event, idx, backup)}
+                                        className={this.state.selected ? classNames('back_up_item', (backup._id === this.state.selected._id) && 'mySelected'): 'back_up_item'}
                                     >
-                                        <Avatar alt={backup.user.name} src= {backup.user.avatar} />
+                                        <Avatar alt={backup.user.name} src= {backup.user.avatar} className="myAvtar" />
                                         <ListItemText primary={backup.description} secondary={backup.created_at}  />
                                     </ListItem>
                                 ))}
                             </List>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={9} >
+                            Граф в будущем
                         </Grid>
                     </Grid>
                 </Dialog>
