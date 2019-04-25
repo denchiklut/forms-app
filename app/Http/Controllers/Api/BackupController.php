@@ -92,13 +92,13 @@ class BackupController extends Controller
             } else {
                 switch ($newData["type"]) {
                     case 'questions':
-                        Question::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'webName' => $newData["webValue"]]);
+                        Question::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'webName' => $newData["webValue"], 'deleted_at' => null]);
                         break;
                     case "objects":
-                        Objects::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["objData"]]);
+                        Objects::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["objData"], 'deleted_at' => null]);
                         break;
                     case "avto":
-                        Avto::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["avtData"]]);
+                        Avto::where('_id', $newData["idd"])->update(['name' => $newData["value"], 'value' => $newData["avtData"], 'deleted_at' => null]);
                         break;
                 }
             }
