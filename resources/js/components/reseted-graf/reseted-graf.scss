@@ -1,0 +1,11 @@
+.backupEmpty {
+    height: calc(100vh - 65px);
+    background: #dadada;
+    text-align: center;
+    padding-top: 25%;
+
+    .emIcon {
+        transform: scale(14);
+        fill: #545454;
+    }
+}

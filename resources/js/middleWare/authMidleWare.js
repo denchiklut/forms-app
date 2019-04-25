@@ -11,6 +11,7 @@ export const authMiddleware = store => next => action => {
         '88asorokina88@gmail.com',
         'j.volk1555@gmail.com',
         'denchiklut@gmail.com',
+        'eg.seregin@gmail.com'
     ]
 
     if (action.type === SIGN_IN) {

@@ -14,14 +14,17 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import classNames from 'classnames'
 import './get-backup.scss'
+import ResetedGraf from "../reseted-graf";
+import SwipeView from "../swipe-view";
+import ShowNode from "../show-node";
 
 const Transition = props => <Slide direction="up" {...props} />
 
 class GetBackup extends Component {
     state = {
         selected: null,
-        backups: ["1 item", "2 item", "3 item", ],
         selectedIndex: 0,
+        node: {},
 
     };
 
@@ -34,6 +37,10 @@ class GetBackup extends Component {
 
     componentDidMount() {
         this.props.getBackups(this.props.project)
+    }
+
+    onShowNode = (node) => {
+        this.setState({node:node})
     }
 
     render() {
@@ -63,22 +70,26 @@ class GetBackup extends Component {
 
                     <Grid container spacing={0}>
                         <Grid item xs={12} sm={6} md={3} >
-                            <List component="nav" className="backupList">
-                                {this.props.backups.map((backup, idx) => (
-                                    <ListItem
-                                        button
-                                        key={backup._id}
-                                        onClick={event => this.handleListItemClick(event, idx, backup)}
-                                        className={this.state.selected ? classNames('back_up_item', (backup._id === this.state.selected._id) && 'mySelected'): 'back_up_item'}
-                                    >
-                                        <Avatar alt={backup.user.name} src= {backup.user.avatar} className="myAvtar" />
-                                        <ListItemText primary={backup.description} secondary={backup.created_at}  />
-                                    </ListItem>
-                                ))}
-                            </List>
+                            <SwipeView lables={['История', 'Просмотр']} >
+                                <List component="nav" className="backupList">
+                                    {this.props.backups.map((backup, idx) => (
+                                        <ListItem
+                                            button
+                                            key={backup._id}
+                                            onClick={event => this.handleListItemClick(event, idx, backup)}
+                                            className={this.state.selected ? classNames('back_up_item', (backup._id === this.state.selected._id) && 'mySelected'): 'back_up_item'}
+                                        >
+                                            <Avatar alt={backup.user.name} src= {backup.user.avatar} className="myAvtar" />
+                                            <ListItemText primary={backup.description} secondary={backup.created_at}  />
+                                        </ListItem>
+                                    ))}
+                                </List>
+                                <ShowNode node={this.state.node} />
+                            </SwipeView>
+
                         </Grid>
                         <Grid item xs={12} sm={6} md={9} >
-                            Граф в будущем
+                            <ResetedGraf backup={this.state.selected} showNode={this.onShowNode} />
                         </Grid>
                     </Grid>
                 </Dialog>
