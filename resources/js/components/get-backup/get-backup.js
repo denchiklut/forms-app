@@ -29,9 +29,6 @@ class GetBackup extends Component {
     };
 
     handleListItemClick = (event, index, backup) => {
-        console.log('%c selected ',
-            'color: white; background-color: #95B46A',
-            backup);
         this.setState({ selectedIndex: index, selected: backup });
     };
 
@@ -54,7 +51,7 @@ class GetBackup extends Component {
                     open={this.props.isOpen}
                     TransitionComponent={Transition}
                 >
-                    <AppBar position="static" >
+                    <AppBar position="static" style={{ background: 'linear-gradient(to right, #7b4397, #dc2430)' }}>
                         <Toolbar>
                             <IconButton color="inherit" onClick={this.props.onClose} aria-label="Close">
                                 <CloseIcon />
@@ -69,7 +66,7 @@ class GetBackup extends Component {
                     </AppBar>
 
                     <Grid container spacing={0}>
-                        <Grid item xs={12} sm={6} md={3} >
+                        <Grid item xs={12} sm={6} md={4} >
                             <SwipeView lables={['История', 'Просмотр']} >
                                 <List component="nav" className="backupList">
                                     {this.props.backups.map((backup, idx) => (
@@ -88,7 +85,7 @@ class GetBackup extends Component {
                             </SwipeView>
 
                         </Grid>
-                        <Grid item xs={12} sm={6} md={9} >
+                        <Grid item xs={12} sm={6} md={8} >
                             <ResetedGraf backup={this.state.selected} showNode={this.onShowNode} />
                         </Grid>
                     </Grid>

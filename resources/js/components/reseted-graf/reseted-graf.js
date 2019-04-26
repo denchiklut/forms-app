@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography'
 import Chip from "@material-ui/core/Chip"
 import AppBar from '@material-ui/core/AppBar'
 import LayersClear from '@material-ui/icons/LayersClear'
+import DateRange from '@material-ui/icons/DateRange'
+import AccessTime from '@material-ui/icons/AccessTime'
+import Avatar from "@material-ui/core/Avatar";
 import uuid from "uuid"
 import './reseted-graf.scss'
 
@@ -42,6 +45,7 @@ class ResetedGraf extends Component {
             dopInformation: null
         },
         selected: [],
+        showUserChip: true,
 
     }
 
@@ -174,10 +178,36 @@ class ResetedGraf extends Component {
         })
     }
 
+    handleDelete = () => {
+        this.setState({showUserChip: false})
+    }
+
+    formatDate = (date, dayTime) => {
+        const monthNames = [
+            "Января", "Февраля", "Марта",
+            "Апреля", "Мая", "Июня", "Июля",
+            "Августа", "Сентября", "Октября",
+            "Ноября", "Декабря"
+        ];
+
+        let day = date.getDate();
+        let monthIndex = date.getMonth();
+        let year = date.getFullYear();
+        let hour = date.getHours();
+        let minutes = date.getMinutes() ;
+
+        if (dayTime === "day") {
+            return `${day} ${monthNames[monthIndex]} ${year}`;
+        }
+
+        return `${hour} : ${minutes}`;
+
+
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.backup !== prevProps.backup) {
-            this.setState({selected: [], data: this.props.backup.value})
+            this.setState({selected: [], data: this.props.backup.value, showUserChip: true})
         }
 
     }
@@ -193,10 +223,26 @@ class ResetedGraf extends Component {
                 <AppBar position="static" style={{background: 'linear-gradient(to right, #536976, #292e49)'}}>
                     <Toolbar className='grafToolBar'>
                         <Typography variant="h6" className="grafToolBarChip">
-                            <Chip
-                                className="grafChip"
-                                color="secondary"
-                                label={this.props.backup ? this.props.backup.created_at : null}
+                            {this.state.showUserChip ?
+                                <Chip color="secondary"
+                                      className="restoreChip"
+                                      onDelete={this.handleDelete}
+                                      avatar={<Avatar src={this.props.backup ? this.props.backup.user.avatar : null}  />}
+                                      label={this.props.backup ? this.props.backup.user.name : null}
+                                />
+                                :null
+                            }
+
+                            <Chip className="grafChip restoreChip"
+                                  avatar={<Avatar><DateRange /></Avatar>}
+                                  color="secondary"
+                                  label={this.props.backup ? this.formatDate(new Date(this.props.backup.created_at), "day") : null}
+                            />
+
+                            <Chip className="grafChip"
+                                  avatar={<Avatar><AccessTime /></Avatar>}
+                                  color="secondary"
+                                  label={this.props.backup ? this.formatDate(new Date(this.props.backup.created_at)) : null}
                             />
                         </Typography>
                     </Toolbar>

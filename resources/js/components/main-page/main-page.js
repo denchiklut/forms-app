@@ -73,9 +73,6 @@ class MainPage extends Component {
     }
 
     restore = async data => {
-        console.log('%c Restore ',
-            'color: white; background-color: #2274A5',
-            this.props.activeProject.value)
 
         await this.props.fetchRestore(data)
         this.props.fetchQuestions(this.props.activeProject.value)

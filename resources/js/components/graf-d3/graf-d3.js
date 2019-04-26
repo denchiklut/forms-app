@@ -95,7 +95,6 @@ class GrafD3 extends Component {
 
 
     onSaveBackup = data => {
-        console.table(data)
         this.props.onResore(data)
         this.closeGetBackup()
     }

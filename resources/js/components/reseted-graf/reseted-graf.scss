@@ -2,10 +2,14 @@
     height: calc(100vh - 65px);
     background: #dadada;
     text-align: center;
-    padding-top: 25%;
+    padding-top: 30%;
 
     .emIcon {
         transform: scale(14);
         fill: #545454;
     }
+}
+
+.restoreChip {
+    margin-right: 12px;
 }
