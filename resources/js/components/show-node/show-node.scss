@@ -70,6 +70,41 @@
         }
     }
 }
+
 .showQst {
     padding: 15px;
+}
+
+.showErrorNode {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+            background: #584d49;
+            color: white;
+            box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+
+            th {
+                padding: 12px;
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    padding: 8px;
+                }
+            }
+            tr:hover {
+                background: #27221f85!important;
+                cursor: pointer;
+                color: white;
+            }
+
+            tr:nth-child(2n) {
+                background-color: #9e9b99;
+            }
+        }
+    }
 }

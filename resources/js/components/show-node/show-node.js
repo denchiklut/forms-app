@@ -4,14 +4,6 @@ import './show-node.scss'
 
 class ShowNode extends Component {
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.node.type === "questions") {
-            this.renderQuestion()
-        } else if (this.props.node.type === "objects") {
-            this.renderObject()
-        }
-    }
-
     rawMarkup = () => {
         let span = document.createElement('span');
         span.innerHTML= this.props.node.webValue;
@@ -84,9 +76,63 @@ class ShowNode extends Component {
         )
     }
 
+    renderError = object => {
+        let arr = []
+
+        Object.keys(object).map(key => {
+            switch (key) {
+                case "children":
+                    arr.push({k: key, v: "[Array]"})
+                    break
+                case "nodeSvgShape":
+                    arr.push({k: key, v: "[Object]"})
+                    break
+                case "parent":
+                    arr.push({k: key, v: "[Object]"})
+                    break
+                case "_children":
+                    return false
+                case "_collapsed":
+                    return false
+                case "name":
+                    arr.push({k: key, v: '""'})
+                    break
+                default:
+                    arr.push({k: key, v: object[key] !== null ? object[key] : '""'})
+                    break
+            }
+        })
+
+        return (
+            <div className="showErrorNode">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Свойство</th>
+                            <th>Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {arr.map(item => (
+                        <tr key={item.k}>
+                            <td>{item.k}</td>
+                            <td>{item.v}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+
+            </div>
+        )
+    }
 
     render() {
         const { node } = this.props
+
+        if ((node.type === "objects" && !node.objData ) || (node.type === "avto" && !node.avtData)) {
+            return this.renderError(node)
+        }
 
         if ( Object.keys(node).length === 0 ) return <EmptyList/>
         if ( node.type === "objects")  return <div className="showNode"> {this.renderObject()} </div>

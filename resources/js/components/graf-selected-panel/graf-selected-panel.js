@@ -100,14 +100,15 @@ class GrafSelectedPanel extends Component {
                         }
                         title = {selected.type === "start" ? `Start`: selected.type === "questions" ? `${selected.value.substr(0, 50)}` :
                             selected.type === "objects" || "avto" ?
-                                <Button
-                                    size    = "small"
-                                    color   = "primary"
-                                    style   = {{ marginLeft: '-6px'}}
-                                    onClick = { this.openObjectShow }
-                                >
-                                    {selected.value}
-                                </Button>
+                                selected.value ?
+                                    <Button
+                                        size    = "small"
+                                        color   = "primary"
+                                        style   = {{ marginLeft: '-6px'}}
+                                        onClick = { this.openObjectShow }
+                                    >
+                                        {selected.value}
+                                    </Button>:null
                                 : null}
                         subheader={selected.answer}
                         style={{padding: 16}}
