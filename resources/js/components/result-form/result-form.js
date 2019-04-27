@@ -38,7 +38,7 @@ class ResultForm extends Component {
 
     findNodes = (answer, lastNode, clickedNode) => {
         //Проверяем если кликнули на ответ По вопросу выше последнего
-        if (clickedNode.idd !== lastNode.idd && (clickedNode.children.indexOf(lastNode) === -1)) {
+        if (clickedNode.unique !== lastNode.unique && (clickedNode.children.indexOf(lastNode) === -1)) {
 
             let idx = this.state.questionList.indexOf(clickedNode)
             let prevList = [...this.state.questionList]
