@@ -155,6 +155,7 @@ class GrafD3 extends Component {
             delete(newData.parent)
             delete(newData.depth)
             delete(newData._collapsed)
+            delete(newData._children)
             delete(newData.x)
             delete(newData.y)
 
