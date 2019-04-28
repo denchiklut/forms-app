@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
+import LayersClear from '@material-ui/icons/LayersClear'
 import './show-deleted.scss';
 
 class ShowDeleted extends Component {
@@ -51,7 +52,7 @@ class ShowDeleted extends Component {
     renderAvto = () => {
         return (
             <div className="showAvtoContainer"
-                 style={{width: '100%', height: 'calc(100vh - 65px)', display: 'flex', flexDirection: 'column'}}>
+                 style={{width: '100%', height: 'calc(100vh - 65px)', display: 'flex', flexDirection: 'column', boxShadow: '-3px 0px 5px #0000006b'}}>
                 <div className="avtoInfo dltAvto">
                     <table>
                         <thead>
@@ -76,9 +77,9 @@ class ShowDeleted extends Component {
                 </div>
 
                 <div className="dopInfo" style={{flexGrow: 1}}>
-                            <pre>
-                                {this.props.item.value.dopInformation}
-                            </pre>
+                    <pre>
+                        {this.props.item.value.dopInformation}
+                    </pre>
                 </div>
             </div>
         )
@@ -86,7 +87,14 @@ class ShowDeleted extends Component {
 
     render() {
 
-        if (!this.props.item) return <p>Select something</p>
+        if (!this.props.item) {
+            return (
+                <div className="backupEmpty" style={{ boxShadow: '-3px 0px 3px #0000003d'}}>
+                    <LayersClear className="emIcon"/>
+                </div>
+            )
+        }
+
         console.table(this.props.item)
 
         switch (this.props.item.type) {
