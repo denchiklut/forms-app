@@ -12,16 +12,22 @@ import GoogleAuth from './auth/googleReducer'
 import AvtoReducer from './avto'
 import ShareProject from './share'
 import BackupReducer from './backup'
+import RemovedQuestions from './removed-questions'
+import RemovedOject from './removed-objects'
+import RemovedAvto from './removed-avto'
 import { reducer  as formReducer } from 'redux-form'
 
 
 const rootReducers = combineReducers({
     questions:      QuestionsReducers,
+    rmQuestions:    RemovedQuestions,
     objects:        ObjectsReducers,
     activeQuestion: ActiveQuestion,
     activeProject:  ActiveProject,
     backup:         BackupReducer,
     editObjects:    EditedObject,
+    rmObjects:      RemovedOject,
+    rmAvto:         RemovedAvto,
     avto:           AvtoReducer,
     activeNode:     ActiveNode,
     editAvto:       EditedAvto,

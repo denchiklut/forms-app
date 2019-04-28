@@ -16,6 +16,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment'
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import UnarchiveIcon from '@material-ui/icons/Unarchive'
 import ArchiveIcon from '@material-ui/icons/Archive'
+import RestoreIcon from '@material-ui/icons/Restore'
 import CloudUpload from '@material-ui/icons/CloudUpload'
 import CloudDownload from '@material-ui/icons/CloudDownload'
 import Hidden from '@material-ui/core/Hidden'
@@ -33,6 +34,7 @@ import AddBackup from "../add-backup"
 import GetBackup from "../get-backup"
 import EmptyGraf from "../empty-graf"
 import './graf-3d.scss'
+import DeletedPage from "../deleted-page";
 
 const svgStyle = {
     nodes: {
@@ -63,6 +65,7 @@ class GrafD3 extends Component {
         isOpen: false,
         openUpload: false,
         getBackup: false,
+        showTrash: false,
         insert: false,
         data: {
             idd:  0,
@@ -93,6 +96,17 @@ class GrafD3 extends Component {
         this.setState({ openUpload: false });
     };
 
+    getTrash = () => {
+        this.setState({showTrash: true})
+    }
+
+    closeTrash = () => {
+        this.setState({showTrash: false})
+    }
+
+    onRestoreTrash = (data) => {
+        this.closeTrash()
+    }
 
     onSaveBackup = data => {
         this.props.onResore(data)
@@ -534,6 +548,7 @@ class GrafD3 extends Component {
                                     delete(item.parent)
                                     delete(item.depth)
                                     delete(item._collapsed)
+                                    delete(item._children)
                                     delete(item.x)
                                     delete(item.y)
                                 })
@@ -742,6 +757,7 @@ class GrafD3 extends Component {
     render() {
         const actions = [
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
+            { icon: <RestoreIcon onClick = { this.getTrash }/>,  name: 'show trash' },
             { icon: <CloudDownload onClick = { this.openGetBackup }/>,  name: 'CloudDownload' },
             { icon: <CloudUpload onClick = { this.openUpload }/>,  name: 'CloudUpload' },
             { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
@@ -924,7 +940,16 @@ class GrafD3 extends Component {
                         onAdd      = { this.onSaveBackup }
                         onClose    = { this.closeGetBackup }
                         getBackups = { this.props.getBackups }
-                        backups    = {this.props.backups}
+                        backups    = { this.props.backups }
+                        project    = { this.props.activeProject.value }
+                    />
+                    :null}
+
+                {this.state.showTrash ?
+                    <DeletedPage
+                        isOpen     = { this.state.showTrash }
+                        onAdd      = { this.onRestoreTrash }
+                        onClose    = { this.closeTrash }
                         project    = { this.props.activeProject.value }
                     />
                     :null}

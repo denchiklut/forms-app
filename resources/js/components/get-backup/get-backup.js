@@ -43,9 +43,6 @@ class GetBackup extends Component {
     render() {
         return (
             <div>
-                <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Open full-screen dialog
-                </Button>
                 <Dialog
                     fullScreen
                     open={this.props.isOpen}

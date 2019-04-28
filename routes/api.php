@@ -25,4 +25,8 @@ Route::namespace('Api')->group(function () {
     Route::resource('/questions', 'QuestionController');
 
     Route::post('/restore', 'BackupController@restore');
+
+    Route::get('/rm_avto',                    'RemovedController@avto');
+    Route::get('/rm_objects',               'RemovedController@object');
+    Route::get('/rm_questions/{project}', 'RemovedController@question');
 });
