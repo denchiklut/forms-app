@@ -17,6 +17,7 @@ import HeaderBar from "../header-bar"
 import GrafD3 from '../graf-d3'
 import './main-page.scss'
 import {fetchAddBackup, fetchbackups, fetchRestore} from "../../actions/backaup";
+import {fetchRestoreFromTresh} from "../../actions/trash";
 
 
 class MainPage extends Component {
@@ -80,6 +81,13 @@ class MainPage extends Component {
         this.props.fetchAvto()
     }
 
+    restoreFromTrash = async (project, data) => {
+        await this.props.fetchRestoreFromTresh(project, data)
+        this.props.fetchQuestions(this.props.activeProject.value)
+        this.props.fetchObjects()
+        this.props.fetchAvto()
+    }
+
     render() {
         const { nodes, onAddNode, questions, objects,  avto, onRemoveNode, activeProject, selectNode, fetchAddBackup, fetchbackups, backup, auth } = this.props
         return (
@@ -93,20 +101,21 @@ class MainPage extends Component {
                     <ResizablePanels>
                         { this.renderSwipe() }
                         <GrafD3
-                            auth          = { auth }
-                            avto          = { avto }
-                            grafNodes     = { nodes }
-                            backups       = { backup }
-                            objects       = { objects }
-                            questions     = { questions }
-                            onAddNode     = { onAddNode }
-                            showNode      = { selectNode }
-                            getBackups    = { fetchbackups }
-                            removeNode    = { onRemoveNode }
-                            onResore      = { this.restore }
-                            project       = { activeProject }
-                            activeProject = { activeProject }
-                            onAddBackup   = { fetchAddBackup }
+                            auth             = { auth }
+                            avto             = { avto }
+                            grafNodes        = { nodes }
+                            backups          = { backup }
+                            objects          = { objects }
+                            questions        = { questions }
+                            onAddNode        = { onAddNode }
+                            showNode         = { selectNode }
+                            getBackups       = { fetchbackups }
+                            removeNode       = { onRemoveNode }
+                            onResore         = { this.restore }
+                            project          = { activeProject }
+                            activeProject    = { activeProject }
+                            onAddBackup      = { fetchAddBackup }
+                            restoreFromTrash = { this.restoreFromTrash }
                         />
                     </ResizablePanels>
                 </div>
@@ -130,7 +139,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({ fetchProjects,
                                                             selectNode,
                                                             fetchAddBackup,
                                                             fetchbackups,
-                                                            fetchRestore}, dispatch)
+                                                            fetchRestore,
+                                                            fetchRestoreFromTresh}, dispatch)
 
 MainPage.propTypes = {
     activeProject:  PropTypes.object.isRequired,

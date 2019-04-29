@@ -19,4 +19,23 @@ class RemovedController extends Controller
 
         return response()->json(['avto' => $avto, 'objects' => $objects, 'questions' => $questions]);
     }
+
+    public function restore(Request $request)
+    {
+        $result = '';
+
+        switch ($request["type"]) {
+            case 'question':
+                $result = Question::where('_id', $request["_id"])->update(['deleted_at' => null]);
+                break;
+            case "object":
+                $result = Objects::where('_id', $request["_id"])->update(['deleted_at' => null]);
+                break;
+            case "avto":
+                $result = Avto::where('_id', $request["_id"])->update(['deleted_at' => null]);
+                break;
+        }
+
+        return response()->json($result);
+    }
 }

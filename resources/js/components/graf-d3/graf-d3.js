@@ -105,6 +105,7 @@ class GrafD3 extends Component {
     }
 
     onRestoreTrash = (data) => {
+        this.props.restoreFromTrash(this.props.activeProject.value, data)
         this.closeTrash()
     }
 
