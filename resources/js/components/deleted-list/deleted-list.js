@@ -58,7 +58,7 @@ class DeletedList extends Component {
                             onClick={event => this.handleListItemClick(event, idx, item)}
                             className={this.props.selected ? classNames('back_up_item', (item._id === this.props.selected._id) && 'mySelected'): 'back_up_item'}
                         >
-                            <ListItemText primary={item.name} secondary={item.created_at}  />
+                            <ListItemText primary={item.name.substr(0, 45)} secondary={item.deleted_at}  />
                         </ListItem>
                     ))}
                 </List>
