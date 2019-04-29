@@ -10,21 +10,13 @@ use App\Http\Controllers\Controller;
 
 class RemovedController extends Controller
 {
-    public function avto()
-    {
-        $result = Avto::onlyTrashed()->get();
-        return response()->json($result);
-    }
 
-    public function object()
+    public function index(Request $request)
     {
-        $result = Objects::onlyTrashed()->get();
-        return response()->json($result);
-    }
+        $avto      = Avto::onlyTrashed()->get();
+        $objects   = Objects::onlyTrashed()->get();
+        $questions = Question::onlyTrashed()->where('project', $request->project )->get();
 
-    public function question(Request $request)
-    {
-        $result = Question::onlyTrashed()->where('project', $request->project )->get();
-        return response()->json($result);
+        return response()->json(['avto' => $avto, 'objects' => $objects, 'questions' => $questions]);
     }
 }

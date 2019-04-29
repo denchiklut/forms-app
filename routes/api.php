@@ -26,7 +26,5 @@ Route::namespace('Api')->group(function () {
 
     Route::post('/restore', 'BackupController@restore');
 
-    Route::get('/rm_avto',                    'RemovedController@avto');
-    Route::get('/rm_objects',               'RemovedController@object');
-    Route::get('/rm_questions/{project}', 'RemovedController@question');
+    Route::get('/removed/{project}', 'RemovedController@index');
 });

@@ -16,31 +16,32 @@ class ShowDeleted extends Component {
     renderQuestion = () => <div className="shwQst"><span dangerouslySetInnerHTML={this.rawMarkup()} style={{ overflowX: 'hidden' }}/></div>
 
     renderObject = () => {
+        const item = this.props.item;
         return (
-            <div className="showObjectContainer" style={{width: '100%'}}>
-                <Grid container spacing={0} style={{height: 'calc(100vh - 65px)'}}>
+            <div className="showObjectContainer">
+                <Grid container spacing={0} className="dltObjContainer" >
                     <Grid item xs={12} sm={3} style={{paddingBottom: 0}}>
-                        <div className="objectInfo dltObj">
+                        <div className="objectInfo dltObjInfo">
                             <h4>Цена</h4>
-                            <p>{this.props.item.value.cost}</p>
+                            <p>{item.value.cost}</p>
                             <hr className="objInfoHr"/>
                             <h4>Место</h4>
-                            <p>{this.props.item.value.location}</p>
+                            <p>{item.value.location}</p>
                             <hr className="objInfoHr"/>
                             <h4>Отделка</h4>
-                            <p>{this.props.item.value.otdelka}</p>
+                            <p>{item.value.otdelka}</p>
                             <hr className="objInfoHr"/>
                             <h4>Дата сдачи</h4>
-                            <p>{this.props.item.value.time}</p>
+                            <p>{item.value.time}</p>
                             <hr className="objInfoHr"/>
                             <h4>Вид недвижимости</h4>
-                            <p>{this.props.item.value.view}</p>
+                            <p>{item.value.view}</p>
                         </div>
                     </Grid>
                     <Grid item xs={12} sm={9} style={{paddingBottom: 0}}>
                         <div className="dopInfo">
                              <pre>
-                                 {this.props.item.value.dopInformation}
+                                 {item.value.dopInformation}
                              </pre>
                         </div>
                     </Grid>
@@ -50,10 +51,11 @@ class ShowDeleted extends Component {
     }
 
     renderAvto = () => {
+        const item = this.props.item;
+
         return (
-            <div className="showAvtoContainer"
-                 style={{width: '100%', height: 'calc(100vh - 65px)', display: 'flex', flexDirection: 'column', boxShadow: '-3px 0px 5px #0000006b'}}>
-                <div className="avtoInfo dltAvto">
+            <div className="showAvtoContainer dltAvtoContainer">
+                <div className="avtoInfo dltAvtoInfo">
                     <table>
                         <thead>
                         <tr>
@@ -64,7 +66,7 @@ class ShowDeleted extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {this.props.item.value.members.map(avto => (
+                        {item.value.members.map(avto => (
                             <tr key={avto.name}>
                                 <td>{avto.name}</td>
                                 <td>{avto.cost}</td>
@@ -78,7 +80,7 @@ class ShowDeleted extends Component {
 
                 <div className="dopInfo" style={{flexGrow: 1}}>
                     <pre>
-                        {this.props.item.value.dopInformation}
+                        {item.value.dopInformation}
                     </pre>
                 </div>
             </div>
@@ -94,8 +96,6 @@ class ShowDeleted extends Component {
                 </div>
             )
         }
-
-        console.table(this.props.item)
 
         switch (this.props.item.type) {
             case 'question':

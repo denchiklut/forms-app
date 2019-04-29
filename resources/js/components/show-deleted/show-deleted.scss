@@ -5,24 +5,39 @@
     box-shadow: -3px 0px 5px #0000006b;
 }
 
-.dltAvto {
-    th {
-        padding: 15px;
-    }
+.dltAvtoContainer {
+    width: 100%;
+    height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+    box-shadow: -3px 0px 5px #0000006b;
 
-    tbody {
-        tr {
-            background: #d6d6d6;
+    .dltAvtoInfo {
+        th {
+            padding: 15px;
         }
 
-        tr:hover {
-            background-color: #868686 !important;
+        tbody {
+            tr {
+                background: #d6d6d6;
+            }
+
+            tr:hover {
+                background-color: #868686 !important;
+            }
         }
     }
 }
 
-.dltObj {
-    background-color: #e6e4e4 !important;
-    box-shadow: -4px 0px 3px #0000000f !important;
-    height: calc(100vh - 65px)
+
+.dltObjContainer {
+    height: calc(100vh - 65px);
+
+    .dltObjInfo {
+        background-color: #e6e4e4 !important;
+        box-shadow: -4px 0px 3px #0000000f !important;
+        height: calc(100vh - 65px)
+    }
+
 }
+

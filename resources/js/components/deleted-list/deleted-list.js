@@ -5,13 +5,8 @@ import List from '@material-ui/core/List';
 import classNames from 'classnames'
 
 class DeletedList extends Component {
-    state = {
-        selected: null,
-        selectedIndex: 0,
-    };
 
     handleListItemClick = (event, index, item) => {
-        this.setState({ selectedIndex: index, selected: item });
         this.props.onSelect({...item, type: this.props.type})
     };
 
@@ -24,7 +19,7 @@ class DeletedList extends Component {
                             button
                             key={item._id}
                             onClick={event => this.handleListItemClick(event, idx, item)}
-                            className={this.state.selected ? classNames('back_up_item', (item._id === this.state.selected._id) && 'mySelected'): 'back_up_item'}
+                            className={this.props.selected ? classNames('back_up_item', (item._id === this.props.selected._id) && 'mySelected'): 'back_up_item'}
                         >
                             <ListItemText primary={item.name} secondary={item.created_at}  />
                         </ListItem>

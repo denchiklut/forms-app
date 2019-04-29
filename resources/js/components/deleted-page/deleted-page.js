@@ -11,7 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import SwipeView from "../swipe-view";
 import {bindActionCreators} from "redux"
 import {connect} from 'react-redux'
-import {fetchDelAvto, fetchDelObj, fetchDelQuestions} from "../../actions/trash";
+import { fetchDeleted } from "../../actions/trash";
 import DeletedList from "../deleted-list";
 import ShowDeleted from "../show-deleted";
 import './deleted-page.scss'
@@ -32,12 +32,11 @@ class DeletedPage extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchDelObj()
-        this.props.fetchDelQuestions(this.props.project)
-        this.props.fetchDelAvto()
+        this.props.fetchDeleted(this.props.project)
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>
                 <Dialog
@@ -62,9 +61,9 @@ class DeletedPage extends Component {
                     <Grid container spacing={0} >
                         <Grid item xs={12} sm={6} md={4} >
                             <SwipeView lables={['Вопросы', 'Объекты', 'Авто']} >
-                                <DeletedList items={this.props.rmQuestions} onSelect={this.handleItemSelect} type="question"/>
-                                <DeletedList items={this.props.rmObjects} onSelect={this.handleItemSelect} type="object"/>
-                                <DeletedList items={this.props.rmAvto} onSelect={this.handleItemSelect} type="avto"/>
+                                <DeletedList items={this.props.removed.questions} selected={this.state.selected} onSelect={this.handleItemSelect} type="question"/>
+                                <DeletedList items={this.props.removed.objects} selected={this.state.selected}  onSelect={this.handleItemSelect} type="object"/>
+                                <DeletedList items={this.props.removed.avto} selected={this.state.selected}  onSelect={this.handleItemSelect} type="avto"/>
                             </SwipeView>
 
                         </Grid>
@@ -78,10 +77,10 @@ class DeletedPage extends Component {
     }
 }
 
-const mapStateToProps = ({rmQuestions, rmObjects, rmAvto}) => {
-    return {rmQuestions, rmObjects, rmAvto}
+const mapStateToProps = ({ removed }) => {
+    return { removed }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ fetchDelQuestions, fetchDelObj, fetchDelAvto}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ fetchDeleted }, dispatch)
 
 export default  connect(mapStateToProps, mapDispatchToProps)(DeletedPage);
