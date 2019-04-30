@@ -140,7 +140,7 @@ class AddAvto extends Component {
 
     onSubmit = ( formProps ) => {
         if (this.validate(formProps)) {
-            const message =  this.state.dopInformation.length !== 0 ? this.state.dopInformation : <p>Дополнительная информация</p>
+            const message =  this.state.dopInformation.length !== 0 ? this.state.dopInformation : "<p>Дополнительная информация</p>"
             const clearMsg = this.state.dopInformation.length !== 0 ? this.extractContent(this.state.dopInformation): "Дополнительная информация"
 
             this.props.onAdd( {...formProps, dopInformation: clearMsg,  webDopInformation: message} )

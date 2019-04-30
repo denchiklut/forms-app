@@ -14,7 +14,7 @@ import './add-form.scss'
 class AddForm extends Component {
 
     state = {
-        value: '<p>Вопрос</p>',
+        value: "<p>Вопрос</p>"
     }
 
     onValueChange = (e) => {
@@ -38,7 +38,7 @@ class AddForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const message =  this.state.value.length !== 0 ? this.state.value : <p>Вопрос</p>
+        const message =  this.state.value.length !== 0 ? this.state.value : "<p>Вопрос</p>"
         const clearMsg = this.state.value.length !== 0 ? this.extractContent(this.state.value): "Вопрос"
 
         const project = this.props.project

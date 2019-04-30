@@ -38,7 +38,7 @@ class EditFormDialog extends Component {
 
     handleEditSubmit = (e) => {
         e.preventDefault();
-        const newMessage =  this.state.value.length !== 0 ? this.state.value : <p>Вопрос</p>;
+        const newMessage =  this.state.value.length !== 0 ? this.state.value : "<p>Вопрос</p>";
         const clearMsg = this.state.value.length !== 0 ? this.extractContent(this.state.value): "Вопрос"
 
         const data = {...this.props.editItem, name: clearMsg, webName: newMessage}

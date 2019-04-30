@@ -19,7 +19,7 @@ import './add-object.scss'
 
 class AddObject extends Component {
     state = {
-        dopInformation: 'Дополнительная информация',
+        dopInformation: "<p>Дополнительная информация</p>",
     }
 
     onValueChange = (e) => {
@@ -70,7 +70,6 @@ class AddObject extends Component {
                 <Editor
                     // apiKey={tinyMceKEY}
                     init={ tinyConfig }
-
                     onChange={this.onValueChange}
                 />
             </div>
