@@ -825,7 +825,7 @@ class GrafD3 extends Component {
                                         onClose      = { this.handleClose }
                                         onMouseLeave = { this.handleClose }
                                         icon         = { <EditIcon /> }
-                                        style        = {{ transform: 'scale(0.73)', marginRight: -56 }}
+                                        style        = {{ transform: 'scale(0.73)', marginRight: -60 }}
                                     >
                                         {actions.map(action => (
                                             <SpeedDialAction
