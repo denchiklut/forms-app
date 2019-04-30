@@ -100,7 +100,7 @@ class ResultAvto extends Component {
                         </Toolbar>
                     </AppBar>
                     <div>
-                      <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
+                      <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}} className="dopInfoWrapper">
                           {this.state.obg ? this.renderDopInformation(this.state.obg.avtData.webDopInformation) : null }
                       </pre>
                     </div>

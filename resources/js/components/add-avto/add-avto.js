@@ -9,7 +9,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import { Editor } from '@tinymce/tinymce-react'
 import Typography from "@material-ui/core/Typography"
 import {tinyConfig, tinyMceKEY} from "../../consts"
-import {Field, FieldArray, reduxForm, Fields} from 'redux-form'
+import {Field, FieldArray, reduxForm} from 'redux-form'
 import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -20,7 +20,7 @@ import './add-avto.scss'
 
 class AddAvto extends Component {
     state = {
-        dopInformation: '',
+        dopInformation: "Дополнительная информация",
     }
 
     extractContent = (s, space) => {
@@ -49,7 +49,6 @@ class AddAvto extends Component {
             <div className="wrap-myeditor">
                 <Editor
                     // apiKey={tinyMceKEY}
-                    initialValue = "Дополнительная информация"
                     init={ tinyConfig }
                     onChange={this.onValueChange}
                 />
@@ -140,7 +139,25 @@ class AddAvto extends Component {
     }
 
     onSubmit = ( formProps ) => {
-        this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )
+        if (this.validate(formProps)) {
+            const message =  this.state.dopInformation.length !== 0 ? this.state.dopInformation : <p>Дополнительная информация</p>
+            const clearMsg = this.state.dopInformation.length !== 0 ? this.extractContent(this.state.dopInformation): "Дополнительная информация"
+
+            this.props.onAdd( {...formProps, dopInformation: clearMsg,  webDopInformation: message} )
+        }
+    }
+
+    validate = (formProps) => {
+        if(!formProps.name) {
+            alert("Поле  name обязательно для заполнения");
+            return false
+        }
+        
+        if (!formProps.members[0].name) {
+            alert("Поле  Модель обязательно для заполнения");
+            return false
+        }
+        return true;
     }
 
     componentDidMount() {

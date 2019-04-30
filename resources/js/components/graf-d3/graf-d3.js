@@ -758,13 +758,13 @@ class GrafD3 extends Component {
     render() {
         const actions = [
             { icon: <Link to={`/share/${this.props.activeProject.value}`} target="_blank" style={{padding: 8, textDecoration: "none",color: 'rgba(0, 0, 0, 0.54)'}}> <ShareIcon /></Link>, name: 'Share' },
-            { icon: <RestoreIcon onClick = { this.getTrash }/>,  name: 'show trash' },
-            { icon: <CloudDownload onClick = { this.openGetBackup }/>,  name: 'CloudDownload' },
-            { icon: <CloudUpload onClick = { this.openUpload }/>,  name: 'CloudUpload' },
-            { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Insert' },
-            { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Cut' },
-            { icon: <ArchiveIcon onClick={this.pasteBranch} />,  name: ' Paste branch' },
-            { icon: <UnarchiveIcon onClick={this.copyBranch} />,  name: 'Copy branch' },
+            { icon: <RestoreIcon onClick = { this.getTrash }/>,  name: 'Корзина' },
+            { icon: <CloudDownload onClick = { this.openGetBackup }/>,  name: 'Пул' },
+            { icon: <CloudUpload onClick = { this.openUpload }/>,  name: 'Пуш' },
+            { icon: <FileCopyIcon onClick = { this.insertAddNodeForm }/>,  name: 'Вставить' },
+            { icon: <DeleteForeverOutlinedIcon onClick={this.cutNode} />,  name: ' Вырезать' },
+            { icon: <ArchiveIcon onClick={this.pasteBranch} />,  name: ' Вставить ветку' },
+            { icon: <UnarchiveIcon onClick={this.copyBranch} />,  name: 'Скопировать ветку' },
         ]
 
         const { hidden, open } = this.state

@@ -19,7 +19,7 @@ import './add-object.scss'
 
 class AddObject extends Component {
     state = {
-        dopInformation: '',
+        dopInformation: 'Дополнительная информация',
     }
 
     onValueChange = (e) => {
@@ -42,9 +42,17 @@ class AddObject extends Component {
     }
 
     onSubmit = ( formProps ) => {
+        if (this.validate(formProps))
         this.props.onAdd( {...formProps, dopInformation: this.extractContent(this.state.dopInformation),  webDopInformation: this.state.dopInformation} )
     }
 
+    validate = (formProps) => {
+        if(!formProps.name) {
+            alert("Поле  Название обязательно для заполнения");
+            return false
+        }
+        return true;
+    }
 
     renderInput = ({ input, placeHolder }) => {
         return (
@@ -61,7 +69,6 @@ class AddObject extends Component {
             <div className="wrap-myeditor">
                 <Editor
                     // apiKey={tinyMceKEY}
-                    initialValue = "Дополнительная информация"
                     init={ tinyConfig }
 
                     onChange={this.onValueChange}

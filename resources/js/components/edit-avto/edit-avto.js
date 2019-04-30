@@ -66,7 +66,6 @@ class EditAvto extends Component {
     }
 
     renderRows = ({ fields }) => {
-        // console.log(fields)
         return(
             <div>
                 <div className="inputContainer">
@@ -143,18 +142,33 @@ class EditAvto extends Component {
 
     onSubmit = ( formProps ) => {
 
-        const data = {
-            ...this.props.editItem,
-            value:
-                {
-                    ...formProps,
-                    dopInformation: this.state.dopInformation !== '' ? this.extractContent(this.state.dopInformation) : this.props.initialValues.dopInformation,
-                    webDopInformation: this.state.dopInformation !== '' ? this.state.dopInformation : this.props.initialValues.webDopInformation
-                },
-            name: formProps.name
+        if (this.validate(formProps)) {
+            const data = {
+                ...this.props.editItem,
+                value:
+                    {
+                        ...formProps,
+                        dopInformation: this.state.dopInformation !== '' ? this.extractContent(this.state.dopInformation) : this.props.initialValues.dopInformation,
+                        webDopInformation: this.state.dopInformation !== '' ? this.state.dopInformation : this.props.initialValues.webDopInformation
+                    },
+                name: formProps.name
+            }
+            this.props.onEdit(data)
         }
 
-        this.props.onEdit(data)
+    }
+
+    validate = (formProps) => {
+        if(!formProps.name) {
+            alert("Поле  name обязательно для заполнения");
+            return false
+        }
+
+        if (!formProps.members[0].name) {
+            alert("Поле  Модель обязательно для заполнения");
+            return false
+        }
+        return true;
     }
 
     componentDidMount() {

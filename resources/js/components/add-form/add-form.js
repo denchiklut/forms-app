@@ -14,11 +14,10 @@ import './add-form.scss'
 class AddForm extends Component {
 
     state = {
-        value: '<p>Добавьте вопрос</p>',
+        value: '<p>Вопрос</p>',
     }
 
     onValueChange = (e) => {
-        console.log(e.target.getContent())
         this.setState({value: e.target.getContent()})
     }
 
@@ -39,8 +38,8 @@ class AddForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const message =  this.state.value
-        const clearMsg = this.extractContent(this.state.value)
+        const message =  this.state.value.length !== 0 ? this.state.value : <p>Вопрос</p>
+        const clearMsg = this.state.value.length !== 0 ? this.extractContent(this.state.value): "Вопрос"
 
         const project = this.props.project
 
@@ -84,9 +83,9 @@ class AddForm extends Component {
                             <Editor
                                 // apiKey={tinyMceKEY}
                                 cloudChannel='dev'
-                                value = {this.state.value}
-                                init={ tinyConfig }
-                                onChange={this.onValueChange}
+                                init     = { tinyConfig }
+                                onChange = { this.onValueChange }
+                                onBlur   = { this.onValueChange }
                             />
                         </DialogContent>
                         <DialogActions className="control-buttons">

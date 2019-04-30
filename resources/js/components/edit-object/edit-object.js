@@ -47,18 +47,28 @@ class EditObject extends Component {
     }
 
     onSubmit = ( formProps ) => {
-        console.log('formProps', formProps)
-        const data = {
-            ...this.props.editItem,
-            value:
-                {
-                    ...formProps,
-                    dopInformation: this.state.dopInformation !== '' ? this.extractContent(this.state.dopInformation) : this.props.initialValues.dopInformation,
-                    webDopInformation: this.state.dopInformation !== '' ? this.state.dopInformation : this.props.initialValues.webDopInformation
-                },
-            name: formProps.name
+        if (this.validate(formProps)) {
+            const data = {
+                ...this.props.editItem,
+                value:
+                    {
+                        ...formProps,
+                        dopInformation: this.state.dopInformation !== '' ? this.extractContent(this.state.dopInformation) : this.props.initialValues.dopInformation,
+                        webDopInformation: this.state.dopInformation !== '' ? this.state.dopInformation : this.props.initialValues.webDopInformation
+                    },
+                name: formProps.name
+            }
+
+            this.props.onEdit( data )
         }
-        this.props.onEdit( data )
+    }
+
+    validate = (formProps) => {
+        if(!formProps.name) {
+            alert("Поле  Название обязательно для заполнения");
+            return false
+        }
+        return true;
     }
 
     renderInput = ({ input, placeHolder }) => {

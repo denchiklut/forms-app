@@ -97,7 +97,7 @@ class ResultObject extends Component {
                         </Toolbar>
                     </AppBar>
                     <div>
-                      <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}}>
+                      <pre style={{ whiteSpace: 'pre-wrap', margin: '15px'}} className="dopInfoWrapper">
                           {this.state.obg ? this.renderDopInformation(this.state.obg.objData.webDopInformation) : null }
                       </pre>
                     </div>
