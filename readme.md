@@ -29,6 +29,6 @@
 4. Для деплоя на сервер команду  
 `npm run production`
 
-
 # Фото
-[![](https://drive.google.com/file/d/1mPfCh0egKqQore3GRyb5amub7GegPGcj/view)
+
+[Фото архив](https://drive.google.com/drive/folders/1HjRi24auMJuiebgtkx6HD3O79G0f0tsi?usp=sharing)
