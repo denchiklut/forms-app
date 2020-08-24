@@ -30,5 +30,5 @@
 `npm run production`
 
 
-# Архитектура проекта
-[![](https://psv4.userapi.com/c848136/u258367722/docs/d15/7ebca462c548/Untitled_Diagram.png?extra=Clv6vtS-M2r6TJV6D59nPwOTHO0w4vmKRVBZFZUbUZvv4HKmieBlihEoc2xRuLSgeiWUffxP5ByikbCx8rKdjfcK3PAV6ViURTR3r_LBAtgJFidXa5oGPfXHljcnNQqB9Tg4UqMCDiieRFSAeC29rmvv)](https://www.draw.io/#G1OKa4r0vYlzsTgeYxYnzKpC1Xhpd3LLzX)
+# Фото
+[![](https://drive.google.com/file/d/1mPfCh0egKqQore3GRyb5amub7GegPGcj/view)
