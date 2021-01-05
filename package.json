@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
-    "axios": "^0.18",
+    "axios": "^0.21",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "cross-env": "^5.1",
@@ -30,7 +30,7 @@
     "@material-ui/lab": "^3.0.0-alpha.30",
     "@material-ui/styles": "^3.0.0-alpha.9",
     "@tinymce/tinymce-react": "^2.6.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-preset-env": "^1.7.0",
     "classnames": "^2.2.6",
     "history": "latest",
